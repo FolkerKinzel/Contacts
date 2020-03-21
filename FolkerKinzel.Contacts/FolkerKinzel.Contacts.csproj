@@ -26,7 +26,8 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageIcon>Logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>  
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>  
   </PropertyGroup>
 
   <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
