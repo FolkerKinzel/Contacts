@@ -16,17 +16,17 @@
     <Version>1.0.0-alpha</Version>
     
     <PackageTags>contactdata model contact address person phonenumber</PackageTags>
-    <Description>
-      The package contains a simple data model to store contact data of
-      organizations and natural persons.
-    </Description>
+    <Description>The package contains a simple data model to store contact data of organizations and natural persons.
+</Description>
     
 
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageIcon>Logo.png</PackageIcon>  
+    <PackageIcon>Logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/FolkerKinzel/FolkerKinzel.Contacts.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>  
   </PropertyGroup>
 
   <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
