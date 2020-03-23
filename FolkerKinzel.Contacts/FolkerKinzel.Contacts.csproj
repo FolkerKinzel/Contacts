@@ -1,25 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net40</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <NeutralLanguage>en</NeutralLanguage>
-
-
-    <FileVersion>1.2.0.0</FileVersion>
+    <FileVersion>1.2.2.0</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>1.0.0-alpha</Version>
-    
     <PackageTags>contactdata model contact address person phonenumber</PackageTags>
     <Description>The package contains a simple data model to store contact data of organizations and natural persons.
 </Description>
-    
-
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -27,27 +20,21 @@
     <PackageIcon>Logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>  
+    <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>
   </PropertyGroup>
-
   <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-  
   <ItemGroup>
     <None Include="..\..\..\Nuget-Logo\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-
-  
-
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
@@ -58,9 +45,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
- 
-
   <ItemGroup>
     <EmbeddedResource Update="Resources\Res.de.resx">
       <SubType>Designer</SubType>
@@ -69,10 +53,7 @@
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Release copy /v /b /y &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(OutDir)de/$(ProjectName).xml&quot;" />
+    <Exec Command="if $(ConfigurationName) == Release copy /v /b /y &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(OutDir)de/$(ProjectName).xml&quot;&#xD;&#xA;if $(ConfigurationName) == Release if '$(TargetFramework)' == 'netstandard2.1' dotnet $(SolutionDir)IncVersion\IncVersion.dll $(ProjectDir)$(ProjectFileName)" />
   </Target>
-  
-
 </Project>
