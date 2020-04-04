@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace FolkerKinzel.Contacts
 {
@@ -18,8 +17,8 @@ namespace FolkerKinzel.Contacts
             EmailAdresses,
             PhoneNumbers,
             InstantMessengerHandles,
-            HomePagePersonal,
-            HomePageWork,
+            WebPagePersonal,
+            WebPageWork,
             Work,
             Comment,
             TimeStamp
@@ -112,19 +111,19 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Private Homepage
         /// </summary>
-        public string? HomePagePersonal
+        public string? WebPagePersonal
         {
-            get => Get<string?>(Prop.HomePagePersonal);
-            set => Set(Prop.HomePagePersonal, value);
+            get => Get<string?>(Prop.WebPagePersonal);
+            set => Set(Prop.WebPagePersonal, value);
         }
 
         /// <summary>
         /// Firmenwebseite
         /// </summary>
-        public string? HomePageWork
+        public string? WebPageWork
         {
-            get => Get<string?>(Prop.HomePageWork);
-            set => Set(Prop.HomePageWork, value);
+            get => Get<string?>(Prop.WebPageWork);
+            set => Set(Prop.WebPageWork, value);
         }
 
         /// <summary>

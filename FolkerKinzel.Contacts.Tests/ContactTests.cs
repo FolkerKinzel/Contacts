@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FolkerKinzel.Contacts;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using System.Threading;
-using System.Globalization;
 
 namespace FolkerKinzel.Contacts.Tests
 {
@@ -139,7 +134,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = " Boss  "
+                JobTitle = " Boss  "
             };
 
             var pers1 = new Person
@@ -151,13 +146,13 @@ namespace FolkerKinzel.Contacts.Tests
             var contact = new Contact
             {
                 Work = ed1,
-                HomePagePersonal = "www.folker.de",
+                WebPagePersonal = "www.folker.de",
                 DisplayName = "Folker  ",
                 EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
                 Person = pers1,
                 Comment = "Dies ist ein Kommentar",
                 AddressHome = addr1,
-                HomePageWork = "info@work.de",
+                WebPageWork = "info@work.de",
                 TimeStamp = DateTime.Now,
                 InstantMessengerHandles = new string[] {"folker@twitter.com"},
                 PhoneNumbers = new PhoneNumber[]
@@ -209,7 +204,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
             var pers = new Person
@@ -222,7 +217,7 @@ namespace FolkerKinzel.Contacts.Tests
             var contact1 = new Contact
             {
                 Work = work,
-                HomePagePersonal = "www.folker.de",
+                WebPagePersonal = "www.folker.de",
                 DisplayName = "Folker  ",
                 EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null},
                 Person = pers,
@@ -284,7 +279,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr,
                 Company = "Folkers Firma",
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             var pers = new Person
@@ -297,8 +292,8 @@ namespace FolkerKinzel.Contacts.Tests
             var contact1 = new Contact
             {
                 Work = work,
-                HomePagePersonal = "www.folker.de",
-                HomePageWork = "work.de",
+                WebPagePersonal = "www.folker.de",
+                WebPageWork = "work.de",
                 DisplayName = "Folker",
                 EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
                 Person = pers,
@@ -361,24 +356,24 @@ namespace FolkerKinzel.Contacts.Tests
 
             Assert.AreEqual(contact1, contact2);
 
-            contact2.HomePagePersonal = "www.other.de";
+            contact2.WebPagePersonal = "www.other.de";
 
             Assert.AreNotEqual(contact1, contact2);
 
-            contact2.HomePagePersonal = null;
+            contact2.WebPagePersonal = null;
 
             Assert.AreEqual(contact1, contact2);
 
-            contact2.HomePageWork = "other.com";
+            contact2.WebPageWork = "other.com";
 
             Assert.AreNotEqual(contact1, contact2);
 
-            contact2.HomePageWork = "  ";
+            contact2.WebPageWork = "  ";
 
             Assert.AreEqual(contact1, contact2);
 
 
-            contact2.HomePageWork = null;
+            contact2.WebPageWork = null;
 
             Assert.IsTrue(contact2.IsEmpty);
 
@@ -403,7 +398,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr,
                 Company = "Folkers Firma",
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             var pers = new Person
@@ -416,8 +411,8 @@ namespace FolkerKinzel.Contacts.Tests
             var contact1 = new Contact
             {
                 Work = work,
-                HomePagePersonal = "www.folker.de",
-                HomePageWork = "work.de",
+                WebPagePersonal = "www.folker.de",
+                WebPageWork = "work.de",
                 DisplayName = "Folker",
                 EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
                 Person = pers,
@@ -497,24 +492,24 @@ namespace FolkerKinzel.Contacts.Tests
 
             Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-            contact2.HomePagePersonal = "www.other.de";
+            contact2.WebPagePersonal = "www.other.de";
 
             Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-            contact2.HomePagePersonal = null;
+            contact2.WebPagePersonal = null;
 
             Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-            contact2.HomePageWork = "other.com";
+            contact2.WebPageWork = "other.com";
 
             Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-            contact2.HomePageWork = "  ";
+            contact2.WebPageWork = "  ";
 
             Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
 
-            contact2.HomePageWork = null;
+            contact2.WebPageWork = null;
 
             Assert.IsTrue(contact2.IsEmpty);
             Assert.IsFalse(contact1.IsEmpty);

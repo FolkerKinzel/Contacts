@@ -1,11 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FolkerKinzel.Contacts;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Globalization;
-using System.Threading;
-using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts.Tests
 {

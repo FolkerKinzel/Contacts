@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FolkerKinzel.Contacts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FolkerKinzel.Contacts.Tests
 {
@@ -26,7 +22,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
             var work2 = (Work)work1.Clone();
@@ -62,13 +58,13 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = " Folkers Firma ",
-                Position = "   "
+                JobTitle = "   "
             };
 
             work1.Clean();
 
             Assert.AreEqual("Folkers Firma", work1.Company);
-            Assert.IsNull(work1.Position);
+            Assert.IsNull(work1.JobTitle);
             Assert.AreEqual("Raguhn", work1.AddressWork.City);
         }
 
@@ -86,7 +82,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
             var addr2 = new Address
@@ -100,7 +96,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr2,
                 Company = "folkers firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
         
@@ -122,7 +118,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
             var addr2 = new Address
@@ -136,7 +132,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr2,
                 
-                Position = "Generaldirektor"
+                JobTitle = "Generaldirektor"
             };
 
             Assert.AreEqual(work1, work2);
@@ -198,7 +194,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
 
@@ -206,7 +202,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "folkers firma",
-                Position = " "
+                JobTitle = " "
             };
 
             Assert.AreEqual(work1, work2);
@@ -226,7 +222,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
-                Position = "   "
+                JobTitle = "   "
             };
 
             var addr2 = new Address
@@ -240,7 +236,7 @@ namespace FolkerKinzel.Contacts.Tests
             {
                 AddressWork = addr2,
 
-                Position = "Generaldirektor"
+                JobTitle = "Generaldirektor"
             };
 
             Assert.AreEqual(work1, work2);
@@ -294,7 +290,7 @@ namespace FolkerKinzel.Contacts.Tests
             var work1 = new Work();
             var work2 = new Work
             {
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             Assert.AreEqual(work1.GetHashCode(), work2.GetHashCode());
@@ -306,12 +302,12 @@ namespace FolkerKinzel.Contacts.Tests
             var work1 = new Work
             {
                 Company = "Folkers Firma",
-                Position = "Butler"
+                JobTitle = "Butler"
             };
             var work2 = new Work
             {
                 Company = "folkers firma",
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
@@ -324,12 +320,12 @@ namespace FolkerKinzel.Contacts.Tests
             var work1 = new Work
             {
                 Company = "Folkers Firma",
-                Position = "Chef"
+                JobTitle = "Chef"
             };
             var work2 = new Work
             {
                 Company = "Ingrids Firma",
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
@@ -351,13 +347,13 @@ namespace FolkerKinzel.Contacts.Tests
             var work1 = new Work
             {
                 Company = "Folkers Firma",
-                Position = "Chef",
+                JobTitle = "Chef",
                 AddressWork = adr1
             };
             var work2 = new Work
             {
                 AddressWork = adr2,
-                Position = "Chef"
+                JobTitle = "Chef"
             };
 
             Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
@@ -392,7 +388,7 @@ namespace FolkerKinzel.Contacts.Tests
                 Company = "Folkers Firma",
                 Department = "Chefetage",
                 Office = "1",
-                Position = "Chef"
+                JobTitle = "Chef"
 
             };
 

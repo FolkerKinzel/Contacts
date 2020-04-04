@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FolkerKinzel.Contacts
+﻿namespace FolkerKinzel.Contacts
 {
     /// <summary>
     /// Interface, das das implementierende Objekt befähigt, sich selbst von Datenmüll zu reinigen.

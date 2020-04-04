@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Text;
-using System.ComponentModel;
-using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using System.Globalization;
-using System.Diagnostics.CodeAnalysis;
-using FolkerKinzel.Contacts.Resources;
-using System.Threading;
 
 namespace FolkerKinzel.Contacts
 {

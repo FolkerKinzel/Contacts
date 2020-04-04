@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Xml.Serialization;
 using System.Linq;
-using System.Net.Mail;
-using System.Globalization;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FolkerKinzel.Contacts
 {
@@ -34,8 +26,8 @@ namespace FolkerKinzel.Contacts
                 this._propDic[kvp.Key] = kvp.Value switch
                 {
                     IEnumerable<PhoneNumber?> phones => phones.Select(x => (PhoneNumber?)x?.Clone()).ToList(),
-                    IEnumerable<string?> strings => strings.ToList(),
                     ICloneable adr => adr.Clone(),
+                    IEnumerable<string?> strings => strings.ToList(),
                     _ => kvp.Value,
                 };
             }

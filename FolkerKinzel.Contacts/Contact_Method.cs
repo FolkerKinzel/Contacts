@@ -1,7 +1,6 @@
 ﻿using FolkerKinzel.Contacts.Resources;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -75,8 +74,8 @@ namespace FolkerKinzel.Contacts
                         string header = key switch
                         {
                             Prop.DisplayName => Res.DisplayName,
-                            Prop.HomePagePersonal => Res.HomePagePersonal,
-                            Prop.HomePageWork => Res.HomePageWork,
+                            Prop.WebPagePersonal => Res.HomePagePersonal,
+                            Prop.WebPageWork => Res.HomePageWork,
                             Prop.Comment => Res.Comment,
                             _ => ""
                         };

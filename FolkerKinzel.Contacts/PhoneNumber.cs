@@ -15,7 +15,7 @@ namespace FolkerKinzel.Contacts
         private enum Flags
         {
             IsWork = 1,
-            IsCell = 2,
+            IsMobile = 2,
             IsFax = 4
         }
 
@@ -37,15 +37,15 @@ namespace FolkerKinzel.Contacts
         /// Initialisiert ein <see cref="PhoneNumber"/>-Objekt mit der zu kapselnden Telefonnummer
         /// und optionalen Flags, die diese näher beschreiben.
         /// </summary>
-        /// <param name="number">Telefonnummer</param>
+        /// <param name="value">Die Telefonnummer.</param>
         /// <param name="isWork"><c>true</c> gibt an, dass es sich um eine dienstliche Telefonnummer handelt.</param>
-        /// <param name="isCell"><c>true</c> gibt an, dass es sich um eine Mobilfunknummer handelt.</param>
+        /// <param name="isMobile"><c>true</c> gibt an, dass es sich um eine Mobilfunknummer handelt.</param>
         /// <param name="isFax"><c>true</c> gibt an, dass die Nummer für den Fax-Empfang geeignet ist.</param>
-        public PhoneNumber(string? number, bool isWork = false, bool isCell = false, bool isFax = false)
+        public PhoneNumber(string? value, bool isWork = false, bool isMobile = false, bool isFax = false)
         {
-            this.Value = number;
+            this.Value = value;
             this.IsWork = isWork;
-            this.IsCell = isCell;
+            this.IsMobile = isMobile;
             this.IsFax = isFax;
         }
 
@@ -68,7 +68,7 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Telefonnummer
         /// </summary>
-        public string? Value { get; private set; }
+        public string? Value { get; set; }
 
         /// <summary>
         /// Gibt an, ob es sich bei <see cref="Value"/> um eine dienstliche Telefonnummer handelt.
@@ -82,10 +82,10 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Gibt an, ob es sich bei <see cref="Value"/> um eine Mobilfunknummer handelt.
         /// </summary>
-        public bool IsCell
+        public bool IsMobile
         {
-            get => (_flags & Flags.IsCell) == Flags.IsCell;
-            set => _flags = (value ? _flags | Flags.IsCell : _flags & ~Flags.IsCell);
+            get => (_flags & Flags.IsMobile) == Flags.IsMobile;
+            set => _flags = (value ? _flags | Flags.IsMobile : _flags & ~Flags.IsMobile);
         }
 
         /// <summary>

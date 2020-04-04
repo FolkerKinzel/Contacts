@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FolkerKinzel.Contacts
 {
@@ -248,15 +246,15 @@ namespace FolkerKinzel.Contacts
                 return adr.Equals(otherAdr);
             }
 
-            var homePagePersonal = this.HomePagePersonal;
-            var otherHomePagePersonal = other.HomePagePersonal;
+            var homePagePersonal = this.WebPagePersonal;
+            var otherHomePagePersonal = other.WebPagePersonal;
             if(!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
             {
                 return StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
             }
 
-            var homePageWork = this.HomePageWork;
-            var otherHomePageWork = other.HomePageWork;
+            var homePageWork = this.WebPageWork;
+            var otherHomePageWork = other.WebPageWork;
             if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
             {
                 return StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);

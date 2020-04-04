@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.ComponentModel;
-using System.Xml.Serialization;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +23,7 @@ namespace FolkerKinzel.Contacts
             CompanyName,
             Department,
             Office,
-            Position,
+            JobTitle,
             AddressWork
         }
 
@@ -114,12 +111,12 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Position des Mitarbeiters (in der Firma).
+        /// Titel bzw. Position des Mitarbeiters (in der Firma).
         /// </summary>
-        public string? Position
+        public string? JobTitle
         {
-            get => Get<string?>(Prop.Position);
-            set => Set(Prop.Position, value);
+            get => Get<string?>(Prop.JobTitle);
+            set => Set(Prop.JobTitle, value);
         }
 
         /// <summary>
@@ -157,7 +154,7 @@ namespace FolkerKinzel.Contacts
                     case Prop.CompanyName:
                         topics[i] = Res.Company;
                         break;
-                    case Prop.Position:
+                    case Prop.JobTitle:
                         topics[i] = Res.Position;
                         break;
                     case Prop.Department:
@@ -341,7 +338,7 @@ namespace FolkerKinzel.Contacts
                     }
                 }
 
-                string? position = this.Position;
+                string? position = this.JobTitle;
                 if (!string.IsNullOrWhiteSpace(position))
                 {
 #if NET40
@@ -428,8 +425,8 @@ namespace FolkerKinzel.Contacts
                             {
                                 if (comparer.Equals(office, otherOffice))
                                 {
-                                    string? position = this.Position;
-                                    string? otherPosition = other.Position;
+                                    string? position = this.JobTitle;
+                                    string? otherPosition = other.JobTitle;
 
                                     if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
                                     {
@@ -443,8 +440,8 @@ namespace FolkerKinzel.Contacts
                             }
                             else if (string.IsNullOrWhiteSpace(office) && string.IsNullOrWhiteSpace(otherOffice))
                             {
-                                string? position = this.Position;
-                                string? otherPosition = other.Position;
+                                string? position = this.JobTitle;
+                                string? otherPosition = other.JobTitle;
 
                                 if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
                                 {
@@ -466,8 +463,8 @@ namespace FolkerKinzel.Contacts
                         {
                             if (comparer.Equals(office, otherOffice))
                             {
-                                string? position = this.Position;
-                                string? otherPosition = other.Position;
+                                string? position = this.JobTitle;
+                                string? otherPosition = other.JobTitle;
 
                                 if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
                                 {

@@ -10,7 +10,7 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Das Geschlecht ist nicht angegeben.
         /// </summary>
-        NotSpecified,
+        Unspecified,
 
         /// <summary>
         /// weiblich

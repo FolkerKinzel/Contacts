@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FolkerKinzel.Contacts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts.Tests
@@ -16,7 +12,7 @@ namespace FolkerKinzel.Contacts.Tests
             var phone = new PhoneNumber();
 
             Assert.IsNull(phone.Value);
-            Assert.IsFalse(phone.IsCell);
+            Assert.IsFalse(phone.IsMobile);
             Assert.IsFalse(phone.IsFax);
             Assert.IsFalse(phone.IsWork);
             Assert.IsTrue(phone.IsEmpty);
@@ -28,7 +24,7 @@ namespace FolkerKinzel.Contacts.Tests
             var phone = new PhoneNumber("4711", true, true, true);
 
             Assert.IsNotNull(phone.Value);
-            Assert.IsTrue(phone.IsCell);
+            Assert.IsTrue(phone.IsMobile);
             Assert.IsTrue(phone.IsFax);
             Assert.IsTrue(phone.IsWork);
             Assert.IsFalse(phone.IsEmpty);
@@ -80,19 +76,19 @@ namespace FolkerKinzel.Contacts.Tests
         {
             var phone = new PhoneNumber();
 
-            Assert.IsFalse(phone.IsCell);
+            Assert.IsFalse(phone.IsMobile);
 
-            phone.IsCell = false;
-            Assert.IsFalse(phone.IsCell);
+            phone.IsMobile = false;
+            Assert.IsFalse(phone.IsMobile);
 
-            phone.IsCell = true;
-            Assert.IsTrue(phone.IsCell);
+            phone.IsMobile = true;
+            Assert.IsTrue(phone.IsMobile);
 
-            phone.IsCell = true;
-            Assert.IsTrue(phone.IsCell);
+            phone.IsMobile = true;
+            Assert.IsTrue(phone.IsMobile);
 
-            phone.IsCell = false;
-            Assert.IsFalse(phone.IsCell);
+            phone.IsMobile = false;
+            Assert.IsFalse(phone.IsMobile);
         }
 
         [TestMethod]
@@ -177,7 +173,7 @@ namespace FolkerKinzel.Contacts.Tests
             Assert.AreNotSame(phone, phone2);
 
             Assert.AreEqual("4711", phone2.Value);
-            Assert.IsTrue(phone2.IsCell);
+            Assert.IsTrue(phone2.IsMobile);
             Assert.IsTrue(phone2.IsFax);
             Assert.IsTrue(phone2.IsWork);
             Assert.IsFalse(phone2.IsEmpty);

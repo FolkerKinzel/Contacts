@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace FolkerKinzel.Contacts
 {
@@ -268,7 +267,7 @@ namespace FolkerKinzel.Contacts
                 }
                 else if (kvp.Value is DateTime dt)
                 {
-                    if (dt == DateTime.MinValue)
+                    if (dt < DateTime.MinValue.ToLocalTime()) // sonst ggf. Exception bei Umwandlung in DateTimeOffset
                     {
                         Set<DateTime?>(kvp.Key, null);
                     }
