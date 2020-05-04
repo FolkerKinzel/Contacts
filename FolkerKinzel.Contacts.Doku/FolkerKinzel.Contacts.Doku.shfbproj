@@ -15,7 +15,7 @@
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>FolkerKinzel.Contacts</HtmlHelpName>
+    <HtmlHelpName>FolkerKinzel.Contacts.de</HtmlHelpName>
     <Language>de-DE</Language>
     <TransformComponentArguments>
       <Argument Key="logoFile" Value="Help.png" xmlns="" />
@@ -47,8 +47,8 @@
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="(global)" isDocumented="False">Enthält Klassen für ein einfaches Datenmodell von Kontaktdaten.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" />
+<NamespaceSummaryItem name="FolkerKinzel.Contacts" isDocumented="True">Enthält Klassen zum Speichern von Kontaktdaten natürlicher Personen oder Organisationen.</NamespaceSummaryItem></NamespaceSummaries>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <ProjectSummary>FolkerKinzel.Contacts.dll stellt ein einfaches Datenmodell zum Speichern von Kontaktdaten nat&amp;#252%3brlicher Personen oder Organisationen dar.</ProjectSummary>

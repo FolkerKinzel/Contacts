@@ -2,8 +2,7 @@
 namespace FolkerKinzel.Contacts
 {  
     /// <summary>
-    /// Benannte Konstanten für die Geschlechtsangabe in den vom Windows-Adressbuch exportierten vCards
-    /// (wird auch von der WabContact-Klasse genutzt).
+    /// Benannte Konstanten für die Geschlechtsangabe.
     /// </summary>
     public enum Sex 
     {

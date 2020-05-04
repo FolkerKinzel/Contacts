@@ -4,12 +4,12 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <NeutralLanguage>en</NeutralLanguage>
-    <FileVersion>1.2.5.0</FileVersion>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.2.0</Version>
+    <FileVersion>1.2.66.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageTags>contactdata model contact address person phonenumber</PackageTags>
     <Description>The package contains a simple data model to store contact data of organizations and natural persons.
 </Description>
