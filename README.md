@@ -2,7 +2,17 @@
 .Net-Library that provides a simple data model to store contact informations about organizations or natural persons.
 
 ```
+nuget Package Manager:
+PM> Install-Package FolkerKinzel.Contacts -Version 1.2.0
 
+.NET CLI:
+> dotnet add package FolkerKinzel.Contacts --version 1.2.0
+
+PackageReference (Visual Studio Project File):
+<PackageReference Include="FolkerKinzel.Contacts" Version="1.2.0" />
+
+Paket CLI:
+> paket add FolkerKinzel.Contacts --version 1.2.0
 ```
 
 * [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/FolkerKinzel.Contacts.Reference.en/Help/FolkerKinzel.Contacts.en.chm)
