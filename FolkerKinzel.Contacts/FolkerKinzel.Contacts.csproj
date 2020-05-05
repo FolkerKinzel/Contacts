@@ -16,7 +16,7 @@
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIcon>Logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
