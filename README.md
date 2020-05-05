@@ -13,7 +13,7 @@
 >  right click on the file, select Properties, and check the "Allow" checkbox - if it 
 > is present - in the lower right corner of the General tab in the Properties dialog.
 
-## Example Code
+## Example
 ```csharp
 using FolkerKinzel.Contacts;
 using System;
