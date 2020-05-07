@@ -7,11 +7,11 @@
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
-    <Version>1.2.0</Version>
-    <FileVersion>1.2.71.0</FileVersion>
+    <Version>1.2.1</Version>
+    <FileVersion>1.2.1.1</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageTags>contactdata model contact address person phonenumber</PackageTags>
-    <Description>The package contains a simple data model to store contact data of organizations and natural persons.
+    <Description>Simple .NET data model to store contact data of organizations and natural persons.
 </Description>
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>

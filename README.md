@@ -1,5 +1,5 @@
 # FolkerKinzel.Contacts
-.Net-Library that provides a simple data model to store contact informations about organizations or natural persons.
+Simple .NET data model to store contact informations about organizations or natural persons.
 
 ```
 nuget Package Manager:

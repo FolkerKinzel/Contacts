@@ -1,5 +1,5 @@
 # FolkerKinzel.Contacts
-.Net-Library that provides a simple data model to store contact informations about organizations or natural persons.
+Simple .NET data model to store contact informations about organizations or natural persons.
 
 
 * [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/FolkerKinzel.Contacts.Reference.en/Help/FolkerKinzel.Contacts.en.chm)
