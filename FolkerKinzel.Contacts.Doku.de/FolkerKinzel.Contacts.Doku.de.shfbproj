@@ -27,8 +27,8 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\bin\Release\net40\FolkerKinzel.Contacts.xml" />
       <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\bin\Release\net40\FolkerKinzel.Contacts.dll" />
+      <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\bin\Release\net40\de\FolkerKinzel.Contacts.xml" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>

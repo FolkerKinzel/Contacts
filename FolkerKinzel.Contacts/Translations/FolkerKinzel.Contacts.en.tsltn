@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Tsltn Version="1.0" SourceFile="..\bin\Release\net40\de\FolkerKinzel.Contacts.xml" SourceLanguage="de" TargetLanguage="en">
+  <T ID="3EE5BC5296F8ACE2">Encapsulates address data.</T>
+  <T ID="66F1447829E795F4">Simple data model for storing contact data.</T>
+  <T ID="760AE724E747069E">Interface, that enables the implementing object to clean itself of data garbage.</T>
+  <T ID="15597F3830CADB68">Encapsulates information about a persons name.</T>
+  <T ID="EEA7CB36FC8BA574">Encapsulates personal data.</T>
+  <T ID="164B38CD141D8534">Encapsulates information about a phone number.</T>
+  <T ID="3F67809B8DDD183E">Named constants for gender.</T>
+  <T ID="8F24D255FD8846F">Encapsulates data related to a person's job.</T>
+  <T ID="A027587BF91770CB"></T>
+</Tsltn>
