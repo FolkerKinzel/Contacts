@@ -1,4 +1,7 @@
 # FolkerKinzel.Contacts
+[![NuGet](https://img.shields.io/nuget/v/FolkerKinzel.Contacts)](https://www.nuget.org/packages/FolkerKinzel.Contacts/)
+
+
 Simple .NET data model to store contact informations about organizations or natural persons.
 
 ```
