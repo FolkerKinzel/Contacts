@@ -197,11 +197,11 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen.
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="object"/>, um zu ermitteln,
-        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt und ob beide den Namen derselben physischen Person darstellen.
+        /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
+        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt, das denselben Namen darstellt.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte <see cref="Name"/>-Objekte sind, die den Namen derselben physischen Person darstellen.</returns>
+        /// <returns><c>true</c>, wenn beide Objekte <see cref="Name"/>-Objekte sind, die denselben Namen darstellen.</returns>
         public override bool Equals(object? obj)
         {
             if (!(obj is Name p)) return false;
@@ -216,20 +216,20 @@ namespace FolkerKinzel.Contacts
 
         /// <summary>
         /// Vergleicht this mit einem anderen <see cref="Name"/>-Objekt, um zu ermitteln,
-        /// ob beide den Namen derselben physischen Person darstellen.
+        /// ob beide denselben Namen darstellen.
         /// </summary>
-        /// <param name="p">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte auf den Namen derselben physischen Person verweisen.</returns>
-        public bool Equals(Name? p)
+        /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
+        /// <returns><c>true</c>, wenn beide Objekte denselben Namen darstellen.</returns>
+        public bool Equals(Name? other)
         {
             // If parameter is null return false:
-            if (p is null) return false;
+            if (other is null) return false;
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, p)) return true;
+            if (object.ReferenceEquals(this, other)) return true;
 
             // Return true if the fields match:
-            return CompareBoolean(p);
+            return CompareBoolean(other);
         }
 
 
@@ -274,9 +274,12 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <param name="name1">linker Operand</param>
-        /// <param name="name2">rechter Operand</param>
-        /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> auf denselben Namen verweisen.</returns>
+        /// <remarks>
+        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/> um festzustellen, ob diese denselben Namen darstellen.
+        /// </remarks>
+        /// <param name="name1">Linker Operand.</param>
+        /// <param name="name2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> auf denselben Namen darstellen.</returns>
         public static bool operator ==(Name? name1, Name? name2)
         {
             // If both are null, or both are same instance, return true.
@@ -287,17 +290,24 @@ namespace FolkerKinzel.Contacts
 
             // If one is null, but not both, return false.
             if (name1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return name2 is null ? false : name1.CompareBoolean(name2);
+            {
+                return !(name2 is null) && name1.CompareBoolean(name2);
+            }
         }
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <param name="name1">linker Operand</param>
-        /// <param name="name2">rechter Operand</param>
-        /// <returns><c>true</c>, wenn nicht beide Objekte auf denselben Namen verweisen.</returns>
+        /// <remarks>
+        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/> um festzustellen, ob diese verschiedene Namen darstellen.
+        /// </remarks>
+        /// <param name="name1">Linker Operand.</param>
+        /// <param name="name2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> verschiedene Namen darstellen.</returns>
         public static bool operator !=(Name? name1, Name? name2)
         {
             return !(name1 == name2);

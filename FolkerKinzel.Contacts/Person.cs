@@ -9,7 +9,7 @@ using System.Text;
 namespace FolkerKinzel.Contacts
 {
     /// <summary>
-    /// Die Klasse kapselt personenbezogene Daten.
+    /// Kapselt personenbezogene Daten.
     /// </summary>
     public sealed class Person : ICloneable, ICleanable, IEquatable<Person>
     {
@@ -271,6 +271,10 @@ namespace FolkerKinzel.Contacts
                     {
                         Set<DateTime?>(kvp.Key, null);
                     }
+                    else
+                    {
+                        Set<DateTime?>(kvp.Key, dt.Date);
+                    }
                 }
                 else if(kvp.Value is Name name)
                 {
@@ -295,15 +299,15 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="object"/>, um zu überprüfen,
-        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt
-        /// und ob beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen. Zur 
+        /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
+        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt das
+        /// auf dieselbe physische Person verweist. Zur 
         /// Überprüfung werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
         /// verglichen.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt
-        /// und wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
+        /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
+        /// auf dieselbe physische Person verweist.</returns>
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to WabPerson return false.
@@ -322,18 +326,18 @@ namespace FolkerKinzel.Contacts
         /// <see cref="Person"/>-Objekts,
         /// um zu überprüfen, ob beide auf dieselbe Person verweisen.
         /// </summary>
-        /// <param name="p">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
+        /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
-        public bool Equals(Person? p)
+        public bool Equals(Person? other)
         {
             // If parameter is null return false:
-            if (p is null) return false;
+            if (other is null) return false;
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, p)) return true;
+            if (object.ReferenceEquals(this, other)) return true;
 
             // Return true if the fields match:
-            return CompareBoolean(p);
+            return CompareBoolean(other);
         }
 
 
@@ -373,33 +377,47 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <param name="p1">linker Operand</param>
-        /// <param name="p2">rechter Operand</param>
-        /// <returns>true, wenn gleich</returns>
-        public static bool operator ==(Person? p1, Person? p2)
+        /// <remarks>
+        /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> zweier 
+        /// <see cref="Person"/>-Objekte,
+        /// um festzustellen, ob beide auf dieselbe physische Person verweisen.
+        /// </remarks>
+        /// <param name="person1">Linker Operand.</param>
+        /// <param name="person2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf dieselbe physische Person verweisen.</returns>
+        public static bool operator ==(Person? person1, Person? person2)
         {
             // If both are null, or both are same instance, return true.
-            if (object.ReferenceEquals(p1, p2))
+            if (object.ReferenceEquals(person1, person2))
             {
                 return true;
             }
 
             // If one is null, but not both, return false.
-            if (p1 is null)
+            if (person1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return p2 is null ? false : p1.CompareBoolean(p2);
+            {
+                return !(person2 is null) && person1.CompareBoolean(person2);
+            }
         }
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <param name="p1">linker Operand</param>
-        /// <param name="p2">rechter Operand</param>
-        /// <returns>true, wenn ungleich</returns>
-        public static bool operator !=(Person? p1, Person? p2)
+        /// <remarks>
+        /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> zweier 
+        /// <see cref="Person"/>-Objekte,
+        /// um festzustellen, ob beide auf unterschiedliche Personen verweisen.
+        /// </remarks>
+        /// <param name="person1">Linker Operand.</param>
+        /// <param name="person2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf unterschiedliche Personen verweisen.</returns>
+        public static bool operator !=(Person? person1, Person? person2)
         {
-            return !(p1 == p2);
+            return !(person1 == person2);
         }
 
         /// <summary>
@@ -435,7 +453,7 @@ namespace FolkerKinzel.Contacts
                 var otherBirthDay = p.BirthDay;
                 if (otherBirthDay.HasValue)
                 {
-                    return birthDay.Value == otherBirthDay.Value;
+                    return birthDay.Value.Date == otherBirthDay.Value.Date;
                 }
             }
 

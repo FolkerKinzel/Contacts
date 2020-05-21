@@ -44,7 +44,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Bezeichnung des <see cref="Contact"/>s (entspricht der Anzeige im Adressbuch).
+        /// Anzeigename
         /// </summary>
         public string? DisplayName
         {
@@ -55,7 +55,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Personenbezogene Daten.
+        /// Personenbezogene Daten
         /// </summary>
         public Person? Person
         {
@@ -100,7 +100,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Berufliche Daten.
+        /// Berufliche Daten
         /// </summary>
         public Work? Work
         {

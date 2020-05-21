@@ -71,7 +71,7 @@ namespace FolkerKinzel.Contacts
         public string? Value { get; set; }
 
         /// <summary>
-        /// Gibt an, ob es sich bei <see cref="Value"/> um eine dienstliche Telefonnummer handelt.
+        /// <c>true</c> gibt an, dass es sich bei <see cref="Value"/> um eine dienstliche Telefonnummer handelt.
         /// </summary>
         public bool IsWork
         { 
@@ -80,7 +80,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Gibt an, ob es sich bei <see cref="Value"/> um eine Mobilfunknummer handelt.
+        /// <c>true</c> gibt an, dass es sich bei <see cref="Value"/> um eine Mobilfunknummer handelt.
         /// </summary>
         public bool IsMobile
         {
@@ -89,7 +89,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Gibt an, ob <see cref="Value"/> eine Telefonnummer ist, die für den Faxempfang geeignet ist.
+        /// <c>true</c> gibt an, dass <see cref="Value"/> eine Telefonnummer ist, die für den Faxempfang geeignet ist.
         /// </summary>
         public bool IsFax
         {
@@ -190,10 +190,12 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen.
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="object"/>.
+        /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen, ob es sich bei <paramref name="obj"/>
+        /// um ein <see cref="PhoneNumber"/>-Objekt handelt, das auf dieselbe
+        /// Telefonnummer verweist.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte <see cref="PhoneNumber"/>-Objekte sind, die dieselbe Telefonnummer kapseln.</returns>
+        /// <returns><c>true</c>, wenn beide Objekte <see cref="PhoneNumber"/>-Objekte sind, die auf dieselbe Telefonnummer verweisen.</returns>
         public override bool Equals(object? obj)
         {
             if (!(obj is PhoneNumber p)) return false;
@@ -207,22 +209,23 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="PhoneNumber"/>-Objekt.
+        /// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt um festzustellen, ob beide
+        /// auf dieselbe Telefonnummer verweisen.
         /// </summary>
-        /// <param name="phone">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+        /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
-        public bool Equals(PhoneNumber? phone)
+        public bool Equals(PhoneNumber? other)
         {
             // If parameter is null return false:
             // Der Cast nach object ist unbedingt nötig, um eine
             // Endlosschleife zu vermeiden.
-            if (phone is null) return false;
+            if (other is null) return false;
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, phone)) return true;
+            if (object.ReferenceEquals(this, other)) return true;
 
             // Return true if the fields match:
-            return CompareBoolean(phone);
+            return CompareBoolean(other);
         }
 
 
@@ -254,8 +257,12 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <param name="phone1">linker Operand</param>
-        /// <param name="phone2">rechter Operand</param>
+        /// <remarks>
+        /// Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
+        /// auf dieselbe Telefonnummer verweisen.
+        /// </remarks>
+        /// <param name="phone1">Linker Operand.</param>
+        /// <param name="phone2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf dieselbe Telefonnummer verweisen.</returns>
         public static bool operator ==(PhoneNumber? phone1, PhoneNumber? phone2)
         {
@@ -269,17 +276,25 @@ namespace FolkerKinzel.Contacts
             // Der Cast nach object ist unbedingt nötig, um eine
             // Endlosschleife zu vermeiden.
             if (phone1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return phone2 is null ? false : phone1.CompareBoolean(phone2);
+            {
+                return !(phone2 is null) && phone1.CompareBoolean(phone2);
+            }
         }
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <param name="phone1">linker Operand</param>
-        /// <param name="phone2">rechter Operand</param>
-        /// <returns><c>true</c>, wenn nicht beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
+        /// <remarks>
+        /// Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
+        /// auf unterschiedliche Telefonnummern verweisen.
+        /// </remarks>
+        /// <param name="phone1">Linker Operand.</param>
+        /// <param name="phone2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn nicht beide Objekte auf unterschiedliche Telefonnummern verweisen.</returns>
         public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2)
         {
             return !(phone1 == phone2);

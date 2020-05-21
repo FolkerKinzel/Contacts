@@ -11,8 +11,8 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht den Inhalt der Properties von this mit denen eines anderen <see cref="object"/>s darauf,
-        /// ob das andere <see cref="object"/> ein <see cref="Contact"/>-Objekt ist, das dieselbe Person oder Organisation repräsentieren könnte.
+        /// Vergleicht die Instanz mit einem <see cref="object"/> um festzustellen,
+        /// ob es sich um ein <see cref="Contact"/>-Objekt handelt, das dieselbe Person oder Organisation repräsentiert.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Contact"/>-Objekt ist, das dieselbe Person oder Organisation repräsentiert.</returns>
@@ -30,8 +30,8 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht den Inhalt der Properties von this mit denen eines anderen <see cref="Contact"/>-Objekts darauf,
-        /// ob das <see cref="Contact"/>-Objekt dieselbe Person oder Organisation repräsentieren könnte.
+        /// Vergleicht die Instanz mit einem anderen <see cref="Contact"/>-Objekt um festzustellen,
+        /// ob beide dieselbe Person oder Organisation repräsentieren.
         /// </summary>
         /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentiert.</returns>
@@ -122,33 +122,39 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <param name="cont1">linker Operand</param>
-        /// <param name="cont2">rechter Operand</param>
-        /// <returns><c>true</c>, wenn <paramref name="cont1"/> und <paramref name="cont2"/> dieselbe Person oder Organisation repräsentieren.</returns>
-        public static bool operator ==(Contact? cont1, Contact? cont2)
+        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/> um festzustellen, ob beide dieselbe Person oder Organisation repräsentieren.</remarks>
+        /// <param name="contact1">linker Operand</param>
+        /// <param name="contact2">rechter Operand</param>
+        /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> dieselbe Person oder Organisation repräsentieren.</returns>
+        public static bool operator ==(Contact? contact1, Contact? contact2)
         {
             // If both are null, or both are same instance, return true.
-            if (object.ReferenceEquals(cont1, cont2))
+            if (object.ReferenceEquals(contact1, contact2))
             {
                 return true;
             }
 
             // If one is null, but not both, return false.
-            if (cont1 is null)
+            if (contact1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return cont2 is null ? false : cont1.CompareBoolean(cont2);
+            {
+                return !(contact2 is null) && contact1.CompareBoolean(contact2);
+            }
         }
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <param name="cont1">linker Operand</param>
-        /// <param name="cont2">rechter Operand</param>
-        /// <returns><c>true</c>, wenn <paramref name="cont1"/> und <paramref name="cont2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
-        public static bool operator !=(Contact? cont1, Contact? cont2)
+        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/> um festzustellen, ob beide unterschiedliche Personen oder Organisationen repräsentieren.</remarks>
+        /// <param name="contact1">Linker Operand.</param>
+        /// <param name="contact2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
+        public static bool operator !=(Contact? contact1, Contact? contact2)
         {
-            return !(cont1 == cont2);
+            return !(contact1 == contact2);
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace FolkerKinzel.Contacts
     public sealed partial class Contact
     {
         /// <summary>
-        /// Initialisiert eine neue, leere Instanz der <see cref="Contact"/>-Klasse.
+        /// Initialisiert eine leere Instanz der <see cref="Contact"/>-Klasse.
         /// </summary>
         public Contact() { }
 

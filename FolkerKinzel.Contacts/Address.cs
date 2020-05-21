@@ -6,7 +6,7 @@ using System.Linq;
 namespace FolkerKinzel.Contacts
 {
     /// <summary>
-    /// Die Klasse kapselt Adressdaten.
+    /// Kapselt Adressdaten.
     /// </summary>
     //[Serializable()]
     public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
@@ -45,7 +45,7 @@ namespace FolkerKinzel.Contacts
         /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
         /// </summary>
         /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="source"/> ist null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> ist <c>null</c>.</exception>
         private Address(Address source)
         {
             if (source is null)
@@ -131,7 +131,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Erstellt eine String-Repräsentation des <see cref="Address"/>-Objekts
+        /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Address"/>-Objekts.
         /// </summary>
         /// <returns>Der Inhalt des <see cref="Address"/>-Objekts als <see cref="string"/>.</returns>
         public override string ToString() => AppendTo(new StringBuilder()).ToString();
@@ -251,16 +251,16 @@ namespace FolkerKinzel.Contacts
         #endregion
 
 
-#region IEquatable
+        #region IEquatable
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht this mit <paramref name="obj"/>,
+        /// Vergleicht die Instanz mit <paramref name="obj"/>,
         /// um zu bestimmen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
-        /// eine identische Adresse darstellt.
+        /// dieselbe Postanschrift darstellt.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Adresse darstellt.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to WabAddress return false.
@@ -277,10 +277,10 @@ namespace FolkerKinzel.Contacts
 
         /// <summary>
         /// Vergleicht this mit einem anderen <see cref="Address"/>-Objekt,
-        /// um zu bestimmen, ob <paramref name="other"/> eine identische Adresse ist.
+        /// um zu bestimmen, ob <paramref name="other"/> eine identische Postanschrift ist.
         /// </summary>
         /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Adresse darstellt.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
         public bool Equals(Address? other)
         {
             // If parameter is null return false:
@@ -340,33 +340,45 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <param name="os1">linker Operand</param>
-        /// <param name="os2">rechter Operand</param>
-        /// <returns>true, wenn gleich</returns>
-        public static bool operator ==(Address? os1, Address? os2)
+        /// <remarks>
+        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/> um festzustellen, ob beide
+        /// dieselbe Postanschrift darstellen.
+        /// </remarks>
+        /// <param name="address1">Linker Operand.</param>
+        /// <param name="address2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> dieselbe Postanschrift darstellen.</returns>
+        public static bool operator ==(Address? address1, Address? address2)
         {
             // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(os1, os2))
+            if (System.Object.ReferenceEquals(address1, address2))
             {
                 return true;
             }
 
             // If one is null, but not both, return false.
-            if (os1 is null)
+            if (address1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return os2 is null ? false : os1.CompareBoolean(os2);
+            {
+                return !(address2 is null) && address1.CompareBoolean(address2);
+            }
         }
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <param name="os1">linker Operand</param>
-        /// <param name="os2">rechter Operand</param>
-        /// <returns>true, wenn ungleich</returns>
-        public static bool operator !=(Address? os1, Address? os2)
+        /// <remarks>
+        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/> um festzustellen, ob beide
+        /// unterschiedliche Postanschriften darstellen.
+        /// </remarks>
+        /// <param name="address1">Linker Operand.</param>
+        /// <param name="address2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> unterschiedliche Postanschriften darstellen.</returns>
+        public static bool operator !=(Address? address1, Address? address2)
         {
-            return !(os1 == os2);
+            return !(address1 == address2);
         }
 
         /// <summary>

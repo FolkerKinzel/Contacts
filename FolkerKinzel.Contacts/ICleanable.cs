@@ -11,7 +11,7 @@
         void Clean();
 
         /// <summary>
-        /// True gibt an, dass das Objekt keine verwertbaren Daten enthält.
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
         /// </summary>
         bool IsEmpty { get; }
     }

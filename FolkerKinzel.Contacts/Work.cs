@@ -8,7 +8,7 @@ using FolkerKinzel.Contacts.Resources;
 namespace FolkerKinzel.Contacts
 {
     /// <summary>
-    /// Die Klasse kapselt die Arbeitsstelle einer Person betreffende Daten.
+    /// Kapselt Informationen über die Arbeitsstelle einer Person.
     /// </summary>
     public sealed class Work : ICloneable, ICleanable, IEquatable<Work>
     {
@@ -33,7 +33,7 @@ namespace FolkerKinzel.Contacts
         #region Constructors
 
         /// <summary>
-        /// Initialisiert eine neue, leere Instanz der <see cref="Work"/>-Klasse.
+        /// Initialisiert eine leere Instanz der <see cref="Work"/>-Klasse.
         /// </summary>
         public Work() { }
 
@@ -82,7 +82,7 @@ namespace FolkerKinzel.Contacts
         #region öffentliche Eigenschaften und Methoden
 
         /// <summary>
-        /// Name der Firma.
+        /// Name der Firma oder Organisation
         /// </summary>
         public string? Company
         {
@@ -92,7 +92,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Abteilung (in der Firma).
+        /// Abteilung
         /// </summary>
         public string? Department
         {
@@ -102,7 +102,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Büro.
+        /// Büro
         /// </summary>
         public string? Office
         {
@@ -111,7 +111,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Titel bzw. Position des Mitarbeiters (in der Firma).
+        /// Titel bzw. Position des Mitarbeiters
         /// </summary>
         public string? JobTitle
         {
@@ -120,7 +120,7 @@ namespace FolkerKinzel.Contacts
         }
 
         /// <summary>
-        /// Postanschrift (Firma)
+        /// Postanschrift der Firma oder Organisation
         /// </summary>
         public Address? AddressWork
         {
@@ -130,9 +130,9 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Erstellt eine String-Repräsentation des EnterpriseData-Objekts
+        /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Work"/>-Objekts.
         /// </summary>
-        /// <returns>Der Inhalt des EnterpriseData-Objekts als String.</returns>
+        /// <returns>Der Inhalt des <see cref="Work"/>-Objekts als <see cref="string"/>.</returns>
         public override string ToString() => this.AppendTo(new StringBuilder()).ToString();
 
 
@@ -246,7 +246,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// True gibt an, dass das EnterpriseData-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+        /// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
         /// <see cref="Clean"/> aufgerufen werden.
         /// </summary>
         public bool IsEmpty
@@ -262,10 +262,11 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht this mit einem anderen System.Object.
+        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="object"/>-Objekt um festzustellen, ob beide <see cref="Work"/>-Objekte sind, die dieselbe
+        /// Arbeitsstelle beschreiben.
         /// </summary>
-        /// <param name="obj">Das System.Object mit dem verglichen wird.</param>
-        /// <returns>true, wenn gleich</returns>
+        /// <param name="obj">Das <see cref="object"/>, mit dem die aktuelle Instanz verglichen wird.</param>
+        /// <returns><c>true</c>, wenn beide Objekte dieselbe Arbeitsstelle beschreiben.</returns>
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to EnterpriseData return false.
@@ -280,20 +281,21 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="Work"/>-Objekt.
+        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="Work"/>-Objekt um festzustellen, ob beide dieselbe
+        /// Arbeitsstelle beschreiben.
         /// </summary>
-        /// <param name="work">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns>true, wenn gleich</returns>
-        public bool Equals(Work? work)
+        /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem die aktuelle Instanz verglichen wird.</param>
+        /// <returns><c>true</c>, wenn beide Objekte dieselbe Arbeitsstelle beschreiben.</returns>
+        public bool Equals(Work? other)
         {
             // If parameter is null return false:
-            if (work is null) return false;
+            if (other is null) return false;
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, work)) return true;
+            if (object.ReferenceEquals(this, other)) return true;
 
             // Return true if the fields match:
-            return CompareBoolean(work);
+            return CompareBoolean(other);
         }
 
 
@@ -364,11 +366,15 @@ namespace FolkerKinzel.Contacts
 
         // Überladen von == und !=
         /// <summary>
-        /// Überladung des == Operators.
+        /// Überladung des == Operators. 
         /// </summary>
-        /// <param name="work1">linker Operand</param>
-        /// <param name="work2">rechter Operand</param>
-        /// <returns>true, wenn gleich</returns>
+        /// <remarks>
+        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/> um festzustellen,
+        /// ob sie auf dieselbe Arbeitsstelle verweisen.</remarks>
+        /// <param name="work1">Linker Operand.</param>
+        /// <param name="work2">Rechter Operand.</param>
+        /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> auf
+        /// dieselbe Arbeitsstelle verweisen.</returns>
         public static bool operator ==(Work? work1, Work? work2)
         {
             // If both are null, or both are same instance, return true.
@@ -379,18 +385,27 @@ namespace FolkerKinzel.Contacts
 
             // If one is null, but not both, return false.
             if (work1 is null)
+            {
                 return false; // auf Referenzgleichheit wurde oben geprüft
+            }
             else
-                return work2 is null ? false : work1.CompareBoolean(work2);
+            {
+                return !(work2 is null) && work1.CompareBoolean(work2);
+            }
         }
 
 
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
+        /// <remarks>
+        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/> um festzustellen,
+        /// ob sie auf unterschiedliche Arbeitsstellen verweisen.
+        /// </remarks>
         /// <param name="work1">linker Operand</param>
         /// <param name="work2">rechter Operand</param>
-        /// <returns>true, wenn ungleich</returns>
+        /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/>
+        /// auf unterschiedliche Arbeitsstellen verweisen.</returns>
         public static bool operator !=(Work? work1, Work? work2)
         {
             return !(work1 == work2);
