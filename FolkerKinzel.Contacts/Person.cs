@@ -257,6 +257,8 @@ namespace FolkerKinzel.Contacts
         {
             var props = _propDic.ToArray();
 
+            DateTime MIN_DATE = DateTime.MinValue.AddDays(1);
+
             for (int i = 0; i < props.Length; i++)
             {
                 var kvp = props[i];
@@ -267,12 +269,13 @@ namespace FolkerKinzel.Contacts
                 }
                 else if (kvp.Value is DateTime dt)
                 {
-                    if (dt < DateTime.MinValue.ToLocalTime()) // sonst ggf. Exception bei Umwandlung in DateTimeOffset
+                    if (dt < MIN_DATE) // sonst ggf. Exception bei Umwandlung in DateTimeOffset
                     {
                         Set<DateTime?>(kvp.Key, null);
                     }
                     else
                     {
+                        // Entferne Zeitkomponente:
                         Set<DateTime?>(kvp.Key, dt.Date);
                     }
                 }
