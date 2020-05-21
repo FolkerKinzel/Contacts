@@ -11,7 +11,7 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht die Instanz mit einem <see cref="object"/> um festzustellen,
+        /// Vergleicht die Instanz mit einem <see cref="object"/>, um festzustellen,
         /// ob es sich um ein <see cref="Contact"/>-Objekt handelt, das dieselbe Person oder Organisation repräsentiert.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
@@ -30,7 +30,7 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht die Instanz mit einem anderen <see cref="Contact"/>-Objekt um festzustellen,
+        /// Vergleicht die Instanz mit einem anderen <see cref="Contact"/>-Objekt, um festzustellen,
         /// ob beide dieselbe Person oder Organisation repräsentieren.
         /// </summary>
         /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
@@ -122,9 +122,9 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des == Operators.
         /// </summary>
-        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/> um festzustellen, ob beide dieselbe Person oder Organisation repräsentieren.</remarks>
-        /// <param name="contact1">linker Operand</param>
-        /// <param name="contact2">rechter Operand</param>
+        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide dieselbe Person oder Organisation repräsentieren.</remarks>
+        /// <param name="contact1">Linker Operand.</param>
+        /// <param name="contact2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> dieselbe Person oder Organisation repräsentieren.</returns>
         public static bool operator ==(Contact? contact1, Contact? contact2)
         {
@@ -148,7 +148,7 @@ namespace FolkerKinzel.Contacts
         /// <summary>
         /// Überladung des != Operators.
         /// </summary>
-        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/> um festzustellen, ob beide unterschiedliche Personen oder Organisationen repräsentieren.</remarks>
+        /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide unterschiedliche Personen oder Organisationen repräsentieren.</remarks>
         /// <param name="contact1">Linker Operand.</param>
         /// <param name="contact2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
@@ -269,14 +269,14 @@ namespace FolkerKinzel.Contacts
             return true;
         }
 
-#endregion
+        #endregion
 
 
-#region ICleanable
+        #region ICleanable
 
 
         /// <summary>
-        /// Gibt an, ob das <see cref="Contact"/>-Objekt verwertbare Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
         /// aufgerufen werden.
         /// </summary>
         public bool IsEmpty

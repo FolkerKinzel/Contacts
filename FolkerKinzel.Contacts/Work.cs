@@ -262,11 +262,11 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="object"/>-Objekt um festzustellen, ob beide <see cref="Work"/>-Objekte sind, die dieselbe
+        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob beide <see cref="Work"/>-Objekte sind, die dieselbe
         /// Arbeitsstelle beschreiben.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem die aktuelle Instanz verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte dieselbe Arbeitsstelle beschreiben.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Work"/>-Objekt ist, das dieselbe Arbeitsstelle beschreibt.</returns>
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to EnterpriseData return false.
@@ -281,11 +281,11 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="Work"/>-Objekt um festzustellen, ob beide dieselbe
+        /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="Work"/>-Objekt, um festzustellen, ob beide dieselbe
         /// Arbeitsstelle beschreiben.
         /// </summary>
         /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem die aktuelle Instanz verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte dieselbe Arbeitsstelle beschreiben.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Arbeitsstelle beschreibt.</returns>
         public bool Equals(Work? other)
         {
             // If parameter is null return false:
@@ -369,7 +369,7 @@ namespace FolkerKinzel.Contacts
         /// Überladung des == Operators. 
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/> um festzustellen,
+        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
         /// ob sie auf dieselbe Arbeitsstelle verweisen.</remarks>
         /// <param name="work1">Linker Operand.</param>
         /// <param name="work2">Rechter Operand.</param>
@@ -399,11 +399,11 @@ namespace FolkerKinzel.Contacts
         /// Überladung des != Operators.
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/> um festzustellen,
+        /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
         /// ob sie auf unterschiedliche Arbeitsstellen verweisen.
         /// </remarks>
-        /// <param name="work1">linker Operand</param>
-        /// <param name="work2">rechter Operand</param>
+        /// <param name="work1">Linker Operand.</param>
+        /// <param name="work2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/>
         /// auf unterschiedliche Arbeitsstellen verweisen.</returns>
         public static bool operator !=(Work? work1, Work? work2)
@@ -413,7 +413,7 @@ namespace FolkerKinzel.Contacts
 
         /// <summary>
         /// Vergleicht den Inhalt der <see cref="Company"/>- und <see cref="AddressWork"/>-Eigenschaften eines anderen <see cref="Work"/>-Objekts mit denen
-        /// von this um zu bestimmen, ob beide auf dieselbe Arbeitsstelle verweisen.
+        /// von this, um zu bestimmen, ob beide auf dieselbe Arbeitsstelle verweisen.
         /// </summary>
         /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Arbeitsstelle verweisen.</returns>

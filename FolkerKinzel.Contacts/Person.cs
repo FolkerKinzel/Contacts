@@ -241,7 +241,7 @@ namespace FolkerKinzel.Contacts
         #region ICleanable
 
         /// <summary>
-        /// Gibt an, ob das <see cref="Person"/>-Objekt verwertbare Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
         /// aufgerufen werden.
         /// </summary>
         public bool IsEmpty
@@ -302,12 +302,13 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
-        /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
-        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt das
-        /// auf dieselbe physische Person verweist. Zur 
-        /// Überprüfung werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
-        /// verglichen.
+        /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
+        /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
+        /// auf dieselbe physische Person verweist. 
         /// </summary>
+        /// <remarks>Zum 
+        /// Vergleich werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
+        /// verwendet.</remarks>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
         /// auf dieselbe physische Person verweist.</returns>
@@ -325,12 +326,15 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> mit denen eines anderen 
-        /// <see cref="Person"/>-Objekts,
-        /// um zu überprüfen, ob beide auf dieselbe Person verweisen.
+        /// Vergleicht die Instanz mit einem anderen 
+        /// <see cref="Person"/>-Objekt,
+        /// um festzustellen, ob beide auf dieselbe Person verweisen.
         /// </summary>
+        /// <remarks>Zum 
+        /// Vergleich werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
+        /// verwendet.</remarks>
         /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe physische Person verweist.</returns>
         public bool Equals(Person? other)
         {
             // If parameter is null return false:
@@ -425,7 +429,7 @@ namespace FolkerKinzel.Contacts
 
         /// <summary>
         /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> mit denen eines anderen <see cref="Person"/>-Objekts,
-        /// um zu überprüfen, ob beide auf dieselbe Person verweisen.
+        /// um zu überprüfen, ob beide auf dieselbe physische Person verweisen.
         /// </summary>
         /// <param name="p">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>

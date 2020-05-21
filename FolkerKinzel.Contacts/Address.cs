@@ -219,10 +219,10 @@ namespace FolkerKinzel.Contacts
         #endregion
 
 
-#region ICleanable
+        #region ICleanable
 
         /// <summary>
-        /// Gibt an, ob das <see cref="Address"/>-Objekt verwertbare Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
         /// aufgerufen werden.
         /// </summary>
         public bool IsEmpty
@@ -256,7 +256,7 @@ namespace FolkerKinzel.Contacts
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen
         /// <summary>
         /// Vergleicht die Instanz mit <paramref name="obj"/>,
-        /// um zu bestimmen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
+        /// um festzustellen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
         /// dieselbe Postanschrift darstellt.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
@@ -276,8 +276,8 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht this mit einem anderen <see cref="Address"/>-Objekt,
-        /// um zu bestimmen, ob <paramref name="other"/> eine identische Postanschrift ist.
+        /// Vergleicht die Instanz mit einem anderen <see cref="Address"/>-Objekt,
+        /// um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
         /// </summary>
         /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
@@ -341,7 +341,7 @@ namespace FolkerKinzel.Contacts
         /// Überladung des == Operators.
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/> um festzustellen, ob beide
+        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
         /// dieselbe Postanschrift darstellen.
         /// </remarks>
         /// <param name="address1">Linker Operand.</param>
@@ -370,7 +370,7 @@ namespace FolkerKinzel.Contacts
         /// Überladung des != Operators.
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/> um festzustellen, ob beide
+        /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
         /// unterschiedliche Postanschriften darstellen.
         /// </remarks>
         /// <param name="address1">Linker Operand.</param>

@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts
     /// <summary>
     /// Kapselt Informationen über den Namen einer Person.
     /// </summary>
-    public class Name : ICloneable, ICleanable, IEquatable<Name>
+    public sealed class Name : ICloneable, ICleanable, IEquatable<Name>
     {
         private enum Prop
         {
@@ -151,7 +151,7 @@ namespace FolkerKinzel.Contacts
         #region ICleanable
 
         /// <summary>
-        /// Gibt an, ob das Objekt verwertbare Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
         /// <see cref="Clean"/> aufgerufen werden.
         /// </summary>
         public bool IsEmpty => _propDic.Count == 0;
@@ -201,7 +201,7 @@ namespace FolkerKinzel.Contacts
         /// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt, das denselben Namen darstellt.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte <see cref="Name"/>-Objekte sind, die denselben Namen darstellen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
         public override bool Equals(object? obj)
         {
             if (!(obj is Name p)) return false;
@@ -219,7 +219,7 @@ namespace FolkerKinzel.Contacts
         /// ob beide denselben Namen darstellen.
         /// </summary>
         /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte denselben Namen darstellen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
         public bool Equals(Name? other)
         {
             // If parameter is null return false:
@@ -275,11 +275,11 @@ namespace FolkerKinzel.Contacts
         /// Überladung des == Operators.
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/> um festzustellen, ob diese denselben Namen darstellen.
+        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese denselben Namen darstellen.
         /// </remarks>
         /// <param name="name1">Linker Operand.</param>
         /// <param name="name2">Rechter Operand.</param>
-        /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> auf denselben Namen darstellen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> denselben Namen darstellen.</returns>
         public static bool operator ==(Name? name1, Name? name2)
         {
             // If both are null, or both are same instance, return true.
@@ -303,7 +303,7 @@ namespace FolkerKinzel.Contacts
         /// Überladung des != Operators.
         /// </summary>
         /// <remarks>
-        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/> um festzustellen, ob diese verschiedene Namen darstellen.
+        /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese verschiedene Namen darstellen.
         /// </remarks>
         /// <param name="name1">Linker Operand.</param>
         /// <param name="name2">Rechter Operand.</param>

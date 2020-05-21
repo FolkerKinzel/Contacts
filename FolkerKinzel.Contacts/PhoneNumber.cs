@@ -157,7 +157,7 @@ namespace FolkerKinzel.Contacts
         #region ICleanable
 
         /// <summary>
-        /// Gibt an, ob das Objekt verwertbare Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+        /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
         /// <see cref="Clean"/> aufgerufen werden.
         /// </summary>
         public bool IsEmpty => this.Value is null;
@@ -190,12 +190,12 @@ namespace FolkerKinzel.Contacts
 
         //Überschreiben von Object.Equals um Vergleich zu ermöglichen.
         /// <summary>
-        /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen, ob es sich bei <paramref name="obj"/>
+        /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob es sich bei <paramref name="obj"/>
         /// um ein <see cref="PhoneNumber"/>-Objekt handelt, das auf dieselbe
         /// Telefonnummer verweist.
         /// </summary>
         /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte <see cref="PhoneNumber"/>-Objekte sind, die auf dieselbe Telefonnummer verweisen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
         public override bool Equals(object? obj)
         {
             if (!(obj is PhoneNumber p)) return false;
@@ -209,11 +209,11 @@ namespace FolkerKinzel.Contacts
 
 
         /// <summary>
-        /// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt um festzustellen, ob beide
+        /// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt, um festzustellen, ob beide
         /// auf dieselbe Telefonnummer verweisen.
         /// </summary>
         /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-        /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
         public bool Equals(PhoneNumber? other)
         {
             // If parameter is null return false:

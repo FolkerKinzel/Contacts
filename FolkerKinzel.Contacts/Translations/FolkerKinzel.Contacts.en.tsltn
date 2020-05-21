@@ -9,4 +9,34 @@
   <T ID="3EE5BC5228E16331">Encapsulates address data.</T>
   <T ID="EEA7CB3612C8DE84">Encapsulates personal data.</T>
   <T ID="8F24D256EB7006C">Encapsulates data related to a person's job.</T>
+  <T ID="14371C0ED227AC64">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; class.</T>
+  <T ID="95AF54FD779D791C">Street (+ house number)</T>
+  <T ID="75A222C4B2CD4333">City</T>
+  <T ID="2CA33D932F267067">Postal code</T>
+  <T ID="7D8E839C509F6036">State</T>
+  <T ID="CB4A2A67A2B118F4">Country</T>
+  <T ID="95119D5B93304D56">Creates a &lt;see cref="T:System.String" /&gt; representation of the &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object.</T>
+  <T ID="7C04D7CAAA6E3295">The content of the &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt;-object as &lt;see cref="T:System.String" /&gt;.</T>
+  <T ID="BA787E8EAE690407">Creates a deep copy of the object instance.</T>
+  <T ID="5C56E0C51616F6A5">Deep copy of the object instance.</T>
+  <T ID="8DB054AABBE33818">Cleans all strings in all fields of the object from invalid characters and sets empty strings and empty sub-objects to &lt;c&gt;null&lt;/c&gt;.</T>
+  <T ID="9041528D6FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
+  <T ID="EB16675F6F0A7C37">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object, that represents the same postal address.</T>
+  <T ID="4A8C5AE28C16C1E6">&lt;c&gt;true&lt;/c&gt; indicates, that the &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Address.Clean" /&gt;.</T>
+  <T ID="A22F41602E889B0C">Compares the instance with &lt;paramref name="obj" /&gt; to determine,  whether &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object, that represents the same postal address.</T>
+  <T ID="D203A2104145C9CC">Compares the instance with another &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt;-object, to determine,  whether &lt;paramref name="other" /&gt; represents the same postal address.</T>
+  <T ID="6411983964DF1223">The &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt;-object to compare with.</T>
+  <T ID="3BF528E5515505AE">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; represents the same postal address.</T>
+  <T ID="1AF376911092B669">Creates a hash code for the object.</T>
+  <T ID="CB988CA04C32CA81">The hash code.</T>
+  <T ID="E6F6CE29616F1698">Overloads the == operator.</T>
+  <T ID="F6068E70D385FED7">Compares &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; to determine, if they both represent the same postal address.</T>
+  <T ID="F541688C32F86C6F">Left operand.</T>
+  <T ID="F541688B6ED03C68">Right operand.</T>
+  <T ID="844EA3ECD43D8EE">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; represent the same postal address.</T>
+  <T ID="1111B185616F1698">Overloads the != operator.</T>
+  <T ID="D5A31C5A57C1BEE0">Compares &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; to determine, if they represent different postal addresses.</T>
+  <T ID="1C01360732F86C6F">Left operand.</T>
+  <T ID="1C0136086ED03C68">Right operand.</T>
+  <T ID="3604C73ACC47CAB9">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; represent different postal addresses.</T>
 </Tsltn>
