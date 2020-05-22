@@ -4,6 +4,9 @@
 
 Simple .NET data model to store contact informations about organizations or natural persons.
 
+(If you need the ability to store this as vCard (*.vcf) or CSV, have a look at 
+[FolkerKinzel.Contacts.IO](https://github.com/FolkerKinzel/Contacts.IO).)
+
 ```
 nuget Package Manager:
 PM> Install-Package FolkerKinzel.Contacts -Version 1.2.1

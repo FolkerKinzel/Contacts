@@ -253,7 +253,7 @@ namespace FolkerKinzel.Contacts
 
         #region IEquatable
 
-        //Überschreiben von Object.Equals um Vergleich zu ermöglichen
+        //Überschreiben von Object.Equals, um Vergleich zu ermöglichen
         /// <summary>
         /// Vergleicht die Instanz mit <paramref name="obj"/>,
         /// um festzustellen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
