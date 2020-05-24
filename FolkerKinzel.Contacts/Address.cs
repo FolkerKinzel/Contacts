@@ -8,7 +8,6 @@ namespace FolkerKinzel.Contacts
     /// <summary>
     /// Kapselt Adressdaten.
     /// </summary>
-    //[Serializable()]
     public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
     {
         /// <summary>
@@ -45,13 +44,13 @@ namespace FolkerKinzel.Contacts
         /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
         /// </summary>
         /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="source"/> ist <c>null</c>.</exception>
+        ///// <exception cref="ArgumentNullException"><paramref name="source"/> ist <c>null</c>.</exception>
         private Address(Address source)
         {
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
+            //if (source is null)
+            //{
+            //    throw new ArgumentNullException(nameof(source));
+            //}
 
             foreach (var kvp in source._propDic)
             {

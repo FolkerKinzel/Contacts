@@ -8,11 +8,11 @@
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>1.3.0</Version>
-    <FileVersion>1.3.7.0</FileVersion>
+    <FileVersion>1.3.1.0</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageReleaseNotes>Bug fixes and complete IntelliSense in English and German (Deutsch).</PackageReleaseNotes>
     <PackageTags>contactdata model contact address person phonenumber</PackageTags>
-    <Description>Simple .NET data model to store contact data of organizations and natural persons.
-</Description>
+    <Description>Simple .NET data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -25,9 +25,6 @@
   <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\..\Nuget-Logo\Logo.png">
@@ -53,6 +50,9 @@
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if $(ConfigurationName) == Release copy /v /b /y &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(OutDir)de/$(ProjectName).xml&quot;&#xD;&#xA;if $(ConfigurationName) == Release if '$(TargetFramework)' == 'netstandard2.1' dotnet $(SolutionDir)IncVersion\IncVersion.dll $(ProjectDir)$(ProjectFileName)" />
   </Target>

@@ -294,7 +294,7 @@ namespace FolkerKinzel.Contacts
         /// </remarks>
         /// <param name="phone1">Linker Operand.</param>
         /// <param name="phone2">Rechter Operand.</param>
-        /// <returns><c>true</c>, wenn nicht beide Objekte auf unterschiedliche Telefonnummern verweisen.</returns>
+        /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf unterschiedliche Telefonnummern verweisen.</returns>
         public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2)
         {
             return !(phone1 == phone2);
