@@ -9,16 +9,16 @@ Simple .NET data model to store contact informations about organizations or natu
 
 ```
 nuget Package Manager:
-PM> Install-Package FolkerKinzel.Contacts -Version 1.2.1
+PM> Install-Package FolkerKinzel.Contacts -Version 1.3.0
 
 .NET CLI:
-> dotnet add package FolkerKinzel.Contacts --version 1.2.1
+> dotnet add package FolkerKinzel.Contacts --version 1.3.0
 
 PackageReference (Visual Studio Project File):
-<PackageReference Include="FolkerKinzel.Contacts" Version="1.2.1" />
+<PackageReference Include="FolkerKinzel.Contacts" Version="1.3.0" />
 
 Paket CLI:
-> paket add FolkerKinzel.Contacts --version 1.2.1
+> paket add FolkerKinzel.Contacts --version 1.3.0
 ```
 
 * [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/FolkerKinzel.Contacts.Reference.en/Help/FolkerKinzel.Contacts.en.chm)
