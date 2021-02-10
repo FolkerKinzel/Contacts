@@ -2,9 +2,9 @@
 [![NuGet](https://img.shields.io/nuget/v/FolkerKinzel.Contacts)](https://www.nuget.org/packages/FolkerKinzel.Contacts/)
 
 
-Simple .NET data model to store contact informations about organizations or natural persons.
+.NET-Library that provides an easy to use data model to store contact data of organizations and natural persons.
 
-(If you need the ability to store this as vCard (*.vcf) or CSV, have a look at [FolkerKinzel.Contacts.IO](https://github.com/FolkerKinzel/Contacts.IO).)
+(If you need to persist this data model as vCard (*.vcf) or CSV, have a look at [FolkerKinzel.Contacts.IO](https://github.com/FolkerKinzel/Contacts.IO).)
 
 ```
 nuget Package Manager:
@@ -20,11 +20,11 @@ Paket CLI:
 > paket add FolkerKinzel.Contacts --version 1.3.0
 ```
 
-* [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/FolkerKinzel.Contacts.Reference.en/Help/FolkerKinzel.Contacts.en.chm)
+* [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.3.0/FolkerKinzel.Contacts.en.chm)
 
-* [Projektdokumentation (Deutsch) herunterladen](https://github.com/FolkerKinzel/Contacts/blob/master/FolkerKinzel.Contacts.Doku.de/Help/FolkerKinzel.Contacts.de.chm)
+* [Projektdokumentation (Deutsch) herunterladen](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.3.0/FolkerKinzel.Contacts.de.chm)
 
-> IMPORTANT: On some systems, the content of the CHM file is blocked. Before extracting it, right click on the file, select Properties, and check the "Allow" checkbox (if it is present) in the lower right corner of the General tab in the Properties dialog.
+> IMPORTANT: On some systems, the content of the CHM file is blocked. Before opening, right click on the file, select Properties, and check the "Allow" checkbox (if it is present) in the lower right corner of the General tab in the Properties dialog.
 
 ## Example
 ```csharp

@@ -1,5 +1,6 @@
 ﻿using FolkerKinzel.Contacts.Resources;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace FolkerKinzel.Contacts
     /// <summary>
     /// Kapselt Informationen über eine Telefonnummer.
     /// </summary>
-    public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber>
+    public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber>, IEnumerable<PhoneNumber>
     {
         [Flags]
         private enum Flags
@@ -150,6 +151,17 @@ namespace FolkerKinzel.Contacts
 
 
         #region Interfaces
+
+        #region IEnumerable
+
+        IEnumerator<PhoneNumber> IEnumerable<PhoneNumber>.GetEnumerator()
+        {
+            yield return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<PhoneNumber>)this).GetEnumerator();
+
+        #endregion
 
         #region ICleanable
 
@@ -346,6 +358,7 @@ namespace FolkerKinzel.Contacts
 
             return thisChars.SequenceEqual(otherChars);
         }
+
         #endregion
 
         #endregion

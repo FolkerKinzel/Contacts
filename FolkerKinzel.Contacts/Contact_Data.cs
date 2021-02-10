@@ -8,7 +8,6 @@ namespace FolkerKinzel.Contacts
     {
         private readonly Dictionary<Prop, object> _propDic = new Dictionary<Prop, object>();
 
-
         private enum Prop
         {
             DisplayName,
@@ -40,6 +39,7 @@ namespace FolkerKinzel.Contacts
             }
         }
 
+
         /// <summary>
         /// Anzeigename
         /// </summary>
@@ -48,8 +48,6 @@ namespace FolkerKinzel.Contacts
             get => Get<string?>(Prop.DisplayName);
             set => Set(Prop.DisplayName, value);
         }
-
-
 
         /// <summary>
         /// Personenbezogene Daten
