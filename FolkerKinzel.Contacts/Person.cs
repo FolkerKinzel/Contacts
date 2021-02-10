@@ -33,16 +33,13 @@ namespace FolkerKinzel.Contacts
 
 
         [return: MaybeNull]
-        private T Get<T>(Prop prop)
-        {
-            return _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
-        }
+        private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
 
         private void Set<T>(Prop prop, T value)
         {
             if (value is null || value.Equals(default))
             {
-                _propDic.Remove(prop);
+                _ = _propDic.Remove(prop);
             }
             else
             {
@@ -67,16 +64,9 @@ namespace FolkerKinzel.Contacts
         /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
         private Person(Person source)
         {
-            foreach (var kvp in source._propDic)
+            foreach (KeyValuePair<Prop, object> kvp in source._propDic)
             {
-                if (kvp.Value is ICloneable cloneable)
-                {
-                    this._propDic[kvp.Key] = cloneable.Clone();
-                }
-                else
-                {
-                    this._propDic[kvp.Key] = kvp.Value;
-                }
+                this._propDic[kvp.Key] = kvp.Value is ICloneable cloneable ? cloneable.Clone() : kvp.Value;
             }
         }
 
@@ -152,15 +142,18 @@ namespace FolkerKinzel.Contacts
 
         internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
         {
-            if (IsEmpty) return sb;
+            if (IsEmpty)
+            {
+                return sb;
+            }
 
-            var keys = _propDic.Keys.OrderBy(x => x).ToArray();
+            Prop[] keys = _propDic.Keys.OrderBy(x => x).ToArray();
 
             string[] topics = new string[keys.Length];
 
             for (int i = 0; i < keys.Length; i++)
             {
-                var key = keys[i];
+                Prop key = keys[i];
 
                 switch (key)
                 {
@@ -193,23 +186,23 @@ namespace FolkerKinzel.Contacts
 
             for (int i = 0; i < topics.Length; i++)
             {
-                sb.Append(indent).Append(topics[i].PadRight(maxLength));
+                _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
 
                 object value = _propDic[keys[i]];
 
                 switch (value)
                 {
                     case Name name:
-                        name.AppendTo(sb).AppendLine();
+                        _ = name.AppendTo(sb).AppendLine();
                         break;
                     case Sex sex:
-                        sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female);
+                        _ = sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female);
                         break;
                     case DateTime dt:
-                        sb.AppendLine(dt.ToShortDateString());
+                        _ = sb.AppendLine(dt.ToShortDateString());
                         break;
                     default:
-                        sb.Append(value).AppendLine();
+                        _ = sb.Append(value).AppendLine();
                         break;
                 }
             }
@@ -230,10 +223,7 @@ namespace FolkerKinzel.Contacts
         /// Erstellt eine tiefe Kopie des Objekts.
         /// </summary>
         /// <returns>Eine tiefe Kopie des Objekts.</returns>
-        public object Clone()
-        {
-            return new Person(this);
-        }
+        public object Clone() => new Person(this);
 
         #endregion
 
@@ -244,10 +234,7 @@ namespace FolkerKinzel.Contacts
         /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
         /// aufgerufen werden.
         /// </summary>
-        public bool IsEmpty
-        {
-            get => _propDic.Count == 0;
-        }
+        public bool IsEmpty => _propDic.Count == 0;
 
         /// <summary>
         /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
@@ -255,13 +242,13 @@ namespace FolkerKinzel.Contacts
         /// </summary>
         public void Clean()
         {
-            var props = _propDic.ToArray();
+            KeyValuePair<Prop, object>[] props = _propDic.ToArray();
 
             DateTime MIN_DATE = DateTime.MinValue.AddDays(1);
 
             for (int i = 0; i < props.Length; i++)
             {
-                var kvp = props[i];
+                KeyValuePair<Prop, object> kvp = props[i];
 
                 if (kvp.Value is string s)
                 {
@@ -315,10 +302,16 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to WabPerson return false.
-            if (!(obj is Person p)) return false;
+            if (!(obj is Person p))
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, obj)) return true;
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(p);
@@ -338,10 +331,16 @@ namespace FolkerKinzel.Contacts
         public bool Equals(Person? other)
         {
             // If parameter is null return false:
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(other);
@@ -355,7 +354,7 @@ namespace FolkerKinzel.Contacts
         public override int GetHashCode()
         {
             int hash = -1;
-            var name = Name;
+            Name? name = Name;
 
             if (name is null || name.IsEmpty)
             {
@@ -422,10 +421,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="person1">Linker Operand.</param>
         /// <param name="person2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf unterschiedliche Personen verweisen.</returns>
-        public static bool operator !=(Person? person1, Person? person2)
-        {
-            return !(person1 == person2);
-        }
+        public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
 
         /// <summary>
         /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> mit denen eines anderen <see cref="Person"/>-Objekts,
@@ -435,8 +431,8 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
         private bool CompareBoolean(Person p)
         {
-            var name = Name;
-            var otherName = p.Name;
+            Name? name = Name;
+            Name? otherName = p.Name;
 
             if (name is null || otherName is null || name.IsEmpty || otherName.IsEmpty)
             {
@@ -453,11 +449,11 @@ namespace FolkerKinzel.Contacts
                 return false;
             }
 
-            var birthDay = this.BirthDay;
+            DateTime? birthDay = this.BirthDay;
 
             if (birthDay.HasValue)
             {
-                var otherBirthDay = p.BirthDay;
+                DateTime? otherBirthDay = p.BirthDay;
                 if (otherBirthDay.HasValue)
                 {
                     return birthDay.Value.Date == otherBirthDay.Value.Date;

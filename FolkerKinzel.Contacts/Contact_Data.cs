@@ -25,17 +25,14 @@ namespace FolkerKinzel.Contacts
         }
 
         [return: MaybeNull]
-        private T Get<T>(Prop prop)
-        {
-            return _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
-        }
+        private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
 
 
         private void Set(Prop prop, object? value)
         {
             if (value is null)
             {
-                _propDic.Remove(prop);
+                _ = _propDic.Remove(prop);
             }
             else
             {

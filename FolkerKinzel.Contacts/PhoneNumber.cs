@@ -57,10 +57,7 @@ namespace FolkerKinzel.Contacts
 
         #endregion
 
-        internal void Merge(PhoneNumber telNumber)
-        {
-            this._flags |= telNumber._flags;
-        }
+        internal void Merge(PhoneNumber telNumber) => this._flags |= telNumber._flags;
 
 
         #region public Properties and Methods
@@ -76,7 +73,7 @@ namespace FolkerKinzel.Contacts
         public bool IsWork
         { 
             get => (_flags & Flags.IsWork) == Flags.IsWork ; 
-            set => _flags =  (value ? _flags | Flags.IsWork : _flags & ~Flags.IsWork);
+            set => _flags =  value ? _flags | Flags.IsWork : _flags & ~Flags.IsWork;
         }
 
         /// <summary>
@@ -85,7 +82,7 @@ namespace FolkerKinzel.Contacts
         public bool IsMobile
         {
             get => (_flags & Flags.IsMobile) == Flags.IsMobile;
-            set => _flags = (value ? _flags | Flags.IsMobile : _flags & ~Flags.IsMobile);
+            set => _flags = value ? _flags | Flags.IsMobile : _flags & ~Flags.IsMobile;
         }
 
         /// <summary>
@@ -94,7 +91,7 @@ namespace FolkerKinzel.Contacts
         public bool IsFax
         {
             get => (_flags & Flags.IsFax) == Flags.IsFax;
-            set => _flags = (value ? _flags | Flags.IsFax : _flags & ~Flags.IsFax);
+            set => _flags = value ? _flags | Flags.IsFax : _flags & ~Flags.IsFax;
         }
 
 
@@ -107,15 +104,15 @@ namespace FolkerKinzel.Contacts
 
         internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
         {
-            sb.Append(indent);
+            _ = sb.Append(indent);
             if (string.IsNullOrWhiteSpace(Value))
             {
-                sb.Append('_');
+                _ = sb.Append('_');
                 return sb;
             }
             else
             {
-                sb.Append(Value);
+                _ = sb.Append(Value);
             }
             
                 
@@ -124,7 +121,7 @@ namespace FolkerKinzel.Contacts
 
             if(IsFax)
             {
-                sb.Append(" (").Append(Res.Fax);
+                _ = sb.Append(" (").Append(Res.Fax);
                 closeBracket = true;
             }
 
@@ -132,18 +129,18 @@ namespace FolkerKinzel.Contacts
             {
                 if(closeBracket)
                 {
-                    sb.Append(", ").Append(Res.WorkShort);
+                    _ = sb.Append(", ").Append(Res.WorkShort);
                 }
                 else
                 {
-                    sb.Append(" (").Append(Res.WorkShort);
+                    _ = sb.Append(" (").Append(Res.WorkShort);
                     closeBracket = true;
                 }
             }
 
             if(closeBracket)
             {
-                sb.Append(')');
+                _ = sb.Append(')');
             }
 
             return sb;
@@ -167,7 +164,7 @@ namespace FolkerKinzel.Contacts
         /// Entfernt leere Strings und überflüssige Leerzeichen.
         /// </summary>
         public void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
-        
+
 
         #endregion
 
@@ -178,10 +175,7 @@ namespace FolkerKinzel.Contacts
         /// Erstellt eine tiefe Kopie des Objekts.
         /// </summary>
         /// <returns>Eine tiefe Kopie des Objekts.</returns>
-        public object Clone()
-        {
-            return new PhoneNumber(this);
-        }
+        public object Clone() => new PhoneNumber(this);
 
         #endregion
 
@@ -198,10 +192,16 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is PhoneNumber p)) return false;
+            if (!(obj is PhoneNumber p))
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, obj)) return true;
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(p);
@@ -217,12 +217,16 @@ namespace FolkerKinzel.Contacts
         public bool Equals(PhoneNumber? other)
         {
             // If parameter is null return false:
-            // Der Cast nach object ist unbedingt nötig, um eine
-            // Endlosschleife zu vermeiden.
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(other);
@@ -237,13 +241,16 @@ namespace FolkerKinzel.Contacts
         {
             int hash = -1;
 
-            if (string.IsNullOrWhiteSpace(Value)) return hash;
+            if (string.IsNullOrWhiteSpace(Value))
+            {
+                return hash;
+            }
 
             for (int i = 0; i < Value.Length; i++)
             {
                 char c = Value[i];
 
-                if(Char.IsLetterOrDigit(c))
+                if(char.IsLetterOrDigit(c))
                 {
                     hash ^= c;
                 }
@@ -273,8 +280,6 @@ namespace FolkerKinzel.Contacts
             }
 
             // If one is null, but not both, return false.
-            // Der Cast nach object ist unbedingt nötig, um eine
-            // Endlosschleife zu vermeiden.
             if (phone1 is null)
             {
                 return false; // auf Referenzgleichheit wurde oben geprüft
@@ -284,6 +289,7 @@ namespace FolkerKinzel.Contacts
                 return !(phone2 is null) && phone1.CompareBoolean(phone2);
             }
         }
+
 
         /// <summary>
         /// Überladung des != Operators.
@@ -295,10 +301,8 @@ namespace FolkerKinzel.Contacts
         /// <param name="phone1">Linker Operand.</param>
         /// <param name="phone2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf unterschiedliche Telefonnummern verweisen.</returns>
-        public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2)
-        {
-            return !(phone1 == phone2);
-        }
+        public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2) => !(phone1 == phone2);
+
 
         /// <summary>
         /// Vergleicht den Inhalt der <see cref="Value"/>-Property von this mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
@@ -307,7 +311,10 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
         private bool CompareBoolean(PhoneNumber other)
         { 
-            if(this.Value == other.Value) return true;
+            if(this.Value == other.Value)
+            {
+                return true;
+            }
 
             //if (this._flags != p._flags) return false;
 
@@ -316,13 +323,13 @@ namespace FolkerKinzel.Contacts
                 return false;
             }
 
-            List<char> thisChars = new List<char>();
-            List<char> otherChars = new List<char>();
+            var thisChars = new List<char>();
+            var otherChars = new List<char>();
 
             for (int i = 0; i < this.Value.Length; i++)
             {
                 char c = this.Value[i];
-                if (Char.IsLetterOrDigit(c))
+                if (char.IsLetterOrDigit(c))
                 {
                     thisChars.Add(c);
                 }
@@ -331,7 +338,7 @@ namespace FolkerKinzel.Contacts
             for (int i = 0; i < other.Value.Length; i++)
             {
                 char c = other.Value[i];
-                if (Char.IsLetterOrDigit(c))
+                if (char.IsLetterOrDigit(c))
                 {
                     otherChars.Add(c);
                 }

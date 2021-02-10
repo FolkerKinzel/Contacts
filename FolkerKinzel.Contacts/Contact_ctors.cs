@@ -25,7 +25,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
         private Contact(Contact source)
         {
-            foreach (var kvp in source._propDic)
+            foreach (KeyValuePair<Prop, object> kvp in source._propDic)
             {
                 this._propDic[kvp.Key] = kvp.Value switch
                 {

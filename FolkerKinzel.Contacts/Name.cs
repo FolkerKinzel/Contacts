@@ -39,7 +39,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="other">Das zu kopierende <see cref="Name"/>-Objekt.</param>
         private Name(Name other)
         {
-            foreach (var kvp in other._propDic)
+            foreach (KeyValuePair<Prop, string> kvp in other._propDic)
             {
                 this._propDic.Add(kvp.Key, kvp.Value);
             }
@@ -48,16 +48,13 @@ namespace FolkerKinzel.Contacts
         #endregion
 
 
-        private string? Get(Prop prop)
-        {
-            return _propDic.ContainsKey(prop) ? _propDic[prop] : null;
-        }
+        private string? Get(Prop prop) => _propDic.ContainsKey(prop) ? _propDic[prop] : null;
 
         private void Set(Prop prop, string? value)
         {
             if (value is null)
             {
-                _propDic.Remove(prop);
+                _ = _propDic.Remove(prop);
             }
             else
             {
@@ -120,7 +117,7 @@ namespace FolkerKinzel.Contacts
 
         internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
         {
-            sb.Append(indent);
+            _ = sb.Append(indent);
 
             int initialStringBuilderLength = sb.Length;
 
@@ -137,9 +134,9 @@ namespace FolkerKinzel.Contacts
                 {
                     if (sb.Length != initialStringBuilderLength)
                     {
-                        sb.Append(' ');
+                        _ = sb.Append(' ');
                     }
-                    sb.Append(namePart);
+                    _ = sb.Append(namePart);
                 }
             }
 
@@ -162,11 +159,11 @@ namespace FolkerKinzel.Contacts
         /// </summary>
         public void Clean()
         {
-            var props = _propDic.ToArray();
+            KeyValuePair<Prop, string>[] props = _propDic.ToArray();
 
             for (int i = 0; i < props.Length; i++)
             {
-                var kvp = props[i];
+                KeyValuePair<Prop, string> kvp = props[i];
                 Set(kvp.Key, StringCleaner.CleanDataEntry(kvp.Value));
             }
 
@@ -185,10 +182,7 @@ namespace FolkerKinzel.Contacts
         /// Erstellt eine tiefe Kopie des Objekts.
         /// </summary>
         /// <returns>Eine tiefe Kopie des Objekts.</returns>
-        public object Clone()
-        {
-            return new Name(this);
-        }
+        public object Clone() => new Name(this);
 
         #endregion
 
@@ -204,10 +198,16 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is Name p)) return false;
+            if (!(obj is Name p))
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, obj)) return true;
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(p);
@@ -223,10 +223,16 @@ namespace FolkerKinzel.Contacts
         public bool Equals(Name? other)
         {
             // If parameter is null return false:
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(other);
@@ -242,9 +248,9 @@ namespace FolkerKinzel.Contacts
             int hash = -1;
 
 #if NET40
-            var culture = CultureInfo.CurrentUICulture;
+            CultureInfo? culture = CultureInfo.CurrentUICulture;
 #else
-            var comparison = StringComparison.CurrentCultureIgnoreCase;
+            StringComparison comparison = StringComparison.CurrentCultureIgnoreCase;
 #endif
 
             ModifyHash(LastName);
@@ -308,10 +314,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="name1">Linker Operand.</param>
         /// <param name="name2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> verschiedene Namen darstellen.</returns>
-        public static bool operator !=(Name? name1, Name? name2)
-        {
-            return !(name1 == name2);
-        }
+        public static bool operator !=(Name? name1, Name? name2) => !(name1 == name2);
 
         /// <summary>
         /// Vergleicht den Inhalt von this mit dem eines anderen <see cref="Name"/>-Objekts, um zu ermitteln,
@@ -321,8 +324,7 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn beide Objekte auf den Namen derselben Person verweisen.</returns>
         private bool CompareBoolean(Name other)
         {
-
-            var comparer = StringComparer.CurrentCultureIgnoreCase;
+            StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
 
             string? lastName = this.LastName;
             if (!string.IsNullOrWhiteSpace(lastName))

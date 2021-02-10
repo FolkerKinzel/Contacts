@@ -19,10 +19,16 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to Contact return false.
-            if (!(obj is Contact p)) return false;
+            if (!(obj is Contact p))
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, obj)) return true;
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(p);
@@ -38,10 +44,16 @@ namespace FolkerKinzel.Contacts
         public bool Equals(Contact? other)
         {
             // If parameter is null return false:
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(other);
@@ -62,13 +74,15 @@ namespace FolkerKinzel.Contacts
                 return hash;
             }
 
-            var person = this.Person;
+            Person? person = this.Person;
+
             if(person != null && !person.IsEmpty)
             {
                 return hash ^ person.GetHashCode();
             }
 
-            var work = this.Work;
+            Work? work = this.Work;
+
             if(work != null && !work.IsEmpty)
             {
                 return hash ^ work.GetHashCode();
@@ -77,6 +91,7 @@ namespace FolkerKinzel.Contacts
             
 
             string? email = this.EmailAddresses?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
             if (email != null)
             {
 #if NET40
@@ -88,6 +103,7 @@ namespace FolkerKinzel.Contacts
             }
 
             string? im = this.InstantMessengerHandles?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
             if (im != null)
             {
 #if NET40
@@ -99,6 +115,7 @@ namespace FolkerKinzel.Contacts
             }
 
             string? displayName = this.DisplayName;
+
             if(!string.IsNullOrWhiteSpace(displayName))
             {
 #if NET40
@@ -152,10 +169,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="contact1">Linker Operand.</param>
         /// <param name="contact2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
-        public static bool operator !=(Contact? contact1, Contact? contact2)
-        {
-            return !(contact1 == contact2);
-        }
+        public static bool operator !=(Contact? contact1, Contact? contact2) => !(contact1 == contact2);
 
         /// <summary>
         /// Vergleicht den Inhalt der Properties von this mit denen eines anderen <see cref="Contact"/>-Objekts darauf,
@@ -167,29 +181,32 @@ namespace FolkerKinzel.Contacts
         {
             if (this.IsEmpty)
             {
-                if(other.IsEmpty) return true;
+                if(other.IsEmpty)
+                {
+                    return true;
+                }
             }
             else if(other.IsEmpty)
             {
                 return false;
             }
 
-            var person = this.Person;
-            var otherPerson = other.Person;
+            Person? person = this.Person;
+            Person? otherPerson = other.Person;
             if(person != null && otherPerson != null && !person.IsEmpty && !otherPerson.IsEmpty)
             {
                 return person == otherPerson;
             }
 
-            var work = this.Work;
-            var otherWork = other.Work;
+            Work? work = this.Work;
+            Work? otherWork = other.Work;
             if (work != null && otherWork != null && !work.IsEmpty && !otherWork.IsEmpty)
             {
                 return work == otherWork;
             }
 
-            var emails = this.EmailAddresses;
-            var otherEmails = other.EmailAddresses;
+            IEnumerable<string?>? emails = this.EmailAddresses;
+            IEnumerable<string?>? otherEmails = other.EmailAddresses;
             if(emails != null && otherEmails != null)
             {
                 var emailsArr = emails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
@@ -205,8 +222,8 @@ namespace FolkerKinzel.Contacts
             }
 
 
-            var ims = this.InstantMessengerHandles;
-            var otherIMs = other.InstantMessengerHandles;
+            IEnumerable<string?>? ims = this.InstantMessengerHandles;
+            IEnumerable<string?>? otherIMs = other.InstantMessengerHandles;
             if (ims != null && otherIMs != null)
             {
                 var imsArr = ims.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
@@ -221,20 +238,20 @@ namespace FolkerKinzel.Contacts
                 }
             }
 
-            var displayName = this.DisplayName;
-            var otherDisplayName = other.DisplayName;
+            string? displayName = this.DisplayName;
+            string? otherDisplayName = other.DisplayName;
             if(!string.IsNullOrWhiteSpace(this.DisplayName) && !string.IsNullOrWhiteSpace(otherDisplayName))
             {
                 return StringComparer.CurrentCultureIgnoreCase.Equals(displayName, otherDisplayName);
             }
 
 
-            var phones = this.PhoneNumbers;
-            var otherPhones = other.PhoneNumbers;
+            IEnumerable<PhoneNumber?>? phones = this.PhoneNumbers;
+            IEnumerable<PhoneNumber?>? otherPhones = other.PhoneNumbers;
             if (phones != null && otherPhones != null)
             {
-                var phonesArr = phones.Where(x => x != null && !x.IsEmpty).ToArray();
-                var otherPhonesArr = otherPhones.Where(x => x != null && !x.IsEmpty).ToArray();
+                PhoneNumber[] phonesArr = phones.Where(x => x != null && !x.IsEmpty).ToArray()!;
+                PhoneNumber[] otherPhonesArr = otherPhones.Where(x => x != null && !x.IsEmpty).ToArray()!;
 
                 if (phonesArr.Length != 0 && otherPhonesArr.Length != 0)
                 {
@@ -245,22 +262,22 @@ namespace FolkerKinzel.Contacts
                 }
             }
 
-            var adr = this.AddressHome;
-            var otherAdr = other.AddressHome;
+            Address? adr = this.AddressHome;
+            Address? otherAdr = other.AddressHome;
             if(adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
             {
                 return adr.Equals(otherAdr);
             }
 
-            var homePagePersonal = this.WebPagePersonal;
-            var otherHomePagePersonal = other.WebPagePersonal;
+            string? homePagePersonal = this.WebPagePersonal;
+            string? otherHomePagePersonal = other.WebPagePersonal;
             if(!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
             {
                 return StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
             }
 
-            var homePageWork = this.WebPageWork;
-            var otherHomePageWork = other.WebPageWork;
+            string? homePageWork = this.WebPageWork;
+            string? otherHomePageWork = other.WebPageWork;
             if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
             {
                 return StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
@@ -279,10 +296,7 @@ namespace FolkerKinzel.Contacts
         /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
         /// aufgerufen werden.
         /// </summary>
-        public bool IsEmpty
-        {
-            get => _propDic.Count == 0;
-        }
+        public bool IsEmpty => _propDic.Count == 0;
 
         /// <summary>
         /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
@@ -290,17 +304,17 @@ namespace FolkerKinzel.Contacts
         /// </summary>
         public void Clean()
         {
-            var props = _propDic.ToArray();
+            KeyValuePair<Prop, object>[]? props = _propDic.ToArray();
 
             for (int i = 0; i < props.Length; i++)
             {
-                var kvp = props[i];
+                KeyValuePair<Prop, object> kvp = props[i];
 
                 switch (kvp.Value)
                 {
                     case IEnumerable<string?> strings:
                         {
-                            string?[] arr = strings.Select(x => StringCleaner.CleanDataEntry(x)).Where(x => x != null).Distinct().ToArray();
+                            string[] arr = strings.Select(x => StringCleaner.CleanDataEntry(x)).Where(x => x != null).Distinct().ToArray()!;
 
                             if (arr.Length == 0)
                             {
@@ -317,18 +331,18 @@ namespace FolkerKinzel.Contacts
                             List<PhoneNumber> numbers = phoneNumbers.Where(x => x != null).ToList()!;
                             numbers.ForEach(x => x.Clean());
 
-                            var groups = numbers.GroupBy(x => x).ToArray();
+                            IGrouping<PhoneNumber, PhoneNumber>[] groups = numbers.GroupBy(x => x).ToArray();
 
                             numbers.Clear();
 
-                            foreach (var group in groups)
+                            foreach (IGrouping<PhoneNumber, PhoneNumber> group in groups)
                             {
                                 if (!group.Key.IsEmpty)
                                 {
-                                    var number = group.Key;
+                                    PhoneNumber number = group.Key;
                                     numbers.Add(number);
 
-                                    foreach (var telNumber in group)
+                                    foreach (PhoneNumber telNumber in group)
                                     {
                                         number.Merge(telNumber);
                                     }
@@ -385,20 +399,17 @@ namespace FolkerKinzel.Contacts
 
 
 
-#endregion
+        #endregion
 
 
-#region ICloneable
+        #region ICloneable
 
         /// <summary>
         /// Erstellt eine tiefe Kopie des Objekts.
         /// </summary>
         /// <returns>Eine tiefe Kopie des Objekts.</returns>
-        public object Clone()
-        {
-            return new Contact(this);
-        }
+        public object Clone() => new Contact(this);
 
-#endregion
+        #endregion
     }
 }

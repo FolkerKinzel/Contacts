@@ -27,8 +27,6 @@ namespace FolkerKinzel.Contacts
             AddressWork
         }
 
-       
-
 
         #region Constructors
 
@@ -44,16 +42,9 @@ namespace FolkerKinzel.Contacts
         /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
         private Work(Work source)
         {
-            foreach (var kvp in source._propDic)
+            foreach (KeyValuePair<Prop, object> kvp in source._propDic)
             {
-                if (kvp.Value is ICloneable adr)
-                {
-                    this._propDic[kvp.Key] = adr.Clone();
-                }
-                else
-                {
-                    this._propDic[kvp.Key] = kvp.Value;
-                }
+                this._propDic[kvp.Key] = kvp.Value is ICloneable adr ? adr.Clone() : kvp.Value;
             }
         }
 
@@ -61,17 +52,14 @@ namespace FolkerKinzel.Contacts
         #endregion
 
         [return: MaybeNull]
-        private T Get<T>(Prop prop)
-        {
-            return _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
-        }
+        private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
 
 
         private void Set(Prop prop, object? value)
         {
             if (value is null)
             {
-                _propDic.Remove(prop);
+                _ = _propDic.Remove(prop);
             }
             else
             {
@@ -133,21 +121,22 @@ namespace FolkerKinzel.Contacts
         /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Work"/>-Objekts.
         /// </summary>
         /// <returns>Der Inhalt des <see cref="Work"/>-Objekts als <see cref="string"/>.</returns>
-        public override string ToString() => this.AppendTo(new StringBuilder()).ToString();
-
-
+        public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
         internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
         {
-            if (IsEmpty) return sb;
+            if (IsEmpty)
+            {
+                return sb;
+            }
 
-            var keys = _propDic.Keys.Where(x => x != Prop.AddressWork).OrderBy(x => x).ToArray();
+            Prop[] keys = _propDic.Keys.Where(x => x != Prop.AddressWork).OrderBy(x => x).ToArray();
 
             string[] topics = new string[keys.Length];
 
             for (int i = 0; i < keys.Length; i++)
             {
-                var key = keys[i];
+                Prop key = keys[i];
 
                 switch (key)
                 {
@@ -176,15 +165,15 @@ namespace FolkerKinzel.Contacts
 
             for (int i = 0; i < topics.Length; i++)
             {
-                sb.Append(indent).Append(topics[i].PadRight(maxLength));
-                sb.Append(_propDic[keys[i]]).AppendLine();
+                _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
+                _ = sb.Append(_propDic[keys[i]]).AppendLine();
             }
 
-            var adrWork = AddressWork;
+            Address? adrWork = AddressWork;
             if(adrWork != null)
             {
-                sb.Append(indent).Append(Res.AddressWork).AppendLine();
-                adrWork.AppendTo(sb, indent + "        ").AppendLine();
+                _ = sb.Append(indent).Append(Res.AddressWork).AppendLine();
+                _ = adrWork.AppendTo(sb, indent + "        ").AppendLine();
             }
                         
             sb.Length -= Environment.NewLine.Length;
@@ -203,10 +192,7 @@ namespace FolkerKinzel.Contacts
         /// Erstellt eine tiefe Kopie des Objekts.
         /// </summary>
         /// <returns>Eine tiefe Kopie des Objekts.</returns>
-        public object Clone()
-        {
-            return new Work(this);
-        }
+        public object Clone() => new Work(this);
 
         #endregion
 
@@ -219,11 +205,11 @@ namespace FolkerKinzel.Contacts
         /// </summary>
         public void Clean()
         {
-            var props = _propDic.ToArray();
+            KeyValuePair<Prop, object>[] props = _propDic.ToArray();
 
             for (int i = 0; i < props.Length; i++)
             {
-                var kvp = props[i];
+                KeyValuePair<Prop, object> kvp = props[i];
 
                 if (kvp.Value is string s)
                 {
@@ -249,11 +235,7 @@ namespace FolkerKinzel.Contacts
         /// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
         /// <see cref="Clean"/> aufgerufen werden.
         /// </summary>
-        public bool IsEmpty
-        {
-            get => _propDic.Count == 0;
-
-        }
+        public bool IsEmpty => _propDic.Count == 0;
 
         #endregion
 
@@ -270,10 +252,16 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to EnterpriseData return false.
-            if (!(obj is Work p)) return false;
+            if (!(obj is Work p))
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, obj)) return true;
+            if (object.ReferenceEquals(this, obj))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(p);
@@ -289,10 +277,16 @@ namespace FolkerKinzel.Contacts
         public bool Equals(Work? other)
         {
             // If parameter is null return false:
-            if (other is null) return false;
+            if (other is null)
+            {
+                return false;
+            }
 
             // Referenzgleichheit
-            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             // Return true if the fields match:
             return CompareBoolean(other);
@@ -307,10 +301,13 @@ namespace FolkerKinzel.Contacts
         {
             int hash = -1;
 
-            if (this.IsEmpty) return hash;
+            if (this.IsEmpty)
+            {
+                return hash;
+            }
 
 #if !NET40
-            var comparison = StringComparison.OrdinalIgnoreCase;
+            StringComparison comparison = StringComparison.OrdinalIgnoreCase;
 #endif
 
             string? company = Company;
@@ -351,9 +348,7 @@ namespace FolkerKinzel.Contacts
                 }
             }
 
-
-
-            var address = AddressWork;
+            Address? address = AddressWork;
 
             if (address != null)
             {
@@ -406,10 +401,7 @@ namespace FolkerKinzel.Contacts
         /// <param name="work2">Rechter Operand.</param>
         /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/>
         /// auf unterschiedliche Arbeitsstellen verweisen.</returns>
-        public static bool operator !=(Work? work1, Work? work2)
-        {
-            return !(work1 == work2);
-        }
+        public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
 
         /// <summary>
         /// Vergleicht den Inhalt der <see cref="Company"/>- und <see cref="AddressWork"/>-Eigenschaften eines anderen <see cref="Work"/>-Objekts mit denen
@@ -419,7 +411,7 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Arbeitsstelle verweisen.</returns>
         private bool CompareBoolean(Work other)
         {
-            var comparer = StringComparer.OrdinalIgnoreCase;
+            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
 
             string? company = this.Company;
             string? otherCompany = other.Company;
@@ -499,8 +491,8 @@ namespace FolkerKinzel.Contacts
                 }
             }
 
-            var address = this.AddressWork;
-            var otherAddress = other.AddressWork;
+            Address? address = this.AddressWork;
+            Address? otherAddress = other.AddressWork;
             if (address != null && otherAddress != null && !address.IsEmpty && !otherAddress.IsEmpty)
             {
                 return address.Equals(other.AddressWork);

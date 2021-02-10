@@ -14,61 +14,64 @@ namespace FolkerKinzel.Contacts
         /// <returns>Der Inhalt des <see cref="Contact"/>-Objekts als <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (IsEmpty) return string.Empty;
+            if (IsEmpty)
+            {
+                return string.Empty;
+            }
 
-            StringBuilder sb = new StringBuilder();
-            var keys = _propDic.Keys.OrderBy(x => x).ToArray();
+            var sb = new StringBuilder();
+            Prop[] keys = _propDic.Keys.OrderBy(x => x).ToArray();
             string[] topics = new string[keys.Length];
 
             const string indent = "        ";
 
             for (int i = 0; i < keys.Length; i++)
             {
-                var key = keys[i];
+                Prop key = keys[i];
 
                 var value = _propDic[keys[i]];
 
                 switch (value)
                 {
                     case Person person:
-                        sb.AppendLine(Res.Person);
-                        person.AppendTo(sb, indent);
-                        sb.AppendLine(Environment.NewLine);
+                        _ = sb.AppendLine(Res.Person);
+                        _ = person.AppendTo(sb, indent);
+                        _ = sb.AppendLine(Environment.NewLine);
                         break;
                     case Address address:
-                        sb.AppendLine(Res.AddressHome);
-                        address.AppendTo(sb, indent);
-                        sb.AppendLine(Environment.NewLine);
+                        _ = sb.AppendLine(Res.AddressHome);
+                        _ = address.AppendTo(sb, indent);
+                        _ = sb.AppendLine(Environment.NewLine);
                         break;
                     case IEnumerable<string?> strings:
-                        sb.AppendLine(keys[i] == Prop.EmailAdresses ? Res.EmailAddresses : Res.InstantMessengers);
+                        _ = sb.AppendLine(keys[i] == Prop.EmailAdresses ? Res.EmailAddresses : Res.InstantMessengers);
                         foreach (var str in strings)
                         {
-                            sb.Append(indent).AppendLine(str);
+                            _ = sb.Append(indent).AppendLine(str);
                         }
-                        sb.AppendLine();
+                        _ = sb.AppendLine();
                         break;
                     case IEnumerable<PhoneNumber?> phoneNumbers:
-                        sb.AppendLine(Res.PhoneNumbers);
-                        foreach (var phoneNumber in phoneNumbers)
+                        _ = sb.AppendLine(Res.PhoneNumbers);
+                        foreach (PhoneNumber? phoneNumber in phoneNumbers)
                         {
                             if (phoneNumber != null)
                             {
-                                phoneNumber.AppendTo(sb, indent);
-                                sb.AppendLine();
+                                _ = phoneNumber.AppendTo(sb, indent);
+                                _ = sb.AppendLine();
                             }
                         }
-                        sb.AppendLine();
+                        _ = sb.AppendLine();
                         break;    
                     case Work work:
-                        sb.AppendLine(Res.Work);
-                        work.AppendTo(sb, indent);
-                        sb.AppendLine(Environment.NewLine);
+                        _ = sb.AppendLine(Res.Work);
+                        _ = work.AppendTo(sb, indent);
+                        _ = sb.AppendLine(Environment.NewLine);
                         break;
                     case DateTime dt:
-                        sb.AppendLine(Res.TimeStamp);
-                        sb.Append(indent).Append(dt.ToShortDateString()).Append(' ').AppendLine(dt.ToLongTimeString());
-                        sb.AppendLine();
+                        _ = sb.AppendLine(Res.TimeStamp);
+                        _ = sb.Append(indent).Append(dt.ToShortDateString()).Append(' ').AppendLine(dt.ToLongTimeString());
+                        _ = sb.AppendLine();
                         break;
                     default:
                         string header = key switch
@@ -79,9 +82,9 @@ namespace FolkerKinzel.Contacts
                             Prop.Comment => Res.Comment,
                             _ => ""
                         };
-                        sb.AppendLine(header);
+                        _ = sb.AppendLine(header);
 
-                        sb.Append(indent).Append(_propDic[key]).AppendLine(Environment.NewLine);
+                        _ = sb.Append(indent).Append(_propDic[key]).AppendLine(Environment.NewLine);
                         break;
                 }
             }
