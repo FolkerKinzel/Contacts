@@ -14,7 +14,7 @@ namespace Examples
             // CsvExample.ReadingAndWritingCsv();
             // VCardExample.ReadingAndWritingVCard();
 
-            ContactExample.InitializeContacts();
+            _ = ContactExample.InitializeContacts();
 
         }
     }

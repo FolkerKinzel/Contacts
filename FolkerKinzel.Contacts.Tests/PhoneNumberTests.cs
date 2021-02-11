@@ -304,7 +304,6 @@ namespace FolkerKinzel.Contacts.Tests
             }
 
             Assert.Fail();
-
         }
     }
 }

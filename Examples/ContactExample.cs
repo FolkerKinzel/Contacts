@@ -31,13 +31,13 @@ namespace Examples
                         Company = "Does Company"
                     },
 
-                    PhoneNumbers = new PhoneNumber[]
+                    // PhoneNumber implements IEnumerable<PhoneNumber>. So you
+                    // can assign a single instance without having to wrap it 
+                    // into an Array or List:
+                    PhoneNumbers = new PhoneNumber
                     {
-                        new PhoneNumber
-                        {
-                            Value = "0123-45678",
-                            IsWork = true
-                        }
+                        Value = "0123-45678",
+                        IsWork = true
                     },
 
                     EmailAddresses = new string[]
@@ -72,6 +72,12 @@ namespace Examples
 
                     PhoneNumbers = new PhoneNumber[]
                     {
+                        new PhoneNumber
+                        {
+                            Value = "0123-45678",
+                            IsWork = true
+                        },
+
                         new PhoneNumber
                         {
                             Value = "876-54321",

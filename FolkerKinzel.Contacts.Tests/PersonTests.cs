@@ -64,7 +64,7 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void CleanTest()
         {
-            var pers = new Person { Name = new Name { LastName = ("  ") } };
+            var pers = new Person { Name = new Name { LastName = "  " } };
 
             Assert.IsFalse(pers.IsEmpty);
 
@@ -152,7 +152,7 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest5()
         {
-            Person p1 = new Person()
+            var p1 = new Person()
             {
                 NickName = "Genie",
                 BirthDay = new DateTime(1972, 1, 31),
@@ -160,7 +160,7 @@ namespace FolkerKinzel.Contacts.Tests
 
             };
 
-            Person p2 = new Person()
+            var p2 = new Person()
             {
                 NickName = "Trottel",
                 BirthDay = new DateTime(1972, 1, 31),
@@ -173,13 +173,13 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest6()
         {
-            Person p1 = new Person()
+            var p1 = new Person()
             {
                 NickName = "Genie",
                 BirthDay = new DateTime(1972, 1, 31)
             };
 
-            Person p2 = new Person()
+            var p2 = new Person()
             {
                 NickName = "Trottel",
                 BirthDay = new DateTime(1972, 1, 31)
@@ -191,13 +191,13 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest7()
         {
-            Person p1 = new Person()
+            var p1 = new Person()
             {
                 BirthDay = new DateTime(1972, 1, 31),
                 Name = new Name { LastName = "Kinzel" }
             };
 
-            Person p2 = new Person()
+            var p2 = new Person()
             {
                 BirthDay = new DateTime(1972, 1, 30),
                 Name = new Name { LastName = "Kinzel" }
@@ -209,7 +209,7 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest8()
         {
-            Person p1 = new Person();
+            var p1 = new Person();
             Assert.IsFalse(p1.Equals(null));
         }
 

@@ -112,8 +112,8 @@ namespace FolkerKinzel.Contacts.Tests
 
             Assert.IsNotNull(cont.PhoneNumbers);
             Assert.AreEqual(2, cont.PhoneNumbers.Count());
-            Assert.IsTrue(cont.PhoneNumbers.Any(x => (new PhoneNumber("123",true,true,true)).Equals(x)));
-            Assert.IsTrue(cont.PhoneNumbers.Any(x => (new PhoneNumber("456", true, true, false)).Equals(x)));
+            Assert.IsTrue(cont.PhoneNumbers.Any(x => new PhoneNumber("123",true,true,true).Equals(x)));
+            Assert.IsTrue(cont.PhoneNumbers.Any(x => new PhoneNumber("456", true, true, false).Equals(x)));
         }
 
 
