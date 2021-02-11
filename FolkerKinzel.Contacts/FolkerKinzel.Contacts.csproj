@@ -12,7 +12,7 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageReleaseNotes>The PhoneNumber class implements IEnumerable{PhoneNumber} in order to be assignable to the Contact.PhoneNumbers property without having to be contained in an Array or a List.
     </PackageReleaseNotes>
-    <PackageTags>.net contactdata model contact address person phonenumber c#</PackageTags>
+    <PackageTags>.net contact data-model c#</PackageTags>
     <Description>.NET data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
