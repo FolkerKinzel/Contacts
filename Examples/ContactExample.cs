@@ -22,7 +22,9 @@ namespace Examples
 
                         BirthDay = new DateTime(1972, 1, 3),
                         Spouse = "Jane Doe",
-                        Anniversary = new DateTime(2001, 6, 15)
+                        Anniversary = new DateTime(2001, 6, 15),
+                        Gender = Sex.Male,
+                        NickName = "The Dude"
                     },
 
                     Work = new Work
@@ -61,7 +63,8 @@ namespace Examples
                         },
                         BirthDay = new DateTime(1981, 5, 4),
                         Spouse = "John Doe",
-                        Anniversary = new DateTime(2001, 6, 15)
+                        Anniversary = new DateTime(2001, 6, 15),
+                        Gender = Sex.Female
                     },
 
                     Work = new Work
