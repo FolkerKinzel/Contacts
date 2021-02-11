@@ -55,6 +55,7 @@
     <ProjectSummary>FolkerKinzel.Contacts.dll stellt ein einfaches Datenmodell zum Speichern von Kontaktdaten nat&amp;#252%3brlicher Personen oder Organisationen dar.</ProjectSummary>
     <CopyrightText>Copyright &amp;#169%3b 2020 Folker Kinzel</CopyrightText>
     <VisibleItems>ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected, NonBrowsable</VisibleItems>
+    <ComponentConfigurations />
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

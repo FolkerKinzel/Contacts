@@ -154,11 +154,13 @@ namespace FolkerKinzel.Contacts
 
         #region IEnumerable
 
+        /// <inheritdoc/>
         IEnumerator<PhoneNumber> IEnumerable<PhoneNumber>.GetEnumerator()
         {
             yield return this;
         }
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<PhoneNumber>)this).GetEnumerator();
 
         #endregion
