@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FolkerKinzel.Contacts.Resources;
+using System.Linq;
+using System.Collections;
 
 namespace FolkerKinzel.Contacts.Tests
 {
@@ -211,8 +213,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest4()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber(" 47 - 11");
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber(" 47 - 11");
 
             Assert.IsTrue(o1.Equals(o2));
         }
@@ -220,8 +222,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest5()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber("47111");
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber("47111");
 
             Assert.IsFalse(o1.Equals(o2));
         }
@@ -229,8 +231,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void EqualsTest6()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber();
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber();
 
             Assert.IsFalse(o1.Equals(o2));
         }
@@ -238,8 +240,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void GetHashCodeTest1()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber(" 47 - 11");
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber(" 47 - 11");
 
             Assert.AreEqual(o1.GetHashCode(), o2.GetHashCode());
         }
@@ -247,8 +249,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void GetHashCodeTest2()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber("47111");
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber("47111");
 
             Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
 
@@ -257,8 +259,8 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void GetHashCodeTest3()
         {
-            PhoneNumber o1 = new PhoneNumber("4711");
-            PhoneNumber o2 = new PhoneNumber();
+            var o1 = new PhoneNumber("4711");
+            var o2 = new PhoneNumber();
 
            
             Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
@@ -268,11 +270,41 @@ namespace FolkerKinzel.Contacts.Tests
         [TestMethod()]
         public void GetHashCodeTest4()
         {
-            PhoneNumber o1 = new PhoneNumber("  ");
-            PhoneNumber o2 = new PhoneNumber();
+            var o1 = new PhoneNumber("  ");
+            var o2 = new PhoneNumber();
 
 
             Assert.AreEqual(o1.GetHashCode(), o2.GetHashCode());
+        }
+
+
+        [TestMethod]
+        public void IEnumerableTest()
+        {
+            var c = new Contact();
+
+            var phone = new PhoneNumber("4711");
+
+            c.PhoneNumbers = phone;
+
+            Assert.IsNotNull(c.PhoneNumbers);
+            Assert.AreEqual(1, c.PhoneNumbers.Count());
+
+            PhoneNumber? first = c.PhoneNumbers.First();
+            Assert.IsNotNull(first);
+            Assert.AreSame(phone, first);
+
+            Assert.AreEqual(1, phone.Count());
+
+            IEnumerable numerable = phone;
+
+            foreach (object? _ in numerable)
+            {
+                return;
+            }
+
+            Assert.Fail();
+
         }
     }
 }
