@@ -140,7 +140,7 @@
   <T ID="8512556432F86C6F">Left operand.</T>
   <T ID="851255616ED03C68">Right operand.</T>
   <T ID="A5CD68B56F75A6F1">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="person1"/&gt; and &lt;paramref name ="person2"/&gt; refer to different persons.</T>
-  <T ID="1CA43DD089BE367D">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.PhoneNumber" /&gt; class.</T>
+  <T ID="1CA43DD089BE367D">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
   <T ID="8E4CA742B461DF1">Initializes a &lt;see cref ="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object with the phone number to be encapsulated and optional flags, that describe it in more detail.</T>
   <T ID="B0807F1943D05A17">The phone number.</T>
   <T ID="5853A0D2BDB1A6">&lt;c&gt;true&lt;/c&gt; indicates, that it is a business phone number.</T>
@@ -152,13 +152,13 @@
   <T ID="EDB23A7834265D28">&lt;c&gt;true&lt;/c&gt; indicates, that it is a fax number.</T>
   <T ID="EB3592D5654550FE">Creates a &lt;see cref="T:System.String" /&gt; representation of the object instance.</T>
   <T ID="B476B59E1845A12C">The content of the object instance as &lt;see cref="T:System.String" /&gt;.</T>
-  <T ID="4C25B366C20EF187">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.PhoneNumber.Clean" /&gt;.</T>
+  <T ID="4C25B366C20EF187">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.PhoneNumber.Clean"/&gt;.</T>
   <T ID="647D80CF85ED9416">Removes empty strings and unnecessary whitespace.</T>
   <T ID="965BC1ABAE690407">Creates a deep copy of the object instance.</T>
   <T ID="323A525A1616F6A5">Deep copy of the object instance.</T>
   <T ID="DF49C057C639AE8">Compares the object instance with &lt;paramref name ="obj"/&gt; to determine, whether &lt;paramref name ="obj"/&gt; is a &lt;see cref ="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object, that refers to the same phone number.</T>
   <T ID="155A7C826FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="A9C942B825A6384C">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber" /&gt; object, that referes to the same phone number.</T>
+  <T ID="A9C942B825A6384C">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber" /&gt; object, that refers to the same phone number.</T>
   <T ID="58B314236BFDD17">Compares the object instance with another &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object to determine,  whether &lt;paramref name="other" /&gt; refers to the same phone number.</T>
   <T ID="625870770E324645">The &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber" /&gt; object to compare with.</T>
   <T ID="D16DD5BB494FB099">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; refers to the same phone number.</T>
