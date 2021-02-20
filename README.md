@@ -55,7 +55,9 @@ namespace Examples
 
                         BirthDay = new DateTime(1972, 1, 3),
                         Spouse = "Jane Doe",
-                        Anniversary = new DateTime(2001, 6, 15)
+                        Anniversary = new DateTime(2001, 6, 15),
+                        Gender = Sex.Male,
+                        NickName = "The Dude"
                     },
 
                     Work = new Work
@@ -64,13 +66,13 @@ namespace Examples
                         Company = "Does Company"
                     },
 
-                    PhoneNumbers = new PhoneNumber[]
+                    // PhoneNumber implements IEnumerable<PhoneNumber>. So you
+                    // can assign a single instance without having to wrap it 
+                    // into an Array or List:
+                    PhoneNumbers = new PhoneNumber
                     {
-                        new PhoneNumber
-                        {
-                            Value = "0123-45678",
-                            IsWork = true
-                        }
+                        Value = "0123-45678",
+                        IsWork = true
                     },
 
                     EmailAddresses = new string[]
@@ -94,7 +96,8 @@ namespace Examples
                         },
                         BirthDay = new DateTime(1981, 5, 4),
                         Spouse = "John Doe",
-                        Anniversary = new DateTime(2001, 6, 15)
+                        Anniversary = new DateTime(2001, 6, 15),
+                        Gender = Sex.Female
                     },
 
                     Work = new Work
@@ -107,6 +110,12 @@ namespace Examples
                     {
                         new PhoneNumber
                         {
+                            Value = "0123-45678",
+                            IsWork = true
+                        },
+
+                        new PhoneNumber
+                        {
                             Value = "876-54321",
                             IsMobile = true
                         }
@@ -115,5 +124,4 @@ namespace Examples
             };//new Contact[]
     }
 }
-
 ```
