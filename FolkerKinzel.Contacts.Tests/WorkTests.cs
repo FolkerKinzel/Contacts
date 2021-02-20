@@ -190,7 +190,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work1 = new Work
+            var work1 = new Work
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
@@ -198,7 +198,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work2 = new Work
+            var work2 = new Work
             {
                 AddressWork = addr1,
                 Company = "folkers firma",
@@ -218,7 +218,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work1 = new Work
+            var work1 = new Work
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma",
@@ -232,7 +232,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work2 = new Work
+            var work2 = new Work
             {
                 AddressWork = addr2,
 
@@ -252,7 +252,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work1 = new Work
+            var work1 = new Work
             {
                 AddressWork = addr1,
                 Company = "Ingrids Firma",
@@ -260,7 +260,7 @@ namespace FolkerKinzel.Contacts.Tests
             };
 
 
-            Work work2 = new Work
+            var work2 = new Work
             {
                 AddressWork = addr1,
                 Company = "Folkers Firma"
@@ -274,7 +274,7 @@ namespace FolkerKinzel.Contacts.Tests
         {
 
 
-            Work work1 = new Work
+            var work1 = new Work
             {
 
                 Company = "Ingrids Firma"
