@@ -1,12 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Globalization;
 
 namespace FolkerKinzel.Contacts.Tests
 {
     [TestClass()]
     public class WorkTests
     {
-
-
         [TestMethod()]
         public void CloneTest()
         {
