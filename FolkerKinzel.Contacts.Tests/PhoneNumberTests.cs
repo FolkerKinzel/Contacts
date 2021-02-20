@@ -183,59 +183,82 @@ namespace FolkerKinzel.Contacts.Tests
 
 
 
-        [TestMethod()]
-        public void EqualsTest1()
+        [DataTestMethod()]
+        [DataRow("4711", " 47 - 11")]
+        [DataRow("4711", "47/11")]
+        [DataRow("", "")]
+        [DataRow("   ", "")]
+        [DataRow("", "   ")]
+        [DataRow(" ", "      ")]
+        [DataRow("", "-/+.@")]
+        [DataRow("", null)]
+        [DataRow(null, null)]
+        [DataRow(null, "-/+.@")]
+        [DataRow(null, "   ")]
+        [DataRow("   ", null)]
+        public void EqualsTestTrue1(string? val1, string? val2)
         {
-            object o1 = new PhoneNumber("4711");
-            object o2 = new PhoneNumber(" 47 - 11");
+            object o1 = new PhoneNumber(val1);
+            object o2 = new PhoneNumber(val2);
 
             Assert.IsTrue(o1.Equals(o2));
         }
 
-        [TestMethod()]
-        public void EqualsTest2()
+        
+
+        [DataTestMethod()]
+        [DataRow("4711", "47111")]
+        [DataRow("4711", null)]
+        [DataRow("4711", "4811")]
+        public void EqualsTestFalse1(string? val1, string? val2)
         {
-            object o1 = new PhoneNumber("4711");
-            object o2 = new PhoneNumber("47111");
+            object o1 = new PhoneNumber(val1);
+            object o2 = new PhoneNumber(val2);
 
             Assert.IsFalse(o1.Equals(o2));
         }
 
-        [TestMethod()]
-        public void EqualsTest3()
+        [DataTestMethod()]
+        [DataRow("4711", " 47 - 11")]
+        [DataRow("4711", "47/11")]
+        [DataRow("", "")]
+        [DataRow("   ", "")]
+        [DataRow("", "   ")]
+        [DataRow(" ", "      ")]
+        [DataRow("", "-/+.@")]
+        [DataRow("", null)]
+        [DataRow(null, null)]
+        [DataRow(null, "-/+.@")]
+        [DataRow(null, "   ")]
+        [DataRow("   ", null)]
+        public void EqualsTestTrue2(string? val1, string? val2)
         {
-            object o1 = new PhoneNumber("4711");
-            object o2 = new PhoneNumber();
-
-            Assert.IsFalse(o1.Equals(o2));
-        }
-
-        [TestMethod()]
-        public void EqualsTest4()
-        {
-            var o1 = new PhoneNumber("4711");
-            var o2 = new PhoneNumber(" 47 - 11");
+            var o1 = new PhoneNumber(val1);
+            var o2 = new PhoneNumber(val2);
 
             Assert.IsTrue(o1.Equals(o2));
         }
 
-        [TestMethod()]
-        public void EqualsTest5()
+        
+
+        [DataTestMethod()]
+        [DataRow("4711", "47111")]
+        [DataRow("4711", null)]
+        [DataRow("4711", "4811")]
+        public void EqualsTestFalse2(string? val1, string? val2)
         {
-            var o1 = new PhoneNumber("4711");
-            var o2 = new PhoneNumber("47111");
+            var o1 = new PhoneNumber(val1);
+            var o2 = new PhoneNumber(val2);
 
             Assert.IsFalse(o1.Equals(o2));
         }
 
-        [TestMethod()]
-        public void EqualsTest6()
-        {
-            var o1 = new PhoneNumber("4711");
-            var o2 = new PhoneNumber();
 
-            Assert.IsFalse(o1.Equals(o2));
-        }
+        
+
+        
+
+        
 
         [TestMethod()]
         public void GetHashCodeTest1()

@@ -324,41 +324,33 @@ namespace FolkerKinzel.Contacts
         /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
         /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
         private bool CompareBoolean(PhoneNumber other)
-        { 
-            if(this.Value == other.Value)
+        {
+            string thisValue = this.Value ?? string.Empty;
+            string otherValue = other.Value ?? string.Empty;
+
+            if(thisValue == otherValue)
             {
                 return true;
             }
 
             //if (this._flags != p._flags) return false;
 
-            if (this.Value is null || other.Value is null)
-            {
-                return false;
-            }
+            var thisStripper = new PhoneStripper(thisValue);
+            var otherStripper = new PhoneStripper(otherValue);
+            char thisChar;
 
-            var thisChars = new List<char>();
-            var otherChars = new List<char>();
-
-            for (int i = 0; i < this.Value.Length; i++)
+            do
             {
-                char c = this.Value[i];
-                if (char.IsLetterOrDigit(c))
+                thisChar = thisStripper.GetNextChar();
+
+                if(thisChar != otherStripper.GetNextChar())
                 {
-                    thisChars.Add(c);
+                    return false;
                 }
             }
+            while (thisChar != '\0');
 
-            for (int i = 0; i < other.Value.Length; i++)
-            {
-                char c = other.Value[i];
-                if (char.IsLetterOrDigit(c))
-                {
-                    otherChars.Add(c);
-                }
-            }
-
-            return thisChars.SequenceEqual(otherChars);
+            return true;
         }
 
         #endregion
