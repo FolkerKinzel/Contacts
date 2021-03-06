@@ -8,11 +8,11 @@
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>1.4.1</Version>
-    <FileVersion>1.4.1.2</FileVersion>
+    <FileVersion>1.4.1.3</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageReleaseNotes>
-      The PhoneNumber class implements IEnumerable{PhoneNumber} in order to be assignable to the Contact.PhoneNumbers property without having to be contained in an Array or a List.
-    </PackageReleaseNotes>
+      Added a .NET 5.0 dll to the package.
+</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
     <Description>.NET data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
