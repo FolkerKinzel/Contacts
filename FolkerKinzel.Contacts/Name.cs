@@ -22,7 +22,7 @@ namespace FolkerKinzel.Contacts
 
         #region private Felder
 
-        private readonly Dictionary<Prop, string> _propDic = new Dictionary<Prop, string>();
+        private readonly Dictionary<Prop, string> _propDic = new();
 
         #endregion
 
@@ -198,7 +198,7 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is Name p))
+            if (obj is not Name p)
             {
                 return false;
             }

@@ -26,7 +26,7 @@ namespace FolkerKinzel.Contacts
 
         #region private Felder
 
-        private readonly Dictionary<Prop, string> _propDic = new Dictionary<Prop, string>();
+        private readonly Dictionary<Prop, string> _propDic = new();
 
         #endregion
 
@@ -251,7 +251,7 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to WabAddress return false.
-            if (!(obj is Address p))
+            if (obj is not Address p)
             {
                 return false;
             }

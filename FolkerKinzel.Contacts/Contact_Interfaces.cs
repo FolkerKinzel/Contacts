@@ -19,7 +19,7 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to Contact return false.
-            if (!(obj is Contact p))
+            if (obj is not Contact p)
             {
                 return false;
             }

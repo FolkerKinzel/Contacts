@@ -26,7 +26,7 @@ namespace FolkerKinzel.Contacts
 
         #region private Felder
 
-        private readonly Dictionary<Prop, object> _propDic = new Dictionary<Prop, object>();
+        private readonly Dictionary<Prop, object> _propDic = new();
 
         #endregion
 
@@ -190,21 +190,13 @@ namespace FolkerKinzel.Contacts
 
                 object value = _propDic[keys[i]];
 
-                switch (value)
+                _ = value switch
                 {
-                    case Name name:
-                        _ = name.AppendTo(sb).AppendLine();
-                        break;
-                    case Sex sex:
-                        _ = sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female);
-                        break;
-                    case DateTime dt:
-                        _ = sb.AppendLine(dt.ToShortDateString());
-                        break;
-                    default:
-                        _ = sb.Append(value).AppendLine();
-                        break;
-                }
+                    Name name => name.AppendTo(sb).AppendLine(),
+                    Sex sex => sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female),
+                    DateTime dt => sb.AppendLine(dt.ToShortDateString()),
+                    _ => sb.Append(value).AppendLine(),
+                };
             }
 
             sb.Length -= Environment.NewLine.Length;
@@ -302,7 +294,7 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to WabPerson return false.
-            if (!(obj is Person p))
+            if (obj is not Person p)
             {
                 return false;
             }

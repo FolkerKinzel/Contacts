@@ -19,12 +19,12 @@ namespace FolkerKinzel.Contacts.Tests
             Assert.IsTrue(s!.StartsWith("Hallo", StringComparison.Ordinal));
             Assert.IsTrue(s.EndsWith("Teststring!", StringComparison.Ordinal));
 
-#if NETCOREAPP3_1
-            Assert.IsFalse(s.Contains('\n', StringComparison.Ordinal));
-            Assert.IsFalse(s.Contains("  ", StringComparison.Ordinal));
-#else
+#if NET45
             Assert.IsFalse(s.Contains("\n"));
             Assert.IsFalse(s.Contains("  "));
+#else
+            Assert.IsFalse(s.Contains('\n', StringComparison.Ordinal));
+            Assert.IsFalse(s.Contains("  ", StringComparison.Ordinal));
 #endif
         }
     }

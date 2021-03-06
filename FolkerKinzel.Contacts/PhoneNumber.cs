@@ -206,7 +206,7 @@ namespace FolkerKinzel.Contacts
         /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
         public override bool Equals(object? obj)
         {
-            if (!(obj is PhoneNumber p))
+            if (obj is not PhoneNumber p)
             {
                 return false;
             }

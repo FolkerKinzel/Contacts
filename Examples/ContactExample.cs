@@ -1,9 +1,9 @@
-﻿using FolkerKinzel.Contacts;
-using System;
+﻿using System;
+using FolkerKinzel.Contacts;
 
 namespace Examples
 {
-    static class ContactExample
+    public static class ContactExample
     {
         public static Contact[] InitializeContacts() => new Contact[]
             {

@@ -8,35 +8,35 @@
 
 ```
 nuget Package Manager:
-PM> Install-Package FolkerKinzel.Contacts -Version 1.4.0
+PM> Install-Package FolkerKinzel.Contacts -Version 1.4.1
 
 .NET CLI:
-> dotnet add package FolkerKinzel.Contacts --version 1.4.0
+> dotnet add package FolkerKinzel.Contacts --version 1.4.1
 
 PackageReference (Visual Studio Project File):
-<PackageReference Include="FolkerKinzel.Contacts" Version="1.4.0" />
+<PackageReference Include="FolkerKinzel.Contacts" Version="1.4.1" />
 
 Paket CLI:
-> paket add FolkerKinzel.Contacts --version 1.4.0
+> paket add FolkerKinzel.Contacts --version 1.4.1
 
 F# Interactive:
-> #r "nuget: FolkerKinzel.Contacts, 1.4.0"
+> #r "nuget: FolkerKinzel.Contacts, 1.4.1"
 ```
 
-* [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.4.0/FolkerKinzel.Contacts.en.chm)
+* [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.4.1/FolkerKinzel.Contacts.en.chm)
 
-* [Projektdokumentation (Deutsch) herunterladen](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.4.0/FolkerKinzel.Contacts.de.chm)
+* [Projektdokumentation (Deutsch) herunterladen](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.4.1/FolkerKinzel.Contacts.de.chm)
 
 > IMPORTANT: On some systems the content of the CHM file is blocked. Before opening the file right click on it, select Properties, and check the "Allow" checkbox (if it is present) in the lower right corner of the General tab in the Properties dialog.
 
 ## Example
 ```csharp
-using FolkerKinzel.Contacts;
 using System;
+using FolkerKinzel.Contacts;
 
 namespace Examples
 {
-    static class ContactExample
+    public static class ContactExample
     {
         public static Contact[] InitializeContacts() => new Contact[]
             {

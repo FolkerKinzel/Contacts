@@ -29,11 +29,10 @@ namespace FolkerKinzel.Contacts.Tests
             Assert.IsTrue(cont.Comment.EndsWith("Zeile", StringComparison.Ordinal));
             Assert.AreEqual("Folker Kinzel", cont.DisplayName);
 
-#if NETCOREAPP3_1
-            Assert.IsTrue(cont.Comment.Contains(Environment.NewLine, StringComparison.Ordinal));
-#else
+#if NET45
             Assert.IsTrue(cont.Comment.Contains(Environment.NewLine));
-
+#else
+            Assert.IsTrue(cont.Comment.Contains(Environment.NewLine, StringComparison.Ordinal));
 #endif
         }
 
@@ -241,15 +240,18 @@ namespace FolkerKinzel.Contacts.Tests
             Assert.AreEqual(contact1.AddressHome, contact2.AddressHome);
 
             Assert.AreNotSame(contact1.EmailAddresses, contact2.EmailAddresses);
-            Assert.IsTrue(contact1.EmailAddresses.SequenceEqual(contact2.EmailAddresses));
+            Assert.IsNotNull(contact2.EmailAddresses);
+            Assert.IsTrue(contact1.EmailAddresses.SequenceEqual(contact2.EmailAddresses!));
 
             Assert.AreNotSame(contact1.InstantMessengerHandles, contact2.InstantMessengerHandles);
-            Assert.IsTrue(contact1.InstantMessengerHandles.SequenceEqual(contact2.InstantMessengerHandles));
+            Assert.IsNotNull(contact2.InstantMessengerHandles);
+            Assert.IsTrue(contact1.InstantMessengerHandles.SequenceEqual(contact2.InstantMessengerHandles!));
 
             Assert.AreNotSame(contact1.PhoneNumbers, contact2.PhoneNumbers);
-            Assert.AreEqual(contact1.PhoneNumbers.Count(), contact2.PhoneNumbers.Count());
-            Assert.AreEqual(contact1.PhoneNumbers.First(), contact2.PhoneNumbers.First());
-            Assert.AreNotSame(contact1.PhoneNumbers.First(), contact2.PhoneNumbers.First());
+            Assert.IsNotNull(contact2.PhoneNumbers);
+            Assert.AreEqual(contact1.PhoneNumbers.Count(), contact2.PhoneNumbers!.Count());
+            Assert.AreEqual(contact1.PhoneNumbers.First(), contact2.PhoneNumbers!.First());
+            Assert.AreNotSame(contact1.PhoneNumbers.First(), contact2.PhoneNumbers!.First());
 
         }
 

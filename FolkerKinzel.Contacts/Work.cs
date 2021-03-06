@@ -14,7 +14,7 @@ namespace FolkerKinzel.Contacts
     {
         #region private Felder
 
-        private readonly Dictionary<Prop, object> _propDic = new Dictionary<Prop, object>();
+        private readonly Dictionary<Prop, object> _propDic = new();
 
         #endregion
 
@@ -252,7 +252,7 @@ namespace FolkerKinzel.Contacts
         public override bool Equals(object? obj)
         {
             // If parameter cannot be cast to EnterpriseData return false.
-            if (!(obj is Work p))
+            if (obj is not Work p)
             {
                 return false;
             }

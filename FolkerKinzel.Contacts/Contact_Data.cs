@@ -6,7 +6,7 @@ namespace FolkerKinzel.Contacts
 {
     public sealed partial class Contact
     {
-        private readonly Dictionary<Prop, object> _propDic = new Dictionary<Prop, object>();
+        private readonly Dictionary<Prop, object> _propDic = new();
 
         private enum Prop
         {
