@@ -5,11 +5,11 @@ namespace FolkerKinzel.Contacts.Tests
     [TestClass()]
     public class NameTests
     {
-        private const string FIRST_NAME = "FirstName";
-        private const string LAST_NAME = "LastName";
-        private const string MIDDLE_NAME = "MiddleName";
-        private const string PREFIX = "Prefix";
-        private const string SUFFIX = "Suffix";
+        const string FIRST_NAME = "FirstName";
+        const string LAST_NAME = "LastName";
+        const string MIDDLE_NAME = "MiddleName";
+        const string PREFIX = "Prefix";
+        const string SUFFIX = "Suffix";
 
         private static Name InitFullName()
         {
