@@ -52,7 +52,7 @@
     </NamespaceSummaries>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
-    <ProjectSummary>Simple data model for contact data of organizations or natural persons.</ProjectSummary>
+    <ProjectSummary>.NET data model to store contact data of organizations and natural persons.</ProjectSummary>
     <CopyrightText>Copyright &amp;#169%3b 2020 Folker Kinzel</CopyrightText>
     <VisibleItems>ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, ProtectedInternalAsProtected, NonBrowsable</VisibleItems>
   </PropertyGroup>
