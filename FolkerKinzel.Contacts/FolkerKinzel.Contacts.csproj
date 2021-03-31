@@ -8,7 +8,7 @@
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>1.4.1</Version>
-    <FileVersion>1.4.1.77</FileVersion>
+    <FileVersion>1.4.1.78</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageReleaseNotes>
       Added a .NET 5.0 dll to the package.
