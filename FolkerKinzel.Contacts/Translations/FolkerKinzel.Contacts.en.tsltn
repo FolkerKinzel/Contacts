@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Tsltn Version="1.0" SourceFile="..\bin\Release\net40\de\FolkerKinzel.Contacts.xml" SourceLanguage="de" TargetLanguage="en">
+<Tsltn Version="1.0" SourceFile="..\bin\Release\net5.0\de\FolkerKinzel.Contacts.xml" SourceLanguage="de" TargetLanguage="en">
   <T ID="66F1447829E795F4">Simple data model for storing contact data.</T>
   <T ID="760AE724E747069E">Interface, that enables the implementing class to clean itself of data garbage.</T>
   <T ID="15597F3830CADB68">Encapsulates information about a persons name.</T>
