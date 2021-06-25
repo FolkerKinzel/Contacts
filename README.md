@@ -1,5 +1,6 @@
 # FolkerKinzel.Contacts
 [![NuGet](https://img.shields.io/nuget/v/FolkerKinzel.Contacts)](https://www.nuget.org/packages/FolkerKinzel.Contacts/)
+![GitHub](https://img.shields.io/github/license/FolkerKinzel/Contacts)
 
 
 .NET library which provides an easy to use data model to store contact data of organizations and natural persons.
