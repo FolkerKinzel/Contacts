@@ -1,28 +1,13 @@
 # FolkerKinzel.Contacts
 [![NuGet](https://img.shields.io/nuget/v/FolkerKinzel.Contacts)](https://www.nuget.org/packages/FolkerKinzel.Contacts/)
-![GitHub](https://img.shields.io/github/license/FolkerKinzel/Contacts)
+[![GitHub](https://img.shields.io/github/license/FolkerKinzel/Contacts)](https://github.com/FolkerKinzel/Contacts/blob/master/LICENSE)
 
 
 .NET library which provides an easy to use data model to store contact data of organizations and natural persons.
 
 (If you need to persist this data model as vCard (*.vcf) or CSV, have a look at [FolkerKinzel.Contacts.IO](https://github.com/FolkerKinzel/Contacts.IO).)
 
-```
-nuget Package Manager:
-PM> Install-Package FolkerKinzel.Contacts -Version 1.4.1
 
-.NET CLI:
-> dotnet add package FolkerKinzel.Contacts --version 1.4.1
-
-PackageReference (Visual Studio Project File):
-<PackageReference Include="FolkerKinzel.Contacts" Version="1.4.1" />
-
-Paket CLI:
-> paket add FolkerKinzel.Contacts --version 1.4.1
-
-F# Interactive:
-> #r "nuget: FolkerKinzel.Contacts, 1.4.1"
-```
 
 * [Download Reference (English)](https://github.com/FolkerKinzel/Contacts/blob/master/ProjectReference/1.4.1/FolkerKinzel.Contacts.en.chm)
 

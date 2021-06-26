@@ -8,7 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B670C6DE-BC1A-418D-8934-8021C89162FB}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		README.md = README.md
+		..\.github\ISSUE_TEMPLATE\bug_report.md = ..\.github\ISSUE_TEMPLATE\bug_report.md
+		..\.github\ISSUE_TEMPLATE\feature_request.md = ..\.github\ISSUE_TEMPLATE\feature_request.md
+		..\README.md = ..\README.md
 		Reference.md = Reference.md
 	EndProjectSection
 EndProject

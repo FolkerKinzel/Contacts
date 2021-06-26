@@ -23,13 +23,14 @@
     <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>
+    <PackageIconUrl />
   </PropertyGroup>
   <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\..\..\Nuget-Logo\Logo.png">
+    <None Include="..\..\..\..\Nuget-Logo\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
