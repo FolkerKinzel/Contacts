@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.181
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FolkerKinzel.Contacts", "FolkerKinzel.Contacts\FolkerKinzel.Contacts.csproj", "{8A391ACC-4672-4838-935D-17298B2E0C02}"
 EndProject
@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.github\ISSUE_TEMPLATE\feature_request.md = ..\.github\ISSUE_TEMPLATE\feature_request.md
 		..\README.md = ..\README.md
 		Reference.md = Reference.md
+		..\docs\PackageReleaseNotes\1.5.0\ReleaseNotes.md = ..\docs\PackageReleaseNotes\1.5.0\ReleaseNotes.md
 	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FolkerKinzel.Contacts.Doku.de", "FolkerKinzel.Contacts.Doku.de\FolkerKinzel.Contacts.Doku.de.shfbproj", "{338E52E2-0463-4AE9-857B-056DDD1A0B37}"
