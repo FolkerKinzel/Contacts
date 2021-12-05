@@ -282,6 +282,60 @@ public class WorkTests
         Assert.IsFalse(work1.Equals(null));
     }
 
+    [TestMethod]
+    public void EqualsTest9()
+    {
+        var w1 = new Work();
+        Work w2 = w1;
+        Assert.IsTrue(w1.Equals(w2));
+    }
+
+    [TestMethod]
+    public void EqualsTest10()
+    {
+        var w1 = new Work();
+        object w2 = w1;
+        Assert.IsTrue(w1.Equals(w2));
+    }
+
+    [TestMethod]
+    public void EqualsTest11()
+    {
+        var w1 = new Work();
+        object w2 = new();
+        Assert.IsFalse(w1.Equals(w2));
+    }
+
+    [DataTestMethod]
+    [DataRow("dep", "dep", "1", "1", true)]
+    [DataRow("dep", "dep2", "1", "1", false)]
+    [DataRow("dep", "dep", "1", "2", false)]
+    //[DataRow("dep", null, "1", "2", true)]
+    public void EqualsTest12(string? department1, string? department2, string? office1, string? office2, bool expected)
+    {
+        const string companyName = "Contoso";
+        var w1 = new Work()
+        { 
+            Company = companyName,
+            Department = department1,
+            Office = office1
+        };
+
+        var w2 = new Work()
+        {
+            Company = companyName,
+            Department = department2,
+            Office = office2
+        };
+
+        Assert.AreEqual(expected, w1.Equals(w2));
+
+        if(expected)
+        {
+            Assert.AreEqual(expected, w1.GetHashCode() == w2.GetHashCode());
+        }
+    }
+
     [TestMethod()]
     public void GetHashCodeTest1()
     {
