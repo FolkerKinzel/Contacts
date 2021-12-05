@@ -13,7 +13,7 @@
     <RootNamespace>FolkerKinzel.ContactData.Doku</RootNamespace>
     <Name>FolkerKinzel.Contacts.Doku</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>FolkerKinzel.Contacts.en</HtmlHelpName>
     <Language>en-US</Language>
@@ -27,8 +27,7 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\bin\Release\net40\FolkerKinzel.Contacts.xml" />
-      <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\bin\Release\net40\FolkerKinzel.Contacts.dll" />
+      <DocumentationSource sourceFile="..\FolkerKinzel.Contacts\FolkerKinzel.Contacts.csproj" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <SyntaxFilters>Standard</SyntaxFilters>
@@ -43,7 +42,7 @@
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <NamespaceGrouping>True</NamespaceGrouping>
-    <MaximumGroupParts>4</MaximumGroupParts>
+    <MaximumGroupParts>2</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <NamespaceSummaries>

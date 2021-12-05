@@ -9,9 +9,9 @@
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>1.5.0</Version>
-    <FileVersion>1.5.0.1</FileVersion>
+    <FileVersion>1.5.0.2</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/tree/master/docs/PackageReleaseNotes/1.5.0</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/1.5.0/ReleaseNotes.md</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
     <Description>.NET data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
