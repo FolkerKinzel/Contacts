@@ -1,61 +1,66 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;netstandard2.1;net40;netstandard2.0;net461</TargetFrameworks>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <NeutralLanguage>en</NeutralLanguage>
-    <!-- nuget-Package: -->
-    <PackageId>FolkerKinzel.Contacts</PackageId>
-    <Product>FolkerKinzel.Contacts</Product>
-    <Version>1.5.0</Version>
-    <FileVersion>1.4.1.78</FileVersion>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <PackageReleaseNotes></PackageReleaseNotes>
-    <PackageTags>.net contact data-model c#</PackageTags>
-    <Description>.NET data model to store contact data of organizations and natural persons.</Description>
-    <Authors>Folker Kinzel</Authors>
-    <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIcon>Logo.png</PackageIcon>
-    <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>
-    <PackageIconUrl />
-  </PropertyGroup>
-  <!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
-    <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Nuget-Logo\Logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Nullable" Version="1.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\Res.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Res.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Res.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Res.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if $(ConfigurationName) == Release copy /v /b /y &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(OutDir)de/$(ProjectName).xml&quot;&#xD;&#xA;if $(ConfigurationName) == Release if '$(TargetFramework)' == 'netstandard2.1' dotnet $(SolutionDir)IncVersion\IncVersion.dll $(ProjectDir)$(ProjectFileName) --revision" />
-  </Target>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net5.0;netstandard2.1;net40;netstandard2.0;net461</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NeutralLanguage>en</NeutralLanguage>
+		<!-- nuget-Package: -->
+		<PackageId>FolkerKinzel.Contacts</PackageId>
+		<Product>FolkerKinzel.Contacts</Product>
+		<Version>1.5.0</Version>
+		<FileVersion>1.5.0</FileVersion>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/tree/master/docs/PackageReleaseNotes/1.5.0</PackageReleaseNotes>
+		<PackageTags>.net contact data-model c#</PackageTags>
+		<Description>.NET data model to store contact data of organizations and natural persons.</Description>
+		<Authors>Folker Kinzel</Authors>
+		<Copyright>Copyright © 2020 Folker Kinzel</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageIcon>Logo.png</PackageIcon>
+		<RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>
+		<PackageIconUrl />
+	</PropertyGroup>
+	<!-- 👇 disable the nullable warnings when compiling for .NET Framework 4.0 -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
+		<NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System.Net.Http"/>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\..\..\Nuget-Logo\Logo.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Nullable" Version="1.3.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\Res.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Res.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Res.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Res.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(ConfigurationName) == Release copy /v /b /y &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(OutDir)de/$(ProjectName).xml&quot;&#xD;&#xA;if $(ConfigurationName) == Release if '$(TargetFramework)' == 'netstandard2.1' dotnet $(SolutionDir)IncVersion\IncVersion.dll $(ProjectDir)$(ProjectFileName) --revision" />
+	</Target>
 </Project>
