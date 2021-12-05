@@ -1,4 +1,5 @@
-# FolkerKinzel.Contacts
+[![GitHub](https://img.shields.io/github/license/FolkerKinzel/Contacts)](https://github.com/FolkerKinzel/Contacts/blob/master/LICENSE)
+
 .NET library which provides an easy to use data model to store contact data of organizations and natural persons.
 
 
@@ -9,4 +10,8 @@
 > IMPORTANT: On some systems the content of the CHM file is blocked. Before opening the file right click on the file icon, select Properties, and check the "Allow" checkbox - if it is present - in the lower right corner of the General tab in the Properties dialog.
 
 (If you need to persist this data model as vCard (*.vcf) or CSV, have a look at [FolkerKinzel.Contacts.IO](https://www.nuget.org/packages/FolkerKinzel.Contacts.IO/).)
+
+.
+
+[Version History](https://github.com/FolkerKinzel/Contacts/releases)
 
