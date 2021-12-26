@@ -1,6 +1,6 @@
 ﻿namespace FolkerKinzel.Contacts;
 
-internal struct PhoneStripper
+internal ref struct PhoneStripper
 {
     private readonly string _s;
     private int _currentIndex;

@@ -7,7 +7,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über die Arbeitsstelle einer Person.
 /// </summary>
-public sealed class Work : ICloneable, ICleanable, IEquatable<Work>
+public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityComparer<Work>
 {
     #region private Felder
 
@@ -236,6 +236,107 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work>
 
     #endregion
 
+    public bool IsProbablyTheSameAs(Work? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return CompareIdentity(other);
+    }
+
+    private bool CompareIdentity(Work other)
+    {
+        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+        string? company = this.Company;
+        string? otherCompany = other.Company;
+
+        if (!string.IsNullOrWhiteSpace(company) && !string.IsNullOrWhiteSpace(otherCompany))
+        {
+            if (comparer.Equals(company, otherCompany))
+            {
+                string? department = this.Department;
+                string? otherDepartment = other.Department;
+                if (!string.IsNullOrWhiteSpace(department) && !string.IsNullOrWhiteSpace(otherDepartment))
+                {
+                    if (comparer.Equals(department, otherDepartment))
+                    {
+                        string? office = this.Office;
+                        string? otherOffice = other.Office;
+                        if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
+                        {
+                            if (comparer.Equals(office, otherOffice))
+                            {
+                                string? position = this.JobTitle;
+                                string? otherPosition = other.JobTitle;
+
+                                if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
+                                {
+                                    return comparer.Equals(position, otherPosition);
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                        else if (string.IsNullOrWhiteSpace(office) && string.IsNullOrWhiteSpace(otherOffice))
+                        {
+                            string? position = this.JobTitle;
+                            string? otherPosition = other.JobTitle;
+
+                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
+                            {
+                                return comparer.Equals(position, otherPosition);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+                else if (string.IsNullOrWhiteSpace(department) && string.IsNullOrWhiteSpace(otherDepartment))
+                {
+                    string? office = this.Office;
+                    string? otherOffice = other.Office;
+                    if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
+                    {
+                        if (comparer.Equals(office, otherOffice))
+                        {
+                            string? position = this.JobTitle;
+                            string? otherPosition = other.JobTitle;
+
+                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
+                            {
+                                return comparer.Equals(position, otherPosition);
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        Address? address = this.AddressWork;
+        Address? otherAddress = other.AddressWork;
+        if (address != null && otherAddress != null && !address.IsEmpty && !otherAddress.IsEmpty)
+        {
+            return address.IsProbablyTheSameAs(otherAddress);
+        }
+
+        return true;
+    }
+
 
     #region IEquatable
 
@@ -382,7 +483,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work>
         }
         else
         {
-            return !(work2 is null) && work1.CompareBoolean(work2);
+            return work2 is not null && work1.CompareBoolean(work2);
         }
     }
 
@@ -492,12 +593,13 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work>
         Address? otherAddress = other.AddressWork;
         if (address != null && otherAddress != null && !address.IsEmpty && !otherAddress.IsEmpty)
         {
-            return address.Equals(other.AddressWork);
+            return address.Equals(otherAddress);
         }
 
 
         return true;
     }
+
 
     #endregion
 

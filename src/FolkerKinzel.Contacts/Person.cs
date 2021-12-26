@@ -8,7 +8,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt personenbezogene Daten.
 /// </summary>
-public sealed class Person : ICloneable, ICleanable, IEquatable<Person>
+public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdentityComparer<Person>
 {
     private enum Prop
     {
@@ -273,6 +273,51 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person>
 
     #endregion
 
+    public bool IsProbablyTheSameAs(Person? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return CompareIdentity(other);
+    }
+
+    private bool CompareIdentity(Person other)
+    {
+        Name? name = Name;
+        Name? otherName = other.Name;
+
+        if (name is null || otherName is null || name.IsEmpty || otherName.IsEmpty)
+        {
+            string? nickName = NickName;
+            string? otherNickName = other.NickName;
+
+            if (!string.IsNullOrWhiteSpace(nickName) && !string.IsNullOrWhiteSpace(otherNickName))
+            {
+                return StringComparer.CurrentCultureIgnoreCase.Equals(nickName.Trim(), otherNickName.Trim());
+            }
+        }
+        else if (name.IsProbablyTheSameAs(otherName))
+        {
+            return false;
+        }
+
+        DateTime? birthDay = this.BirthDay;
+
+        if (birthDay.HasValue)
+        {
+            DateTime? otherBirthDay = other.BirthDay;
+            if (otherBirthDay.HasValue)
+            {
+                return birthDay.Value.Date == otherBirthDay.Value.Date;
+            }
+        }
+
+        return true;
+    }
+
+
+
 
     #region IEquatable
 
@@ -395,7 +440,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person>
         }
         else
         {
-            return !(person2 is null) && person1.CompareBoolean(person2);
+            return person2 is not null && person1.CompareBoolean(person2);
         }
     }
 
@@ -451,6 +496,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person>
 
         return true;
     }
+
 
     #endregion
 

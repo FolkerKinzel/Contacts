@@ -6,7 +6,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über den Namen einer Person.
 /// </summary>
-public sealed class Name : ICloneable, ICleanable, IEquatable<Name>
+public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityComparer<Name>
 {
     private enum Prop
     {
@@ -183,6 +183,64 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name>
 
     #endregion
 
+    public bool IsProbablyTheSameAs(Name? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+        return CompareIdentity(other);
+    }
+
+    private bool CompareIdentity(Name other)
+    {
+        StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
+
+        string? lastName = this.LastName;
+        if (!string.IsNullOrWhiteSpace(lastName))
+        {
+            string? otherLastName = other.LastName;
+            if (!string.IsNullOrWhiteSpace(otherLastName) && !comparer.Equals(otherLastName, lastName))
+            {
+                return false;
+            }
+        }
+
+        string? firstName = this.FirstName;
+        if (!string.IsNullOrWhiteSpace(firstName))
+        {
+            string? otherFirstName = other.FirstName;
+            if (!string.IsNullOrWhiteSpace(otherFirstName) && !comparer.Equals(otherFirstName, firstName))
+            {
+                return false;
+            }
+        }
+
+        string? middleName = this.MiddleName;
+        if (!string.IsNullOrWhiteSpace(middleName))
+        {
+            string? otherMiddleName = other.MiddleName;
+            if (!string.IsNullOrWhiteSpace(otherMiddleName) && !comparer.Equals(otherMiddleName, middleName))
+            {
+                return false;
+            }
+        }
+
+        string? suffix = this.Suffix;
+        string? otherSuffix = other.Suffix;
+        if (string.IsNullOrWhiteSpace(suffix) && string.IsNullOrWhiteSpace(otherSuffix))
+        {
+            return true;
+        }
+
+        if (!comparer.Equals(otherSuffix, suffix))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 
     #region IEquatable
 
@@ -296,7 +354,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name>
         }
         else
         {
-            return !(name2 is null) && name1.CompareBoolean(name2);
+            return name2 is not null && name1.CompareBoolean(name2);
         }
     }
 
@@ -365,6 +423,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name>
 
         return true;
     }
+
     #endregion
 
     #endregion

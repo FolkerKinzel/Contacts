@@ -6,7 +6,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Adressdaten.
 /// </summary>
-public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
+public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIdentityComparer<Address>
 {
     /// <summary>
     /// Benannte Konstanten, um die Properties eines <see cref="Address"/>-Objekts im Indexer zu adressieren.
@@ -234,6 +234,63 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
 
     #endregion
 
+    public bool IsProbablyTheSameAs(Address? other)
+    {
+        if (other is null)
+        {
+            return false;
+        }
+        return CompareIdentity(other);
+    }
+
+    private bool CompareIdentity(Address other)
+    {
+        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+
+        string? postalCode = PostalCode;
+        string? otherPostalCode = other.PostalCode;
+
+        if (!string.IsNullOrWhiteSpace(postalCode) && !string.IsNullOrWhiteSpace(otherPostalCode))
+        {
+            if (!comparer.Equals(postalCode, otherPostalCode))
+            {
+                return false;
+            }
+
+            string? street = Street;
+            string? otherStreet = other.Street;
+
+            if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
+            {
+                return comparer.Equals(street, otherStreet);
+            }
+
+        }
+        else
+        {
+            string? city = City;
+            string? otherCity = other.City;
+
+            if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(otherCity))
+            {
+                if (!comparer.Equals(city, otherCity))
+                {
+                    return false;
+                }
+
+                string? street = Street;
+                string? otherStreet = other.Street;
+
+                if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
+                {
+                    return comparer.Equals(street, otherStreet);
+                }
+            }
+        }
+
+        return true;
+    }
+
 
     #region IEquatable
 
@@ -361,7 +418,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
         }
         else
         {
-            return !(address2 is null) && address1.CompareBoolean(address2);
+            return address2 is not null && address1.CompareBoolean(address2);
         }
     }
 
@@ -432,6 +489,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address>
 
 
     }
+
     #endregion
 
     #endregion

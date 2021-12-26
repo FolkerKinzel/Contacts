@@ -1,7 +1,130 @@
 ﻿namespace FolkerKinzel.Contacts;
 
-public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanable
+public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanable, IIdentityComparer<Contact>
 {
+    #region IIdentityComparer
+
+    public bool IsProbablyTheSameAs(Contact? other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+
+        if (this.IsEmpty)
+        {
+            if (other.IsEmpty)
+            {
+                return true;
+            }
+        }
+        else if (other.IsEmpty)
+        {
+            return false;
+        }
+
+        return CompareIdentity(other);
+    }
+
+    private bool CompareIdentity(Contact other)
+    {
+        Person? person = this.Person;
+        Person? otherPerson = other.Person;
+        if (person != null && otherPerson != null && !person.IsEmpty && !otherPerson.IsEmpty)
+        {
+            return person.IsProbablyTheSameAs(otherPerson);
+        }
+
+        Work? work = this.Work;
+        Work? otherWork = other.Work;
+        if (work != null && otherWork != null && !work.IsEmpty && !otherWork.IsEmpty)
+        {
+            return work == otherWork;
+        }
+
+        IEnumerable<string?>? emails = this.EmailAddresses;
+        IEnumerable<string?>? otherEmails = other.EmailAddresses;
+        if (emails != null && otherEmails != null)
+        {
+            var emailsArr = emails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+            var otherEmailsArr = otherEmails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (emailsArr.Length != 0 && otherEmailsArr.Length != 0)
+            {
+                if (emailsArr.Intersect(otherEmailsArr, StringComparer.Ordinal).Any())
+                {
+                    return true;
+                }
+            }
+        }
+
+        IEnumerable<string?>? ims = this.InstantMessengerHandles;
+        IEnumerable<string?>? otherIMs = other.InstantMessengerHandles;
+        if (ims != null && otherIMs != null)
+        {
+            var imsArr = ims.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+            var otherIMsArr = otherIMs.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+            if (imsArr.Length != 0 && otherIMsArr.Length != 0)
+            {
+                if (imsArr.Intersect(otherIMsArr, StringComparer.Ordinal).Any())
+                {
+                    return true;
+                }
+            }
+        }
+
+        string? displayName = this.DisplayName;
+        string? otherDisplayName = other.DisplayName;
+        if (!string.IsNullOrWhiteSpace(this.DisplayName) && !string.IsNullOrWhiteSpace(otherDisplayName))
+        {
+            return StringComparer.CurrentCultureIgnoreCase.Equals(displayName, otherDisplayName);
+        }
+
+        IEnumerable<PhoneNumber?>? phones = this.PhoneNumbers;
+        IEnumerable<PhoneNumber?>? otherPhones = other.PhoneNumbers;
+        if (phones != null && otherPhones != null)
+        {
+            PhoneNumber[] phonesArr = phones.Where(x => x != null && !x.IsEmpty).ToArray()!;
+            PhoneNumber[] otherPhonesArr = otherPhones.Where(x => x != null && !x.IsEmpty).ToArray()!;
+
+            if (phonesArr.Length != 0 && otherPhonesArr.Length != 0)
+            {
+                // For PhoneNumber the standard comparer is suitable because it does only compare
+                // the number:
+                if (phonesArr.Intersect(otherPhonesArr).Any())
+                {
+                    return true;
+                }
+            }
+        }
+
+        Address? adr = this.AddressHome;
+        Address? otherAdr = other.AddressHome;
+        if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
+        {
+            return adr.IsProbablyTheSameAs(otherAdr);
+        }
+
+        string? homePagePersonal = this.WebPagePersonal;
+        string? otherHomePagePersonal = other.WebPagePersonal;
+        if (!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
+        {
+            return StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
+        }
+
+        string? homePageWork = this.WebPageWork;
+        string? otherHomePageWork = other.WebPageWork;
+        if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
+        {
+            return StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
+        }
+
+        return true;
+    }
+
+    #endregion
+
 
     #region IEquatable
 
@@ -151,7 +274,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
         }
         else
         {
-            return !(contact2 is null) && contact1.CompareBoolean(contact2);
+            return contact2 is not null && contact1.CompareBoolean(contact2);
         }
     }
 
@@ -169,7 +292,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
     /// ob das <see cref="Contact"/>-Objekt dieselbe Person oder Organisation repräsentieren könnte.
     /// </summary>
     /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentiert.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentieren könnte, andernfalls <c>false</c>.</returns>
     private bool CompareBoolean(Contact other)
     {
         if (this.IsEmpty)

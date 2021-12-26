@@ -325,7 +325,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
         string thisValue = this.Value ?? string.Empty;
         string otherValue = other.Value ?? string.Empty;
 
-        if (thisValue == otherValue)
+        if (StringComparer.Ordinal.Equals(thisValue, otherValue))
         {
             return true;
         }
