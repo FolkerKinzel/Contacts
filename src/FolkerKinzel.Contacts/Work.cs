@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
@@ -347,7 +348,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem die aktuelle Instanz verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Work"/>-Objekt ist, das dieselbe Arbeitsstelle beschreibt.</returns>
-    public override bool Equals(object? obj)
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to EnterpriseData return false.
         if (obj is not Work p)
@@ -372,7 +373,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// </summary>
     /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem die aktuelle Instanz verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Arbeitsstelle beschreibt.</returns>
-    public bool Equals(Work? other)
+    public bool Equals([NotNullWhen(true)] Work? other)
     {
         // If parameter is null return false:
         if (other is null)

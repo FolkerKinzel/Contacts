@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
+using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
@@ -333,7 +334,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
     /// auf dieselbe physische Person verweist.</returns>
-    public override bool Equals(object? obj)
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabPerson return false.
         if (obj is not Person p)
@@ -362,7 +363,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// verwendet.</remarks>
     /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe physische Person verweist.</returns>
-    public bool Equals(Person? other)
+    public bool Equals([NotNullWhen(true)] Person? other)
     {
         // If parameter is null return false:
         if (other is null)

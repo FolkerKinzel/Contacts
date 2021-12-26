@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text;
+using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
@@ -251,7 +253,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
-    public override bool Equals(object? obj)
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not Name p)
         {
@@ -275,7 +277,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     /// </summary>
     /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
-    public bool Equals(Name? other)
+    public bool Equals([NotNullWhen(true)] Name? other)
     {
         // If parameter is null return false:
         if (other is null)

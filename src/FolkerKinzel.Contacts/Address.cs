@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
@@ -302,7 +304,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
-    public override bool Equals(object? obj)
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabAddress return false.
         if (obj is not Address p)
@@ -328,7 +330,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// </summary>
     /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
-    public bool Equals(Address? other)
+    public bool Equals([NotNullWhen(true)] Address? other)
     {
         // If parameter is null return false:
         if (other is null)

@@ -1,4 +1,6 @@
-﻿namespace FolkerKinzel.Contacts;
+﻿using FolkerKinzel.Contacts.Intls;
+
+namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanable, IIdentityComparer<Contact>
 {

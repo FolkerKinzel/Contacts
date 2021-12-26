@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
@@ -201,7 +203,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
-    public override bool Equals(object? obj)
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not PhoneNumber p)
         {
@@ -225,7 +227,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// </summary>
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
-    public bool Equals(PhoneNumber? other)
+    public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
         // If parameter is null return false:
         if (other is null)
@@ -248,27 +250,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode()
-    {
-        int hash = -1;
-
-        if (string.IsNullOrWhiteSpace(Value))
-        {
-            return hash;
-        }
-
-        for (int i = 0; i < Value.Length; i++)
-        {
-            char c = Value[i];
-
-            if (char.IsLetterOrDigit(c))
-            {
-                hash ^= c;
-            }
-        }
-
-        return hash;
-    }
+    public override int GetHashCode() => new PhoneStripper(Value).GetHashCode();
 
 
     #region Überladen von == und !=
@@ -297,7 +279,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
         }
         else
         {
-            return !(phone2 is null) && phone1.CompareBoolean(phone2);
+            return phone2 is not null && phone1.CompareBoolean(phone2);
         }
     }
 
@@ -322,32 +304,10 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
     private bool CompareBoolean(PhoneNumber other)
     {
-        string thisValue = this.Value ?? string.Empty;
-        string otherValue = other.Value ?? string.Empty;
-
-        if (StringComparer.Ordinal.Equals(thisValue, otherValue))
-        {
-            return true;
-        }
-
-        //if (this._flags != p._flags) return false;
-
-        var thisStripper = new PhoneStripper(thisValue);
-        var otherStripper = new PhoneStripper(otherValue);
-        char thisChar;
-
-        do
-        {
-            thisChar = thisStripper.GetNextChar();
-
-            if (thisChar != otherStripper.GetNextChar())
-            {
-                return false;
-            }
-        }
-        while (thisChar != '\0');
-
-        return true;
+        var thisStripper = new PhoneStripper(this.Value);
+        var otherStripper = new PhoneStripper(other.Value);
+        
+        return thisStripper.Equals(otherStripper);
     }
 
     #endregion

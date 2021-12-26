@@ -1,10 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts.Intls;
 
 internal static class StringCleaner
 {
-
     internal static string? CleanComment(string? val)
         => string.IsNullOrWhiteSpace(val) ? null : val.Trim();
 
