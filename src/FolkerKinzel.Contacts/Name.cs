@@ -191,18 +191,18 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
         {
             return false;
         }
-        return CompareIdentity(other);
+        return IsIdentityEqual(other);
     }
 
-    private bool CompareIdentity(Name other)
+    private bool IsIdentityEqual(Name other)
     {
-        StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
+        //StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
 
         string? lastName = this.LastName;
         if (!string.IsNullOrWhiteSpace(lastName))
         {
             string? otherLastName = other.LastName;
-            if (!string.IsNullOrWhiteSpace(otherLastName) && !comparer.Equals(otherLastName, lastName))
+            if (!string.IsNullOrWhiteSpace(otherLastName) && StartNamesEqual(otherLastName, lastName))
             {
                 return false;
             }
@@ -212,35 +212,50 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
         if (!string.IsNullOrWhiteSpace(firstName))
         {
             string? otherFirstName = other.FirstName;
-            if (!string.IsNullOrWhiteSpace(otherFirstName) && !comparer.Equals(otherFirstName, firstName))
+            if (!string.IsNullOrWhiteSpace(otherFirstName) && StartNamesEqual(otherFirstName, firstName))
             {
                 return false;
             }
         }
 
-        string? middleName = this.MiddleName;
-        if (!string.IsNullOrWhiteSpace(middleName))
-        {
-            string? otherMiddleName = other.MiddleName;
-            if (!string.IsNullOrWhiteSpace(otherMiddleName) && !comparer.Equals(otherMiddleName, middleName))
-            {
-                return false;
-            }
-        }
+        //string? middleName = this.MiddleName;
+        //if (!string.IsNullOrWhiteSpace(middleName))
+        //{
+        //    string? otherMiddleName = other.MiddleName;
+        //    if (!string.IsNullOrWhiteSpace(otherMiddleName) && !comparer.Equals(otherMiddleName, middleName))
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        string? suffix = this.Suffix;
-        string? otherSuffix = other.Suffix;
-        if (string.IsNullOrWhiteSpace(suffix) && string.IsNullOrWhiteSpace(otherSuffix))
-        {
-            return true;
-        }
+        //string? suffix = this.Suffix;
+        //string? otherSuffix = other.Suffix;
+        //if (string.IsNullOrWhiteSpace(suffix) && string.IsNullOrWhiteSpace(otherSuffix))
+        //{
+        //    return true;
+        //}
 
-        if (!comparer.Equals(otherSuffix, suffix))
-        {
-            return false;
-        }
+        //if (!comparer.Equals(otherSuffix, suffix))
+        //{
+        //    return false;
+        //}
 
         return true;
+
+        //static bool AreNamesEqual(string? name1, string? name2)
+        //{
+        //    var strip2 = new ItemStripper(name2);
+        //    return new ItemStripper(name1).Equals(ref strip2, true);
+        //}
+
+        static bool StartNamesEqual(string? name1, string? name2)
+        {
+            var strip1 = new ItemStripper(name1);
+            var strip2 = new ItemStripper(name2);
+
+            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1, true)
+                                                           : strip1.StartsWith(ref strip2, true);
+        }
     }
 
 

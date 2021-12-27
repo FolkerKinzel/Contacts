@@ -250,7 +250,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode() => new PhoneStripper(Value).GetHashCode();
+    public override int GetHashCode() => new ItemStripper(Value).GetHashCode();
 
 
     #region Überladen von == und !=
@@ -304,10 +304,8 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
     private bool CompareBoolean(PhoneNumber other)
     {
-        var thisStripper = new PhoneStripper(this.Value);
-        var otherStripper = new PhoneStripper(other.Value);
-        
-        return thisStripper.Equals(otherStripper);
+        var otherStripper = new ItemStripper(other.Value);
+        return new ItemStripper(this.Value).Equals(ref otherStripper, false);
     }
 
     #endregion

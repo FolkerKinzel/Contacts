@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
+	  <Using Include="System.Runtime.CompilerServices"/>
+	  <Using Include="System.Diagnostics.CodeAnalysis"/>
+	  <Using Include="System.Diagnostics"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Nuget-Logo\Logo.png">
