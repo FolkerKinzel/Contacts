@@ -18,6 +18,7 @@ internal ref struct ItemStripper
 
     public override bool Equals([NotNullWhen(true)] object? obj) => throw new InvalidOperationException();
 
+
     internal bool Equals(ItemStripper other)
     {
         ResetCurrentIndex();
@@ -77,9 +78,6 @@ internal ref struct ItemStripper
         => new ItemStripper(s1, !ignoreCase).Equals(new ItemStripper(s2, !ignoreCase));
 
     internal static bool IsEmpty(string? s) => new ItemStripper(s).IsEmpty();
-
-    //internal static bool Equals(string? s1, string? s2, bool ignoreCase)
-    //    => new ItemStripper(s1, !ignoreCase).Equals(new ItemStripper(s2, !ignoreCase));
 
 
 

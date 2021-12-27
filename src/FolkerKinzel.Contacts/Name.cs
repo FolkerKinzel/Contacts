@@ -185,7 +185,9 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
     #endregion
 
-    public bool MayBeMerged(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region IIdentityComparer
+
+    public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
     private bool BelongsToOtherIdentity(Name other)
     {
@@ -196,6 +198,8 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
         return !ItemStripper.StartEqual(this.LastName, other.LastName, true);
     }
+
+    #endregion
 
 
     #region IEquatable

@@ -274,12 +274,13 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
 
     #endregion
 
-    public bool MayBeMerged(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region IIdentityComparer
+    public bool CanBeMergedWith(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
    
 
     private bool BelongsToOtherIdentity(Person other)
     {
-        if (Name?.MayBeMerged(other.Name) ?? true)
+        if (Name?.CanBeMergedWith(other.Name) ?? true)
         {
             DateTime? birthDay = this.BirthDay;
 
@@ -306,7 +307,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
         return true;
     }
 
-
+    #endregion
 
 
     #region IEquatable

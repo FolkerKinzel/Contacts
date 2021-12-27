@@ -236,7 +236,9 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     #endregion
 
-    public bool MayBeMerged(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region IIdentityComparer
+
+    public bool CanBeMergedWith(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
     
 
     private bool BelongsToOtherIdentity(Address other)
@@ -278,6 +280,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
         return false;
     }
 
+    #endregion
 
     #region IEquatable
 

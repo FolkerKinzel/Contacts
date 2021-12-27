@@ -6,42 +6,19 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 {
     #region IIdentityComparer
 
-    public bool MayBeMerged(Contact? other)
+    public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+   
+
+    private bool BelongsToOtherIdentity(Contact other)
     {
-        if (other == null)
+        if (!(Person?.CanBeMergedWith(other.Person) ?? true))
         {
-            return false;
+            return true;
         }
 
-        if (this.IsEmpty)
+        if (!(Work?.CanBeMergedWith(other.Work) ?? true))
         {
-            if (other.IsEmpty)
-            {
-                return true;
-            }
-        }
-        else if (other.IsEmpty)
-        {
-            return false;
-        }
-
-        return CompareIdentity(other);
-    }
-
-    private bool CompareIdentity(Contact other)
-    {
-        Person? person = this.Person;
-        Person? otherPerson = other.Person;
-        if (person != null && otherPerson != null && !person.IsEmpty && !otherPerson.IsEmpty)
-        {
-            return person.MayBeMerged(otherPerson);
-        }
-
-        Work? work = this.Work;
-        Work? otherWork = other.Work;
-        if (work != null && otherWork != null && !work.IsEmpty && !otherWork.IsEmpty)
-        {
-            return work == otherWork;
+            return true;
         }
 
         IEnumerable<string?>? emails = this.EmailAddresses;
@@ -55,7 +32,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
             {
                 if (emailsArr.Intersect(otherEmailsArr, StringComparer.Ordinal).Any())
                 {
-                    return true;
+                    return false;
                 }
             }
         }
@@ -71,16 +48,14 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
             {
                 if (imsArr.Intersect(otherIMsArr, StringComparer.Ordinal).Any())
                 {
-                    return true;
+                    return false;
                 }
             }
         }
 
-        string? displayName = this.DisplayName;
-        string? otherDisplayName = other.DisplayName;
-        if (!string.IsNullOrWhiteSpace(this.DisplayName) && !string.IsNullOrWhiteSpace(otherDisplayName))
+        if (ItemStripper.StartEqual(DisplayName, other.DisplayName, true))
         {
-            return StringComparer.CurrentCultureIgnoreCase.Equals(displayName, otherDisplayName);
+            return false;
         }
 
         IEnumerable<PhoneNumber?>? phones = this.PhoneNumbers;
@@ -96,7 +71,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
                 // the number:
                 if (phonesArr.Intersect(otherPhonesArr).Any())
                 {
-                    return true;
+                    return false;
                 }
             }
         }
@@ -105,24 +80,24 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
         Address? otherAdr = other.AddressHome;
         if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
         {
-            return adr.MayBeMerged(otherAdr);
+            return !adr.CanBeMergedWith(otherAdr);
         }
 
         string? homePagePersonal = this.WebPagePersonal;
         string? otherHomePagePersonal = other.WebPagePersonal;
         if (!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
         {
-            return StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
+            return !StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
         }
 
         string? homePageWork = this.WebPageWork;
         string? otherHomePageWork = other.WebPageWork;
         if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
         {
-            return StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
+            return !StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
         }
 
-        return true;
+        return false;
     }
 
     #endregion

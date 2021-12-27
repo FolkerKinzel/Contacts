@@ -237,7 +237,8 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
     #endregion
 
-    public bool MayBeMerged(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region IIdentityComparer
+    public bool CanBeMergedWith(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
 
     private bool BelongsToOtherIdentity(Work other)
@@ -245,7 +246,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
         string? company = Company;
         string? otherCompany = other.Company;
 
-        bool areAddressesMergeable = AddressWork?.MayBeMerged(other.AddressWork) ?? true;
+        bool areAddressesMergeable = AddressWork?.CanBeMergedWith(other.AddressWork) ?? true;
 
 
         if ((ItemStripper.IsEmpty(company) || ItemStripper.IsEmpty(otherCompany)) && areAddressesMergeable)
@@ -276,6 +277,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
         return !areAddressesMergeable;
     }
 
+    #endregion
 
     #region IEquatable
 
