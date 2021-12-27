@@ -2,7 +2,7 @@
 using FolkerKinzel.Strings.Polyfills;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FolkerKinzel.Contacts.Tests;
+namespace FolkerKinzel.Contacts.Intls.Tests;
 
 [TestClass()]
 public class StringCleanerTests

@@ -236,45 +236,33 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     #endregion
 
-    public bool IsProbablyTheSameAs(Address? other)
-    {
-        if (other is null)
-        {
-            return false;
-        }
-        return CompareIdentity(other);
-    }
+    public bool MayBeMerged(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    
 
-    private bool CompareIdentity(Address other)
+    private bool BelongsToOtherIdentity(Address other)
     {
         string? postalCode = PostalCode;
         string? otherPostalCode = other.PostalCode;
 
-        if (!string.IsNullOrWhiteSpace(postalCode) && !string.IsNullOrWhiteSpace(otherPostalCode))
+        if (!ItemStripper.IsEmpty(postalCode) && !ItemStripper.IsEmpty(otherPostalCode))
         {
-            if (!AreItemsEqual(postalCode, otherPostalCode))
+            if (!ItemStripper.AreEqual(postalCode, otherPostalCode))
             {
-                return false;
+                return true;
             }
 
-            string? street = Street;
-            string? otherStreet = other.Street;
-
-            if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
-            {
-                return StartItemsEqual(street, otherStreet);
-            }
+            return !ItemStripper.StartEqual(Street, other.Street);
         }
         else
         {
             string? city = City;
             string? otherCity = other.City;
 
-            if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(otherCity))
+            if (!ItemStripper.IsEmpty(city) && !ItemStripper.IsEmpty(otherCity))
             {
-                if (!StartItemsEqual(city, otherCity))
+                if (!ItemStripper.StartEqual(city, otherCity, true))
                 {
-                    return false;
+                    return true;
                 }
 
                 string? street = Street;
@@ -282,27 +270,12 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
                 if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
                 {
-                    return StartItemsEqual(street, otherStreet);
+                    return !ItemStripper.StartEqual(street, otherStreet, true);
                 }
             }
         }
 
-        return true;
-
-        static bool AreItemsEqual(string? name1, string? name2)
-        {
-            var strip2 = new ItemStripper(name2, false);
-            return new ItemStripper(name1, false).Equals(ref strip2);
-        }
-
-        static bool StartItemsEqual(string? name1, string? name2)
-        {
-            var strip1 = new ItemStripper(name1, true);
-            var strip2 = new ItemStripper(name2, true);
-
-            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1)
-                                                           : strip1.StartsWith(ref strip2);
-        }
+        return false;
     }
 
 

@@ -167,10 +167,9 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     #region ICleanable
 
     /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
-    /// <see cref="Clean"/> aufgerufen werden.
+    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
     /// </summary>
-    public bool IsEmpty => this.Value is null;
+    public bool IsEmpty => ItemStripper.IsEmpty(this.Value);
 
 
     /// <summary>
@@ -250,7 +249,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode() => new ItemStripper(Value, false).GetHashCode();
+    public override int GetHashCode() => new ItemStripper(Value).GetHashCode();
 
 
     #region Überladen von == und !=
@@ -302,11 +301,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// </summary>
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
-    private bool CompareBoolean(PhoneNumber other)
-    {
-        var otherStripper = new ItemStripper(other.Value, false);
-        return new ItemStripper(this.Value, false).Equals(ref otherStripper);
-    }
+    private bool CompareBoolean(PhoneNumber other) => ItemStripper.AreEqual(this.Value, other.Value);
 
     #endregion
 

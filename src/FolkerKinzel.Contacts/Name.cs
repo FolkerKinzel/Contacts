@@ -185,71 +185,16 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
     #endregion
 
-    public bool IsProbablyTheSameAs(Name? other)
+    public bool MayBeMerged(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+
+    private bool BelongsToOtherIdentity(Name other)
     {
-        if (other == null)
+        if (!ItemStripper.StartEqual(this.FirstName, other.FirstName, true))
         {
-            return false;
-        }
-        return IsIdentityEqual(other);
-    }
-
-    private bool IsIdentityEqual(Name other)
-    {
-        //StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
-
-        string? lastName = this.LastName;
-        if (!string.IsNullOrWhiteSpace(lastName))
-        {
-            string? otherLastName = other.LastName;
-            if (!string.IsNullOrWhiteSpace(otherLastName) && StartNamesEqual(otherLastName, lastName))
-            {
-                return false;
-            }
+            return true;
         }
 
-        string? firstName = this.FirstName;
-        if (!string.IsNullOrWhiteSpace(firstName))
-        {
-            string? otherFirstName = other.FirstName;
-            if (!string.IsNullOrWhiteSpace(otherFirstName) && StartNamesEqual(otherFirstName, firstName))
-            {
-                return false;
-            }
-        }
-
-        //string? middleName = this.MiddleName;
-        //if (!string.IsNullOrWhiteSpace(middleName))
-        //{
-        //    string? otherMiddleName = other.MiddleName;
-        //    if (!string.IsNullOrWhiteSpace(otherMiddleName) && !comparer.Equals(otherMiddleName, middleName))
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //string? suffix = this.Suffix;
-        //string? otherSuffix = other.Suffix;
-        //if (string.IsNullOrWhiteSpace(suffix) && string.IsNullOrWhiteSpace(otherSuffix))
-        //{
-        //    return true;
-        //}
-
-        //if (!comparer.Equals(otherSuffix, suffix))
-        //{
-        //    return false;
-        //}
-
-        return true;
-
-        static bool StartNamesEqual(string? name1, string? name2)
-        {
-            var strip1 = new ItemStripper(name1, true);
-            var strip2 = new ItemStripper(name2, true);
-
-            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1)
-                                                           : strip1.StartsWith(ref strip2);
-        }
+        return !ItemStripper.StartEqual(this.LastName, other.LastName, true);
     }
 
 

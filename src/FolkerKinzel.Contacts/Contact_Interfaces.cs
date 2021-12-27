@@ -6,7 +6,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 {
     #region IIdentityComparer
 
-    public bool IsProbablyTheSameAs(Contact? other)
+    public bool MayBeMerged(Contact? other)
     {
         if (other == null)
         {
@@ -34,7 +34,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
         Person? otherPerson = other.Person;
         if (person != null && otherPerson != null && !person.IsEmpty && !otherPerson.IsEmpty)
         {
-            return person.IsProbablyTheSameAs(otherPerson);
+            return person.MayBeMerged(otherPerson);
         }
 
         Work? work = this.Work;
@@ -105,7 +105,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
         Address? otherAdr = other.AddressHome;
         if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
         {
-            return adr.IsProbablyTheSameAs(otherAdr);
+            return adr.MayBeMerged(otherAdr);
         }
 
         string? homePagePersonal = this.WebPagePersonal;

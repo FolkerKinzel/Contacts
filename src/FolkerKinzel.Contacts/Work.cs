@@ -237,105 +237,43 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
     #endregion
 
-    public bool IsProbablyTheSameAs(Work? other)
+    public bool MayBeMerged(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+
+
+    private bool BelongsToOtherIdentity(Work other)
     {
-        if (other == null)
+        string? company = Company;
+        string? otherCompany = other.Company;
+
+        bool areAddressesMergeable = AddressWork?.MayBeMerged(other.AddressWork) ?? true;
+
+
+        if ((ItemStripper.IsEmpty(company) || ItemStripper.IsEmpty(otherCompany)) && areAddressesMergeable)
         {
             return false;
         }
-        return CompareIdentity(other);
-    }
 
-    private bool CompareIdentity(Work other)
-    {
-        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-        string? company = this.Company;
-        string? otherCompany = other.Company;
-
-        if (!string.IsNullOrWhiteSpace(company) && !string.IsNullOrWhiteSpace(otherCompany))
+        if (!ItemStripper.StartEqual(company, otherCompany, true))
         {
-            if (comparer.Equals(company, otherCompany))
-            {
-                string? department = this.Department;
-                string? otherDepartment = other.Department;
-                if (!string.IsNullOrWhiteSpace(department) && !string.IsNullOrWhiteSpace(otherDepartment))
-                {
-                    if (comparer.Equals(department, otherDepartment))
-                    {
-                        string? office = this.Office;
-                        string? otherOffice = other.Office;
-                        if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
-                        {
-                            if (comparer.Equals(office, otherOffice))
-                            {
-                                string? position = this.JobTitle;
-                                string? otherPosition = other.JobTitle;
-
-                                if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                                {
-                                    return comparer.Equals(position, otherPosition);
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else if (string.IsNullOrWhiteSpace(office) && string.IsNullOrWhiteSpace(otherOffice))
-                        {
-                            string? position = this.JobTitle;
-                            string? otherPosition = other.JobTitle;
-
-                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                            {
-                                return comparer.Equals(position, otherPosition);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                }
-                else if (string.IsNullOrWhiteSpace(department) && string.IsNullOrWhiteSpace(otherDepartment))
-                {
-                    string? office = this.Office;
-                    string? otherOffice = other.Office;
-                    if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
-                    {
-                        if (comparer.Equals(office, otherOffice))
-                        {
-                            string? position = this.JobTitle;
-                            string? otherPosition = other.JobTitle;
-
-                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                            {
-                                return comparer.Equals(position, otherPosition);
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
-        Address? address = this.AddressWork;
-        Address? otherAddress = other.AddressWork;
-        if (address != null && otherAddress != null && !address.IsEmpty && !otherAddress.IsEmpty)
+        if (!ItemStripper.StartEqual(Department, other.Department, true))
         {
-            return address.IsProbablyTheSameAs(otherAddress);
+            return true;
         }
 
-        return true;
+        if (!ItemStripper.StartEqual(Office, other.Office, true))
+        {
+            return true;
+        }
+
+        if (!ItemStripper.StartEqual(JobTitle, other.JobTitle, true))
+        {
+            return true;
+        }
+
+        return !areAddressesMergeable;
     }
 
 

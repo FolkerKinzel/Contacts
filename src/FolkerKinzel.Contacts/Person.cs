@@ -274,44 +274,33 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
 
     #endregion
 
-    public bool IsProbablyTheSameAs(Person? other)
+    public bool MayBeMerged(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+   
+
+    private bool BelongsToOtherIdentity(Person other)
     {
-        if (other == null)
+        if (Name?.MayBeMerged(other.Name) ?? true)
         {
-            return false;
-        }
-        return CompareIdentity(other);
-    }
+            DateTime? birthDay = this.BirthDay;
 
-    private bool CompareIdentity(Person other)
-    {
-        Name? name = Name;
-        Name? otherName = other.Name;
-
-        if (name is null || otherName is null || name.IsEmpty || otherName.IsEmpty)
-        {
-            string? nickName = NickName;
-            string? otherNickName = other.NickName;
-
-            if (!string.IsNullOrWhiteSpace(nickName) && !string.IsNullOrWhiteSpace(otherNickName))
+            if (birthDay.HasValue)
             {
-                return StringComparer.CurrentCultureIgnoreCase.Equals(nickName.Trim(), otherNickName.Trim());
+                DateTime? otherBirthDay = other.BirthDay;
+                if (otherBirthDay.HasValue)
+                {
+                    if (birthDay.Value.Date != otherBirthDay.Value.Date)
+                    {
+                        return true;
+                    }
+                }
             }
-        }
-        else if (name.IsProbablyTheSameAs(otherName))
-        {
-            return false;
-        }
 
-        DateTime? birthDay = this.BirthDay;
-
-        if (birthDay.HasValue)
-        {
-            DateTime? otherBirthDay = other.BirthDay;
-            if (otherBirthDay.HasValue)
+            if (!ItemStripper.AreEqual(NickName, other.NickName, true))
             {
-                return birthDay.Value.Date == otherBirthDay.Value.Date;
+                return true;
             }
+
+            return false;
         }
 
         return true;

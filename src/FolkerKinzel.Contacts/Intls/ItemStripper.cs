@@ -6,18 +6,19 @@ internal ref struct ItemStripper
     private const int INITIAL_INDEX = -1;
 
     private readonly string _s = "";
-    private readonly bool _ignoreCase;
-    private int? _length = null;
+    private readonly bool _caseSensitive;
     private int _currentIndex = INITIAL_INDEX;
 
 
-    internal ItemStripper(string? s, bool ignoreCase)
+    internal ItemStripper(string? s, bool caseSensitive = true)
     {
         _s = s ?? "";
-        _ignoreCase = ignoreCase;
+        _caseSensitive = caseSensitive;
     }
 
-    public bool Equals(ref ItemStripper other)
+    public override bool Equals([NotNullWhen(true)] object? obj) => throw new InvalidOperationException();
+
+    internal bool Equals(ItemStripper other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();
@@ -47,7 +48,7 @@ internal ref struct ItemStripper
 
         while (c != END_OF_STRING)
         {
-            if (_ignoreCase)
+            if (!_caseSensitive)
             {
                 c = char.ToUpperInvariant(c);
             }
@@ -60,31 +61,52 @@ internal ref struct ItemStripper
         return hashCode;
     }
 
+    internal static int GetLength(string? input) => new ItemStripper(input).GetLength();
+    
 
-    public int GetLength()
+    internal static bool StartEqual(string? s1, string? s2, bool ignoreCase = false)
     {
-        if (_length.HasValue)
+        var strip1 = new ItemStripper(s1, !ignoreCase);
+        var strip2 = new ItemStripper(s2, !ignoreCase);
+
+        return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(strip1)
+                                                       : strip1.StartsWith(strip2);
+    }
+
+    internal static bool AreEqual(string? s1, string? s2, bool ignoreCase = false)
+        => new ItemStripper(s1, !ignoreCase).Equals(new ItemStripper(s2, !ignoreCase));
+
+    internal static bool IsEmpty(string? s) => new ItemStripper(s).IsEmpty();
+
+    //internal static bool Equals(string? s1, string? s2, bool ignoreCase)
+    //    => new ItemStripper(s1, !ignoreCase).Equals(new ItemStripper(s2, !ignoreCase));
+
+
+
+    private int GetLength()
+    {
+        //ResetCurrentIndex();
+        Debug.Assert(_currentIndex == INITIAL_INDEX);
+
+        int length = 0;
+
+        while (GetNextChar() != END_OF_STRING)
         {
-            return _length.Value;
+            length++;
         }
 
-        _length = 0;
-        int idx = -1;
-        while (++idx < _s.Length)
-        {
-            char c = _s[idx];
+        return length;
+    }
 
-            if (char.IsLetterOrDigit(c))
-            {
-                _length++;
-            }
-        }
-
-        return _length.Value;
+    private bool IsEmpty()
+    {
+        //ResetCurrentIndex();
+        Debug.Assert(_currentIndex == INITIAL_INDEX);
+        return GetNextChar().Equals(END_OF_STRING);
     }
 
 
-    public bool StartsWith(ref ItemStripper other)
+    private bool StartsWith(ItemStripper other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();
@@ -99,7 +121,7 @@ internal ref struct ItemStripper
 
             char thisChar = GetNextChar();
 
-            if(!AreCharsEqual(thisChar, otherChar))
+            if (!AreCharsEqual(thisChar, otherChar))
             {
                 return false;
             }
@@ -132,6 +154,6 @@ internal ref struct ItemStripper
 
 
     private bool AreCharsEqual(char c1, char c2) 
-        => (_ignoreCase && char.ToUpperInvariant(c1) == char.ToUpperInvariant(c2)) || c1.Equals(c2);
+        => _caseSensitive ? c1.Equals(c2) : char.ToUpperInvariant(c1).Equals(char.ToUpperInvariant(c2));
 
 }
