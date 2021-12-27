@@ -247,14 +247,12 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     private bool CompareIdentity(Address other)
     {
-        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
         string? postalCode = PostalCode;
         string? otherPostalCode = other.PostalCode;
 
         if (!string.IsNullOrWhiteSpace(postalCode) && !string.IsNullOrWhiteSpace(otherPostalCode))
         {
-            if (!comparer.Equals(postalCode, otherPostalCode))
+            if (!AreItemsEqual(postalCode, otherPostalCode))
             {
                 return false;
             }
@@ -264,9 +262,8 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
             if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
             {
-                return comparer.Equals(street, otherStreet);
+                return StartItemsEqual(street, otherStreet);
             }
-
         }
         else
         {
@@ -275,7 +272,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
             if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(otherCity))
             {
-                if (!comparer.Equals(city, otherCity))
+                if (!StartItemsEqual(city, otherCity))
                 {
                     return false;
                 }
@@ -285,12 +282,27 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
                 if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
                 {
-                    return comparer.Equals(street, otherStreet);
+                    return StartItemsEqual(street, otherStreet);
                 }
             }
         }
 
         return true;
+
+        static bool AreItemsEqual(string? name1, string? name2)
+        {
+            var strip2 = new ItemStripper(name2);
+            return new ItemStripper(name1).Equals(ref strip2, false);
+        }
+
+        static bool StartItemsEqual(string? name1, string? name2)
+        {
+            var strip1 = new ItemStripper(name1);
+            var strip2 = new ItemStripper(name2);
+
+            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1, true)
+                                                           : strip1.StartsWith(ref strip2, true);
+        }
     }
 
 
