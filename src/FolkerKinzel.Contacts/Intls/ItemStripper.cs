@@ -6,14 +6,18 @@ internal ref struct ItemStripper
     private const int INITIAL_INDEX = -1;
 
     private readonly string _s = "";
+    private readonly bool _ignoreCase;
     private int? _length = null;
     private int _currentIndex = INITIAL_INDEX;
 
 
-    internal ItemStripper(string? s) => _s = s ?? "";
+    internal ItemStripper(string? s, bool ignoreCase)
+    {
+        _s = s ?? "";
+        _ignoreCase = ignoreCase;
+    }
 
-
-    public bool Equals(ref ItemStripper other, bool ignoreCase)
+    public bool Equals(ref ItemStripper other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();
@@ -23,7 +27,7 @@ internal ref struct ItemStripper
         {
             thisChar = GetNextChar();
 
-            if (!AreCharsEqual(thisChar, other.GetNextChar(), ignoreCase))
+            if (!AreCharsEqual(thisChar, other.GetNextChar()))
             {
                 return false;
             }
@@ -43,7 +47,14 @@ internal ref struct ItemStripper
 
         while (c != END_OF_STRING)
         {
+            if (_ignoreCase)
+            {
+                c = char.ToUpperInvariant(c);
+            }
+
             hashCode ^= c.GetHashCode();
+
+            c = GetNextChar();
         }
 
         return hashCode;
@@ -73,7 +84,7 @@ internal ref struct ItemStripper
     }
 
 
-    public bool StartsWith(ref ItemStripper other, bool ignoreCase)
+    public bool StartsWith(ref ItemStripper other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();
@@ -88,7 +99,7 @@ internal ref struct ItemStripper
 
             char thisChar = GetNextChar();
 
-            if(!AreCharsEqual(thisChar, otherChar, ignoreCase))
+            if(!AreCharsEqual(thisChar, otherChar))
             {
                 return false;
             }
@@ -120,7 +131,7 @@ internal ref struct ItemStripper
     private void ResetCurrentIndex() => _currentIndex = INITIAL_INDEX;
 
 
-    private static bool AreCharsEqual(char c1, char c2, bool ignoreCase) 
-        => (ignoreCase && char.ToUpperInvariant(c1) == char.ToUpperInvariant(c2)) || c1.Equals(c2);
+    private bool AreCharsEqual(char c1, char c2) 
+        => (_ignoreCase && char.ToUpperInvariant(c1) == char.ToUpperInvariant(c2)) || c1.Equals(c2);
 
 }

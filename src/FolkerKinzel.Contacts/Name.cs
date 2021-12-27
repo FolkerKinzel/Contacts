@@ -242,19 +242,13 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
         return true;
 
-        //static bool AreNamesEqual(string? name1, string? name2)
-        //{
-        //    var strip2 = new ItemStripper(name2);
-        //    return new ItemStripper(name1).Equals(ref strip2, true);
-        //}
-
         static bool StartNamesEqual(string? name1, string? name2)
         {
-            var strip1 = new ItemStripper(name1);
-            var strip2 = new ItemStripper(name2);
+            var strip1 = new ItemStripper(name1, true);
+            var strip2 = new ItemStripper(name2, true);
 
-            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1, true)
-                                                           : strip1.StartsWith(ref strip2, true);
+            return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(ref strip1)
+                                                           : strip1.StartsWith(ref strip2);
         }
     }
 
