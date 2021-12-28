@@ -6,7 +6,6 @@
 /// </summary>
 public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
 {
-
     /// <inheritdoc/>
     public abstract bool IsEmpty { get; }
 
@@ -25,5 +24,12 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     public bool CanBeMergedWith(T? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
 
+    /// <summary>
+    /// Untersucht <paramref name="other"/> daraufhin, ob es eine andere Identität beschreibt, und
+    /// deshalb nicht mit der aktuellen Instanz verschmolzen werden kann.
+    /// </summary>
+    /// <param name="other">Das zu untersuchende Objekt. (Nie <c>null</c> oder <see cref="ICleanable.IsEmpty"/>.)</param>
+    /// <returns>Die Methode darf nur dann <c>true</c> zurückgeben, wenn die Eigenschaften von <paramref name="other"/>
+    /// eine Verschmelzung mit der aktuellen Instanz unmöglich machen, andernfalls <c>false</c>.</returns>
     protected abstract bool BelongsToOtherIdentity(T other);
 }
