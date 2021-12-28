@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über eine Telefonnummer.
 /// </summary>
-public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber>, IEnumerable<PhoneNumber>
+public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber>, IEnumerable<PhoneNumber>, IIdentityComparer<PhoneNumber>
 {
     [Flags]
     private enum Flags
@@ -190,6 +190,14 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     public object Clone() => new PhoneNumber(this);
 
     #endregion
+
+
+    #region IIdentityComparer
+
+    public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || ItemStripper.AreEqual(Value, other.Value);
+
+    #endregion
+
 
 
     #region IEquatable

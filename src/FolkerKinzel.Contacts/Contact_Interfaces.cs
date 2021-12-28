@@ -7,7 +7,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
     #region IIdentityComparer
 
     public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
-   
+
 
     private bool BelongsToOtherIdentity(Contact other)
     {
@@ -67,9 +67,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 
             if (phonesArr.Length != 0 && otherPhonesArr.Length != 0)
             {
-                // For PhoneNumber the standard comparer is suitable because it does only compare
-                // the number:
-                if (phonesArr.Intersect(otherPhonesArr).Any())
+                if (phonesArr.Intersect(otherPhonesArr, PhoneNumberComparer.Instance).Any())
                 {
                     return false;
                 }
@@ -421,24 +419,21 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
                     break;
                 case IEnumerable<PhoneNumber?> phoneNumbers:
                     {
-                        List<PhoneNumber> numbers = phoneNumbers.Where(x => x != null).ToList()!;
+                        List<PhoneNumber> numbers = phoneNumbers.Where(x => x != null && !x.IsEmpty).ToList()!;
                         numbers.ForEach(x => x.Clean());
 
-                        IGrouping<PhoneNumber, PhoneNumber>[] groups = numbers.GroupBy(x => x).ToArray();
+                        IGrouping<PhoneNumber, PhoneNumber>[] groups = numbers.GroupBy(x => x, PhoneNumberComparer.Instance).ToArray();
 
                         numbers.Clear();
 
                         foreach (IGrouping<PhoneNumber, PhoneNumber> group in groups)
                         {
-                            if (!group.Key.IsEmpty)
-                            {
-                                PhoneNumber number = group.Key;
-                                numbers.Add(number);
+                            PhoneNumber number = group.Key;
+                            numbers.Add(number);
 
-                                foreach (PhoneNumber telNumber in group)
-                                {
-                                    number.Merge(telNumber);
-                                }
+                            foreach (PhoneNumber telNumber in group)
+                            {
+                                number.Merge(telNumber);
                             }
                         }
 
