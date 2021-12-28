@@ -2,7 +2,7 @@
 ## Roadmap
 
 ### 2.0.0
-- [ ] Add an interface IIdentityComparer, which has a Method `IsProbablyTheSame(Contact? other)`, and implement it in all classes. Change
+- [ ] Add an interface `IIdentityComparer<T>`, which has a Method `CanBeMergedWith(T? other)`, and implement it in all classes. Change
 the overriden `Equals` and `GetHashCode` methods instead to produce compliant results.
 
 ### 2.1.0
