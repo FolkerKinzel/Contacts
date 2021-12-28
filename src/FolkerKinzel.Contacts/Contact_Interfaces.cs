@@ -160,70 +160,53 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
     /// <returns>Der Hashcode.</returns>
     public override int GetHashCode()
     {
-        const int INITIAL_VALUE = -1;
-        int hash = INITIAL_VALUE;
+        const int nullValue = -1;
+        return TimeStamp.GetHashCode()
+            ^ StringCleaner.PrepareForComparison(DisplayName).GetHashCode()
+            ^ HashStringCollection(EmailAddresses)
+            ^ (Person?.GetHashCode() ?? nullValue)
+            ^ HashPhoneNumbers(PhoneNumbers)
+            ^ (Work?.GetHashCode() ?? nullValue)
+            ^ HashStringCollection(InstantMessengerHandles);
 
-        if (this.IsEmpty)
+
+        static int HashPhoneNumbers(IEnumerable<object?>? coll)
         {
-            return hash;
+            int collHash = nullValue;
+
+            if (coll is null)
+            {
+                return collHash;
+            }
+
+            foreach (var item in coll)
+            {
+                collHash ^= item?.GetHashCode() ?? nullValue;
+            }
+            return collHash;
         }
 
-        Person? person = this.Person;
-
-        if (person != null && !person.IsEmpty)
+        static int HashStringCollection(IEnumerable<string?>? coll)
         {
-            return hash ^ person.GetHashCode();
+            int collHash = nullValue;
+
+            if (coll is null)
+            {
+                return collHash;
+            }
+
+            foreach (var item in coll)
+            {
+                collHash ^= StringCleaner.PrepareForComparison(item).GetHashCode();
+            }
+            return collHash;
         }
 
-        Work? work = this.Work;
-
-        if (work != null && !work.IsEmpty)
-        {
-            return hash ^ work.GetHashCode();
-        }
 
 
-
-        string? email = this.EmailAddresses?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
-
-        if (email != null)
-        {
-#if NET40 || NET461 || NETSTANDARD2_0
-                return hash ^ email.GetHashCode();
-#else
-            return hash ^ email.GetHashCode(StringComparison.Ordinal);
-#endif
-        }
-
-        string? im = this.InstantMessengerHandles?.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
-
-        if (im != null)
-        {
-#if NET40 || NET461 || NETSTANDARD2_0
-                return hash ^ im.GetHashCode();
-#else
-            return hash ^ im.GetHashCode(StringComparison.Ordinal);
-#endif
-        }
-
-        string? displayName = this.DisplayName;
-
-        if (!string.IsNullOrWhiteSpace(displayName))
-        {
-#if NET40 || NETSTANDARD2_0 || NET461
-                return hash ^ displayName.GetHashCode();
-#else
-            return hash ^ displayName.GetHashCode(StringComparison.CurrentCultureIgnoreCase);
-#endif
-        }
-
-        if (hash == INITIAL_VALUE)
-        {
-            hash ^= 4711;
-        }
-
-        return hash;
     }
+
+
 
 
     // Überladen von == und !=
@@ -270,6 +253,64 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
     /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentieren könnte, andernfalls <c>false</c>.</returns>
     private bool CompareBoolean(Contact other)
     {
+        StringComparer comp = StringComparer.Ordinal;
+
+        return TimeStamp != other.TimeStamp
+            && comp.Equals(StringCleaner.PrepareForComparison(DisplayName), StringCleaner.PrepareForComparison(other.DisplayName))
+            && CompareStringCollections(EmailAddresses, other.EmailAddresses)
+            && Person == other.Person
+            && ComparePhoneNumbers(PhoneNumbers, other.PhoneNumbers)
+            && Work == other.Work
+            && CompareStringCollections(InstantMessengerHandles, other.InstantMessengerHandles)
+            && AddressHome == other.AddressHome
+            && comp.Equals(StringCleaner.PrepareForComparison(WebPagePersonal), StringCleaner.PrepareForComparison(other.WebPagePersonal))
+            && comp.Equals(StringCleaner.PrepareForComparison(Comment), StringCleaner.PrepareForComparison(other.Comment))
+            && comp.Equals(StringCleaner.PrepareForComparison(WebPageWork), StringCleaner.PrepareForComparison(other.WebPageWork));
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        static bool CompareStringCollections(IEnumerable<string?>? coll1, IEnumerable<string?>? coll2)
+        {
+            if (ReferenceEquals(coll1, coll2))
+            {
+                return true;
+            }
+
+            if(coll1 is null)
+            {
+                return !coll2!.Any();
+            }
+
+            if (coll2 is null)
+            {
+                return coll1!.Any();
+            }
+
+            return coll1.Select(x => StringCleaner.PrepareForComparison(x))
+                        .SequenceEqual(coll2.Select(x => StringCleaner.PrepareForComparison(x)));
+        }
+
+        static bool ComparePhoneNumbers(IEnumerable<PhoneNumber?>? coll1, IEnumerable<PhoneNumber?>? coll2)
+        {
+            if (ReferenceEquals(coll1, coll2))
+            {
+                return true;
+            }
+
+            if (coll1 is null)
+            {
+                return !coll2!.Any();
+            }
+
+            if (coll2 is null)
+            {
+                return coll1!.Any();
+            }
+
+            return coll1.SequenceEqual(coll2);
+        }
+
         if (this.IsEmpty)
         {
             if (other.IsEmpty)

@@ -338,12 +338,11 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// <returns>Der Hashcode.</returns>
     public override int GetHashCode()
     {
-        int hash = -1;
-
-        ModifyHash(Company);
-        ModifyHash(Department);
-        ModifyHash(Office);
-        ModifyHash(JobTitle);
+        int hash = -1
+                   ^ GetHash(Company)
+                   ^ GetHash(Department)
+                   ^ GetHash(Office)
+                   ^ GetHash(JobTitle);
 
         Address? adr = AddressWork;
 
@@ -356,10 +355,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
         ////////////////////////////////////////
 
-        void ModifyHash(string? s)
-        {
-            hash ^= (s ?? string.Empty).GetHashCode();
-        }
+        static int GetHash(string? s) => StringCleaner.PrepareForComparison(s).GetHashCode();
     }
 
 
@@ -418,13 +414,11 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     {
         StringComparer comparer = StringComparer.Ordinal;
 
-        return comparer.Equals(Prepare(Company), Prepare(Company))
-               && comparer.Equals(Prepare(Department), Prepare(Department))
-               && comparer.Equals(Prepare(Office), Prepare(Office))
-               && comparer.Equals(Prepare(JobTitle), Prepare(JobTitle))
+        return comparer.Equals(StringCleaner.PrepareForComparison(Company), StringCleaner.PrepareForComparison(Company))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Department), StringCleaner.PrepareForComparison(Department))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Office), StringCleaner.PrepareForComparison(Office))
+               && comparer.Equals(StringCleaner.PrepareForComparison(JobTitle), StringCleaner.PrepareForComparison(JobTitle))
                && AddressWork == other.AddressWork;
-
-        static string Prepare(string? s) => s ?? string.Empty;
     }
 
 

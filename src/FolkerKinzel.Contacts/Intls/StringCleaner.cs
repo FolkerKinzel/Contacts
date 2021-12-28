@@ -13,4 +13,7 @@ internal static class StringCleaner
                     : Regex.Replace(val.Trim(), @"\s+", " ", RegexOptions.Compiled
                                                            | RegexOptions.Singleline
                                                            | RegexOptions.CultureInvariant);
+
+    internal static string PrepareForComparison(string? text) => text ?? string.Empty;
+
 }

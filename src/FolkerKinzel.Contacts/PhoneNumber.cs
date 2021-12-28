@@ -259,7 +259,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <returns>Der Hashcode.</returns>
     public override int GetHashCode()
     {
-        int hashCode = (Value ?? string.Empty).GetHashCode();
+        int hashCode = StringCleaner.PrepareForComparison(Value).GetHashCode();
         return hashCode ^ _flags.GetHashCode();
     }
 
@@ -314,7 +314,8 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
     private bool CompareBoolean(PhoneNumber other)
-        => StringComparer.Ordinal.Equals(other.Value ?? string.Empty) && _flags == other._flags;
+        => StringComparer.Ordinal.Equals(StringCleaner.PrepareForComparison(Value), StringCleaner.PrepareForComparison(other.Value))
+           && _flags == other._flags;
 
     #endregion
 

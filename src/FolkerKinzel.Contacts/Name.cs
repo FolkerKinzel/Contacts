@@ -272,7 +272,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
         void ModifyHash(string? s)
         {
-            hash ^= (s ?? string.Empty).GetHashCode();
+            hash ^= StringCleaner.PrepareForComparison(s).GetHashCode();
         }
     }
 
@@ -327,13 +327,12 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     {
         StringComparer comparer = StringComparer.Ordinal;
 
-        return comparer.Equals(Prepare(LastName), Prepare(other.LastName))
-            && comparer.Equals(Prepare(FirstName), Prepare(other.FirstName))
-            && comparer.Equals(Prepare(MiddleName), Prepare(other.MiddleName))
-            && comparer.Equals(Prepare(Suffix), Prepare(other.Suffix))
-            && comparer.Equals(Prepare(Prefix), Prepare(other.Prefix));
+        return comparer.Equals(StringCleaner.PrepareForComparison(LastName), StringCleaner.PrepareForComparison(other.LastName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(FirstName), StringCleaner.PrepareForComparison(other.FirstName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(MiddleName), StringCleaner.PrepareForComparison(other.MiddleName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Suffix), StringCleaner.PrepareForComparison(other.Suffix))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Prefix), StringCleaner.PrepareForComparison(other.Prefix));
 
-        static string Prepare(string? s) => s ?? string.Empty;
     }
 
     #endregion

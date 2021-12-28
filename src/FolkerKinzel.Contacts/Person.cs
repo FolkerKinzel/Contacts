@@ -370,7 +370,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ (NickName ?? string.Empty).GetHashCode();
+    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
 
 
     /// <summary>
@@ -424,12 +424,10 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
 
         return Name == p.Name
         && BirthDay == p.BirthDay
-        && comp.Equals(Prepare(NickName), Prepare(p.NickName))
+        && comp.Equals(StringCleaner.PrepareForComparison(NickName), StringCleaner.PrepareForComparison(p.NickName))
         && Gender == p.Gender
         && Anniversary == p.Anniversary
-        && comp.Equals(Prepare(Spouse), Prepare(p.Spouse));
-
-        static string Prepare(string? s) => s ?? string.Empty;
+        && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(p.Spouse));
     }
     #endregion
     #endregion
