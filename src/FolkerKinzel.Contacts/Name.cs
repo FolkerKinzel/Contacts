@@ -185,6 +185,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
     #region IIdentityComparer
 
+    /// <inheritdoc/>
     public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
     private bool BelongsToOtherIdentity(Name other)
@@ -202,13 +203,13 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals um Vergleich zu ermöglichen.
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
-    /// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt, das denselben Namen darstellt.
-    /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
+    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt, das denselben Namen darstellt.
+    ///// </summary>
+    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
+    /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not Name p)
@@ -227,12 +228,13 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     }
 
 
-    /// <summary>
-    /// Vergleicht this mit einem anderen <see cref="Name"/>-Objekt, um zu ermitteln,
-    /// ob beide denselben Namen darstellen.
-    /// </summary>
-    /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
+    ///// <summary>
+    ///// Vergleicht this mit einem anderen <see cref="Name"/>-Objekt, um zu ermitteln,
+    ///// ob beide denselben Namen darstellen.
+    ///// </summary>
+    ///// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Name? other)
     {
         // If parameter is null return false:
@@ -252,10 +254,11 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     }
 
 
-    /// <summary>
-    /// Erzeugt einen Hashcode für das Objekt.
-    /// </summary>
-    /// <returns>Der Hashcode.</returns>
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
     public override int GetHashCode()
     {
         int hash = -1;

@@ -194,6 +194,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
 
     #region IIdentityComparer
 
+    /// <inheritdoc/>
     public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || ItemStripper.AreEqual(Value, other.Value);
 
     #endregion
@@ -202,14 +203,14 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals um Vergleich zu ermöglichen.
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob es sich bei <paramref name="obj"/>
-    /// um ein <see cref="PhoneNumber"/>-Objekt handelt, das auf dieselbe
-    /// Telefonnummer verweist.
-    /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob es sich bei <paramref name="obj"/>
+    ///// um ein <see cref="PhoneNumber"/>-Objekt handelt, das auf dieselbe
+    ///// Telefonnummer verweist.
+    ///// </summary>
+    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
+    /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not PhoneNumber p)
@@ -228,12 +229,13 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     }
 
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt, um festzustellen, ob beide
-    /// auf dieselbe Telefonnummer verweisen.
-    /// </summary>
-    /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt, um festzustellen, ob beide
+    ///// auf dieselbe Telefonnummer verweisen.
+    ///// </summary>
+    ///// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
+    /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
         // If parameter is null return false:
@@ -253,10 +255,11 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     }
 
 
-    /// <summary>
-    /// Erzeugt einen Hashcode für das Objekt.
-    /// </summary>
-    /// <returns>Der Hashcode.</returns>
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
     public override int GetHashCode()
     {
         int hashCode = StringCleaner.PrepareForComparison(Value).GetHashCode();
@@ -269,12 +272,11 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Überladung des == Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
-    /// auf dieselbe Telefonnummer verweisen.
+    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie gleich sind.
     /// </remarks>
     /// <param name="phone1">Linker Operand.</param>
     /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf dieselbe Telefonnummer verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> gleich sind.</returns>
     public static bool operator ==(PhoneNumber? phone1, PhoneNumber? phone2)
     {
         // If both are null, or both are same instance, return true.
@@ -299,20 +301,19 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Überladung des != Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
-    /// auf unterschiedliche Telefonnummern verweisen.
+    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
     /// </remarks>
     /// <param name="phone1">Linker Operand.</param>
     /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf unterschiedliche Telefonnummern verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> ungleich sind.</returns>
     public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2) => !(phone1 == phone2);
 
 
     /// <summary>
-    /// Vergleicht den Inhalt der <see cref="Value"/>-Property von this mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
     /// </summary>
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(PhoneNumber other)
         => StringComparer.Ordinal.Equals(StringCleaner.PrepareForComparison(Value), StringCleaner.PrepareForComparison(other.Value))
            && _flags == other._flags;

@@ -103,14 +103,15 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals um Vergleich zu ermöglichen
     /// <summary>
-    /// Vergleicht die Instanz mit einem <see cref="object"/>, um festzustellen,
-    /// ob es sich um ein <see cref="Contact"/>-Objekt handelt, das dieselbe Person oder Organisation repräsentiert.
+    /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
+    /// ob es sich bei <paramref name="obj"/> um ein <see cref="Contact"/>-Objekt handelt, das
+    /// gleiche Eigenschaften hat. 
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Contact"/>-Objekt ist, das dieselbe Person oder Organisation repräsentiert.</returns>
-    public override bool Equals(object? obj)
+    /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Contact"/>-Objekt handelt, das
+    /// gleiche Eigenschaften hat.</returns>
+    public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to Contact return false.
         if (obj is not Contact p)
@@ -130,12 +131,13 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 
 
     /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="Contact"/>-Objekt, um festzustellen,
-    /// ob beide dieselbe Person oder Organisation repräsentieren.
+    /// Vergleicht die Instanz mit einem anderen 
+    /// <see cref="Contact"/>-Objekt,
+    /// um festzustellen, ob beide gleich sind.
     /// </summary>
     /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentiert.</returns>
-    public bool Equals(Contact? other)
+    /// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+    public bool Equals([NotNullWhen(true)] Contact? other)
     {
         // If parameter is null return false:
         if (other is null)
@@ -201,22 +203,18 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
             }
             return collHash;
         }
-
-
-
     }
 
 
-
-
-    // Überladen von == und !=
     /// <summary>
     /// Überladung des == Operators.
     /// </summary>
-    /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide dieselbe Person oder Organisation repräsentieren.</remarks>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Contact"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
     /// <param name="contact1">Linker Operand.</param>
     /// <param name="contact2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> dieselbe Person oder Organisation repräsentieren.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> gleich sind.</returns>
     public static bool operator ==(Contact? contact1, Contact? contact2)
     {
         // If both are null, or both are same instance, return true.
@@ -236,21 +234,24 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
         }
     }
 
+
     /// <summary>
     /// Überladung des != Operators.
     /// </summary>
-    /// <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide unterschiedliche Personen oder Organisationen repräsentieren.</remarks>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Contact"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
+    /// </remarks>
     /// <param name="contact1">Linker Operand.</param>
     /// <param name="contact2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> ungleich sind.</returns>
     public static bool operator !=(Contact? contact1, Contact? contact2) => !(contact1 == contact2);
 
+
     /// <summary>
-    /// Vergleicht den Inhalt der Properties von this mit denen eines anderen <see cref="Contact"/>-Objekts darauf,
-    /// ob das <see cref="Contact"/>-Objekt dieselbe Person oder Organisation repräsentieren könnte.
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"/>-Objekts.
     /// </summary>
     /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentieren könnte, andernfalls <c>false</c>.</returns>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Contact other)
     {
         StringComparer comp = StringComparer.Ordinal;
@@ -277,7 +278,7 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
                 return true;
             }
 
-            if(coll1 is null)
+            if (coll1 is null)
             {
                 return !coll2!.Any();
             }
@@ -310,112 +311,6 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
 
             return coll1.SequenceEqual(coll2);
         }
-
-        if (this.IsEmpty)
-        {
-            if (other.IsEmpty)
-            {
-                return true;
-            }
-        }
-        else if (other.IsEmpty)
-        {
-            return false;
-        }
-
-        Person? person = this.Person;
-        Person? otherPerson = other.Person;
-        if (person != null && otherPerson != null && !person.IsEmpty && !otherPerson.IsEmpty)
-        {
-            return person == otherPerson;
-        }
-
-        Work? work = this.Work;
-        Work? otherWork = other.Work;
-        if (work != null && otherWork != null && !work.IsEmpty && !otherWork.IsEmpty)
-        {
-            return work == otherWork;
-        }
-
-        IEnumerable<string?>? emails = this.EmailAddresses;
-        IEnumerable<string?>? otherEmails = other.EmailAddresses;
-        if (emails != null && otherEmails != null)
-        {
-            var emailsArr = emails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-            var otherEmailsArr = otherEmails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-
-            if (emailsArr.Length != 0 && otherEmailsArr.Length != 0)
-            {
-                if (emailsArr.Intersect(otherEmailsArr, StringComparer.Ordinal).Any())
-                {
-                    return true;
-                }
-            }
-        }
-
-
-        IEnumerable<string?>? ims = this.InstantMessengerHandles;
-        IEnumerable<string?>? otherIMs = other.InstantMessengerHandles;
-        if (ims != null && otherIMs != null)
-        {
-            var imsArr = ims.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-            var otherIMsArr = otherIMs.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-
-            if (imsArr.Length != 0 && otherIMsArr.Length != 0)
-            {
-                if (imsArr.Intersect(otherIMsArr, StringComparer.Ordinal).Any())
-                {
-                    return true;
-                }
-            }
-        }
-
-        string? displayName = this.DisplayName;
-        string? otherDisplayName = other.DisplayName;
-        if (!string.IsNullOrWhiteSpace(this.DisplayName) && !string.IsNullOrWhiteSpace(otherDisplayName))
-        {
-            return StringComparer.CurrentCultureIgnoreCase.Equals(displayName, otherDisplayName);
-        }
-
-
-        IEnumerable<PhoneNumber?>? phones = this.PhoneNumbers;
-        IEnumerable<PhoneNumber?>? otherPhones = other.PhoneNumbers;
-        if (phones != null && otherPhones != null)
-        {
-            PhoneNumber[] phonesArr = phones.Where(x => x != null && !x.IsEmpty).ToArray()!;
-            PhoneNumber[] otherPhonesArr = otherPhones.Where(x => x != null && !x.IsEmpty).ToArray()!;
-
-            if (phonesArr.Length != 0 && otherPhonesArr.Length != 0)
-            {
-                if (phonesArr.Intersect(otherPhonesArr).Any())
-                {
-                    return true;
-                }
-            }
-        }
-
-        Address? adr = this.AddressHome;
-        Address? otherAdr = other.AddressHome;
-        if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
-        {
-            return adr.Equals(otherAdr);
-        }
-
-        string? homePagePersonal = this.WebPagePersonal;
-        string? otherHomePagePersonal = other.WebPagePersonal;
-        if (!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
-        {
-            return StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
-        }
-
-        string? homePageWork = this.WebPageWork;
-        string? otherHomePageWork = other.WebPageWork;
-        if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
-        {
-            return StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
-        }
-
-        return true;
     }
 
     #endregion

@@ -281,13 +281,14 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals um Vergleich zu ermöglichen
     /// <summary>
-    /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob beide <see cref="Work"/>-Objekte sind, die dieselbe
-    /// Arbeitsstelle beschreiben.
+    /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
+    /// ob es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
+    /// gleiche Eigenschaften hat. 
     /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem die aktuelle Instanz verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Work"/>-Objekt ist, das dieselbe Arbeitsstelle beschreibt.</returns>
+    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
+    /// gleiche Eigenschaften hat.</returns>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to EnterpriseData return false.
@@ -308,11 +309,12 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
 
     /// <summary>
-    /// Vergleicht die aktuelle Instanz mit einem anderen <see cref="Work"/>-Objekt, um festzustellen, ob beide dieselbe
-    /// Arbeitsstelle beschreiben.
+    /// Vergleicht die Instanz mit einem anderen 
+    /// <see cref="Work"/>-Objekt,
+    /// um festzustellen, ob beide gleich sind.
     /// </summary>
-    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem die aktuelle Instanz verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Arbeitsstelle beschreibt.</returns>
+    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
     public bool Equals([NotNullWhen(true)] Work? other)
     {
         // If parameter is null return false:
@@ -359,17 +361,15 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     }
 
 
-    // Überladen von == und !=
     /// <summary>
-    /// Überladung des == Operators. 
+    /// Überladung des == Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
-    /// ob sie auf dieselbe Arbeitsstelle verweisen.</remarks>
+    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
     /// <param name="work1">Linker Operand.</param>
     /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> auf
-    /// dieselbe Arbeitsstelle verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> gleich sind.</returns>
     public static bool operator ==(Work? work1, Work? work2)
     {
         // If both are null, or both are same instance, return true.
@@ -394,22 +394,19 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// Überladung des != Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
-    /// ob sie auf unterschiedliche Arbeitsstellen verweisen.
+    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
     /// </remarks>
     /// <param name="work1">Linker Operand.</param>
     /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/>
-    /// auf unterschiedliche Arbeitsstellen verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> ungleich sind.</returns>
     public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
 
 
     /// <summary>
-    /// Vergleicht den Inhalt der <see cref="Company"/>- und <see cref="AddressWork"/>-Eigenschaften eines anderen <see cref="Work"/>-Objekts mit denen
-    /// von this, um zu bestimmen, ob beide auf dieselbe Arbeitsstelle verweisen.
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"/>-Objekts.
     /// </summary>
-    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Arbeitsstelle verweisen.</returns>
+    /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Work other)
     {
         StringComparer comparer = StringComparer.Ordinal;

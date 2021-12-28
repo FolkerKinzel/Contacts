@@ -312,7 +312,6 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals um Vergleich zu ermöglichen
     /// <summary>
     /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
     /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
@@ -320,7 +319,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// </summary>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    /// gleiche Eigenschaften hat. </returns>
+    /// gleiche Eigenschaften hat.</returns>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabPerson return false.
@@ -377,7 +376,7 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// Überladung des == Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// Vergleicht zwei <see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
     /// </remarks>
     /// <param name="person1">Linker Operand.</param>
     /// <param name="person2">Rechter Operand.</param>
@@ -410,24 +409,23 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <param name="person1">Linker Operand.</param>
     /// <param name="person2">Rechter Operand.</param>
     /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> ungleich sind.</returns>
-
     public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
 
     /// <summary>
     /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Person"/>-Objekts.
     /// </summary>
-    /// <param name="p">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
+    /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
-    private bool CompareBoolean(Person p)
+    private bool CompareBoolean(Person other)
     {
         StringComparer comp = StringComparer.Ordinal;
 
-        return Name == p.Name
-        && BirthDay == p.BirthDay
-        && comp.Equals(StringCleaner.PrepareForComparison(NickName), StringCleaner.PrepareForComparison(p.NickName))
-        && Gender == p.Gender
-        && Anniversary == p.Anniversary
-        && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(p.Spouse));
+        return Name == other.Name
+        && BirthDay == other.BirthDay
+        && comp.Equals(StringCleaner.PrepareForComparison(NickName), StringCleaner.PrepareForComparison(other.NickName))
+        && Gender == other.Gender
+        && Anniversary == other.Anniversary
+        && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(other.Spouse));
     }
     #endregion
     #endregion

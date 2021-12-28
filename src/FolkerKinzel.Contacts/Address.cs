@@ -238,6 +238,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     #region IIdentityComparer
 
+    /// <inheritdoc/>
     public bool CanBeMergedWith(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
     
 
@@ -284,17 +285,17 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     #region IEquatable
 
-    //Überschreiben von Object.Equals, um Vergleich zu ermöglichen
-    /// <summary>
-    /// Vergleicht die Instanz mit <paramref name="obj"/>,
-    /// um festzustellen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
-    /// dieselbe Postanschrift darstellt.
-    /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit <paramref name="obj"/>,
+    ///// um festzustellen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
+    ///// dieselbe Postanschrift darstellt.
+    ///// </summary>
+    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
+    /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
-        // If parameter cannot be cast to WabAddress return false.
+        // If parameter cannot be cast to Address return false.
         if (obj is not Address p)
         {
             return false;
@@ -312,12 +313,13 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
 
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="Address"/>-Objekt,
-    /// um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
-    /// </summary>
-    /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="Address"/>-Objekt,
+    ///// um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
+    ///// </summary>
+    ///// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
+    /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Address? other)
     {
         // If parameter is null return false:
@@ -336,10 +338,11 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
         return CompareBoolean(other);
     }
 
-    /// <summary>
-    /// Erzeugt einen Hashcode für das Objekt.
-    /// </summary>
-    /// <returns>Der Hashcode.</returns>
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
     public override int GetHashCode()
     {
         int hash = -1;
@@ -387,12 +390,11 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// Überladung des == Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
-    /// dieselbe Postanschrift darstellen.
+    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie gleich sind.
     /// </remarks>
     /// <param name="address1">Linker Operand.</param>
     /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> dieselbe Postanschrift darstellen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> gleich sind.</returns>
     public static bool operator ==(Address? address1, Address? address2)
     {
         // If both are null, or both are same instance, return true.
@@ -416,20 +418,19 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// Überladung des != Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
-    /// unterschiedliche Postanschriften darstellen.
+    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
     /// </remarks>
     /// <param name="address1">Linker Operand.</param>
     /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> unterschiedliche Postanschriften darstellen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> ungleich sind.</returns>
     public static bool operator !=(Address? address1, Address? address2) => !(address1 == address2);
 
+
     /// <summary>
-    /// Vergleicht den Inhalt der Properties <see cref="PostalCode"/>, <see cref="Street"/> und <see cref="City"/>,
-    /// um zu bestimmen, ob <paramref name="other"/> eine identische Adresse ist.
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Address"/>-Objekts.
     /// </summary>
     /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Adresse darstellt.</returns>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Address other)
     {
         StringComparer comparer = StringComparer.OrdinalIgnoreCase;
