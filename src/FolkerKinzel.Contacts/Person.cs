@@ -312,14 +312,15 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
 
     #region IEquatable
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
-    /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    /// gleiche Eigenschaften hat. 
-    /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    /// gleiche Eigenschaften hat.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
+    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
+    ///// gleiche Eigenschaften hat. 
+    ///// </summary>
+    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
+    ///// gleiche Eigenschaften hat.</returns>
+    /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabPerson return false.
@@ -339,13 +340,14 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     }
 
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen 
-    /// <see cref="Person"/>-Objekt,
-    /// um festzustellen, ob beide gleich sind.
-    /// </summary>
-    /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen 
+    ///// <see cref="Person"/>-Objekt,
+    ///// um festzustellen, ob beide gleich sind.
+    ///// </summary>
+    ///// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+    /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Person? other)
     {
         // If parameter is null return false:
@@ -365,10 +367,11 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     }
 
 
-    /// <summary>
-    /// Erzeugt einen Hashcode für das Objekt.
-    /// </summary>
-    /// <returns>Der Hashcode.</returns>
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
     public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
 
 

@@ -281,14 +281,15 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
     #region IEquatable
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
-    /// ob es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
-    /// gleiche Eigenschaften hat. 
-    /// </summary>
-    /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
-    /// gleiche Eigenschaften hat.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
+    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
+    ///// gleiche Eigenschaften hat. 
+    ///// </summary>
+    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
+    ///// gleiche Eigenschaften hat.</returns>
+    /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to EnterpriseData return false.
@@ -308,13 +309,14 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     }
 
 
-    /// <summary>
-    /// Vergleicht die Instanz mit einem anderen 
-    /// <see cref="Work"/>-Objekt,
-    /// um festzustellen, ob beide gleich sind.
-    /// </summary>
-    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+    ///// <summary>
+    ///// Vergleicht die Instanz mit einem anderen 
+    ///// <see cref="Work"/>-Objekt,
+    ///// um festzustellen, ob beide gleich sind.
+    ///// </summary>
+    ///// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
+    ///// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+    /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Work? other)
     {
         // If parameter is null return false:
@@ -334,10 +336,11 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     }
 
 
-    /// <summary>
-    /// Erzeugt einen Hashcode für das Objekt.
-    /// </summary>
-    /// <returns>Der Hashcode.</returns>
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
     public override int GetHashCode()
     {
         int hash = -1

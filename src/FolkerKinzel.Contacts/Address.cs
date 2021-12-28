@@ -347,39 +347,17 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     {
         int hash = -1;
 
-        if (this.IsEmpty)
-        {
-            return hash;
-        }
-
-#if !NET40 && !NETSTANDARD2_0 && !NET461
-        StringComparison comparison = StringComparison.OrdinalIgnoreCase;
-#endif
-
         ModifyHash(PostalCode);
-
-        if (hash != -1)
-        {
-            ModifyHash(Street);
-            return hash;
-        }
-
         ModifyHash(City);
         ModifyHash(Street);
 
         return hash;
 
+        ////////////////////////////////////////////////
 
         void ModifyHash(string? s)
         {
-            if (!string.IsNullOrWhiteSpace(s))
-            {
-#if NET40 || NET461 || NETSTANDARD2_0
-                    hash ^= s.ToUpperInvariant().GetHashCode();
-#else
-                hash ^= s.GetHashCode(comparison);
-#endif
-            }
+            hash ^= StringCleaner.PrepareForComparison(s).GetHashCode();
         }
     }
 
@@ -414,6 +392,7 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
         }
     }
 
+
     /// <summary>
     /// Überladung des != Operators.
     /// </summary>
@@ -433,52 +412,13 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Address other)
     {
-        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+        StringComparer comparer = StringComparer.Ordinal;
 
-        string? postalCode = PostalCode;
-        string? otherPostalCode = other.PostalCode;
-
-        if (!string.IsNullOrWhiteSpace(postalCode) && !string.IsNullOrWhiteSpace(otherPostalCode))
-        {
-            if (!comparer.Equals(postalCode, otherPostalCode))
-            {
-                return false;
-            }
-
-            string? street = Street;
-            string? otherStreet = other.Street;
-
-            if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
-            {
-                return comparer.Equals(street, otherStreet);
-            }
-
-        }
-        else
-        {
-            string? city = City;
-            string? otherCity = other.City;
-
-            if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(otherCity))
-            {
-                if (!comparer.Equals(city, otherCity))
-                {
-                    return false;
-                }
-
-                string? street = Street;
-                string? otherStreet = other.Street;
-
-                if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
-                {
-                    return comparer.Equals(street, otherStreet);
-                }
-            }
-        }
-
-        return true;
-
-
+        return comparer.Equals(StringCleaner.PrepareForComparison(PostalCode), StringCleaner.PrepareForComparison(other.PostalCode))
+            && comparer.Equals(StringCleaner.PrepareForComparison(City), StringCleaner.PrepareForComparison(other.City))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Street), StringCleaner.PrepareForComparison(other.Street))
+            && comparer.Equals(StringCleaner.PrepareForComparison(State), StringCleaner.PrepareForComparison(other.State))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
     }
 
     #endregion
