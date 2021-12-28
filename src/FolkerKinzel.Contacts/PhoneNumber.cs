@@ -257,7 +257,11 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode() => new ItemStripper(Value).GetHashCode();
+    public override int GetHashCode()
+    {
+        int hashCode = Value?.GetHashCode() ?? string.Empty.GetHashCode();
+        return hashCode^_flags.GetHashCode();
+    }
 
 
     #region Überladen von == und !=
@@ -309,7 +313,15 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// </summary>
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
-    private bool CompareBoolean(PhoneNumber other) => ItemStripper.AreEqual(this.Value, other.Value);
+    private bool CompareBoolean(PhoneNumber other)
+    {
+        if(StringComparer.Ordinal.Equals(other.Value))
+        {
+            return _flags == other._flags;
+        }
+
+        return false;
+    }
 
     #endregion
 

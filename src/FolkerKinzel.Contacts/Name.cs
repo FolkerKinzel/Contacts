@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Buffers;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using FolkerKinzel.Contacts.Intls;
@@ -262,30 +263,18 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     {
         int hash = -1;
 
-#if NET40 || NETSTANDARD2_0 || NET461
-            CultureInfo? culture = CultureInfo.CurrentUICulture;
-#else
-        StringComparison comparison = StringComparison.CurrentCultureIgnoreCase;
-#endif
-
         ModifyHash(LastName);
         ModifyHash(FirstName);
+        ModifyHash(MiddleName);
         ModifyHash(Suffix);
+        ModifyHash(Prefix);
+
+        return hash;
 
         void ModifyHash(string? s)
         {
-            if (!string.IsNullOrWhiteSpace(s))
-            {
-#if NET40 || NETSTANDARD2_0 || NET461
-                    hash ^= s.ToUpper(culture).GetHashCode();
-#else
-                hash ^= s.GetHashCode(comparison);
-#endif
-            }
+            hash ^= s?.GetHashCode() ?? string.Empty.GetHashCode();
         }
-
-
-        return hash;
     }
 
 
@@ -337,51 +326,20 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     /// <returns><c>true</c>, wenn beide Objekte auf den Namen derselben Person verweisen.</returns>
     private bool CompareBoolean(Name other)
     {
-        StringComparer comparer = StringComparer.CurrentCultureIgnoreCase;
+        StringComparer comparer = StringComparer.Ordinal;
 
-        string? lastName = this.LastName;
-        if (!string.IsNullOrWhiteSpace(lastName))
-        {
-            string? otherLastName = other.LastName;
-            if (!string.IsNullOrWhiteSpace(otherLastName) && !comparer.Equals(otherLastName, lastName))
-            {
-                return false;
-            }
-        }
-
-        string? firstName = this.FirstName;
-        if (!string.IsNullOrWhiteSpace(firstName))
-        {
-            string? otherFirstName = other.FirstName;
-            if (!string.IsNullOrWhiteSpace(otherFirstName) && !comparer.Equals(otherFirstName, firstName))
-            {
-                return false;
-            }
-        }
-
-        string? middleName = this.MiddleName;
-        if (!string.IsNullOrWhiteSpace(middleName))
-        {
-            string? otherMiddleName = other.MiddleName;
-            if (!string.IsNullOrWhiteSpace(otherMiddleName) && !comparer.Equals(otherMiddleName, middleName))
-            {
-                return false;
-            }
-        }
-
-        string? suffix = this.Suffix;
-        string? otherSuffix = other.Suffix;
-        if (string.IsNullOrWhiteSpace(suffix) && string.IsNullOrWhiteSpace(otherSuffix))
-        {
-            return true;
-        }
-
-        if (!comparer.Equals(otherSuffix, suffix))
+        if (   !comparer.Equals(Prepare(LastName), Prepare(other.LastName)) 
+            || !comparer.Equals(Prepare(FirstName), Prepare(other.FirstName))
+            || !comparer.Equals(Prepare(MiddleName), Prepare(other.MiddleName))
+            || !comparer.Equals(Prepare(Suffix), Prepare(other.Suffix))
+            || !comparer.Equals(Prepare(Prefix), Prepare(other.Prefix)))
         {
             return false;
         }
 
         return true;
+
+        static string Prepare(string? s) => s ?? string.Empty;
     }
 
     #endregion
