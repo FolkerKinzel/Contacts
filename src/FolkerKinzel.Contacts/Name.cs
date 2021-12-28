@@ -1,7 +1,4 @@
-﻿using System.Buffers;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text;
+﻿using System.Text;
 using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
@@ -267,7 +264,7 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
         ModifyHash(FirstName);
         ModifyHash(MiddleName);
         ModifyHash(Suffix);
-        ModifyHash(Prefix);
+        //ModifyHash(Prefix);
 
         return hash;
 
@@ -328,16 +325,11 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     {
         StringComparer comparer = StringComparer.Ordinal;
 
-        if (   !comparer.Equals(Prepare(LastName), Prepare(other.LastName)) 
-            || !comparer.Equals(Prepare(FirstName), Prepare(other.FirstName))
-            || !comparer.Equals(Prepare(MiddleName), Prepare(other.MiddleName))
-            || !comparer.Equals(Prepare(Suffix), Prepare(other.Suffix))
-            || !comparer.Equals(Prepare(Prefix), Prepare(other.Prefix)))
-        {
-            return false;
-        }
-
-        return true;
+        return comparer.Equals(Prepare(LastName), Prepare(other.LastName))
+            && comparer.Equals(Prepare(FirstName), Prepare(other.FirstName))
+            && comparer.Equals(Prepare(MiddleName), Prepare(other.MiddleName))
+            && comparer.Equals(Prepare(Suffix), Prepare(other.Suffix))
+            && comparer.Equals(Prepare(Prefix), Prepare(other.Prefix));
 
         static string Prepare(string? s) => s ?? string.Empty;
     }

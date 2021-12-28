@@ -376,35 +376,9 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// Erzeugt einen Hashcode für das Objekt.
     /// </summary>
     /// <returns>Der Hashcode.</returns>
-    public override int GetHashCode()
-    {
-        int hash = -1;
-        Name? name = Name;
-
-        if (name is null || name.IsEmpty)
-        {
-            string? nickName = NickName;
-
-            if (!string.IsNullOrWhiteSpace(nickName))
-            {
-#if NET40 || NETSTANDARD2_0 || NET461
-                    hash ^= nickName.Trim().ToUpper(CultureInfo.CurrentUICulture).GetHashCode();
-#else
-                hash ^= nickName.Trim().GetHashCode(StringComparison.CurrentCultureIgnoreCase);
-#endif
-            }
-        }
-        else
-        {
-            hash = name.GetHashCode();
-        }
-
-        // Wenn weder Name noch NickName angegeben sind, interessiert auch Birthday nicht.
-        return hash;
-    }
+    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ (NickName ?? string.Empty).GetHashCode();
 
 
-    // Überladen von == und !=
     /// <summary>
     /// Überladung des == Operators.
     /// </summary>
@@ -456,44 +430,15 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
     private bool CompareBoolean(Person p)
     {
-        Name? name = Name;
-        Name? otherName = p.Name;
+        StringComparer comp = StringComparer.Ordinal;
 
-        if (name is null || otherName is null || name.IsEmpty || otherName.IsEmpty)
-        {
-            string? nickName = NickName;
-            string? otherNickName = p.NickName;
-
-            if (!string.IsNullOrWhiteSpace(nickName) && !string.IsNullOrWhiteSpace(otherNickName))
-            {
-                return StringComparer.CurrentCultureIgnoreCase.Equals(nickName.Trim(), otherNickName.Trim());
-            }
-        }
-        else if (name != otherName)
-        {
-            return false;
-        }
-
-        DateTime? birthDay = this.BirthDay;
-
-        if (birthDay.HasValue)
-        {
-            DateTime? otherBirthDay = p.BirthDay;
-            if (otherBirthDay.HasValue)
-            {
-                return birthDay.Value.Date == otherBirthDay.Value.Date;
-            }
-        }
-
-        return true;
+        return Name == p.Name
+        && BirthDay == p.BirthDay
+        && comp.Equals(NickName, p.NickName)
+        && Gender == p.Gender
+        && Anniversary == p.Anniversary
+        && comp.Equals(Spouse, p.Spouse);
     }
-
-
     #endregion
-
     #endregion
-
-
-
-
 }//class

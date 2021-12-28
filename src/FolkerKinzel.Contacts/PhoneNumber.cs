@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über eine Telefonnummer.
 /// </summary>
-public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber>, IEnumerable<PhoneNumber>, IIdentityComparer<PhoneNumber>
+public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>, IIdentityComparer<PhoneNumber>
 {
     [Flags]
     private enum Flags
@@ -314,14 +314,7 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
     private bool CompareBoolean(PhoneNumber other)
-    {
-        if(StringComparer.Ordinal.Equals(other.Value))
-        {
-            return _flags == other._flags;
-        }
-
-        return false;
-    }
+        => StringComparer.Ordinal.Equals(other.Value ?? string.Empty) && _flags == other._flags;
 
     #endregion
 
