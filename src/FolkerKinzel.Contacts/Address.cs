@@ -8,7 +8,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Adressdaten.
 /// </summary>
-public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIdentityComparer<Address>
+public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquatable<Address?>
 {
     /// <summary>
     /// Benannte Konstanten, um die Properties eines <see cref="Address"/>-Objekts im Indexer zu adressieren.
@@ -214,13 +214,13 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
     /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
     /// aufgerufen werden.
     /// </summary>
-    public bool IsEmpty => _propDic.Count == 0;
+    public override bool IsEmpty => _propDic.Count == 0;
 
     /// <summary>
     /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
     /// und leere Unterobjekte auf <c>null</c>.
     /// </summary>
-    public void Clean()
+    public override void Clean()
     {
         Prop[]? keys = this._propDic.Keys.ToArray();
 
@@ -238,11 +238,12 @@ public sealed class Address : ICloneable, ICleanable, IEquatable<Address?>, IIde
 
     #region IIdentityComparer
 
-    /// <inheritdoc/>
-    public bool CanBeMergedWith(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    ///// <inheritdoc/>
+    //public bool CanBeMergedWith(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
     
 
-    private bool BelongsToOtherIdentity(Address other)
+    /// <inheritdoc/>
+    protected override bool BelongsToOtherIdentity(Address other)
     {
         string? postalCode = PostalCode;
         string? otherPostalCode = other.PostalCode;

@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über eine Telefonnummer.
 /// </summary>
-public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>, IIdentityComparer<PhoneNumber>
+public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>
 {
     [Flags]
     private enum Flags
@@ -169,13 +169,13 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <summary>
     /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
     /// </summary>
-    public bool IsEmpty => ItemStripper.IsEmpty(this.Value);
+    public override bool IsEmpty => ItemStripper.IsEmpty(this.Value);
 
 
     /// <summary>
     /// Entfernt leere Strings und überflüssige Leerzeichen.
     /// </summary>
-    public void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
+    public override void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
 
 
     #endregion
@@ -194,8 +194,11 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
 
     #region IIdentityComparer
 
+    ///// <inheritdoc/>
+    //public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+
     /// <inheritdoc/>
-    public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || ItemStripper.AreEqual(Value, other.Value);
+    protected override bool BelongsToOtherIdentity(PhoneNumber other) => !ItemStripper.AreEqual(Value, other.Value);
 
     #endregion
 

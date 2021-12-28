@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt personenbezogene Daten.
 /// </summary>
-public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdentityComparer<Person>
+public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatable<Person?>
 {
     private enum Prop
     {
@@ -224,13 +224,13 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
     /// aufgerufen werden.
     /// </summary>
-    public bool IsEmpty => _propDic.Count == 0;
+    public override bool IsEmpty => _propDic.Count == 0;
 
     /// <summary>
     /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
     /// und leere Unterobjekte auf <c>null</c>.
     /// </summary>
-    public void Clean()
+    public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
 
@@ -275,10 +275,11 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     #endregion
 
     #region IIdentityComparer
-    public bool CanBeMergedWith(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+   // public bool CanBeMergedWith(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
    
 
-    private bool BelongsToOtherIdentity(Person other)
+    /// <inheritdoc/>
+    protected override bool BelongsToOtherIdentity(Person other)
     {
         if (Name?.CanBeMergedWith(other.Name) ?? true)
         {

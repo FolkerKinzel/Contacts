@@ -6,7 +6,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über den Namen einer Person.
 /// </summary>
-public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityComparer<Name>
+public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<Name?>
 {
     private enum Prop
     {
@@ -148,13 +148,13 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
     /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
     /// <see cref="Clean"/> aufgerufen werden.
     /// </summary>
-    public bool IsEmpty => _propDic.Count == 0;
+    public override bool IsEmpty => _propDic.Count == 0;
 
 
     /// <summary>
     /// Entfernt leere Strings und überflüssige Leerzeichen.
     /// </summary>
-    public void Clean()
+    public override void Clean()
     {
         KeyValuePair<Prop, string>[] props = _propDic.ToArray();
 
@@ -185,10 +185,11 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
     #region IIdentityComparer
 
-    /// <inheritdoc/>
-    public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    ///// <inheritdoc/>
+    //public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
-    private bool BelongsToOtherIdentity(Name other)
+    /// <inheritdoc/>
+    protected override bool BelongsToOtherIdentity(Name other)
     {
         if (!ItemStripper.StartEqual(this.FirstName, other.FirstName, true))
         {

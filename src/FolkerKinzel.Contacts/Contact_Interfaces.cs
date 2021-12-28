@@ -2,14 +2,14 @@
 
 namespace FolkerKinzel.Contacts;
 
-public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanable, IIdentityComparer<Contact>
+public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, ICloneable, ICleanable
 {
     #region IIdentityComparer
 
-    public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    //public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
-
-    private bool BelongsToOtherIdentity(Contact other)
+    /// <inheritdoc/>
+    protected override bool BelongsToOtherIdentity(Contact other)
     {
         if (!(Person?.CanBeMergedWith(other.Person) ?? true))
         {
@@ -326,13 +326,13 @@ public sealed partial class Contact : IEquatable<Contact>, ICloneable, ICleanabl
     /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
     /// aufgerufen werden.
     /// </summary>
-    public bool IsEmpty => _propDic.Count == 0;
+    public override bool IsEmpty => _propDic.Count == 0;
 
     /// <summary>
     /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
     /// und leere Unterobjekte auf <c>null</c>.
     /// </summary>
-    public void Clean()
+    public override void Clean()
     {
         KeyValuePair<Prop, object>[]? props = _propDic.ToArray();
 

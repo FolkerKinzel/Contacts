@@ -8,7 +8,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über die Arbeitsstelle einer Person.
 /// </summary>
-public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityComparer<Work>
+public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<Work?>
 {
     #region private Felder
 
@@ -201,7 +201,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
     /// und leere Unterobjekte auf <c>null</c>.
     /// </summary>
-    public void Clean()
+    public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
 
@@ -233,15 +233,16 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
     /// <see cref="Clean"/> aufgerufen werden.
     /// </summary>
-    public bool IsEmpty => _propDic.Count == 0;
+    public override bool IsEmpty => _propDic.Count == 0;
 
     #endregion
 
     #region IIdentityComparer
-    public bool CanBeMergedWith(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    //public bool CanBeMergedWith(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
 
-    private bool BelongsToOtherIdentity(Work other)
+    /// <inheritdoc/>
+    protected override bool BelongsToOtherIdentity(Work other)
     {
         string? company = Company;
         string? otherCompany = other.Company;
