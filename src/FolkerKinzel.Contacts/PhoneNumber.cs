@@ -259,8 +259,8 @@ public sealed class PhoneNumber : ICleanable, ICloneable, IEquatable<PhoneNumber
     /// <returns>Der Hashcode.</returns>
     public override int GetHashCode()
     {
-        int hashCode = Value?.GetHashCode() ?? string.Empty.GetHashCode();
-        return hashCode^_flags.GetHashCode();
+        int hashCode = (Value ?? string.Empty).GetHashCode();
+        return hashCode ^ _flags.GetHashCode();
     }
 
 

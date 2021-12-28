@@ -316,14 +316,11 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <summary>
     /// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
     /// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    /// auf dieselbe physische Person verweist. 
+    /// gleiche Eigenschaften hat. 
     /// </summary>
-    /// <remarks>Zum 
-    /// Vergleich werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
-    /// verwendet.</remarks>
     /// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    /// auf dieselbe physische Person verweist.</returns>
+    /// gleiche Eigenschaften hat. </returns>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabPerson return false.
@@ -346,13 +343,10 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// <summary>
     /// Vergleicht die Instanz mit einem anderen 
     /// <see cref="Person"/>-Objekt,
-    /// um festzustellen, ob beide auf dieselbe Person verweisen.
+    /// um festzustellen, ob beide gleich sind.
     /// </summary>
-    /// <remarks>Zum 
-    /// Vergleich werden die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/>
-    /// verwendet.</remarks>
     /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe physische Person verweist.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
     public bool Equals([NotNullWhen(true)] Person? other)
     {
         // If parameter is null return false:
@@ -383,13 +377,11 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// Überladung des == Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> zweier 
-    /// <see cref="Person"/>-Objekte,
-    /// um festzustellen, ob beide auf dieselbe physische Person verweisen.
+    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
     /// </remarks>
     /// <param name="person1">Linker Operand.</param>
     /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf dieselbe physische Person verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> gleich sind.</returns>
     public static bool operator ==(Person? person1, Person? person2)
     {
         // If both are null, or both are same instance, return true.
@@ -413,31 +405,31 @@ public sealed class Person : ICloneable, ICleanable, IEquatable<Person?>, IIdent
     /// Überladung des != Operators.
     /// </summary>
     /// <remarks>
-    /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> zweier 
-    /// <see cref="Person"/>-Objekte,
-    /// um festzustellen, ob beide auf unterschiedliche Personen verweisen.
+    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
     /// </remarks>
     /// <param name="person1">Linker Operand.</param>
     /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf unterschiedliche Personen verweisen.</returns>
+    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> ungleich sind.</returns>
+
     public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
 
     /// <summary>
-    /// Vergleicht die Eigenschaften <see cref="Name"/>, <see cref="NickName"/> und <see cref="BirthDay"/> mit denen eines anderen <see cref="Person"/>-Objekts,
-    /// um zu überprüfen, ob beide auf dieselbe physische Person verweisen.
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Person"/>-Objekts.
     /// </summary>
     /// <param name="p">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn beide <see cref="Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Person p)
     {
         StringComparer comp = StringComparer.Ordinal;
 
         return Name == p.Name
         && BirthDay == p.BirthDay
-        && comp.Equals(NickName, p.NickName)
+        && comp.Equals(Prepare(NickName), Prepare(p.NickName))
         && Gender == p.Gender
         && Anniversary == p.Anniversary
-        && comp.Equals(Spouse, p.Spouse);
+        && comp.Equals(Prepare(Spouse), Prepare(p.Spouse));
+
+        static string Prepare(string? s) => s ?? string.Empty;
     }
     #endregion
     #endregion

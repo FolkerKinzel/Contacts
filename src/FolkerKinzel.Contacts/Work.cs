@@ -18,7 +18,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
     private enum Prop
     {
-        CompanyName,
+        Company,
         Department,
         Office,
         JobTitle,
@@ -72,8 +72,8 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// </summary>
     public string? Company
     {
-        get => Get<string?>(Prop.CompanyName);
-        set => Set(Prop.CompanyName, value);
+        get => Get<string?>(Prop.Company);
+        set => Set(Prop.Company, value);
     }
 
 
@@ -138,7 +138,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
 
             switch (key)
             {
-                case Prop.CompanyName:
+                case Prop.Company:
                     topics[i] = Res.Company;
                     break;
                 case Prop.JobTitle:
@@ -340,61 +340,26 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     {
         int hash = -1;
 
-        if (this.IsEmpty)
+        ModifyHash(Company);
+        ModifyHash(Department);
+        ModifyHash(Office);
+        ModifyHash(JobTitle);
+
+        Address? adr = AddressWork;
+
+        if (adr is not null)
         {
-            return hash;
-        }
-
-#if !NET40 && !NETSTANDARD2_0 && !NET461
-        StringComparison comparison = StringComparison.OrdinalIgnoreCase;
-#endif
-
-        string? company = Company;
-        if (!string.IsNullOrWhiteSpace(company))
-        {
-#if NET40 || NETSTANDARD2_0 || NET461
-                hash ^= company.ToUpperInvariant().GetHashCode();
-#else
-            hash ^= company.GetHashCode(comparison);
-#endif
-            string? department = this.Department;
-            if (!string.IsNullOrWhiteSpace(department))
-            {
-#if NET40 || NETSTANDARD2_0 || NET461
-                    hash ^= department.ToUpperInvariant().GetHashCode();
-#else
-                hash ^= department.GetHashCode(comparison);
-#endif
-                string? office = this.Office;
-                if (!string.IsNullOrWhiteSpace(office))
-                {
-#if NET40 || NETSTANDARD2_0 || NET461
-                        hash ^= office.ToUpperInvariant().GetHashCode();
-#else
-                    hash ^= office.GetHashCode(comparison);
-#endif
-                }
-            }
-
-            string? position = this.JobTitle;
-            if (!string.IsNullOrWhiteSpace(position))
-            {
-#if NET40 || NETSTANDARD2_0 || NET461
-                    hash ^= position.ToUpperInvariant().GetHashCode();
-#else
-                hash ^= position.GetHashCode(comparison);
-#endif
-            }
-        }
-
-        Address? address = AddressWork;
-
-        if (address != null)
-        {
-            hash ^= address.GetHashCode();
+            hash ^= adr.GetHashCode();
         }
 
         return hash;
+
+        ////////////////////////////////////////
+
+        void ModifyHash(string? s)
+        {
+            hash ^= (s ?? string.Empty).GetHashCode();
+        }
     }
 
 
@@ -442,6 +407,7 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// auf unterschiedliche Arbeitsstellen verweisen.</returns>
     public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
 
+
     /// <summary>
     /// Vergleicht den Inhalt der <see cref="Company"/>- und <see cref="AddressWork"/>-Eigenschaften eines anderen <see cref="Work"/>-Objekts mit denen
     /// von this, um zu bestimmen, ob beide auf dieselbe Arbeitsstelle verweisen.
@@ -450,95 +416,15 @@ public sealed class Work : ICloneable, ICleanable, IEquatable<Work?>, IIdentityC
     /// <returns><c>true</c>, wenn beide Objekte auf dieselbe Arbeitsstelle verweisen.</returns>
     private bool CompareBoolean(Work other)
     {
-        StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+        StringComparer comparer = StringComparer.Ordinal;
 
-        string? company = this.Company;
-        string? otherCompany = other.Company;
+        return comparer.Equals(Prepare(Company), Prepare(Company))
+               && comparer.Equals(Prepare(Department), Prepare(Department))
+               && comparer.Equals(Prepare(Office), Prepare(Office))
+               && comparer.Equals(Prepare(JobTitle), Prepare(JobTitle))
+               && AddressWork == other.AddressWork;
 
-        if (!string.IsNullOrWhiteSpace(company) && !string.IsNullOrWhiteSpace(otherCompany))
-        {
-            if (comparer.Equals(company, otherCompany))
-            {
-                string? department = this.Department;
-                string? otherDepartment = other.Department;
-                if (!string.IsNullOrWhiteSpace(department) && !string.IsNullOrWhiteSpace(otherDepartment))
-                {
-                    if (comparer.Equals(department, otherDepartment))
-                    {
-                        string? office = this.Office;
-                        string? otherOffice = other.Office;
-                        if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
-                        {
-                            if (comparer.Equals(office, otherOffice))
-                            {
-                                string? position = this.JobTitle;
-                                string? otherPosition = other.JobTitle;
-
-                                if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                                {
-                                    return comparer.Equals(position, otherPosition);
-                                }
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else if (string.IsNullOrWhiteSpace(office) && string.IsNullOrWhiteSpace(otherOffice))
-                        {
-                            string? position = this.JobTitle;
-                            string? otherPosition = other.JobTitle;
-
-                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                            {
-                                return comparer.Equals(position, otherPosition);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                }
-                else if (string.IsNullOrWhiteSpace(department) && string.IsNullOrWhiteSpace(otherDepartment))
-                {
-                    string? office = this.Office;
-                    string? otherOffice = other.Office;
-                    if (!string.IsNullOrWhiteSpace(office) && !string.IsNullOrWhiteSpace(otherOffice))
-                    {
-                        if (comparer.Equals(office, otherOffice))
-                        {
-                            string? position = this.JobTitle;
-                            string? otherPosition = other.JobTitle;
-
-                            if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(otherPosition))
-                            {
-                                return comparer.Equals(position, otherPosition);
-                            }
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        Address? address = this.AddressWork;
-        Address? otherAddress = other.AddressWork;
-        if (address != null && otherAddress != null && !address.IsEmpty && !otherAddress.IsEmpty)
-        {
-            return address.Equals(otherAddress);
-        }
-
-
-        return true;
+        static string Prepare(string? s) => s ?? string.Empty;
     }
 
 

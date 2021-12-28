@@ -268,9 +268,11 @@ public sealed class Name : ICloneable, ICleanable, IEquatable<Name?>, IIdentityC
 
         return hash;
 
+        ////////////////////////////////////////////////
+
         void ModifyHash(string? s)
         {
-            hash ^= s?.GetHashCode() ?? string.Empty.GetHashCode();
+            hash ^= (s ?? string.Empty).GetHashCode();
         }
     }
 
