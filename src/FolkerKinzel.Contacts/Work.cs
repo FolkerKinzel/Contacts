@@ -242,12 +242,12 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
 
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(Work other)
+    protected override bool DescribesForeignIdentity(Work other)
     {
         string? company = Company;
         string? otherCompany = other.Company;
 
-        bool areAddressesMergeable = AddressWork?.CanBeMergedWith(other.AddressWork) ?? true;
+        bool areAddressesMergeable = AddressWork?.CanBeMerged(other.AddressWork) ?? true;
 
 
         if ((ItemStripper.IsEmpty(company) || ItemStripper.IsEmpty(otherCompany)) && areAddressesMergeable)

@@ -56,7 +56,7 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
 
     #endregion
 
-
+    #region Accessor Methods
 
     private string? Get(Prop prop) => _propDic.ContainsKey(prop) ? (string?)_propDic[prop] : null;
 
@@ -73,7 +73,9 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
         }
     }
 
-    #region öffentliche Eigenschaften und Methoden
+    #endregion
+
+    #region Public Properties and Methods
 
 
     /// <summary>
@@ -207,7 +209,6 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
 
     #endregion
 
-
     #region ICleanable
 
     /// <summary>
@@ -236,14 +237,11 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
 
     #endregion
 
-    #region IIdentityComparer
+    #region Mergeable<T>
 
-    ///// <inheritdoc/>
-    //public bool CanBeMergedWith(Address? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
-    
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(Address other)
+    protected override bool DescribesForeignIdentity(Address other)
     {
         string? postalCode = PostalCode;
         string? otherPostalCode = other.PostalCode;

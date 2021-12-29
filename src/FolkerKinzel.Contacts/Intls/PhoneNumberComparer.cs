@@ -17,7 +17,7 @@ namespace FolkerKinzel.Contacts.Intls
                 return (x is null || x.IsEmpty) && (y is null || y.IsEmpty);
             }
             
-            return x.CanBeMergedWith(y);
+            return x.CanBeMerged(y);
         }
 
         public int GetHashCode(PhoneNumber obj) => 42;

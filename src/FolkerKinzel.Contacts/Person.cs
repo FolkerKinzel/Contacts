@@ -279,9 +279,9 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
    
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(Person other)
+    protected override bool DescribesForeignIdentity(Person other)
     {
-        if (Name?.CanBeMergedWith(other.Name) ?? true)
+        if (Name?.CanBeMerged(other.Name) ?? true)
         {
             DateTime? birthDay = this.BirthDay;
 

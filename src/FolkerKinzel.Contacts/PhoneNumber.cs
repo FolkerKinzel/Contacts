@@ -198,7 +198,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     //public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(PhoneNumber other) => !ItemStripper.AreEqual(Value, other.Value);
+    protected override bool DescribesForeignIdentity(PhoneNumber other) => !ItemStripper.AreEqual(Value, other.Value);
 
     #endregion
 

@@ -29,6 +29,9 @@
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Experiments.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Using Remove="System.Net.Http" />
     <Using Include="System.Runtime.CompilerServices" />
     <Using Include="System.Diagnostics.CodeAnalysis" />

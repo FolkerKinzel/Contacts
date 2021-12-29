@@ -9,14 +9,14 @@ public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, I
     //public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(Contact other)
+    protected override bool DescribesForeignIdentity(Contact other)
     {
-        if (!(Person?.CanBeMergedWith(other.Person) ?? true))
+        if (!(Person?.CanBeMerged(other.Person) ?? true))
         {
             return true;
         }
 
-        if (!(Work?.CanBeMergedWith(other.Work) ?? true))
+        if (!(Work?.CanBeMerged(other.Work) ?? true))
         {
             return true;
         }
@@ -78,7 +78,7 @@ public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, I
         Address? otherAdr = other.AddressHome;
         if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
         {
-            return !adr.CanBeMergedWith(otherAdr);
+            return !adr.CanBeMerged(otherAdr);
         }
 
         string? homePagePersonal = this.WebPagePersonal;

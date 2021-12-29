@@ -189,7 +189,7 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
     //public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
 
     /// <inheritdoc/>
-    protected override bool BelongsToOtherIdentity(Name other)
+    protected override bool DescribesForeignIdentity(Name other)
     {
         if (!ItemStripper.StartEqual(this.FirstName, other.FirstName, true))
         {
