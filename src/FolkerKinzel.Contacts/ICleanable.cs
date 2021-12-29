@@ -6,12 +6,13 @@
 public interface ICleanable
 {
     /// <summary>
-    /// Entfernt Datenmüll aus dem Objekt.
+    /// Reinigt die im Objekt gespeicherten Daten: Entfernt z.B. leere Unterobjekte oder überflüssige Leerzeichen.
     /// </summary>
     void Clean();
 
+
     /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+    /// Gibt <c>true</c> zurück, wenn das Objekt keine verwertbaren Daten enthält, andernfalls <c>false</c>.
     /// </summary>
     bool IsEmpty { get; }
 }

@@ -6,10 +6,7 @@ namespace FolkerKinzel.Contacts.Intls.Tests;
 public class ItemStripperTests
 {
     [TestMethod]
-    public void ItemStripperTest1()
-    {
-        var strip = new ItemStripper(null);
-    }
+    public void ItemStripperTest1() => _ = new Strip(null);
 
     [DataTestMethod]
     [DataRow(null, true)]
@@ -18,7 +15,7 @@ public class ItemStripperTests
     [DataRow("  .-@+*  ", true)]
     [DataRow("   h ", false)]
     [DataRow("hello", false)]
-    public void IsEmptyTest1(string? input, bool expected) => Assert.AreEqual(expected, ItemStripper.IsEmpty(input));
+    public void IsEmptyTest1(string? input, bool expected) => Assert.AreEqual(expected, Strip.IsEmpty(input));
 
     [DataTestMethod]
     [DataRow(null, true)]
@@ -27,7 +24,7 @@ public class ItemStripperTests
     [DataRow("  .-@+*  ", true)]
     [DataRow("   h ", false)]
     [DataRow("hello", false)]
-    public void IsEmptyTest2(string? input, bool expected) => Assert.AreEqual(expected, ItemStripper.IsEmpty(input));
+    public void IsEmptyTest2(string? input, bool expected) => Assert.AreEqual(expected, Strip.IsEmpty(input));
 
     [DataTestMethod]
     [DataRow(null, 0)]
@@ -36,12 +33,12 @@ public class ItemStripperTests
     [DataRow("  .-@+*  ", 0)]
     [DataRow("   h ", 1)]
     [DataRow("hello", 5)]
-    public void GetLengthTest1(string? input, int expected) => Assert.AreEqual(expected, ItemStripper.GetLength(input));
+    public void GetLengthTest1(string? input, int expected) => Assert.AreEqual(expected, Strip.GetLength(input));
 
 
     [TestMethod]
     [ExpectedException(typeof(InvalidOperationException))]
-    public void EqualsTest1() => _ = new ItemStripper("").Equals(null);
+    public void EqualsTest1() => _ = new Strip("").Equals(null);
 
 
     [DataTestMethod]
@@ -63,15 +60,15 @@ public class ItemStripperTests
     [DataRow("hi", "high", false)]
     public void EqualsTest2(string? inp1, string? inp2, bool expected)
     {
-        var strip1 = new ItemStripper(inp1);
-        var strip2 = new ItemStripper(inp2);
+        var strip1 = new Strip(inp1);
+        var strip2 = new Strip(inp2);
 
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
         // Test it twice!!
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
-        Assert.AreEqual(expected, ItemStripper.AreEqual(inp1, inp2));
+        Assert.AreEqual(expected, Strip.AreEqual(inp1, inp2));
 
         if (expected)
         {
@@ -102,15 +99,15 @@ public class ItemStripperTests
     [DataRow("hi", "high", false)]
     public void EqualsTest3(string? inp1, string? inp2, bool expected)
     {
-        var strip1 = new ItemStripper(inp1, false);
-        var strip2 = new ItemStripper(inp2, false);
+        var strip1 = new Strip(inp1, false);
+        var strip2 = new Strip(inp2, false);
 
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
         // Test it twice!!
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
-        Assert.AreEqual(expected, ItemStripper.AreEqual(inp1, inp2, true));
+        Assert.AreEqual(expected, Strip.AreEqual(inp1, inp2, true));
 
         if (expected)
         {
@@ -140,7 +137,7 @@ public class ItemStripperTests
     [DataRow("high", "    hi-***", true)]
     [DataRow("hi", "high", true)]
     public void StartsEqualTest1(string? inp1, string? inp2, bool expected)
-        => Assert.AreEqual(expected, ItemStripper.StartEqual(inp1, inp2));
+        => Assert.AreEqual(expected, Strip.StartEqual(inp1, inp2));
 
 
     [TestMethod]
@@ -161,5 +158,5 @@ public class ItemStripperTests
     [DataRow("high", "    hi-***", true)]
     [DataRow("hi", "high", true)]
     public void StartEqualTest2(string? inp1, string? inp2, bool expected)
-        => Assert.AreEqual(expected, ItemStripper.StartEqual(inp1, inp2, true));
+        => Assert.AreEqual(expected, Strip.StartEqual(inp1, inp2, true));
 }

@@ -8,7 +8,7 @@ internal static class StringCleaner
         => string.IsNullOrWhiteSpace(val) ? null : val.Trim();
 
     internal static string? CleanDataEntry(string? val)
-        => string.IsNullOrWhiteSpace(val)
+        => Strip.IsEmpty(val)
                     ? null
                     : Regex.Replace(val.Trim(), @"\s+", " ", RegexOptions.Compiled
                                                            | RegexOptions.Singleline

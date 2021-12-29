@@ -21,6 +21,8 @@ public sealed partial class Contact
         TimeStamp
     }
 
+    #region Accessor Methods
+
     [return: MaybeNull]
     private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
 
@@ -36,6 +38,8 @@ public sealed partial class Contact
             _propDic[prop] = value;
         }
     }
+
+    #endregion
 
 
     /// <summary>

@@ -6,8 +6,9 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über den Namen einer Person.
 /// </summary>
-public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<Name?>
+public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<Name?>
 {
+    #region Prop Enum
     private enum Prop
     {
         FirstName,
@@ -16,8 +17,9 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
         Prefix,
         Suffix
     }
+    #endregion
 
-    #region private Felder
+    #region Private Fields
 
     private readonly Dictionary<Prop, string> _propDic = new();
 
@@ -44,6 +46,7 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
 
     #endregion
 
+    #region AccessorMethods
 
     private string? Get(Prop prop) => _propDic.ContainsKey(prop) ? _propDic[prop] : null;
 
@@ -59,6 +62,10 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
         }
     }
 
+    #endregion
+
+
+    #region Public Properties and Methods
 
     /// <summary>
     /// Familienname
@@ -111,49 +118,76 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
     /// <returns>Der Inhalt des <see cref="Name"/>-Objekts als <see cref="string"/>.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
+    #endregion
 
-    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+
+    #region Mergeable<T>, ICleanable
+
+    /// <inheritdoc/>
+    protected override bool DescribesForeignIdentity(Name other)
     {
-        _ = sb.Append(indent);
-
-        int initialStringBuilderLength = sb.Length;
-
-        AppendNamePart(Prefix);
-        AppendNamePart(FirstName);
-        AppendNamePart(MiddleName);
-        AppendNamePart(LastName);
-        AppendNamePart(Suffix);
-
-
-        void AppendNamePart(string? namePart)
+        if (AreDifferent(FirstName, other.FirstName))
         {
-            if (!string.IsNullOrWhiteSpace(namePart))
-            {
-                if (sb.Length != initialStringBuilderLength)
-                {
-                    _ = sb.Append(' ');
-                }
-                _ = sb.Append(namePart);
-            }
+            return true;
         }
 
-        return sb;
+        if (AreDifferent(LastName, other.LastName))
+        {
+            return true;
+        }
+
+        return false;
+
+        //////////////////////////////////////////////////////
+
+        static bool AreDifferent(string? s1, string? s2)
+            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);
     }
 
-    #region Interfaces
+
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(Name source)
+    {
+        if (Strip.IsEmpty(FirstName))
+        {
+            FirstName = source.FirstName;
+        }
+
+        if (Strip.IsEmpty(LastName))
+        {
+            LastName = source.LastName;
+        }
+
+        if (Strip.IsEmpty(MiddleName))
+        {
+            MiddleName = source.MiddleName;
+        }
+
+        if (Strip.IsEmpty(Suffix))
+        {
+            Suffix = source.Suffix;
+        }
+
+        if (Strip.IsEmpty(Prefix))
+        {
+            Prefix = source.Prefix;
+        }
+    }
+
 
     #region ICleanable
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
-    /// <see cref="Clean"/> aufgerufen werden.
-    /// </summary>
-    public override bool IsEmpty => _propDic.Count == 0;
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty => _propDic.Any(x => !Strip.IsEmpty(x.Value));
 
 
-    /// <summary>
-    /// Entfernt leere Strings und überflüssige Leerzeichen.
-    /// </summary>
+    ///// <summary>
+    ///// Entfernt leere Strings und überflüssige Leerzeichen.
+    ///// </summary>
+    /// <inheritdoc/>
     public override void Clean()
     {
         KeyValuePair<Prop, string>[] props = _propDic.ToArray();
@@ -173,6 +207,9 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
     #endregion
 
 
+    #endregion
+
+
     #region ICloneable
 
     /// <summary>
@@ -180,24 +217,6 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
     /// </summary>
     /// <returns>Eine tiefe Kopie des Objekts.</returns>
     public object Clone() => new Name(this);
-
-    #endregion
-
-    #region IIdentityComparer
-
-    ///// <inheritdoc/>
-    //public bool CanBeMergedWith(Name? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
-
-    /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(Name other)
-    {
-        if (!ItemStripper.StartEqual(this.FirstName, other.FirstName, true))
-        {
-            return true;
-        }
-
-        return !ItemStripper.StartEqual(this.LastName, other.LastName, true);
-    }
 
     #endregion
 
@@ -339,11 +358,41 @@ public sealed class Name : Mergeable<Name>, ICloneable, ICleanable, IEquatable<N
 
     }
 
-    #endregion
 
     #endregion
 
     #endregion
 
 
+    #region internal
+
+    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    {
+        _ = sb.Append(indent);
+
+        int initialStringBuilderLength = sb.Length;
+
+        AppendNamePart(Prefix);
+        AppendNamePart(FirstName);
+        AppendNamePart(MiddleName);
+        AppendNamePart(LastName);
+        AppendNamePart(Suffix);
+
+
+        void AppendNamePart(string? namePart)
+        {
+            if (!string.IsNullOrWhiteSpace(namePart))
+            {
+                if (sb.Length != initialStringBuilderLength)
+                {
+                    _ = sb.Append(' ');
+                }
+                _ = sb.Append(namePart);
+            }
+        }
+
+        return sb;
+    }
+
+    #endregion
 }

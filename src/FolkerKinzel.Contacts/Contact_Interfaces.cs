@@ -2,31 +2,19 @@
 
 namespace FolkerKinzel.Contacts;
 
-public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, ICloneable, ICleanable
+public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable<Contact>, ICloneable
 {
-    #region IIdentityComparer
-
-    //public bool CanBeMergedWith(Contact? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Contact other)
     {
-        if (!(Person?.CanBeMerged(other.Person) ?? true))
-        {
-            return true;
-        }
-
-        if (!(Work?.CanBeMerged(other.Work) ?? true))
-        {
-            return true;
-        }
-
         IEnumerable<string?>? emails = this.EmailAddresses;
         IEnumerable<string?>? otherEmails = other.EmailAddresses;
         if (emails != null && otherEmails != null)
         {
-            var emailsArr = emails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-            var otherEmailsArr = otherEmails.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+            var emailsArr = emails.Where(x => !Strip.IsEmpty(x)).ToArray();
+            var otherEmailsArr = otherEmails.Where(x => !Strip.IsEmpty(x)).ToArray();
 
             if (emailsArr.Length != 0 && otherEmailsArr.Length != 0)
             {
@@ -53,7 +41,17 @@ public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, I
             }
         }
 
-        if (ItemStripper.StartEqual(DisplayName, other.DisplayName, true))
+        if (!Mergeable<Person>.CanBeMerged(Person, other.Person))
+        {
+            return true;
+        }
+
+        if (!Mergeable<Work>.CanBeMerged(Work, other.Work))
+        {
+            return true;
+        }
+
+        if (Strip.StartEqual(DisplayName, other.DisplayName, true))
         {
             return false;
         }
@@ -97,6 +95,279 @@ public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, I
 
         return false;
     }
+
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(Contact source)
+    {
+        Person? person = Person;
+        Person? sourcePerson = source.Person;
+
+        if (Mergeable<Person>.CanBeMerged(person, sourcePerson))
+        {
+            Person = person?.Merge(sourcePerson) ?? sourcePerson;
+        }
+
+        Work? work = Work;
+        Work? sourceWork = source.Work;
+
+        if (Mergeable<Work>.CanBeMerged(work, sourceWork))
+        {
+            Work = work?.Merge(sourceWork) ?? sourceWork;
+        }
+
+        Address? adr = AddressHome;
+        Address? sourceAdr = source.AddressHome;
+
+        if (Mergeable<Address>.CanBeMerged(adr, sourceAdr))
+        {
+            AddressHome = adr?.Merge(sourceAdr) ?? sourceAdr;
+        }
+
+        if (Strip.IsEmpty(DisplayName))
+        {
+            DisplayName = source.DisplayName;
+        }
+
+        if (Strip.IsEmpty(WebPagePersonal))
+        {
+            WebPagePersonal = source.WebPagePersonal;
+        }
+
+        if (Strip.IsEmpty(WebPageWork))
+        {
+            WebPageWork = source.WebPageWork;
+        }
+
+        string? comment = Comment;
+
+        if (string.IsNullOrWhiteSpace(comment))
+        {
+            Comment = source.Comment;
+        }
+        else
+        {
+            string? sourceComment = source.Comment;
+
+            if (!string.IsNullOrWhiteSpace(source.Comment))
+            {
+                Comment = string.Concat(comment, Environment.NewLine, Environment.NewLine, sourceComment);
+            }
+        }
+
+        MergeEmailAddresses(source);
+
+        MergeInstantMessengerHandles(source);
+
+        MergePhoneNumbers(source);
+
+        /////////////////////////////////////////////////
+
+        void MergeEmailAddresses(Contact source)
+        {
+            IEnumerable<string?>? emailAdresses = EmailAddresses;
+
+            if (emailAdresses is null)
+            {
+                EmailAddresses = source.EmailAddresses;
+            }
+            else
+            {
+                IEnumerable<string?>? sourceEmailAdresses = source.EmailAddresses;
+
+                if (sourceEmailAdresses is not null)
+                {
+                    var list = emailAdresses.ToList();
+                    list.AddRange(sourceEmailAdresses);
+                    EmailAddresses = list.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+                }
+            }
+        }
+
+        void MergeInstantMessengerHandles(Contact source)
+        {
+            IEnumerable<string?>? imAddresses = InstantMessengerHandles;
+
+            if (imAddresses is null)
+            {
+                InstantMessengerHandles = source.InstantMessengerHandles;
+            }
+            else
+            {
+                IEnumerable<string?>? sourceIMAddresses = source.InstantMessengerHandles;
+
+                if (sourceIMAddresses is not null)
+                {
+                    var list = imAddresses.ToList();
+                    list.AddRange(sourceIMAddresses);
+                    InstantMessengerHandles = list.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+                }
+            }
+        }
+
+        void MergePhoneNumbers(Contact source)
+        {
+            IEnumerable<PhoneNumber?>? phoneNumbers = PhoneNumbers;
+
+            if (phoneNumbers is null)
+            {
+                PhoneNumbers = source.PhoneNumbers;
+            }
+            else
+            {
+                IEnumerable<PhoneNumber?>? sourcePhoneNumbers = source.PhoneNumbers;
+
+                if (sourcePhoneNumbers is not null)
+                {
+                    var list = phoneNumbers.ToList();
+                    list.AddRange(sourcePhoneNumbers);
+
+                    IGrouping<PhoneNumber, PhoneNumber>[] groups = list.Where(x => x != null && !x.IsEmpty).GroupBy(x => x, PhoneNumberComparer.Instance).ToArray()!;
+
+                    list.Clear();
+
+                    foreach (IGrouping<PhoneNumber, PhoneNumber> group in groups)
+                    {
+                        PhoneNumber number = group.Key;
+                        list.Add(number);
+
+                        foreach (PhoneNumber telNumber in group)
+                        {
+                            _ = number.Merge(telNumber);
+                        }
+                    }
+
+                    PhoneNumbers = list;
+                }
+            }
+        }
+    }
+
+    #region ICleanable
+
+
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty
+    {
+        get
+        {
+            foreach (KeyValuePair<Prop, object> kvp in _propDic)
+            {
+                switch (kvp.Value)
+                {
+                    case ICleanable cleanable when !cleanable.IsEmpty:
+                    case string s when !string.IsNullOrWhiteSpace(s):
+                    case DateTime dt when dt != default:
+                    case IEnumerable<string?> strColl when strColl.Any(x => !string.IsNullOrWhiteSpace(x)):
+                    case IEnumerable<ICleanable?> cleanableColl when cleanableColl.Any(x => !(x?.IsEmpty ?? true)):
+                        return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    ///// <summary>
+    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+    ///// und leere Unterobjekte auf <c>null</c>.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override void Clean()
+    {
+        KeyValuePair<Prop, object>[]? props = _propDic.ToArray();
+
+        for (int i = 0; i < props.Length; i++)
+        {
+            KeyValuePair<Prop, object> kvp = props[i];
+
+            switch (kvp.Value)
+            {
+                case IEnumerable<string?> strings:
+                    {
+                        string[] arr = strings.Select(x => StringCleaner.CleanDataEntry(x)).Where(x => x != null).Distinct().ToArray()!;
+
+                        if (arr.Length == 0)
+                        {
+                            Set(kvp.Key, null);
+                        }
+                        else
+                        {
+                            Set(kvp.Key, arr);
+                        }
+                    }
+                    break;
+                case IEnumerable<PhoneNumber?> phoneNumbers:
+                    {
+                        List<PhoneNumber> numbers = phoneNumbers.Where(x => x != null && !x.IsEmpty).ToList()!;
+                        numbers.ForEach(x => x.Clean());
+
+                        IGrouping<PhoneNumber, PhoneNumber>[] groups = numbers.GroupBy(x => x, PhoneNumberComparer.Instance).ToArray();
+
+                        numbers.Clear();
+
+                        foreach (IGrouping<PhoneNumber, PhoneNumber> group in groups)
+                        {
+                            PhoneNumber number = group.Key;
+                            numbers.Add(number);
+
+                            foreach (PhoneNumber telNumber in group)
+                            {
+                                number.Merge(telNumber);
+                            }
+                        }
+
+                        if (numbers.Count == 0)
+                        {
+                            Set(kvp.Key, null);
+                        }
+                        else
+                        {
+                            numbers.TrimExcess();
+                            Set(kvp.Key, numbers);
+                        }
+                    }
+                    break;
+                case string s:
+                    {
+                        if (kvp.Key == Prop.Comment)
+                        {
+                            Set(kvp.Key, StringCleaner.CleanComment(s));
+                        }
+                        else
+                        {
+                            Set(kvp.Key, StringCleaner.CleanDataEntry(s));
+                        }
+                    }
+                    break;
+                case DateTime dt when dt < new DateTime(1900, 1, 1):
+                    {
+                        Set(kvp.Key, null);
+                    }
+                    break;
+                case ICleanable adr:
+                    {
+                        adr.Clean();
+                        if (adr.IsEmpty)
+                        {
+                            Set(kvp.Key, null);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+#if !NET40 && !NETSTANDARD2_0 && !NET461
+        _propDic.TrimExcess();
+#endif
+
+    }
+
+    #endregion
 
     #endregion
 
@@ -315,116 +586,6 @@ public sealed partial class Contact : Mergeable<Contact>, IEquatable<Contact>, I
             return coll1.SequenceEqual(coll2);
         }
     }
-
-    #endregion
-
-
-    #region ICleanable
-
-
-    /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
-    /// aufgerufen werden.
-    /// </summary>
-    public override bool IsEmpty => _propDic.Count == 0;
-
-    /// <summary>
-    /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    /// und leere Unterobjekte auf <c>null</c>.
-    /// </summary>
-    public override void Clean()
-    {
-        KeyValuePair<Prop, object>[]? props = _propDic.ToArray();
-
-        for (int i = 0; i < props.Length; i++)
-        {
-            KeyValuePair<Prop, object> kvp = props[i];
-
-            switch (kvp.Value)
-            {
-                case IEnumerable<string?> strings:
-                    {
-                        string[] arr = strings.Select(x => StringCleaner.CleanDataEntry(x)).Where(x => x != null).Distinct().ToArray()!;
-
-                        if (arr.Length == 0)
-                        {
-                            Set(kvp.Key, null);
-                        }
-                        else
-                        {
-                            Set(kvp.Key, arr);
-                        }
-                    }
-                    break;
-                case IEnumerable<PhoneNumber?> phoneNumbers:
-                    {
-                        List<PhoneNumber> numbers = phoneNumbers.Where(x => x != null && !x.IsEmpty).ToList()!;
-                        numbers.ForEach(x => x.Clean());
-
-                        IGrouping<PhoneNumber, PhoneNumber>[] groups = numbers.GroupBy(x => x, PhoneNumberComparer.Instance).ToArray();
-
-                        numbers.Clear();
-
-                        foreach (IGrouping<PhoneNumber, PhoneNumber> group in groups)
-                        {
-                            PhoneNumber number = group.Key;
-                            numbers.Add(number);
-
-                            foreach (PhoneNumber telNumber in group)
-                            {
-                                number.Merge(telNumber);
-                            }
-                        }
-
-                        if (numbers.Count == 0)
-                        {
-                            Set(kvp.Key, null);
-                        }
-                        else
-                        {
-                            numbers.TrimExcess();
-                            Set(kvp.Key, numbers);
-                        }
-                    }
-                    break;
-                case string s:
-                    {
-                        if (kvp.Key == Prop.Comment)
-                        {
-                            Set(kvp.Key, StringCleaner.CleanComment(s));
-                        }
-                        else
-                        {
-                            Set(kvp.Key, StringCleaner.CleanDataEntry(s));
-                        }
-                    }
-                    break;
-                case DateTime dt when dt < new DateTime(1900, 1, 1):
-                    {
-                        Set(kvp.Key, null);
-                    }
-                    break;
-                case ICleanable adr:
-                    {
-                        adr.Clean();
-                        if (adr.IsEmpty)
-                        {
-                            Set(kvp.Key, null);
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-#if !NET40 && !NETSTANDARD2_0 && !NET461
-        _propDic.TrimExcess();
-#endif
-
-    }
-
-
 
     #endregion
 

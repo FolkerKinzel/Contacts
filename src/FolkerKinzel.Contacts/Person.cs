@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
 using System.Text;
 using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
@@ -9,8 +10,9 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt personenbezogene Daten.
 /// </summary>
-public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatable<Person?>
+public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatable<Person?>
 {
+    #region Prop Enum
     private enum Prop
     {
         Name,
@@ -20,30 +22,14 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
         Spouse,
         Anniversary
     }
+    #endregion
 
 
-    #region private Felder
+    #region private Fields
 
     private readonly Dictionary<Prop, object> _propDic = new();
 
     #endregion
-
-
-
-    [return: MaybeNull]
-    private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
-
-    private void Set<T>(Prop prop, T value)
-    {
-        if (value is null || value.Equals(default))
-        {
-            _ = _propDic.Remove(prop);
-        }
-        else
-        {
-            _propDic[prop] = value;
-        }
-    }
 
 
     #region Constructors
@@ -71,7 +57,27 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
     #endregion
 
 
-    #region öffentliche Properties und Methoden
+    #region Accessor Methods
+
+    [return: MaybeNull]
+    private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
+
+    private void Set<T>(Prop prop, T value)
+    {
+        if (value is null || value.Equals(default))
+        {
+            _ = _propDic.Remove(prop);
+        }
+        else
+        {
+            _propDic[prop] = value;
+        }
+    }
+
+    #endregion
+
+
+    #region Public Methods and Properties
 
     /// <summary>
     /// Name der Person
@@ -100,7 +106,6 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
         set => Set(Prop.Gender, value);
     }
 
-
     /// <summary>
     /// Geburtstag
     /// </summary>
@@ -110,7 +115,6 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
         set => Set(Prop.BirthDay, value);
     }
 
-
     /// <summary>
     /// Name des Ehepartners
     /// </summary>
@@ -119,7 +123,6 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
         get => Get<string?>(Prop.Spouse);
         set => Set(Prop.Spouse, value);
     }
-
 
     /// <summary>
     /// Hochzeitstag
@@ -136,100 +139,116 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
     /// <returns>Der Inhalt des <see cref="Person"/>-Objekts als <see cref="string"/>.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
+    #endregion
 
 
-    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    #region Mergeable<T>, ICleanable
+
+
+    /// <inheritdoc/>
+    protected override bool DescribesForeignIdentity(Person other)
     {
-        if (IsEmpty)
+        if (Name?.CanBeMerged(other.Name) ?? true)
         {
-            return sb;
-        }
+            DateTime? birthDay = this.BirthDay;
 
-        Prop[] keys = _propDic.Keys.OrderBy(x => x).ToArray();
-
-        string[] topics = new string[keys.Length];
-
-        for (int i = 0; i < keys.Length; i++)
-        {
-            Prop key = keys[i];
-
-            switch (key)
+            if (birthDay.HasValue)
             {
-                case Prop.Name:
-                    topics[i] = Res.Name;
-                    break;
-                case Prop.NickName:
-                    topics[i] = Res.NickName;
-                    break;
-                case Prop.Gender:
-                    topics[i] = Res.Gender;
-                    break;
-                case Prop.BirthDay:
-                    topics[i] = Res.BirthDay;
-                    break;
-                case Prop.Spouse:
-                    topics[i] = Res.Spouse;
-                    break;
-                case Prop.Anniversary:
-                    topics[i] = Res.Anniversary;
-                    break;
-                default:
-                    break;
+                DateTime? otherBirthDay = other.BirthDay;
+                if (otherBirthDay.HasValue)
+                {
+                    if (birthDay.Value.Date != otherBirthDay.Value.Date)
+                    {
+                        return true;
+                    }
+                }
             }
+
+            return AreDifferent(NickName, other.NickName);
         }
 
+        return true;
 
-        int maxLength = topics.Select(x => x.Length).Max();
-        maxLength++;
+        //////////////////////////////////////////////////////
 
-        for (int i = 0; i < topics.Length; i++)
-        {
-            _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
-
-            object value = _propDic[keys[i]];
-
-            _ = value switch
-            {
-                Name name => name.AppendTo(sb).AppendLine(),
-                Sex sex => sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female),
-                DateTime dt => sb.AppendLine(dt.ToShortDateString()),
-                _ => sb.Append(value).AppendLine(),
-            };
-        }
-
-        sb.Length -= Environment.NewLine.Length;
-        return sb;
+        static bool AreDifferent(string? s1, string? s2)
+            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.AreEqual(s1, s2, true);
     }
 
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(Person source)
+    {
+        Name? name = Name;
+        Name? sourceName = source.Name;
 
-    #endregion
+        if (Mergeable<Name>.CanBeMerged(name, sourceName))
+        {
+            Name = name?.Merge(sourceName) ?? sourceName;
+        }
 
+        if (Gender == default)
+        {
+            Gender = source.Gender;
+        }
 
-    #region Interfaces
+        if (Strip.IsEmpty(NickName))
+        {
+            NickName = source.NickName;
+        }
 
-    #region ICloneable
+        if (!BirthDay.HasValue)
+        {
+            BirthDay = source.BirthDay;
+        }
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
-    public object Clone() => new Person(this);
+        if (!Anniversary.HasValue)
+        {
+            Anniversary = source.Anniversary;
+        }
 
-    #endregion
+        if (Strip.IsEmpty(Spouse))
+        {
+            Spouse = source.Spouse;
+        }
+
+    }
 
 
     #region ICleanable
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
-    /// aufgerufen werden.
-    /// </summary>
-    public override bool IsEmpty => _propDic.Count == 0;
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
+    ///// aufgerufen werden.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty
+    {
+        get
+        {
+            foreach (KeyValuePair<Prop, object> kvp in _propDic)
+            {
+                if (kvp.Value is string s)
+                {
+                    if (!Strip.IsEmpty(s))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
-    /// <summary>
-    /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    /// und leere Unterobjekte auf <c>null</c>.
-    /// </summary>
+            return true;
+        }
+    }
+
+    ///// <summary>
+    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+    ///// und leere Unterobjekte auf <c>null</c>.
+    ///// </summary>
+    /// <inheritdoc/>
     public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
@@ -274,39 +293,16 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
 
     #endregion
 
-    #region IIdentityComparer
-   // public bool CanBeMergedWith(Person? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
-   
+    #endregion
 
-    /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(Person other)
-    {
-        if (Name?.CanBeMerged(other.Name) ?? true)
-        {
-            DateTime? birthDay = this.BirthDay;
 
-            if (birthDay.HasValue)
-            {
-                DateTime? otherBirthDay = other.BirthDay;
-                if (otherBirthDay.HasValue)
-                {
-                    if (birthDay.Value.Date != otherBirthDay.Value.Date)
-                    {
-                        return true;
-                    }
-                }
-            }
+    #region ICloneable
 
-            if (!ItemStripper.AreEqual(NickName, other.NickName, true))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        return true;
-    }
+    /// <summary>
+    /// Erstellt eine tiefe Kopie des Objekts.
+    /// </summary>
+    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    public object Clone() => new Person(this);
 
     #endregion
 
@@ -431,6 +427,76 @@ public sealed class Person : Mergeable<Person>, ICloneable, ICleanable, IEquatab
         && Anniversary == other.Anniversary
         && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(other.Spouse));
     }
+
     #endregion
+
+
+    #region internal
+
+
+    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    {
+        if (IsEmpty)
+        {
+            return sb;
+        }
+
+        Prop[] keys = _propDic.Keys.OrderBy(x => x).ToArray();
+
+        string[] topics = new string[keys.Length];
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            Prop key = keys[i];
+
+            switch (key)
+            {
+                case Prop.Name:
+                    topics[i] = Res.Name;
+                    break;
+                case Prop.NickName:
+                    topics[i] = Res.NickName;
+                    break;
+                case Prop.Gender:
+                    topics[i] = Res.Gender;
+                    break;
+                case Prop.BirthDay:
+                    topics[i] = Res.BirthDay;
+                    break;
+                case Prop.Spouse:
+                    topics[i] = Res.Spouse;
+                    break;
+                case Prop.Anniversary:
+                    topics[i] = Res.Anniversary;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        int maxLength = topics.Select(x => x.Length).Max();
+        maxLength++;
+
+        for (int i = 0; i < topics.Length; i++)
+        {
+            _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
+
+            object value = _propDic[keys[i]];
+
+            _ = value switch
+            {
+                Name name => name.AppendTo(sb).AppendLine(),
+                Sex sex => sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female),
+                DateTime dt => sb.AppendLine(dt.ToShortDateString()),
+                _ => sb.Append(value).AppendLine(),
+            };
+        }
+
+        sb.Length -= Environment.NewLine.Length;
+        return sb;
+    }
+
     #endregion
+
 }//class

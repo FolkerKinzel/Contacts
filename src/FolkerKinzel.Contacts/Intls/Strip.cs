@@ -1,6 +1,6 @@
 ﻿namespace FolkerKinzel.Contacts.Intls;
 
-internal ref struct ItemStripper
+internal ref struct Strip
 {
     private const char END_OF_STRING = '\0';
     private const int INITIAL_INDEX = -1;
@@ -10,7 +10,7 @@ internal ref struct ItemStripper
     private int _currentIndex = INITIAL_INDEX;
 
 
-    internal ItemStripper(string? s, bool caseSensitive = true)
+    internal Strip(string? s, bool caseSensitive = true)
     {
         _s = s ?? "";
         _caseSensitive = caseSensitive;
@@ -19,7 +19,7 @@ internal ref struct ItemStripper
     public override bool Equals([NotNullWhen(true)] object? obj) => throw new InvalidOperationException();
 
 
-    internal bool Equals(ItemStripper other)
+    internal bool Equals(Strip other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();
@@ -62,22 +62,22 @@ internal ref struct ItemStripper
         return hashCode;
     }
 
-    internal static int GetLength(string? input) => new ItemStripper(input).GetLength();
+    internal static int GetLength(string? input) => new Strip(input).GetLength();
     
 
     internal static bool StartEqual(string? s1, string? s2, bool ignoreCase = false)
     {
-        var strip1 = new ItemStripper(s1, !ignoreCase);
-        var strip2 = new ItemStripper(s2, !ignoreCase);
+        var strip1 = new Strip(s1, !ignoreCase);
+        var strip2 = new Strip(s2, !ignoreCase);
 
         return strip1.GetLength() < strip2.GetLength() ? strip2.StartsWith(strip1)
                                                        : strip1.StartsWith(strip2);
     }
 
     internal static bool AreEqual(string? s1, string? s2, bool ignoreCase = false)
-        => new ItemStripper(s1, !ignoreCase).Equals(new ItemStripper(s2, !ignoreCase));
+        => new Strip(s1, !ignoreCase).Equals(new Strip(s2, !ignoreCase));
 
-    internal static bool IsEmpty(string? s) => new ItemStripper(s).IsEmpty();
+    internal static bool IsEmpty([NotNullWhen(false)] string? s) => string.IsNullOrEmpty(s) || new Strip(s).IsEmpty();
 
 
 
@@ -104,7 +104,7 @@ internal ref struct ItemStripper
     }
 
 
-    private bool StartsWith(ItemStripper other)
+    private bool StartsWith(Strip other)
     {
         ResetCurrentIndex();
         other.ResetCurrentIndex();

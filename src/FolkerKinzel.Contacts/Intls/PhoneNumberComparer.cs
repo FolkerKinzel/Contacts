@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FolkerKinzel.Contacts.Intls
 {
-    internal class PhoneNumberComparer : IEqualityComparer<PhoneNumber>
+    internal class PhoneNumberComparer : IEqualityComparer<PhoneNumber?>
     {
         private PhoneNumberComparer() { }
 
@@ -20,7 +20,7 @@ namespace FolkerKinzel.Contacts.Intls
             return x.CanBeMerged(y);
         }
 
-        public int GetHashCode(PhoneNumber obj) => 42;
+        public int GetHashCode(PhoneNumber? obj) => 42;
 
         public static PhoneNumberComparer Instance { get; } = new PhoneNumberComparer();
     }

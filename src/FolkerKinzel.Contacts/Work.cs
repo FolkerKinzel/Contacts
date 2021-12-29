@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text;
 using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
@@ -8,14 +9,9 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über die Arbeitsstelle einer Person.
 /// </summary>
-public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<Work?>
+public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<Work?>
 {
-    #region private Felder
-
-    private readonly Dictionary<Prop, object> _propDic = new();
-
-    #endregion
-
+    #region Prop Enum
     private enum Prop
     {
         Company,
@@ -24,7 +20,13 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
         JobTitle,
         AddressWork
     }
+    #endregion
 
+    #region private Fields
+
+    private readonly Dictionary<Prop, object> _propDic = new();
+
+    #endregion
 
     #region Constructors
 
@@ -49,6 +51,8 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
 
     #endregion
 
+    #region Accessor Methods
+
     [return: MaybeNull]
     private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
 
@@ -64,8 +68,9 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
             _propDic[prop] = value;
         }
     }
+    #endregion
 
-    #region öffentliche Eigenschaften und Methoden
+    #region Public Properties and Methods
 
     /// <summary>
     /// Name der Firma oder Organisation
@@ -76,7 +81,6 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
         set => Set(Prop.Company, value);
     }
 
-
     /// <summary>
     /// Abteilung
     /// </summary>
@@ -85,7 +89,6 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
         get => Get<string?>(Prop.Department);
         set => Set(Prop.Department, value);
     }
-
 
     /// <summary>
     /// Büro
@@ -114,93 +117,87 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
         set => Set(Prop.AddressWork, value);
     }
 
-
     /// <summary>
     /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Work"/>-Objekts.
     /// </summary>
     /// <returns>Der Inhalt des <see cref="Work"/>-Objekts als <see cref="string"/>.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
-    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    #endregion
+
+    #region Mergeable<T>, ICleanable
+
+    /// <inheritdoc/>
+    protected override bool DescribesForeignIdentity(Work other)
     {
-        if (IsEmpty)
+        if (AreDifferent(Company, other.Company))
         {
-            return sb;
+            return true;
         }
 
-        Prop[] keys = _propDic.Keys.Where(x => x != Prop.AddressWork).OrderBy(x => x).ToArray();
-
-        string[] topics = new string[keys.Length];
-
-        for (int i = 0; i < keys.Length; i++)
+        if (AreDifferent(Department, other.Department))
         {
-            Prop key = keys[i];
-
-            switch (key)
-            {
-                case Prop.Company:
-                    topics[i] = Res.Company;
-                    break;
-                case Prop.JobTitle:
-                    topics[i] = Res.Position;
-                    break;
-                case Prop.Department:
-                    topics[i] = Res.Department;
-                    break;
-                case Prop.Office:
-                    topics[i] = Res.Office;
-                    break;
-                //case Prop.AddressWork:
-                //    topics[i] = Res.AddressWork;
-                //    break;
-                default:
-                    break;
-            }
+            return true;
         }
 
-        int maxLength = topics.Select(x => x.Length).Max();
-        maxLength++;
-
-        for (int i = 0; i < topics.Length; i++)
+        if (AreDifferent(Office, other.Office))
         {
-            _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
-            _ = sb.Append(_propDic[keys[i]]).AppendLine();
+            return true;
         }
 
-        Address? adrWork = AddressWork;
-        if (adrWork != null)
+        if (AreDifferent(JobTitle, other.JobTitle))
         {
-            _ = sb.Append(indent).Append(Res.AddressWork).AppendLine();
-            _ = adrWork.AppendTo(sb, indent + "        ").AppendLine();
+            return true;
         }
 
-        sb.Length -= Environment.NewLine.Length;
-        return sb;
+        return !Mergeable<Address>.CanBeMerged(AddressWork, other.AddressWork);
+
+
+        //////////////////////////////////////////////////////
+
+        static bool AreDifferent(string? s1, string? s2)
+            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);
     }
 
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(Work source)
+    {
+        Address? adr = AddressWork;
+        Address? sourceAdr = source.AddressWork;
 
-    #endregion
+        if (Mergeable<Address>.CanBeMerged(adr, sourceAdr))
+        {
+            AddressWork = adr?.Merge(sourceAdr) ?? sourceAdr;
+        }
 
+        if (Strip.IsEmpty(Company))
+        {
+            Company = source.Company;
+        }
 
-    #region Interfaces
+        if (Strip.IsEmpty(Department))
+        {
+            Department = source.Department;
+        }
 
-    #region ICloneable
+        if (Strip.IsEmpty(Office))
+        {
+            Office = source.Office;
+        }
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
-    public object Clone() => new Work(this);
-
-    #endregion
-
+        if (Strip.IsEmpty(JobTitle))
+        {
+            JobTitle = source.JobTitle;
+        }
+    }
 
     #region ICleanable
 
-    /// <summary>
-    /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    /// und leere Unterobjekte auf <c>null</c>.
-    /// </summary>
+    ///// <summary>
+    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+    ///// und leere Unterobjekte auf <c>null</c>.
+    ///// </summary>
+    /// <inheritdoc/>
     public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
@@ -229,54 +226,36 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
     }
 
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
-    /// <see cref="Clean"/> aufgerufen werden.
-    /// </summary>
-    public override bool IsEmpty => _propDic.Count == 0;
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty
+    {
+        get
+        {
+            foreach (KeyValuePair<Prop, object> kvp in _propDic)
+            {
+                if ((kvp.Value is string s && !Strip.IsEmpty(s)) || (kvp.Value is ICleanable adr && !adr.IsEmpty))
+                {
+                    return false;
+                }
+            }
 
+            return true;
+        }
+    }
+    #endregion
+    
     #endregion
 
-    #region IIdentityComparer
-    //public bool CanBeMergedWith(Work? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
+    #region ICloneable
 
-
-    /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(Work other)
-    {
-        string? company = Company;
-        string? otherCompany = other.Company;
-
-        bool areAddressesMergeable = AddressWork?.CanBeMerged(other.AddressWork) ?? true;
-
-
-        if ((ItemStripper.IsEmpty(company) || ItemStripper.IsEmpty(otherCompany)) && areAddressesMergeable)
-        {
-            return false;
-        }
-
-        if (!ItemStripper.StartEqual(company, otherCompany, true))
-        {
-            return true;
-        }
-
-        if (!ItemStripper.StartEqual(Department, other.Department, true))
-        {
-            return true;
-        }
-
-        if (!ItemStripper.StartEqual(Office, other.Office, true))
-        {
-            return true;
-        }
-
-        if (!ItemStripper.StartEqual(JobTitle, other.JobTitle, true))
-        {
-            return true;
-        }
-
-        return !areAddressesMergeable;
-    }
+    /// <summary>
+    /// Erstellt eine tiefe Kopie des Objekts.
+    /// </summary>
+    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    public object Clone() => new Work(this);
 
     #endregion
 
@@ -425,9 +404,63 @@ public sealed class Work : Mergeable<Work>, ICloneable, ICleanable, IEquatable<W
 
     #endregion
 
+    #region internal
 
+    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    {
+        if (IsEmpty)
+        {
+            return sb;
+        }
+
+        Prop[] keys = _propDic.Keys.Where(x => x != Prop.AddressWork).OrderBy(x => x).ToArray();
+
+        string[] topics = new string[keys.Length];
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            Prop key = keys[i];
+
+            switch (key)
+            {
+                case Prop.Company:
+                    topics[i] = Res.Company;
+                    break;
+                case Prop.JobTitle:
+                    topics[i] = Res.Position;
+                    break;
+                case Prop.Department:
+                    topics[i] = Res.Department;
+                    break;
+                case Prop.Office:
+                    topics[i] = Res.Office;
+                    break;
+                //case Prop.AddressWork:
+                //    topics[i] = Res.AddressWork;
+                //    break;
+                default:
+                    break;
+            }
+        }
+
+        int maxLength = topics.Select(x => x.Length).Max();
+        maxLength++;
+
+        for (int i = 0; i < topics.Length; i++)
+        {
+            _ = sb.Append(indent).Append(topics[i].PadRight(maxLength));
+            _ = sb.Append(_propDic[keys[i]]).AppendLine();
+        }
+
+        Address? adrWork = AddressWork;
+        if (adrWork != null)
+        {
+            _ = sb.Append(indent).Append(Res.AddressWork).AppendLine();
+            _ = adrWork.AppendTo(sb, indent + "        ").AppendLine();
+        }
+
+        sb.Length -= Environment.NewLine.Length;
+        return sb;
+    }
     #endregion
-
-
-
 }

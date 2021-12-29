@@ -8,8 +8,9 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Adressdaten.
 /// </summary>
-public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquatable<Address?>
+public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquatable<Address?>
 {
+    #region Prop Enum
     /// <summary>
     /// Benannte Konstanten, um die Properties eines <see cref="Address"/>-Objekts im Indexer zu adressieren.
     /// </summary>
@@ -23,12 +24,13 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
 
     }
 
-    #region private Felder
+    #endregion
+
+    #region Private Fields
 
     private readonly Dictionary<Prop, string> _propDic = new();
 
     #endregion
-
 
     #region Constructors
 
@@ -76,7 +78,6 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
     #endregion
 
     #region Public Properties and Methods
-
 
     /// <summary>
     /// Straße (+ Hausnummer)
@@ -130,97 +131,96 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
     /// <returns>Der Inhalt des <see cref="Address"/>-Objekts als <see cref="string"/>.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
+    #endregion
 
+    #region Mergeable<T>, ICleanable
 
-    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    /// <inheritdoc/>
+    protected override bool DescribesForeignIdentity(Address other)
     {
-        bool writeLineBreak = true;
-        bool writeIndent = true;
+        string? postalCode = PostalCode;
+        string? otherPostalCode = other.PostalCode;
 
-        foreach (Prop key in _propDic.Keys.OrderBy(x => x))
+        if (Strip.IsEmpty(postalCode) || Strip.IsEmpty(otherPostalCode))
         {
-            switch (key)
+            if (AreDifferent(City, other.City))
             {
-                case Prop.Street:
-                    _ = sb.Append(indent).AppendLine(Street);
-                    writeLineBreak = false;
-                    break;
-                case Prop.PostalCode:
-                    _ = sb.Append(indent).Append(PostalCode);
-                    writeLineBreak = true;
-                    writeIndent = false;
-                    break;
-                case Prop.City:
-                    if (writeIndent)
-                    {
-                        _ = sb.Append(indent).AppendLine(City);
-                    }
-                    else
-                    {
-                        _ = sb.Append(' ').AppendLine(City);
-                        writeIndent = true;
-                    }
-                    writeLineBreak = false;
-                    break;
-                case Prop.State:
-                    if (writeLineBreak)
-                    {
-                        _ = sb.AppendLine();
-                    }
-                    _ = sb.Append(indent).AppendLine(State);
-                    writeLineBreak = false;
-                    break;
-                case Prop.Country:
-                    if (writeLineBreak)
-                    {
-                        _ = sb.AppendLine();
-                    }
-                    _ = sb.Append(indent).AppendLine(Country);
-                    writeLineBreak = false;
-                    break;
-
-                default:
-                    break;
+                return true;
+            }
+        }
+        else
+        {
+            if (!Strip.AreEqual(postalCode, otherPostalCode))
+            {
+                return true;
             }
         }
 
-        if (!writeLineBreak)
+        if (AreDifferent(Street, other.Street))
         {
-            sb.Length -= Environment.NewLine.Length;
+            return true;
         }
 
-        return sb;
+        if (AreDifferent(Country, other.Country))
+        {
+            return true;
+        }
+
+        if (AreDifferent(State, other.State))
+        {
+            return true;
+        }
+
+        return false;
+
+        //////////////////////////////////////////////////////
+
+        static bool AreDifferent(string? s1, string? s2)
+            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);
     }
 
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(Address source)
+    {
+        if (Strip.IsEmpty(PostalCode))
+        {
+            PostalCode = source.PostalCode;
+        }
 
+        if (Strip.IsEmpty(City))
+        {
+            City = source.City;
+        }
 
-    #endregion
+        if (Strip.IsEmpty(Street))
+        {
+            Street = source.Street;
+        }
 
+        if (Strip.IsEmpty(State))
+        {
+            State = source.State;
+        }
 
-    #region Interfaces
-
-    #region ICloneable
-
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
-    public object Clone() => new Address(this);
-
-    #endregion
+        if (Strip.IsEmpty(Country))
+        {
+            Country = source.Country;
+        }
+    }
 
     #region ICleanable
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
-    /// aufgerufen werden.
-    /// </summary>
-    public override bool IsEmpty => _propDic.Count == 0;
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty => _propDic.Any(x => !Strip.IsEmpty(x.Value));
 
-    /// <summary>
-    /// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    /// und leere Unterobjekte auf <c>null</c>.
-    /// </summary>
+    ///// <summary>
+    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+    ///// und leere Unterobjekte auf <c>null</c>.
+    ///// </summary>
+    /// <inheritdoc/>
     public override void Clean()
     {
         Prop[]? keys = this._propDic.Keys.ToArray();
@@ -237,48 +237,15 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
 
     #endregion
 
-    #region Mergeable<T>
+    #endregion
 
+    #region ICloneable
 
-    /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(Address other)
-    {
-        string? postalCode = PostalCode;
-        string? otherPostalCode = other.PostalCode;
-
-        if (!ItemStripper.IsEmpty(postalCode) && !ItemStripper.IsEmpty(otherPostalCode))
-        {
-            if (!ItemStripper.AreEqual(postalCode, otherPostalCode))
-            {
-                return true;
-            }
-
-            return !ItemStripper.StartEqual(Street, other.Street);
-        }
-        else
-        {
-            string? city = City;
-            string? otherCity = other.City;
-
-            if (!ItemStripper.IsEmpty(city) && !ItemStripper.IsEmpty(otherCity))
-            {
-                if (!ItemStripper.StartEqual(city, otherCity, true))
-                {
-                    return true;
-                }
-
-                string? street = Street;
-                string? otherStreet = other.Street;
-
-                if (!string.IsNullOrWhiteSpace(street) && !string.IsNullOrWhiteSpace(otherStreet))
-                {
-                    return !ItemStripper.StartEqual(street, otherStreet, true);
-                }
-            }
-        }
-
-        return false;
-    }
+    /// <summary>
+    /// Erstellt eine tiefe Kopie des Objekts.
+    /// </summary>
+    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    public object Clone() => new Address(this);
 
     #endregion
 
@@ -420,11 +387,72 @@ public sealed class Address : Mergeable<Address>, ICloneable, ICleanable, IEquat
             && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
     }
 
-    #endregion
 
     #endregion
 
     #endregion
 
+    #region internal
 
+    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    {
+        bool writeLineBreak = true;
+        bool writeIndent = true;
+
+        foreach (Prop key in _propDic.Keys.OrderBy(x => x))
+        {
+            switch (key)
+            {
+                case Prop.Street:
+                    _ = sb.Append(indent).AppendLine(Street);
+                    writeLineBreak = false;
+                    break;
+                case Prop.PostalCode:
+                    _ = sb.Append(indent).Append(PostalCode);
+                    writeLineBreak = true;
+                    writeIndent = false;
+                    break;
+                case Prop.City:
+                    if (writeIndent)
+                    {
+                        _ = sb.Append(indent).AppendLine(City);
+                    }
+                    else
+                    {
+                        _ = sb.Append(' ').AppendLine(City);
+                        writeIndent = true;
+                    }
+                    writeLineBreak = false;
+                    break;
+                case Prop.State:
+                    if (writeLineBreak)
+                    {
+                        _ = sb.AppendLine();
+                    }
+                    _ = sb.Append(indent).AppendLine(State);
+                    writeLineBreak = false;
+                    break;
+                case Prop.Country:
+                    if (writeLineBreak)
+                    {
+                        _ = sb.AppendLine();
+                    }
+                    _ = sb.Append(indent).AppendLine(Country);
+                    writeLineBreak = false;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        if (!writeLineBreak)
+        {
+            sb.Length -= Environment.NewLine.Length;
+        }
+
+        return sb;
+    }
+
+    #endregion
 }//class

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography;
 using System.Text;
 using FolkerKinzel.Contacts.Intls;
 using FolkerKinzel.Contacts.Resources;
@@ -11,6 +12,7 @@ namespace FolkerKinzel.Contacts;
 /// </summary>
 public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>
 {
+    #region Flags Enum
     [Flags]
     private enum Flags
     {
@@ -18,13 +20,13 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
         IsMobile = 2,
         IsFax = 4
     }
+    #endregion
 
     #region private Fields
 
     private Flags _flags;
 
     #endregion
-
 
     #region Ctors
 
@@ -56,9 +58,6 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     }
 
     #endregion
-
-    internal void Merge(PhoneNumber telNumber) => this._flags |= telNumber._flags;
-
 
     #region public Properties and Methods
 
@@ -101,55 +100,43 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     /// <returns>Der Inhalt des <see cref="PhoneNumber"/>-Objekts als <see cref="string"/>.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
-
-    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
-    {
-        _ = sb.Append(indent);
-        if (string.IsNullOrWhiteSpace(Value))
-        {
-            _ = sb.Append('_');
-            return sb;
-        }
-        else
-        {
-            _ = sb.Append(Value);
-        }
-
-
-        bool closeBracket = false;
-
-
-        if (IsFax)
-        {
-            _ = sb.Append(" (").Append(Res.Fax);
-            closeBracket = true;
-        }
-
-        if (IsWork)
-        {
-            if (closeBracket)
-            {
-                _ = sb.Append(", ").Append(Res.WorkShort);
-            }
-            else
-            {
-                _ = sb.Append(" (").Append(Res.WorkShort);
-                closeBracket = true;
-            }
-        }
-
-        if (closeBracket)
-        {
-            _ = sb.Append(')');
-        }
-
-        return sb;
-    }
-
     #endregion
 
+    #region Mergeable<T>, ICleanable
 
-    #region Interfaces
+    /// <inheritdoc/>
+    protected override bool DescribesForeignIdentity(PhoneNumber other) => !Strip.AreEqual(Value, other.Value);
+
+
+    /// <inheritdoc/>
+    protected override void CompleteDataWith(PhoneNumber source)
+    {
+        if (IsEmpty)
+        {
+            Value = source.Value;
+        }
+
+        this._flags |= source._flags;
+    }
+
+    #region ICleanable
+
+    ///// <summary>
+    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override bool IsEmpty => Strip.IsEmpty(this.Value);
+
+
+    ///// <summary>
+    ///// Entfernt leere Strings und überflüssige Leerzeichen.
+    ///// </summary>
+    /// <inheritdoc/>
+    public override void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
+
+
+    #endregion
+    #endregion
 
     #region IEnumerable
 
@@ -164,23 +151,6 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
 
     #endregion
 
-    #region ICleanable
-
-    /// <summary>
-    /// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
-    /// </summary>
-    public override bool IsEmpty => ItemStripper.IsEmpty(this.Value);
-
-
-    /// <summary>
-    /// Entfernt leere Strings und überflüssige Leerzeichen.
-    /// </summary>
-    public override void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
-
-
-    #endregion
-
-
     #region ICloneable
 
     /// <summary>
@@ -190,19 +160,6 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     public object Clone() => new PhoneNumber(this);
 
     #endregion
-
-
-    #region IIdentityComparer
-
-    ///// <inheritdoc/>
-    //public bool CanBeMergedWith(PhoneNumber? other) => other is null || IsEmpty || other.IsEmpty || !BelongsToOtherIdentity(other);
-
-    /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(PhoneNumber other) => !ItemStripper.AreEqual(Value, other.Value);
-
-    #endregion
-
-
 
     #region IEquatable
 
@@ -325,7 +282,51 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
 
     #endregion
 
-    #endregion
+    #region internal
 
+    internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
+    {
+        _ = sb.Append(indent);
+        if (string.IsNullOrWhiteSpace(Value))
+        {
+            _ = sb.Append('_');
+            return sb;
+        }
+        else
+        {
+            _ = sb.Append(Value);
+        }
+
+
+        bool closeBracket = false;
+
+
+        if (IsFax)
+        {
+            _ = sb.Append(" (").Append(Res.Fax);
+            closeBracket = true;
+        }
+
+        if (IsWork)
+        {
+            if (closeBracket)
+            {
+                _ = sb.Append(", ").Append(Res.WorkShort);
+            }
+            else
+            {
+                _ = sb.Append(" (").Append(Res.WorkShort);
+                closeBracket = true;
+            }
+        }
+
+        if (closeBracket)
+        {
+            _ = sb.Append(')');
+        }
+
+        return sb;
+    }
+    #endregion
 
 }
