@@ -265,4 +265,5 @@
   <T ID="6CC6993700B7D632"></T>
   <T ID="112B1BB687FCA7D1"></T>
   <T ID="F93CED89C333693A"></T>
+  <T ID="C997C1999A03F826">Cleans the data stored in the object: Removes e.g. empty sub-objects or superfluous white space.</T>
 </Tsltn>

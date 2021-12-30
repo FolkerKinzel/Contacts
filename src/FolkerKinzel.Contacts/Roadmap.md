@@ -2,9 +2,9 @@
 ## Roadmap
 
 ### 2.0.0
-- [x] Add an interface `IIdentityComparer<T>`, which has a Method `CanBeMergedWith(T? other)`, and implement it in all classes. 
+- [x] Add an abstract class `Mergeable<T>`, which has a Method `CanBeMerged(T? other)`, and implement it in all classes. 
 - [x] Change the overridden `Equals` and `GetHashCode` methods instead to produce compliant results.
-- [ ] Enable automatic merging of `Contact` objects.
+- [x] Enable automatic merging of `Contact` objects.
 
 ### 2.1.0
 - [ ] Make the `Contact` class inheritable.

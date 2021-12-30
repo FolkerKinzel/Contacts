@@ -4,6 +4,7 @@
 /// Schnittstelle, die implementierende Klassen befähigt, festzustellen, ob sie zur
 /// Beschreibung derselben Identität dienen könnten.
 /// </summary>
+/// <typeparam name="T">Generischer Typparameter.</typeparam>
 public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
 {
     /// <inheritdoc/>
