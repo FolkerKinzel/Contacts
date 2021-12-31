@@ -20,7 +20,7 @@ namespace FolkerKinzel.Contacts.Intls
             return x.CanBeMerged(y);
         }
 
-        public int GetHashCode(PhoneNumber? obj) => 42;
+        public int GetHashCode(PhoneNumber? obj) => Strip.GetHashCode(obj?.Value);
 
         public static PhoneNumberComparer Instance { get; } = new PhoneNumberComparer();
     }

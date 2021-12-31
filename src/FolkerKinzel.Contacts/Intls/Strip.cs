@@ -62,6 +62,8 @@ internal ref struct Strip
         return hashCode;
     }
 
+    internal static int GetHashCode(string? s) => new Strip(s).GetHashCode();
+
     internal static int GetLength(string? input) => new Strip(input).GetLength();
     
 
