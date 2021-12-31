@@ -227,7 +227,7 @@ public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<N
     ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
     ///// </summary>
     /// <inheritdoc/>
-    public override bool IsEmpty => _propDic.Any(x => !Strip.IsEmpty(x.Value));
+    public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
 
     ///// <summary>

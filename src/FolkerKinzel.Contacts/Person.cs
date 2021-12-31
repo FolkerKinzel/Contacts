@@ -224,7 +224,7 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
         Name? name = Name;
         Name? sourceName = source.Name;
 
-        if (Mergeable<Name>.CanBeMerged(name, sourceName))
+        if (Name.CanBeMerged(name, sourceName))
         {
             Name = name?.Merge(sourceName) ?? sourceName;
         }
@@ -264,27 +264,32 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
     ///// aufgerufen werden.
     ///// </summary>
     /// <inheritdoc/>
-    public override bool IsEmpty
+    public override bool IsEmpty => CheckIsEmpty();
+
+    private bool CheckIsEmpty()
     {
-        get
+        foreach (KeyValuePair<Prop, object> kvp in _propDic)
         {
-            foreach (KeyValuePair<Prop, object> kvp in _propDic)
+            switch (kvp.Value)
             {
-                if (kvp.Value is string s)
-                {
+                case string s:
                     if (!Strip.IsEmpty(s))
                     {
                         return false;
                     }
-                }
-                else
-                {
+                    break;
+                case ICleanable adr:
+                    if (!adr.IsEmpty)
+                    {
+                        return false;
+                    }
+                    break;
+                default:
                     return false;
-                }
             }
-
-            return true;
         }
+
+        return true;
     }
 
     ///// <summary>

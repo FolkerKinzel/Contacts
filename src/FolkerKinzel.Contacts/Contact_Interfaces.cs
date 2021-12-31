@@ -41,12 +41,12 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
             }
         }
 
-        if (!Mergeable<Person>.CanBeMerged(Person, other.Person))
+        if (!Person.CanBeMerged(Person, other.Person))
         {
             return true;
         }
 
-        if (!Mergeable<Work>.CanBeMerged(Work, other.Work))
+        if (!Work.CanBeMerged(Work, other.Work))
         {
             return true;
         }
@@ -102,7 +102,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Person? person = Person;
         Person? sourcePerson = source.Person;
 
-        if (Mergeable<Person>.CanBeMerged(person, sourcePerson))
+        if (Person.CanBeMerged(person, sourcePerson))
         {
             Person = person?.Merge(sourcePerson) ?? sourcePerson;
         }
@@ -110,7 +110,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Work? work = Work;
         Work? sourceWork = source.Work;
 
-        if (Mergeable<Work>.CanBeMerged(work, sourceWork))
+        if (Work.CanBeMerged(work, sourceWork))
         {
             Work = work?.Merge(sourceWork) ?? sourceWork;
         }
@@ -118,7 +118,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Address? adr = AddressHome;
         Address? sourceAdr = source.AddressHome;
 
-        if (Mergeable<Address>.CanBeMerged(adr, sourceAdr))
+        if (Address.CanBeMerged(adr, sourceAdr))
         {
             AddressHome = adr?.Merge(sourceAdr) ?? sourceAdr;
         }

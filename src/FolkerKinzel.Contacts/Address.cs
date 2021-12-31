@@ -37,10 +37,8 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
     /// <summary>
     /// Initialisiert eine leere Instanz der <see cref="Address"/>-Klasse.
     /// </summary>
-    public Address()
-    {
+    public Address() { }
 
-    }
 
     /// <summary>
     /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
@@ -132,7 +130,6 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
-
 
     #region Operators
 
@@ -259,7 +256,7 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
     ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
     ///// </summary>
     /// <inheritdoc/>
-    public override bool IsEmpty => _propDic.Any(x => !Strip.IsEmpty(x.Value));
+    public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
     ///// <summary>
     ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings

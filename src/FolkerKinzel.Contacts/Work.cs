@@ -194,7 +194,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
             return true;
         }
 
-        return !Mergeable<Address>.CanBeMerged(AddressWork, other.AddressWork);
+        return !Address.CanBeMerged(AddressWork, other.AddressWork);
 
 
         //////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
         Address? adr = AddressWork;
         Address? sourceAdr = source.AddressWork;
 
-        if (Mergeable<Address>.CanBeMerged(adr, sourceAdr))
+        if (Address.CanBeMerged(adr, sourceAdr))
         {
             AddressWork = adr?.Merge(sourceAdr) ?? sourceAdr;
         }
