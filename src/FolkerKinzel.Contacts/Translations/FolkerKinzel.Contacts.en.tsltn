@@ -18,26 +18,12 @@
   <T ID="7C04D7CAAA6E3295">The content of the object instance as &lt;see cref="T:System.String" /&gt;.</T>
   <T ID="BA787E8EAE690407">Creates a deep copy of the object instance.</T>
   <T ID="5C56E0C51616F6A5">Deep copy of the object instance.</T>
-  <T ID="8DB054AABBE33818">Cleans all strings in all fields of the object instance from invalid characters and sets empty strings and empty sub-objects to &lt;c&gt;null&lt;/c&gt;.</T>
-  <T ID="9041528D6FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="EB16675F6F0A7C37">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object, that represents the same postal address.</T>
-  <T ID="4A8C5AE28C16C1E6">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Address.Clean" /&gt;.</T>
-  <T ID="A22F41602E889B0C">Compares the object instance with &lt;paramref name="obj" /&gt; to determine,  whether &lt;paramref name="obj" /&gt; is an &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt; object, that represents the same postal address.</T>
-  <T ID="D203A2104145C9CC">Compares the object instance with another &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt;-object to determine,  whether &lt;paramref name="other" /&gt; represents the same postal address.</T>
-  <T ID="6411983964DF1223">The &lt;see cref="T:FolkerKinzel.Contacts.Address" /&gt;-object to compare with.</T>
-  <T ID="3BF528E5515505AE">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; represents the same postal address.</T>
-  <T ID="1AF376911092B669">Creates a hash code for the object.</T>
-  <T ID="CB988CA04C32CA81">The hash code.</T>
   <T ID="E6F6CE29616F1698">Overloads the == operator.</T>
-  <T ID="F6068E70D385FED7">Compares &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; to determine, whether they both represent the same postal address.</T>
   <T ID="F541688C32F86C6F">Left operand.</T>
   <T ID="F541688B6ED03C68">Right operand.</T>
-  <T ID="844EA3ECD43D8EE">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; both represent the same postal address.</T>
   <T ID="1111B185616F1698">Overloads the != operator.</T>
-  <T ID="D5A31C5A57C1BEE0">Compares &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; to determine, if they represent different postal addresses.</T>
   <T ID="1C01360732F86C6F">Left operand.</T>
   <T ID="1C0136086ED03C68">Right operand.</T>
-  <T ID="3604C73ACC47CAB9">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="address1" /&gt; and &lt;paramref name="address2" /&gt; represent different postal addresses.</T>
   <T ID="97582426FD11B41A">&lt;para&gt; Initialize &lt;see cref ="T:FolkerKinzel.Contacts.Contact"/&gt; objects: &lt;/para&gt; &lt;code/&gt;</T>
   <T ID="7F54F943697CB4AC">Initializes an empty instance of the &lt;see cref ="T:FolkerKinzel.Contacts.Contact"/&gt; class.</T>
   <T ID="BF133836664302C3">Display name</T>
@@ -51,32 +37,16 @@
   <T ID="C0878DA545236C4">Business homepage</T>
   <T ID="BC15CE2531F75A9B">Notes</T>
   <T ID="E6A66CAA3B371BF1">Last Changed</T>
-  <T ID="B3C6D5C2430AD39E">Compares the object instance with &lt;paramref name="obj" /&gt; to determine,  whether &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; object, that represents the same organization or person.</T>
-  <T ID="561501516FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="3A685BF1F943A3FD">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; object, that represents the same organization or person.</T>
-  <T ID="1926F6FE9F45A058">Compares the instance with another &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt;-object to determine,  whether &lt;paramref name="other" /&gt; represents the same organization or person.</T>
-  <T ID="5128F954994307CF">The &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; object to compare with.</T>
-  <T ID="43A54037B9E9FA00">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; represents the same organization or person.</T>
-  <T ID="9DC9369E1092B669">Creates a hash code for the object.</T>
-  <T ID="283A25194C32CA81">The hash code.</T>
   <T ID="1D1210616F1698">Overloads the == operator.</T>
-  <T ID="1D4F51857E73FAA6">Compares &lt;paramref name="contact1" /&gt; and &lt;paramref name="contact2" /&gt; to determine, whether they both represent the same organization or person.</T>
   <T ID="A843B0FE32F86C6F">Left operand.</T>
   <T ID="A843B0FB6ED03C68">Right operand.</T>
-  <T ID="7A75A86177BA12DF">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="contact1" /&gt; and &lt;paramref name="contact2" /&gt; both represent the same organization or person.</T>
   <T ID="AAE7FA0D616F1698">Overloads the != operator.</T>
-  <T ID="A3007BE48EA11C1">Compares &lt;paramref name="contact1" /&gt; and &lt;paramref name="contact2" /&gt; to determine, whether they represent different organizations or persons.</T>
   <T ID="33E18B5E32F86C6F">Left operand.</T>
   <T ID="33E18B5B6ED03C68">Right operand.</T>
-  <T ID="4CE043301A05ADC2">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="contact1" /&gt; and &lt;paramref name="contact2" /&gt; represent different organizations or persons.</T>
-  <T ID="277590CCBCE0E05">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Contact.Clean" /&gt;.</T>
-  <T ID="A955E798BBE33818">Cleans all strings in all fields of the object instance from invalid characters and sets empty strings and empty sub-objects to &lt;c&gt;null&lt;/c&gt;.</T>
   <T ID="16798578AE690407">Creates a deep copy of the object instance.</T>
   <T ID="562947D31616F6A5">Deep copy of the object instance.</T>
   <T ID="786CB5417448B353">Creates a &lt;see cref="T:System.String" /&gt; representation of the object instance.</T>
   <T ID="6F04942413F468E0">The content of the object instance as &lt;see cref="T:System.String" /&gt;.</T>
-  <T ID="C997C199F58A287D">Cleans the object instance from data garbage.</T>
-  <T ID="FB2716D0C36C7614">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data.</T>
   <T ID="22C96D9BCEE69FE3">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.Contacts.Name" /&gt; class.</T>
   <T ID="BBE81D6C21AB41B2">Last name</T>
   <T ID="5F2C33C4F3537DEF">First name</T>
@@ -85,28 +55,14 @@
   <T ID="F6F588DBC24F0309">Name suffix</T>
   <T ID="E17535B0BC6872A5">Creates a &lt;see cref="T:System.String" /&gt; representation of the object instance.</T>
   <T ID="11EECD230D3CCC93">The content of the object instance as &lt;see cref="T:System.String" /&gt;.</T>
-  <T ID="49EA4C4255A4BCEC">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Name.Clean" /&gt;.</T>
-  <T ID="CF70699485ED9416">Removes empty strings and unnecessary whitespace.</T>
   <T ID="AB786B50AE690407">Creates a deep copy of the object instance.</T>
   <T ID="17CDB5691616F6A5">Deep copy of the object instance.</T>
-  <T ID="5202130CF81AB32D">Compares the object instance with &lt;paramref name="obj" /&gt; to determine,  whether &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Name" /&gt; object, that represents the same name.</T>
-  <T ID="60E06A86FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="22E5A167EC177559">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Name" /&gt; object, that represents the same name.</T>
-  <T ID="BC9CC7DDEF750DE7">Compares the object instance with another &lt;see cref="T:FolkerKinzel.Contacts.Name"/&gt;-object to determine,  whether &lt;paramref name="other" /&gt; represents the same name.</T>
-  <T ID="9A392D81B5AEFB65">The &lt;see cref="T:FolkerKinzel.Contacts.Name" /&gt; object to compare with.</T>
-  <T ID="D7DBC79A2195D607">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; represents the same name.</T>
-  <T ID="8870D75F1092B669">Creates a hash code for the object.</T>
-  <T ID="864045544C32CA81">The hash code.</T>
   <T ID="E97D4C8D616F1698">Overloads the == operator.</T>
-  <T ID="E53EBD1EFA84B076">Compares &lt;paramref name="name1" /&gt; and &lt;paramref name="name2" /&gt; to determine, whether they both represent the same name.</T>
   <T ID="4B5429AD32F86C6F">Left operand.</T>
   <T ID="4B5429B06ED03C68">Right operand.</T>
-  <T ID="3495A10A5894F32A">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="name1" /&gt; and &lt;paramref name="name2" /&gt; both represent the same name.</T>
   <T ID="B90671B616F1698">Overloads the != operator.</T>
-  <T ID="AD715646539BB9EB">Compares &lt;paramref name="name1" /&gt; and &lt;paramref name="name2" /&gt; to determine, if they represent different names.</T>
   <T ID="C99D7E1E32F86C6F">Left operand.</T>
   <T ID="C99D7E1F6ED03C68">Right operand.</T>
-  <T ID="D7E469E2E38F60BB">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="name1" /&gt; and &lt;paramref name="name2" /&gt; represent different names.</T>
   <T ID="E377CFDE4F64E30">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.Contacts.Person" /&gt; class.</T>
   <T ID="D9D9E0D87214AA8D">Name of the person</T>
   <T ID="B47582B9262FD68D">Nickname</T>
@@ -118,28 +74,12 @@
   <T ID="267C83C73BD569A3">The content of the &lt;see cref="T:FolkerKinzel.Contacts.Person" /&gt; object as &lt;see cref="T:System.String" /&gt;.</T>
   <T ID="202703F8AE690407">Creates a deep copy of the object instance.</T>
   <T ID="2D176E9D1616F6A5">Deep copy of the object instance.</T>
-  <T ID="10E18AC9086A6305">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Person.Clean" /&gt;.</T>
-  <T ID="90D45914BBE33818">Cleans all strings in all fields of the object instance from invalid characters and sets empty strings and empty sub-objects to &lt;c&gt;null&lt;/c&gt;.</T>
-  <T ID="ABB7D4156D90E382">Compares the object instance with &lt;paramref name ="obj"/&gt; to determine, whether &lt;paramref name ="obj"/&gt; is a &lt;see cref ="T:FolkerKinzel.Contacts.Person"/&gt; object, that refers to the same physical person.</T>
-  <T ID="18EF7AF4CB42F4D5">For the comparison the properties &lt;see cref ="P:FolkerKinzel.Contacts.Person.Name"/&gt;, &lt;see cref ="P:FolkerKinzel.Contacts.Person.NickName"/&gt; and &lt;see cref ="P:FolkerKinzel.Contacts.Person.BirthDay"/&gt; are used.</T>
-  <T ID="99499A846FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="61E4F1747DCD4978">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Person" /&gt; instance, that refers to the same physical person.</T>
-  <T ID="423E4AA311CE1898">Compares the object instance to another &lt;see cref ="T:FolkerKinzel.Contacts.Person"/&gt; object to determine, whether they both refer to the same person.</T>
-  <T ID="E1D5BECCB42F4D5">For the comparison the properties &lt;see cref ="P:FolkerKinzel.Contacts.Person.Name"/&gt;, &lt;see cref ="P:FolkerKinzel.Contacts.Person.NickName"/&gt; and &lt;see cref ="P:FolkerKinzel.Contacts.Person.BirthDay"/&gt; are used.</T>
-  <T ID="42D8CF8F6D291F6">The &lt;see cref="T:FolkerKinzel.Contacts.Person" /&gt; object to compare with.</T>
-  <T ID="E3AA215E8467CD0D">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; refers to the same person.</T>
-  <T ID="9FC1AE821092B669">Creates a hash code for the object.</T>
-  <T ID="2D97F3894C32CA81">The hash code.</T>
   <T ID="E1F1D9CF616F1698">Overloads the == operator.</T>
-  <T ID="1FA723F8EFF82D01">Compares the properties &lt;see cref ="P:FolkerKinzel.Contacts.Person.Name"/&gt;, &lt;see cref ="P:FolkerKinzel.Contacts.Person.NickName"/&gt; and &lt;see cref ="P:FolkerKinzel.Contacts.Person.BirthDay"/&gt; of two &lt;see cref ="T:FolkerKinzel.Contacts.Person"/&gt; objects to determine, whether both refer to the same physical person.</T>
   <T ID="9630D2C432F86C6F">Left operand.</T>
   <T ID="9630D2C56ED03C68">Right operand.</T>
-  <T ID="E7F4F0C48AE24A78">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="person1"/&gt; and &lt;paramref name ="person2"/&gt; both refer to the same physical person.</T>
   <T ID="326C0842616F1698">Overloads the != operator.</T>
-  <T ID="AB65CC5FD9774436">Compares the properties &lt;see cref ="P:FolkerKinzel.Contacts.Person.Name"/&gt;, &lt;see cref ="P:FolkerKinzel.Contacts.Person.NickName"/&gt; and &lt;see cref ="P:FolkerKinzel.Contacts.Person.BirthDay"/&gt; of two &lt;see cref ="T:FolkerKinzel.Contacts.Person"/&gt; objects to determine, whether they refer to different persons.</T>
   <T ID="8512556432F86C6F">Left operand.</T>
   <T ID="851255616ED03C68">Right operand.</T>
-  <T ID="A5CD68B56F75A6F1">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="person1"/&gt; and &lt;paramref name ="person2"/&gt; refer to different persons.</T>
   <T ID="1CA43DD089BE367D">Initializes an empty instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
   <T ID="8E4CA742B461DF1">Initializes a &lt;see cref ="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object with the phone number to be encapsulated and optional flags, that describe it in more detail.</T>
   <T ID="B0807F1943D05A17">The phone number.</T>
@@ -152,28 +92,14 @@
   <T ID="EDB23A7834265D28">&lt;c&gt;true&lt;/c&gt; indicates, that it is a fax number.</T>
   <T ID="EB3592D5654550FE">Creates a &lt;see cref="T:System.String" /&gt; representation of the object instance.</T>
   <T ID="B476B59E1845A12C">The content of the object instance as &lt;see cref="T:System.String" /&gt;.</T>
-  <T ID="4C25B366C20EF187">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.PhoneNumber.Clean"/&gt;.</T>
-  <T ID="647D80CF85ED9416">Removes empty strings and unnecessary whitespace.</T>
   <T ID="965BC1ABAE690407">Creates a deep copy of the object instance.</T>
   <T ID="323A525A1616F6A5">Deep copy of the object instance.</T>
-  <T ID="DF49C057C639AE8">Compares the object instance with &lt;paramref name ="obj"/&gt; to determine, whether &lt;paramref name ="obj"/&gt; is a &lt;see cref ="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object, that refers to the same phone number.</T>
-  <T ID="155A7C826FEBF997">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="A9C942B825A6384C">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber" /&gt; object, that refers to the same phone number.</T>
-  <T ID="58B314236BFDD17">Compares the object instance with another &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object to determine,  whether &lt;paramref name="other" /&gt; refers to the same phone number.</T>
-  <T ID="625870770E324645">The &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber" /&gt; object to compare with.</T>
-  <T ID="D16DD5BB494FB099">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; refers to the same phone number.</T>
-  <T ID="5CCEEEDB1092B669">Creates a hash code for the object.</T>
-  <T ID="539BE4E64C32CA81">The hash code.</T>
   <T ID="C1DB03DD616F1698">Overloads the == operator.</T>
-  <T ID="73DDF6FE5B552A2F">Compares &lt;paramref name="phone1" /&gt; and &lt;paramref name="phone2" /&gt; to determine, whether they both represent the same phone number.</T>
   <T ID="75EF7ACF32F86C6F">Left operand.</T>
   <T ID="75EF7ACC6ED03C68">Right operand.</T>
-  <T ID="99B47F4AC5E8BDB9">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="phone1"/&gt; and &lt;paramref name ="phone2"/&gt; both refer to the same phone number.</T>
   <T ID="DFD16D1D616F1698">Overloads the != operator.</T>
-  <T ID="B714FA0EC3F59995">Compares &lt;paramref name="phone1" /&gt; and &lt;paramref name="phone2" /&gt; to determine, whether they refer to different phone numbers.</T>
   <T ID="DAFCA84B32F86C6F">Left operand.</T>
   <T ID="DAFCA84E6ED03C68">Right operand.</T>
-  <T ID="9C0C3406683FCEB1">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="phone1"/&gt; and &lt;paramref name ="phone2"/&gt; refer to different phone numbers.</T>
   <T ID="1CF256DC2B50D617">The gender is unspecified.</T>
   <T ID="E3B7F0CDEB90B705">Female</T>
   <T ID="5B3D30E02B3F66C9">Male</T>
@@ -187,49 +113,23 @@
   <T ID="8692899FDBB9F020">The content of the instance as &lt;see cref="T:System.String" /&gt;.</T>
   <T ID="B452CF2AE690407">Creates a deep copy of the object instance.</T>
   <T ID="1CDAD1B91616F6A5">Deep copy of the object instance.</T>
-  <T ID="21CF38A2BBE33818">Cleans all strings in all fields of the object from invalid characters and sets empty strings and empty sub-objects to &lt;c&gt;null&lt;/c&gt;.</T>
-  <T ID="DC1AEF4772DFA87A">&lt;c&gt;true&lt;/c&gt; indicates, that the object instance contains no usable data. Before querying the property you should call &lt;see cref="M:FolkerKinzel.Contacts.Work.Clean" /&gt;.</T>
-  <T ID="C9C5FB45EA76DA5B">Compares the instance with &lt;paramref name="obj" /&gt; to determine,  whether &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Work" /&gt; object, that represents the same job.</T>
-  <T ID="8733EAAA6F9E2F6">The &lt;see cref="T:System.Object" /&gt; to compare with.</T>
-  <T ID="616D3C70D82DB81D">&lt;c&gt;true&lt;/c&gt;, if  &lt;paramref name="obj" /&gt; is a &lt;see cref="T:FolkerKinzel.Contacts.Work" /&gt; object, that represents the same job.</T>
-  <T ID="5B29B2629E3B9173">Compares the object instance with another &lt;see cref="T:FolkerKinzel.Contacts.Work" /&gt;-object to determine,  whether &lt;paramref name="other" /&gt; represents the same job.</T>
-  <T ID="638F7FB69CA43860">The &lt;see cref="T:FolkerKinzel.Contacts.Work" /&gt; object to compare with.</T>
-  <T ID="2782B559D22BD088">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name="other" /&gt; represents the same job.</T>
-  <T ID="936E01971092B669">Creates a hash code for the object.</T>
-  <T ID="5DAA7D444C32CA81">The hash code.</T>
   <T ID="5092388D616F1698">Overloads the == operator.</T>
-  <T ID="BEC426280E3E6EF2">Compares &lt;paramref name="work1" /&gt; and &lt;paramref name="work2" /&gt; to determine, whether they both refer to the same job.</T>
   <T ID="9321DFD332F86C6F">Left operand.</T>
   <T ID="9321DFD66ED03C68">Right operand.</T>
-  <T ID="DD344B98A257B916">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="work1"/&gt; and &lt;paramref name ="work2"/&gt; refer to the same job.</T>
   <T ID="8A30F8C5616F1698">Overloads the != operator.</T>
-  <T ID="33D4898052D03B20">Compares &lt;paramref name="work1" /&gt; and &lt;paramref name="work2" /&gt; to determine, whether they refer to different jobs.</T>
   <T ID="A536E85232F86C6F">Left operand.</T>
   <T ID="A536E8556ED03C68">Right operand.</T>
-  <T ID="9B99EC04D4F92B94">&lt;c&gt;true&lt;/c&gt;, if &lt;paramref name ="work1"/&gt; and &lt;paramref name ="work2"/&gt; refer to the same job.</T>
   <T ID="11E3D2BC3C9012F3"></T>
   <T ID="655828C700B7D632"></T>
   <T ID="27D4A63692120D8A"></T>
-  <T ID="6010849D4FFAEB07"></T>
   <T ID="E95BE5F64DF1223"></T>
-  <T ID="ECB21908ABE1576B"></T>
   <T ID="D664D04700B7D632"></T>
   <T ID="A5F4E31392120D8A"></T>
-  <T ID="AAB5387B6915C74B"></T>
   <T ID="B775547B994307CF"></T>
-  <T ID="8F778360B9E9FA00"></T>
   <T ID="5F70B4CAB9E7F829"></T>
-  <T ID="87A6278F99AADE85"></T>
-  <T ID="3B4105E20E324645"></T>
-  <T ID="10409EBE14481242"></T>
   <T ID="EC3FDD4100B7D632"></T>
   <T ID="5C81738492120D8A"></T>
-  <T ID="D468E7360970F92A"></T>
-  <T ID="440F8EE0F6D291F6"></T>
-  <T ID="DD9C8EA56D4A2690"></T>
-  <T ID="C7A2A48CE4AD0AAA"></T>
   <T ID="E84AB4890E324645"></T>
-  <T ID="DCDC074D32D482D5"></T>
   <T ID="46F3656B3A9E4862"></T>
   <T ID="337A79382705EE45"></T>
   <T ID="B31F08AAC52574D9"></T>
@@ -258,12 +158,91 @@
   <T ID="5B03F18F15789A31"></T>
   <T ID="7BB33548A5B94408"></T>
   <T ID="6753AD9B92120D8A"></T>
-  <T ID="F513A1DA9A28EFF1"></T>
   <T ID="5262F8E701394D0D"></T>
-  <T ID="A027587BF91770CB"></T>
   <T ID="D413D33E605E7664"></T>
   <T ID="6CC6993700B7D632"></T>
   <T ID="112B1BB687FCA7D1"></T>
   <T ID="F93CED89C333693A"></T>
   <T ID="C997C1999A03F826">Cleans the data stored in the object: Removes e.g. empty sub-objects or superfluous white space.</T>
+  <T ID="F6068E702B805E19">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Address"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="D5A31C5A4545A40D">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Address"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="6010849D5DD9049A"></T>
+  <T ID="ECB219088BD35900"></T>
+  <T ID="844EA3E3F230F3C">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="address1"/&gt; and &lt;paramref name="address2"/&gt; are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="3604C73AD2BC2A72">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="address1"/&gt; and &lt;paramref name="address2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="1D4F51859CCF4588">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="7A75A86127349D8C">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="contact1"/&gt; and &lt;paramref name="contact2"/&gt;  are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="A3007BE140541A2">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="4CE0433030BD96D1">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="contact1"/&gt; and &lt;paramref name="contact2"/&gt;  are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="FB2716D0C3B66CC7">Returns &lt;c&gt;true&lt;/c&gt; if the object does not contain any usable data, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="AAB5387B194F2B44"></T>
+  <T ID="8F7783608BD35900"></T>
+  <T ID="627A2483EB2C7A11">Abstract base class, which provides methods that enable instances of derived classes to merge their data with one another.</T>
+  <T ID="97B8612A6CC73288">Generic type parameter that represents a derived class.</T>
+  <T ID="7CB84CAEC1D2C385">Determines whether there is nothing to prevent the data from &lt;paramref name ="other"/&gt; from being merged with those of the current instance.</T>
+  <T ID="51C899BAEAA5957E">Another &lt;see cref ="T:FolkerKinzel.Contacts.Mergeable`1"/&gt; object or &lt;c&gt;null&lt;/c&gt;.</T>
+  <T ID="430D3DA50955B244">&lt;c&gt;true&lt;/c&gt;, if there is nothing to prevent a merging with &lt;paramref name ="other"/&gt;, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="303DFB81E72BE4FF">&lt;para&gt;
+If &lt;paramref name ="other"/&gt; is &lt;c&gt;null&lt;/c&gt;
+or &lt;see cref ="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt;, the method returns &lt;c&gt;true&lt;/c&gt;. If the property &lt;see cref ="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt; of the current instance returns &lt;c&gt;true&lt;/c&gt;, there is also nothing that prevents  a merging of the data from &lt;paramref name ="other"/&gt; with those of the current instance. Therefore the method returns &lt;c&gt;true&lt;/c&gt; in this case as well.
+&lt;/para&gt;
+&lt;para&gt;
+The method can find suitable candidates for a merging of their data ("doublets"); however, it cannot determine whether the merging of the data makes sense. It would be a good practice to let the users of the application decide that.
+&lt;/para&gt;</T>
+  <T ID="B571A003DECE6DE0">Examines whether there is nothing to prevent the merging of the data from &lt;paramref name ="mergeable1"/&gt; and &lt;paramref name ="mergeable2"/&gt;.</T>
+  <T ID="AA493B344A27AD18">The first object to be examined.</T>
+  <T ID="AA493B333436AC88">The second object to be examined.</T>
+  <T ID="4B7E9ED0E4EE09C0">&lt;c&gt;true&lt;/c&gt; if there is nothing to prevent a merging of &lt;paramref name ="mergeable1"/&gt; and &lt;paramref name ="mergeable2"/&gt;, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="7028C8287D583B14">&lt;para&gt;
+If one of the objects to be examined is &lt;c&gt;null&lt;/c&gt; or &lt;see cref ="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt;, the method returns &lt;c&gt;true&lt;/c&gt;.
+&lt;/para&gt;
+&lt;para&gt;
+The method can find suitable candidates for a merging of their data ("doublets"); however, it cannot determine whether the merging of the data makes sense. It would be a good practice to let the users of the application decide that.
+&lt;/para&gt;</T>
+  <T ID="99589D667C276D8E">Supplements the executing instance with the data from &lt;paramref name ="source"/&gt;. No existing data will be overwritten in the current instance.</T>
+  <T ID="D299DF2C5F81DA6A">The source object whose data is used to supplement the executing instance.</T>
+  <T ID="21F169ABAD3A7FA8">A reference to the executing instance in order to be able to chain calls.</T>
+  <T ID="E7D6EB33C23A053C">&lt;para&gt;
+The method does not check whether it makes sense to supplement the data of the current instance with those from &lt;paramref name ="source"/&gt;. Check this beforehand with &lt;see cref ="M:FolkerKinzel.Contacts.Mergeable`1.CanBeMerged(`0)"/&gt; and have the result of the check confirmed by the users of the application, if possible.
+&lt;/para&gt;
+&lt;para&gt;
+If &lt;paramref name ="source"/&gt; is &lt;c&gt;null&lt;/c&gt; or &lt;see cref ="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt; no data will be copied.
+&lt;/para&gt;
+&lt;para&gt;
+When merging two &lt;see cref ="T:FolkerKinzel.Contacts.Mergeable`1"/&gt; instances the result depends on which of the two instances the method is called on. Preserving the data of the instance on which the method is called has priority. It is the responsibility of the executing application to call the method on the more appropriate of the two instances.
+&lt;/para&gt;</T>
+  <T ID="AB43785B974F8CFD">Supplements the executing instance with the data from &lt;paramref name ="source"/&gt; without overwriting existing data.</T>
+  <T ID="30327474DEFB47B7">The source object. (Never &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt;.)</T>
+  <T ID="2FD1BA0E96C0F20D">&lt;note type ="inherit"&gt;
+When overwriting the method in inheriting classes, the promise must be kept that the method will not overwrite any existing data!
+&lt;/note&gt;</T>
+  <T ID="DC1F37311E537779">Determines whether &lt;paramref name ="other"/&gt; describes a foreign identity and therefore cannot be merged with the current instance.</T>
+  <T ID="8E1A90D2A1A98026">The object to be examined. (Never &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.Mergeable`1.IsEmpty"/&gt;.)</T>
+  <T ID="8C8D1878EBB49047">The method may only return &lt;c&gt;true&lt;/c&gt; if the values of the properties of &lt;paramref name ="other"/&gt; make it impossible to merge &lt;paramref name ="other"/&gt; with the current instance, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="E53EBD1E43EB10B4">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Name"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="3495A10A903CD5B5">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="name1"/&gt; and &lt;paramref name="name2"/&gt; are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="AD715646129FA26D">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Name"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="D7E469E20BFCB658">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="name1"/&gt; and &lt;paramref name="name2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="87A6278F4CE18CEE"></T>
+  <T ID="3B4105E2B5AEFB65"></T>
+  <T ID="10409EBE8BD35900"></T>
+  <T ID="1FA723F8145D6967">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Person"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="E7F4F0C4C4F25ECC">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="person1"/&gt; and &lt;paramref name="person2"/&gt; are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="AB65CC5FE4CDD444">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Person"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="A5CD68B5026E8E9A">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="person1"/&gt; and &lt;paramref name="person2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="D468E736666BD51A"></T>
+  <T ID="7D676A76F6D291F6"></T>
+  <T ID="DD9C8EA58BD35900"></T>
+  <T ID="73DDF6FEF477CB94">Compares two &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="99B47F4AB7926DA1">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="phone1"/&gt; and &lt;paramref name="phone2"/&gt; are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="B714FA0EF644DC07">Compares two &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="9C0C34064A27883F">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="phone1"/&gt; and &lt;paramref name="phone2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="C7A2A48C38954109"></T>
+  <T ID="DCDC074D8BD35900"></T>
+  <T ID="BEC42628B64D7070">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Work"/&gt; objects  to determine whether they are equal.</T>
+  <T ID="DD344B9830E0DE2B">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="work1"/&gt; and &lt;paramref name="work2"/&gt; are equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="33D489809B90DD14">Compares two &lt;see cref="T:FolkerKinzel.Contacts.Work"/&gt; objects  to determine whether they are not equal.</T>
+  <T ID="9B99EC041852D2AC">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="work1"/&gt; and &lt;paramref name="work2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="A027587B8BD35900"></T>
+  <T ID="F513A1DA911D488B"></T>
 </Tsltn>

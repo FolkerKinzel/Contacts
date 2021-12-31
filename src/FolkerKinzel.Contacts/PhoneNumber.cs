@@ -102,6 +102,50 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
 
     #endregion
 
+    #region Operators
+
+    /// <summary>
+    /// Überladung des == Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
+    /// <param name="phone1">Linker Operand.</param>
+    /// <param name="phone2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> gleich sind.</returns>
+    public static bool operator ==(PhoneNumber? phone1, PhoneNumber? phone2)
+    {
+        // If both are null, or both are same instance, return true.
+        if (object.ReferenceEquals(phone1, phone2))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (phone1 is null)
+        {
+            return false; // auf Referenzgleichheit wurde oben geprüft
+        }
+        else
+        {
+            return phone2 is not null && phone1.CompareBoolean(phone2);
+        }
+    }
+
+
+    /// <summary>
+    /// Überladung des != Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
+    /// </remarks>
+    /// <param name="phone1">Linker Operand.</param>
+    /// <param name="phone2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> ungleich sind.</returns>
+    public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2) => !(phone1 == phone2);
+
+    #endregion
+
     #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
@@ -214,6 +258,15 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
         return CompareBoolean(other);
     }
 
+    /// <summary>
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
+    /// </summary>
+    /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    private bool CompareBoolean(PhoneNumber other)
+        => StringComparer.Ordinal.Equals(StringCleaner.PrepareForComparison(Value), StringCleaner.PrepareForComparison(other.Value))
+           && _flags == other._flags;
+
 
     ///// <summary>
     ///// Erzeugt einen Hashcode für das Objekt.
@@ -226,59 +279,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
         return hashCode ^ _flags.GetHashCode();
     }
 
-
-    #region Überladen von == und !=
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="phone1">Linker Operand.</param>
-    /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> gleich sind.</returns>
-    public static bool operator ==(PhoneNumber? phone1, PhoneNumber? phone2)
-    {
-        // If both are null, or both are same instance, return true.
-        if (object.ReferenceEquals(phone1, phone2))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (phone1 is null)
-        {
-            return false; // auf Referenzgleichheit wurde oben geprüft
-        }
-        else
-        {
-            return phone2 is not null && phone1.CompareBoolean(phone2);
-        }
-    }
-
-
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="phone1">Linker Operand.</param>
-    /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> ungleich sind.</returns>
-    public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2) => !(phone1 == phone2);
-
-
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
-    private bool CompareBoolean(PhoneNumber other)
-        => StringComparer.Ordinal.Equals(StringCleaner.PrepareForComparison(Value), StringCleaner.PrepareForComparison(other.Value))
-           && _flags == other._flags;
-
-    #endregion
+   
 
     #endregion
 

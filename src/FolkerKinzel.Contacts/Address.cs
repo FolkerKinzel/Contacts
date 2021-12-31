@@ -133,6 +133,51 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
 
     #endregion
 
+
+    #region Operators
+
+    /// <summary>
+    /// Überladung des == Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
+    /// <param name="address1">Linker Operand.</param>
+    /// <param name="address2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> gleich sind.</returns>
+    public static bool operator ==(Address? address1, Address? address2)
+    {
+        // If both are null, or both are same instance, return true.
+        if (System.Object.ReferenceEquals(address1, address2))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (address1 is null)
+        {
+            return false; // auf Referenzgleichheit wurde oben geprüft
+        }
+        else
+        {
+            return address2 is not null && address1.CompareBoolean(address2);
+        }
+    }
+
+
+    /// <summary>
+    /// Überladung des != Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
+    /// </remarks>
+    /// <param name="address1">Linker Operand.</param>
+    /// <param name="address2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> ungleich sind.</returns>
+    public static bool operator !=(Address? address1, Address? address2) => !(address1 == address2);
+
+    #endregion
+
     #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
@@ -278,7 +323,6 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
     }
 
 
-
     ///// <summary>
     ///// Vergleicht die Instanz mit einem anderen <see cref="Address"/>-Objekt,
     ///// um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
@@ -304,6 +348,22 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
         return CompareBoolean(other);
     }
 
+    /// <summary>
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Address"/>-Objekts.
+    /// </summary>
+    /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    private bool CompareBoolean(Address other)
+    {
+        StringComparer comparer = StringComparer.Ordinal;
+
+        return comparer.Equals(StringCleaner.PrepareForComparison(PostalCode), StringCleaner.PrepareForComparison(other.PostalCode))
+            && comparer.Equals(StringCleaner.PrepareForComparison(City), StringCleaner.PrepareForComparison(other.City))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Street), StringCleaner.PrepareForComparison(other.Street))
+            && comparer.Equals(StringCleaner.PrepareForComparison(State), StringCleaner.PrepareForComparison(other.State))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
+    }
+
     ///// <summary>
     ///// Erzeugt einen Hashcode für das Objekt.
     ///// </summary>
@@ -327,70 +387,8 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
         }
     }
 
-
-    #region Überladen von == und !=
-
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="address1">Linker Operand.</param>
-    /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> gleich sind.</returns>
-    public static bool operator ==(Address? address1, Address? address2)
-    {
-        // If both are null, or both are same instance, return true.
-        if (System.Object.ReferenceEquals(address1, address2))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (address1 is null)
-        {
-            return false; // auf Referenzgleichheit wurde oben geprüft
-        }
-        else
-        {
-            return address2 is not null && address1.CompareBoolean(address2);
-        }
-    }
-
-
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="address1">Linker Operand.</param>
-    /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> ungleich sind.</returns>
-    public static bool operator !=(Address? address1, Address? address2) => !(address1 == address2);
-
-
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Address"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
-    private bool CompareBoolean(Address other)
-    {
-        StringComparer comparer = StringComparer.Ordinal;
-
-        return comparer.Equals(StringCleaner.PrepareForComparison(PostalCode), StringCleaner.PrepareForComparison(other.PostalCode))
-            && comparer.Equals(StringCleaner.PrepareForComparison(City), StringCleaner.PrepareForComparison(other.City))
-            && comparer.Equals(StringCleaner.PrepareForComparison(Street), StringCleaner.PrepareForComparison(other.Street))
-            && comparer.Equals(StringCleaner.PrepareForComparison(State), StringCleaner.PrepareForComparison(other.State))
-            && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
-    }
-
-
     #endregion
 
-    #endregion
 
     #region internal
 

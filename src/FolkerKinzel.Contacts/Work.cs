@@ -125,6 +125,50 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
     #endregion
 
+    #region Operators
+
+    /// <summary>
+    /// Überladung des == Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
+    /// <param name="work1">Linker Operand.</param>
+    /// <param name="work2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> gleich sind.</returns>
+    public static bool operator ==(Work? work1, Work? work2)
+    {
+        // If both are null, or both are same instance, return true.
+        if (System.Object.ReferenceEquals(work1, work2))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (work1 is null)
+        {
+            return false; // auf Referenzgleichheit wurde oben geprüft
+        }
+        else
+        {
+            return work2 is not null && work1.CompareBoolean(work2);
+        }
+    }
+
+
+    /// <summary>
+    /// Überladung des != Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
+    /// </remarks>
+    /// <param name="work1">Linker Operand.</param>
+    /// <param name="work2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> ungleich sind.</returns>
+    public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
+
+    #endregion
+
     #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
@@ -288,7 +332,6 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
         return CompareBoolean(p);
     }
 
-
     ///// <summary>
     ///// Vergleicht die Instanz mit einem anderen 
     ///// <see cref="Work"/>-Objekt,
@@ -313,6 +356,22 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
         // Return true if the fields match:
         return CompareBoolean(other);
+    }
+
+    /// <summary>
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Work"/>-Objekts.
+    /// </summary>
+    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    private bool CompareBoolean(Work other)
+    {
+        StringComparer comparer = StringComparer.Ordinal;
+
+        return comparer.Equals(StringCleaner.PrepareForComparison(Company), StringCleaner.PrepareForComparison(Company))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Department), StringCleaner.PrepareForComparison(Department))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Office), StringCleaner.PrepareForComparison(Office))
+               && comparer.Equals(StringCleaner.PrepareForComparison(JobTitle), StringCleaner.PrepareForComparison(JobTitle))
+               && AddressWork == other.AddressWork;
     }
 
 
@@ -342,65 +401,6 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
         static int GetHash(string? s) => StringCleaner.PrepareForComparison(s).GetHashCode();
     }
-
-
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="work1">Linker Operand.</param>
-    /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> gleich sind.</returns>
-    public static bool operator ==(Work? work1, Work? work2)
-    {
-        // If both are null, or both are same instance, return true.
-        if (System.Object.ReferenceEquals(work1, work2))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (work1 is null)
-        {
-            return false; // auf Referenzgleichheit wurde oben geprüft
-        }
-        else
-        {
-            return work2 is not null && work1.CompareBoolean(work2);
-        }
-    }
-
-
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="work1">Linker Operand.</param>
-    /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> ungleich sind.</returns>
-    public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
-
-
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
-    private bool CompareBoolean(Work other)
-    {
-        StringComparer comparer = StringComparer.Ordinal;
-
-        return comparer.Equals(StringCleaner.PrepareForComparison(Company), StringCleaner.PrepareForComparison(Company))
-               && comparer.Equals(StringCleaner.PrepareForComparison(Department), StringCleaner.PrepareForComparison(Department))
-               && comparer.Equals(StringCleaner.PrepareForComparison(Office), StringCleaner.PrepareForComparison(Office))
-               && comparer.Equals(StringCleaner.PrepareForComparison(JobTitle), StringCleaner.PrepareForComparison(JobTitle))
-               && AddressWork == other.AddressWork;
-    }
-
 
     #endregion
 

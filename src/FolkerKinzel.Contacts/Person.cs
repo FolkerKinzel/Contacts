@@ -142,6 +142,49 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
     #endregion
 
 
+    #region Operators
+    /// <summary>
+    /// Überladung des == Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
+    /// </remarks>
+    /// <param name="person1">Linker Operand.</param>
+    /// <param name="person2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> gleich sind.</returns>
+    public static bool operator ==(Person? person1, Person? person2)
+    {
+        // If both are null, or both are same instance, return true.
+        if (object.ReferenceEquals(person1, person2))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (person1 is null)
+        {
+            return false; // auf Referenzgleichheit wurde oben geprüft
+        }
+        else
+        {
+            return person2 is not null && person1.CompareBoolean(person2);
+        }
+    }
+
+    /// <summary>
+    /// Überladung des != Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
+    /// </remarks>
+    /// <param name="person1">Linker Operand.</param>
+    /// <param name="person2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> ungleich sind.</returns>
+    public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
+
+    #endregion
+
+
     #region Mergeable<T>, ICleanable
 
 
@@ -364,53 +407,6 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
     }
 
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
-    /// <inheritdoc/>
-    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
-
-
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="person1">Linker Operand.</param>
-    /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> gleich sind.</returns>
-    public static bool operator ==(Person? person1, Person? person2)
-    {
-        // If both are null, or both are same instance, return true.
-        if (object.ReferenceEquals(person1, person2))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (person1 is null)
-        {
-            return false; // auf Referenzgleichheit wurde oben geprüft
-        }
-        else
-        {
-            return person2 is not null && person1.CompareBoolean(person2);
-        }
-    }
-
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="person1">Linker Operand.</param>
-    /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> ungleich sind.</returns>
-    public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
-
     /// <summary>
     /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Person"/>-Objekts.
     /// </summary>
@@ -427,6 +423,13 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
         && Anniversary == other.Anniversary
         && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(other.Spouse));
     }
+
+    ///// <summary>
+    ///// Erzeugt einen Hashcode für das Objekt.
+    ///// </summary>
+    ///// <returns>Der Hashcode.</returns>
+    /// <inheritdoc/>
+    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
 
     #endregion
 

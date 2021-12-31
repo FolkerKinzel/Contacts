@@ -121,6 +121,52 @@ public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<N
     #endregion
 
 
+    #region Operators
+
+
+    /// <summary>
+    /// Überladung des == Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Name"/>-Objekte, um festzustellen, ob sie gleich sind.
+    /// </remarks>
+    /// <param name="name1">Linker Operand.</param>
+    /// <param name="name2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> gleich sind.</returns>
+    public static bool operator ==(Name? name1, Name? name2)
+    {
+        // If both are null, or both are same instance, return true.
+        if (object.ReferenceEquals(name1, name2))
+        {
+            return true;
+        }
+
+        // If one is null, but not both, return false.
+        if (name1 is null)
+        {
+            return false; // auf Referenzgleichheit wurde oben geprüft
+        }
+        else
+        {
+            return name2 is not null && name1.CompareBoolean(name2);
+        }
+    }
+
+
+    /// <summary>
+    /// Überladung des != Operators.
+    /// </summary>
+    /// <remarks>
+    /// Vergleicht zwei <see cref="Name"/>-Objekte, um festzustellen, ob sie ungleich sind.
+    /// </remarks>
+    /// <param name="name1">Linker Operand.</param>
+    /// <param name="name2">Rechter Operand.</param>
+    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> ungleich sind.</returns>
+    public static bool operator !=(Name? name1, Name? name2) => !(name1 == name2);
+
+    #endregion
+
+
     #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
@@ -274,6 +320,24 @@ public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<N
     }
 
 
+    /// <summary>
+    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Name"/>-Objekts.
+    /// </summary>
+    /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
+    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    private bool CompareBoolean(Name other)
+    {
+        StringComparer comparer = StringComparer.Ordinal;
+
+        return comparer.Equals(StringCleaner.PrepareForComparison(LastName), StringCleaner.PrepareForComparison(other.LastName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(FirstName), StringCleaner.PrepareForComparison(other.FirstName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(MiddleName), StringCleaner.PrepareForComparison(other.MiddleName))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Suffix), StringCleaner.PrepareForComparison(other.Suffix))
+            && comparer.Equals(StringCleaner.PrepareForComparison(Prefix), StringCleaner.PrepareForComparison(other.Prefix));
+    }
+
+
+
     ///// <summary>
     ///// Erzeugt einen Hashcode für das Objekt.
     ///// </summary>
@@ -299,69 +363,8 @@ public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<N
         }
     }
 
-
-    #region Überladen von == und !=
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese denselben Namen darstellen.
-    /// </remarks>
-    /// <param name="name1">Linker Operand.</param>
-    /// <param name="name2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> denselben Namen darstellen.</returns>
-    public static bool operator ==(Name? name1, Name? name2)
-    {
-        // If both are null, or both are same instance, return true.
-        if (object.ReferenceEquals(name1, name2))
-        {
-            return true;
-        }
-
-        // If one is null, but not both, return false.
-        if (name1 is null)
-        {
-            return false; // auf Referenzgleichheit wurde oben geprüft
-        }
-        else
-        {
-            return name2 is not null && name1.CompareBoolean(name2);
-        }
-    }
-
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese verschiedene Namen darstellen.
-    /// </remarks>
-    /// <param name="name1">Linker Operand.</param>
-    /// <param name="name2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> verschiedene Namen darstellen.</returns>
-    public static bool operator !=(Name? name1, Name? name2) => !(name1 == name2);
-
-    /// <summary>
-    /// Vergleicht den Inhalt von this mit dem eines anderen <see cref="Name"/>-Objekts, um zu ermitteln,
-    /// ob beide den Namen derselben physischen Person darstellen.
-    /// </summary>
-    /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn beide Objekte auf den Namen derselben Person verweisen.</returns>
-    private bool CompareBoolean(Name other)
-    {
-        StringComparer comparer = StringComparer.Ordinal;
-
-        return comparer.Equals(StringCleaner.PrepareForComparison(LastName), StringCleaner.PrepareForComparison(other.LastName))
-            && comparer.Equals(StringCleaner.PrepareForComparison(FirstName), StringCleaner.PrepareForComparison(other.FirstName))
-            && comparer.Equals(StringCleaner.PrepareForComparison(MiddleName), StringCleaner.PrepareForComparison(other.MiddleName))
-            && comparer.Equals(StringCleaner.PrepareForComparison(Suffix), StringCleaner.PrepareForComparison(other.Suffix))
-            && comparer.Equals(StringCleaner.PrepareForComparison(Prefix), StringCleaner.PrepareForComparison(other.Prefix));
-
-    }
-
-
     #endregion
 
-    #endregion
 
 
     #region internal
