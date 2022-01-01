@@ -3,7 +3,7 @@
 namespace FolkerKinzel.Contacts.Intls.Tests;
 
 [TestClass]
-public class ItemStripperTests
+public class StripTests
 {
     [TestMethod]
     public void ItemStripperTest1() => _ = new Strip(null);
