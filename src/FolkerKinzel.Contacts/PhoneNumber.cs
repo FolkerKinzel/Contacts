@@ -264,7 +264,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(PhoneNumber other)
-        => StringComparer.Ordinal.Equals(StringCleaner.PrepareForComparison(Value), StringCleaner.PrepareForComparison(other.Value))
+        => Strip.AreEqual(Value, other.Value)
            && _flags == other._flags;
 
 

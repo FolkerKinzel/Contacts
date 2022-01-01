@@ -86,7 +86,9 @@ public class NameTests
             Suffix = "Jr."
         };
 
-        Assert.IsTrue(name1.Equals(name2));
+        Assert.AreNotEqual(name1, name2);
+        Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
+        Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
 
     [TestMethod()]
@@ -106,19 +108,21 @@ public class NameTests
         };
 
         Assert.IsFalse(name1.Equals(name2));
+        Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
+        Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
 
     [TestMethod()]
     public void EqualsTest3()
     {
-        Name name1 = new Name()
+        var name1 = new Name()
         {
             LastName = "Davis",
             FirstName = "Sammy",
             Suffix = "jr."
         };
 
-        Name name2 = new Name()
+        var name2 = new Name()
         {
             Prefix = "Dr.",
             LastName = "Davis",
@@ -126,85 +130,48 @@ public class NameTests
             Suffix = "Jr."
         };
 
-        Assert.IsTrue(name1.Equals(name2));
+        Assert.AreNotEqual(name1, name2);
+        Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
+        Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
 
     [TestMethod()]
     public void EqualsTest4()
     {
-        Name name1 = new Name()
+        var name1 = new Name()
         {
             LastName = "Davis",
             FirstName = "Sammy",
             Suffix = "jr."
         };
 
-        Name name2 = new Name()
+        var name2 = new Name()
         {
             LastName = "Davis",
             FirstName = "Sammy"
         };
 
         Assert.IsFalse(name1.Equals(name2));
+        Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
+        Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
 
     [TestMethod()]
     public void EqualsTest5()
     {
-        Name name1 = new Name()
+        var name1 = new Name()
         {
             LastName = "Davis",
             FirstName = "Sammy",
             Suffix = "jr."
         };
 
-
-
-        Assert.IsFalse(name1.Equals(null));
+        Assert.AreNotEqual(name1, null);
     }
 
-    [TestMethod()]
-    public void GetHashCodeTest1()
-    {
-        object name1 = new Name()
-        {
-            LastName = "Davis",
-            FirstName = "Sammy",
-            Suffix = "jr."
-        };
+    
 
-        object name2 = new Name()
-        {
-            Prefix = "Dr.",
-            LastName = "Davis",
-            FirstName = "sammy",
-            Suffix = "Jr."
-        };
-
-        Assert.AreEqual(name1.GetHashCode(), name2.GetHashCode());
-    }
-
-    [TestMethod()]
-    public void GetHashCodeTest2()
-    {
-        object name1 = new Name()
-        {
-            LastName = "Davis",
-            FirstName = "Sammy",
-            Suffix = "jr."
-        };
-
-        object name2 = new Name()
-        {
-            LastName = "Davis",
-            FirstName = "Sammy"
-        };
-
-
-
-        Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
-
-    }
+   
 
     [TestMethod()]
     public void ToStringTest()

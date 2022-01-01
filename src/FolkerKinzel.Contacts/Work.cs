@@ -194,7 +194,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
             return true;
         }
 
-        return !Address.CanBeMerged(AddressWork, other.AddressWork);
+        return !Address.AreMergeable(AddressWork, other.AddressWork);
 
 
         //////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
         Address? adr = AddressWork;
         Address? sourceAdr = source.AddressWork;
 
-        if (Address.CanBeMerged(adr, sourceAdr))
+        if (Address.AreMergeable(adr, sourceAdr))
         {
             AddressWork = adr?.Merge(sourceAdr) ?? sourceAdr;
         }
@@ -367,10 +367,10 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
     {
         StringComparer comparer = StringComparer.Ordinal;
 
-        return comparer.Equals(StringCleaner.PrepareForComparison(Company), StringCleaner.PrepareForComparison(Company))
-               && comparer.Equals(StringCleaner.PrepareForComparison(Department), StringCleaner.PrepareForComparison(Department))
-               && comparer.Equals(StringCleaner.PrepareForComparison(Office), StringCleaner.PrepareForComparison(Office))
-               && comparer.Equals(StringCleaner.PrepareForComparison(JobTitle), StringCleaner.PrepareForComparison(JobTitle))
+        return comparer.Equals(StringCleaner.PrepareForComparison(Company), StringCleaner.PrepareForComparison(other.Company))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Department), StringCleaner.PrepareForComparison(other.Department))
+               && comparer.Equals(StringCleaner.PrepareForComparison(Office), StringCleaner.PrepareForComparison(other.Office))
+               && comparer.Equals(StringCleaner.PrepareForComparison(JobTitle), StringCleaner.PrepareForComparison(other.JobTitle))
                && AddressWork == other.AddressWork;
     }
 

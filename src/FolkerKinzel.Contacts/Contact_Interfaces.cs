@@ -153,7 +153,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Person? person = Person;
         Person? sourcePerson = source.Person;
 
-        if (Person.CanBeMerged(person, sourcePerson))
+        if (Person.AreMergeable(person, sourcePerson))
         {
             Person = person?.Merge(sourcePerson) ?? sourcePerson;
         }
@@ -161,7 +161,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Work? work = Work;
         Work? sourceWork = source.Work;
 
-        if (Work.CanBeMerged(work, sourceWork))
+        if (Work.AreMergeable(work, sourceWork))
         {
             Work = work?.Merge(sourceWork) ?? sourceWork;
         }
@@ -169,7 +169,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         Address? adr = AddressHome;
         Address? sourceAdr = source.AddressHome;
 
-        if (Address.CanBeMerged(adr, sourceAdr))
+        if (Address.AreMergeable(adr, sourceAdr))
         {
             AddressHome = adr?.Merge(sourceAdr) ?? sourceAdr;
         }
@@ -491,13 +491,20 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
         return TimeStamp.GetHashCode()
             ^ StringCleaner.PrepareForComparison(DisplayName).GetHashCode()
             ^ HashStringCollection(EmailAddresses)
-            ^ (Person?.GetHashCode() ?? nullValue)
+            ^ HashMergeable(Person)
             ^ HashPhoneNumbers(PhoneNumbers)
-            ^ (Work?.GetHashCode() ?? nullValue)
-            ^ HashStringCollection(InstantMessengerHandles);
+            ^ HashMergeable(Work)
+            ^ HashStringCollection(InstantMessengerHandles)
+            ^ StringCleaner.PrepareForComparison(WebPagePersonal).GetHashCode()
+            ^ HashMergeable(AddressHome)
+            ^ StringCleaner.PrepareForComparison(WebPageWork).GetHashCode();
 
 
-        static int HashPhoneNumbers(IEnumerable<object?>? coll)
+        static int HashMergeable<T>(T? mergeable) where T : Mergeable<T>
+            => mergeable is null || mergeable.IsEmpty ? nullValue : mergeable.GetHashCode();
+
+
+        static int HashPhoneNumbers(IEnumerable<PhoneNumber?>? coll)
         {
             int collHash = nullValue;
 
@@ -506,9 +513,12 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
                 return collHash;
             }
 
-            foreach (var item in coll)
+            foreach (PhoneNumber? item in coll)
             {
-                collHash ^= item?.GetHashCode() ?? nullValue;
+                if(item is not null && !item.IsEmpty)
+                {
+                    collHash ^= item.GetHashCode();
+                }
             }
             return collHash;
         }
@@ -522,9 +532,12 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
                 return collHash;
             }
 
-            foreach (var item in coll)
+            foreach (string? item in coll)
             {
-                collHash ^= StringCleaner.PrepareForComparison(item).GetHashCode();
+                if(!string.IsNullOrWhiteSpace(item))
+                {
+                    collHash ^= item.GetHashCode();
+                }
             }
             return collHash;
         }
@@ -583,20 +596,30 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
         return TimeStamp == other.TimeStamp
             && comp.Equals(StringCleaner.PrepareForComparison(DisplayName), StringCleaner.PrepareForComparison(other.DisplayName))
-            && CompareStringCollections(EmailAddresses, other.EmailAddresses, comp)
-            && Person == other.Person
-            && ComparePhoneNumbers(PhoneNumbers, other.PhoneNumbers)
-            && Work == other.Work
-            && CompareStringCollections(InstantMessengerHandles, other.InstantMessengerHandles, comp)
-            && AddressHome == other.AddressHome
+            && EqualsStringCollections(EmailAddresses, other.EmailAddresses, comp)
+            && EqualsMergeables(Person, other.Person)
+            && EqualsPhoneNumbers(PhoneNumbers, other.PhoneNumbers)
+            && EqualsMergeables(Work, other.Work)
+            && EqualsStringCollections(InstantMessengerHandles, other.InstantMessengerHandles, comp)
+            && EqualsMergeables(AddressHome, other.AddressHome)
             && comp.Equals(StringCleaner.PrepareForComparison(WebPagePersonal), StringCleaner.PrepareForComparison(other.WebPagePersonal))
             && comp.Equals(StringCleaner.PrepareForComparison(Comment), StringCleaner.PrepareForComparison(other.Comment))
             && comp.Equals(StringCleaner.PrepareForComparison(WebPageWork), StringCleaner.PrepareForComparison(other.WebPageWork));
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+        
+        static bool EqualsMergeables<T>(T? x, T? y) where T : Mergeable<T>
+        {
+            if (x is null || y is null || x.IsEmpty || y.IsEmpty)
+            {
+                return (x is null || x.IsEmpty) && (y is null || y.IsEmpty);
+            }
 
-        static bool CompareStringCollections(IEnumerable<string?>? coll1, IEnumerable<string?>? coll2, StringComparer comp)
+            return x.IsMergeableWith(y);
+        }
+
+        static bool EqualsStringCollections(IEnumerable<string?>? coll1, IEnumerable<string?>? coll2, StringComparer comp)
         {
             if (ReferenceEquals(coll1, coll2))
             {
@@ -605,19 +628,19 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
             if (coll1 is null)
             {
-                return !coll2!.Any();
+                return !coll2!.Any(x => !string.IsNullOrWhiteSpace(x));
             }
 
             if (coll2 is null)
             {
-                return !coll1!.Any();
+                return !coll1!.Any(x => !string.IsNullOrWhiteSpace(x));
             }
 
             return coll1.Select(x => StringCleaner.PrepareForComparison(x))
                         .SequenceEqual(coll2.Select(x => StringCleaner.PrepareForComparison(x)), comp);
         }
 
-        static bool ComparePhoneNumbers(IEnumerable<PhoneNumber?>? coll1, IEnumerable<PhoneNumber?>? coll2)
+        static bool EqualsPhoneNumbers(IEnumerable<PhoneNumber?>? coll1, IEnumerable<PhoneNumber?>? coll2)
         {
             if (ReferenceEquals(coll1, coll2))
             {
@@ -626,12 +649,12 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
             if (coll1 is null)
             {
-                return !coll2!.Any();
+                return !coll2!.Any(x => x is not null && !x.IsEmpty);
             }
 
             if (coll2 is null)
             {
-                return !coll1!.Any();
+                return !coll1!.Any(x => x is not null && !x.IsEmpty);
             }
 
             return coll1.Select(x => x is null || x.IsEmpty ? null : x).SequenceEqual(coll2.Select(x => x is null || x.IsEmpty ? null : x));

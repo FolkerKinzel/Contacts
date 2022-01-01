@@ -14,6 +14,6 @@ internal static class StringCleaner
                                                            | RegexOptions.Singleline
                                                            | RegexOptions.CultureInvariant);
 
-    internal static string PrepareForComparison(string? text) => text ?? string.Empty;
+    internal static string PrepareForComparison(string? text) => string.IsNullOrWhiteSpace(text) ? string.Empty : text;
 
 }

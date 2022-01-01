@@ -224,7 +224,7 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
         Name? name = Name;
         Name? sourceName = source.Name;
 
-        if (Name.CanBeMerged(name, sourceName))
+        if (Name.AreMergeable(name, sourceName))
         {
             Name = name?.Merge(sourceName) ?? sourceName;
         }

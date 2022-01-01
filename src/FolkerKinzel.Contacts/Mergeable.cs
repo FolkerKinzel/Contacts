@@ -56,7 +56,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Anwendung darüber entscheiden zu lassen.
     /// </para>
     /// </remarks>
-    public static bool CanBeMerged(T? mergeable1, T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
+    public static bool AreMergeable(T? mergeable1, T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
 
 
     /// <summary>
@@ -69,7 +69,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// <para>
     /// Die Methode führt keinerlei Überprüfung durch, ob die Ergänzung der Daten der aktuellen Instanz mit denen 
     /// von <paramref name="source"/> sinnvoll ist. Prüfen Sie dies vorher mit der Instanzmethode <see cref="IsMergeableWith(T?)"/> 
-    /// oder der statischen Methode <see cref="CanBeMerged(T?, T?)"/> und lassen Sie sich
+    /// oder der statischen Methode <see cref="AreMergeable(T?, T?)"/> und lassen Sie sich
     /// das Ergebnis der Prüfung möglichst von den Benutzern der Anwendung bestätigen.
     /// </para>
     /// <para>

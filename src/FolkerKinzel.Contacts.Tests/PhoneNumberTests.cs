@@ -183,8 +183,8 @@ public class PhoneNumberTests
 
 
     [DataTestMethod()]
-    [DataRow("4711", " 47 - 11")]
-    [DataRow("4711", "47/11")]
+    //[DataRow("4711", " 47 - 11")]
+    //[DataRow("4711", "47/11")]
     [DataRow("", "")]
     [DataRow("   ", "")]
     [DataRow("", "   ")]
@@ -203,6 +203,19 @@ public class PhoneNumberTests
         Assert.IsTrue(o1.Equals(o2));
     }
 
+
+    [DataTestMethod()]
+    [DataRow("4711", " 47 - 11")]
+    [DataRow("4711", "47/11")]
+    public void EqualsTestFalse3(string? val1, string? val2)
+    {
+        object o1 = new PhoneNumber(val1);
+        object o2 = new PhoneNumber(val2);
+
+        Assert.AreNotEqual(o1, o2);
+        Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsTrue(PhoneNumber.AreMergeable(o1 as PhoneNumber, o2 as PhoneNumber));
+    }
 
 
     [DataTestMethod()]

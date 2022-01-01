@@ -71,7 +71,7 @@ public class AddressTests
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
 
-        Assert.IsTrue(Address.CanBeMerged(adr1 as Address, adr2 as Address));
+        Assert.IsTrue(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
 
 
@@ -94,7 +94,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsFalse(Address.CanBeMerged(adr1 as Address, adr2 as Address));
+        Assert.IsFalse(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
 
     [TestMethod()]
@@ -116,7 +116,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsFalse(Address.CanBeMerged(adr1 as Address, adr2 as Address));
+        Assert.IsFalse(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
 
     [TestMethod()]
@@ -137,7 +137,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsTrue(Address.CanBeMerged(adr1 as Address, adr2 as Address));
+        Assert.IsTrue(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
 
     [TestMethod()]
@@ -151,7 +151,7 @@ public class AddressTests
         };
 
         Assert.AreNotEqual(adr1, null);
-        Assert.IsTrue(Address.CanBeMerged(adr1 as Address, null));
+        Assert.IsTrue(Address.AreMergeable(adr1 as Address, null));
     }
 
     [TestMethod()]
@@ -173,7 +173,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsTrue(Address.CanBeMerged(adr1, adr2));
+        Assert.IsTrue(Address.AreMergeable(adr1, adr2));
     }
 
     [TestMethod()]
@@ -195,7 +195,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsFalse(Address.CanBeMerged(adr1, adr2));
+        Assert.IsFalse(Address.AreMergeable(adr1, adr2));
     }
 
     [TestMethod()]
@@ -217,7 +217,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsFalse(Address.CanBeMerged(adr1, adr2));
+        Assert.IsFalse(Address.AreMergeable(adr1, adr2));
     }
 
     [TestMethod()]
@@ -238,7 +238,7 @@ public class AddressTests
 
         Assert.AreNotEqual(adr1, adr2);
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
-        Assert.IsTrue(Address.CanBeMerged(adr1, adr2));
+        Assert.IsTrue(Address.AreMergeable(adr1, adr2));
     }
 
     [TestMethod()]
