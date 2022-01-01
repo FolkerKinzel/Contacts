@@ -68,7 +68,7 @@ public class ItemStripperTests
         // Test it twice!!
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
-        Assert.AreEqual(expected, Strip.AreEqual(inp1, inp2));
+        Assert.AreEqual(expected, Strip.Equals(inp1, inp2));
 
         if (expected)
         {
@@ -107,7 +107,7 @@ public class ItemStripperTests
         // Test it twice!!
         Assert.AreEqual(expected, strip1.Equals(strip2));
 
-        Assert.AreEqual(expected, Strip.AreEqual(inp1, inp2, true));
+        Assert.AreEqual(expected, Strip.Equals(inp1, inp2, true));
 
         if (expected)
         {

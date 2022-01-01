@@ -192,7 +192,7 @@ public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquat
         }
         else
         {
-            if (!Strip.AreEqual(postalCode, otherPostalCode))
+            if (!Strip.Equals(postalCode, otherPostalCode))
             {
                 return true;
             }

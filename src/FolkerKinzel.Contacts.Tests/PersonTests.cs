@@ -65,7 +65,7 @@ public class PersonTests
     {
         var pers = new Person { Name = new Name { LastName = "  " } };
 
-        Assert.IsFalse(pers.IsEmpty);
+        Assert.IsTrue(pers.IsEmpty);
 
         pers.BirthDay = DateTime.MinValue;
         pers.NickName = "";
@@ -79,6 +79,7 @@ public class PersonTests
         Assert.IsNull(pers.BirthDay);
         Assert.IsNull(pers.NickName);
     }
+
 
     [TestMethod()]
     public void EqualsTest1()
@@ -95,10 +96,11 @@ public class PersonTests
             NickName = "Trottel",
             BirthDay = new DateTime(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
-
         };
 
-        Assert.IsTrue(p1.Equals(p2));
+        Assert.AreNotEqual(p1,p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.IsTrue(Person.AreMergeable(p1 as Person, p2 as Person));
     }
 
 
@@ -166,8 +168,11 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.IsTrue(p1.Equals(p2));
+        Assert.AreNotEqual(p1, p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.IsTrue(Person.AreMergeable(p1, p2));
     }
+
 
     [TestMethod()]
     public void EqualsTest6()
@@ -184,7 +189,9 @@ public class PersonTests
             BirthDay = new DateTime(1972, 1, 31)
         };
 
-        Assert.IsFalse(p1.Equals(p2));
+        Assert.AreNotEqual(p1, p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.IsFalse(Person.AreMergeable(p1, p2));
     }
 
     [TestMethod()]
@@ -202,14 +209,16 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.IsFalse(p1.Equals(p2));
+        Assert.AreNotEqual(p1, p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.IsFalse(Person.AreMergeable(p1, p2));
     }
 
     [TestMethod()]
     public void EqualsTest8()
     {
         var p1 = new Person();
-        Assert.IsFalse(p1.Equals(null));
+        Assert.AreNotEqual(p1, null);
     }
 
 
@@ -230,7 +239,8 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.AreEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.AreNotEqual(p1, p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
     }
 
     [TestMethod()]
@@ -248,6 +258,7 @@ public class PersonTests
             BirthDay = new DateTime(1972, 1, 31)
         };
 
+        Assert.AreNotEqual(p1, p2);
         Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
     }
 
@@ -266,7 +277,8 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.AreEqual(p1.GetHashCode(), p2.GetHashCode());
+        Assert.AreNotEqual(p1, p2);
+        Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
     }
 
     [TestMethod()]

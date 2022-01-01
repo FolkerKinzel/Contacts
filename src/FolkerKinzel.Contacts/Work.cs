@@ -174,6 +174,10 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Work other)
     {
+        //if (StringHasEvidence(Company, other.Company, out bool isDifferentIdentity))
+        //{
+
+        //}
         if (AreDifferent(Company, other.Company))
         {
             return true;
@@ -198,6 +202,19 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
 
         //////////////////////////////////////////////////////
+        
+        //static bool StringHasEvidence(string? s1, string? s2, out bool isDifferentIdentity)
+        //{
+        //    isDifferentIdentity = true;
+
+        //    if (Strip.IsEmpty(s1) && Strip.IsEmpty(s2))
+        //    {
+        //        return false;
+        //    }
+
+        //    isDifferentIdentity = !Strip.StartEqual(s1, s2, true);
+        //    return true;
+        //}
 
         static bool AreDifferent(string? s1, string? s2)
             => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);

@@ -76,7 +76,7 @@ internal ref struct Strip
                                                        : strip1.StartsWith(strip2);
     }
 
-    internal static bool AreEqual(string? s1, string? s2, bool ignoreCase = false)
+    internal static bool Equals(string? s1, string? s2, bool ignoreCase = false)
         => new Strip(s1, !ignoreCase).Equals(new Strip(s2, !ignoreCase));
 
     internal static bool IsEmpty([NotNullWhen(false)] string? s) => string.IsNullOrEmpty(s) || new Strip(s).IsEmpty();

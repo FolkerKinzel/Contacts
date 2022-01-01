@@ -133,8 +133,11 @@ public class WorkTests
             JobTitle = "Generaldirektor"
         };
 
-        Assert.AreEqual(work1, work2);
+        Assert.AreNotEqual(work1, work2);
+        Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
+        Assert.IsTrue(Work.AreMergeable(work1 as Work, work2 as Work));
     }
+
 
     [TestMethod()]
     public void EqualsTest3()
@@ -203,7 +206,9 @@ public class WorkTests
             JobTitle = " "
         };
 
-        Assert.AreEqual(work1, work2);
+        Assert.AreNotEqual(work1, work2);
+        Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
+        Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
 
     [TestMethod()]
@@ -237,7 +242,9 @@ public class WorkTests
             JobTitle = "Generaldirektor"
         };
 
-        Assert.AreEqual(work1, work2);
+        Assert.AreNotEqual(work1, work2);
+        Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
+        Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
 
     [TestMethod()]
@@ -345,7 +352,9 @@ public class WorkTests
             JobTitle = "Chef"
         };
 
-        Assert.AreEqual(work1.GetHashCode(), work2.GetHashCode());
+        Assert.AreNotEqual(work1, work2);
+        Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
+        Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
 
     [TestMethod()]

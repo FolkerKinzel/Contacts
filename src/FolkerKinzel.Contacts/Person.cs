@@ -191,31 +191,51 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Person other)
     {
-        if (Name?.IsMergeableWith(other.Name) ?? true)
+        if (NameHasEvidence(Name, other.Name, out bool isDifferentIdentity))
         {
-            DateTime? birthDay = this.BirthDay;
-
-            if (birthDay.HasValue)
+            if(isDifferentIdentity)
             {
-                DateTime? otherBirthDay = other.BirthDay;
-                if (otherBirthDay.HasValue)
-                {
-                    if (birthDay.Value.Date != otherBirthDay.Value.Date)
-                    {
-                        return true;
-                    }
-                }
+                return true;
             }
 
-            return AreDifferent(NickName, other.NickName);
+            if (DateHasEvidence(BirthDay, other.BirthDay, out isDifferentIdentity))
+            {
+                return isDifferentIdentity;
+            }
         }
 
-        return true;
+        return AreDifferent(NickName, other.NickName);
 
         //////////////////////////////////////////////////////
 
+        static bool DateHasEvidence(DateTime? x, DateTime? y, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (!x.HasValue || !y.HasValue)
+            {
+                return false;
+            }
+
+            isDifferentIdentity = x.Value.Date != y.Value.Date;
+            return true;
+        }
+
+        static bool NameHasEvidence(Name? x, Name? y, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (x is null || y is null || x.IsEmpty || y.IsEmpty)
+            {
+                return false;
+            }
+
+            isDifferentIdentity = !x.IsMergeableWith(y);
+            return true;
+        }
+
         static bool AreDifferent(string? s1, string? s2)
-            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.AreEqual(s1, s2, true);
+            => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.Equals(s1, s2, true);
     }
 
     /// <inheritdoc/>

@@ -149,7 +149,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     #region Mergeable<T>, ICleanable
 
     /// <inheritdoc/>
-    protected override bool DescribesForeignIdentity(PhoneNumber other) => !Strip.AreEqual(Value, other.Value);
+    protected override bool DescribesForeignIdentity(PhoneNumber other) => !Strip.Equals(Value, other.Value);
 
 
     /// <inheritdoc/>
@@ -222,14 +222,13 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
             return false;
         }
 
-        // Referenzgleichheit
-        if (object.ReferenceEquals(this, obj))
-        {
-            return true;
-        }
+        //// Referenzgleichheit
+        //if (object.ReferenceEquals(this, obj))
+        //{
+        //    return true;
+        //}
 
-        // Return true if the fields match:
-        return CompareBoolean(p);
+        return Equals(p);
     }
 
 
@@ -242,10 +241,9 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
-        // If parameter is null return false:
-        if (other is null)
+        if (other is null || other.IsEmpty)
         {
-            return false;
+            return this.IsEmpty;
         }
 
         // Referenzgleichheit
@@ -264,7 +262,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(PhoneNumber other)
-        => Strip.AreEqual(Value, other.Value)
+        => StringComparer.Ordinal.Equals(Value, other.Value)
            && _flags == other._flags;
 
 

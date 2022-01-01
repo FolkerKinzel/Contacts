@@ -200,7 +200,9 @@ public class PhoneNumberTests
         object o1 = new PhoneNumber(val1);
         object o2 = new PhoneNumber(val2);
 
-        Assert.IsTrue(o1.Equals(o2));
+        Assert.AreEqual(o1, o2);
+        Assert.AreEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsTrue(PhoneNumber.AreMergeable(o1 as PhoneNumber, o2 as PhoneNumber));
     }
 
 
@@ -213,26 +215,28 @@ public class PhoneNumberTests
         object o2 = new PhoneNumber(val2);
 
         Assert.AreNotEqual(o1, o2);
-        Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.AreEqual(o1.GetHashCode(), o2.GetHashCode());
         Assert.IsTrue(PhoneNumber.AreMergeable(o1 as PhoneNumber, o2 as PhoneNumber));
     }
 
 
     [DataTestMethod()]
     [DataRow("4711", "47111")]
-    [DataRow("4711", null)]
+    //[DataRow("4711", null)]
     [DataRow("4711", "4811")]
     public void EqualsTestFalse1(string? val1, string? val2)
     {
         object o1 = new PhoneNumber(val1);
         object o2 = new PhoneNumber(val2);
 
-        Assert.IsFalse(o1.Equals(o2));
+        Assert.AreNotEqual(o1, o2);
+        Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsFalse(PhoneNumber.AreMergeable(o1 as PhoneNumber, o2 as PhoneNumber));
     }
 
     [DataTestMethod()]
-    [DataRow("4711", " 47 - 11")]
-    [DataRow("4711", "47/11")]
+    //[DataRow("4711", " 47 - 11")]
+    //[DataRow("4711", "47/11")]
     [DataRow("", "")]
     [DataRow("   ", "")]
     [DataRow("", "   ")]
@@ -248,27 +252,52 @@ public class PhoneNumberTests
         var o1 = new PhoneNumber(val1);
         var o2 = new PhoneNumber(val2);
 
-        Assert.IsTrue(o1.Equals(o2));
+        Assert.AreEqual(o1, o2);
+        Assert.AreEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsTrue(PhoneNumber.AreMergeable(o1, o2));
     }
 
 
 
     [DataTestMethod()]
     [DataRow("4711", "47111")]
-    [DataRow("4711", null)]
+    //[DataRow("4711", null)]
     [DataRow("4711", "4811")]
     public void EqualsTestFalse2(string? val1, string? val2)
     {
         var o1 = new PhoneNumber(val1);
         var o2 = new PhoneNumber(val2);
 
-        Assert.IsFalse(o1.Equals(o2));
+        Assert.AreNotEqual(o1, o2);
+        Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsFalse(PhoneNumber.AreMergeable(o1, o2));
+    }
+
+    [DataTestMethod()]
+    [DataRow("4711", null)]
+    [DataRow("4711", "")]
+    [DataRow("4711", "   ")]
+    [DataRow("4711", " .+@\"  ")]
+    [DataRow("4711", " 4 7 - 1/1")]
+    public void MergableTest1(string? val1, string? val2)
+    {
+        var o1 = new PhoneNumber(val1);
+        var o2 = new PhoneNumber(val2);
+
+        Assert.IsTrue(PhoneNumber.AreMergeable(o1, o2));
     }
 
 
+    [TestMethod]
+    public void MergableTest2()
+    {
+        var o1 = new PhoneNumber("4711", isFax: false);
+        var o2 = new PhoneNumber("4711", isFax: true);
 
-
-
+        Assert.AreNotEqual(o1, o2);
+        Assert.AreNotEqual(o1.GetHashCode(), o2.GetHashCode());
+        Assert.IsTrue(PhoneNumber.AreMergeable(o1, o2));
+    }
 
 
 
