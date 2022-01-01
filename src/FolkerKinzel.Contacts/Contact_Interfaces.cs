@@ -9,91 +9,142 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Contact other)
     {
-        IEnumerable<string?>? emails = this.EmailAddresses;
-        IEnumerable<string?>? otherEmails = other.EmailAddresses;
-        if (emails != null && otherEmails != null)
-        {
-            var emailsArr = emails.Where(x => !Strip.IsEmpty(x)).ToArray();
-            var otherEmailsArr = otherEmails.Where(x => !Strip.IsEmpty(x)).ToArray();
+        StringComparer comp = StringComparer.Ordinal;
 
-            if (emailsArr.Length != 0 && otherEmailsArr.Length != 0)
-            {
-                if (emailsArr.Intersect(otherEmailsArr, StringComparer.Ordinal).Any())
-                {
-                    return false;
-                }
-            }
-        }
-
-        IEnumerable<string?>? ims = this.InstantMessengerHandles;
-        IEnumerable<string?>? otherIMs = other.InstantMessengerHandles;
-        if (ims != null && otherIMs != null)
-        {
-            var imsArr = ims.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-            var otherIMsArr = otherIMs.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
-
-            if (imsArr.Length != 0 && otherIMsArr.Length != 0)
-            {
-                if (imsArr.Intersect(otherIMsArr, StringComparer.Ordinal).Any())
-                {
-                    return false;
-                }
-            }
-        }
-
-        if (!Person.CanBeMerged(Person, other.Person))
-        {
-            return true;
-        }
-
-        if (!Work.CanBeMerged(Work, other.Work))
-        {
-            return true;
-        }
-
-        if (Strip.StartEqual(DisplayName, other.DisplayName, true))
+        if(UrlCollectionHasEvidence(EmailAddresses, other.EmailAddresses, comp, out bool isDifferentIdentity) && !isDifferentIdentity)
         {
             return false;
         }
 
-        IEnumerable<PhoneNumber?>? phones = this.PhoneNumbers;
-        IEnumerable<PhoneNumber?>? otherPhones = other.PhoneNumbers;
-        if (phones != null && otherPhones != null)
+        if (UrlCollectionHasEvidence(InstantMessengerHandles, other.InstantMessengerHandles, comp, out isDifferentIdentity) && !isDifferentIdentity)
         {
-            PhoneNumber[] phonesArr = phones.Where(x => x != null && !x.IsEmpty).ToArray()!;
-            PhoneNumber[] otherPhonesArr = otherPhones.Where(x => x != null && !x.IsEmpty).ToArray()!;
-
-            if (phonesArr.Length != 0 && otherPhonesArr.Length != 0)
-            {
-                if (phonesArr.Intersect(otherPhonesArr, PhoneNumberComparer.Instance).Any())
-                {
-                    return false;
-                }
-            }
+            return false;
         }
 
-        Address? adr = this.AddressHome;
-        Address? otherAdr = other.AddressHome;
-        if (adr != null && otherAdr != null && !adr.IsEmpty && !otherAdr.IsEmpty)
+        if (HasEvidence(Person, other.Person, out isDifferentIdentity))
         {
-            return !adr.CanBeMerged(otherAdr);
+            return isDifferentIdentity;
         }
 
-        string? homePagePersonal = this.WebPagePersonal;
-        string? otherHomePagePersonal = other.WebPagePersonal;
-        if (!string.IsNullOrWhiteSpace(homePagePersonal) && !string.IsNullOrWhiteSpace(otherHomePagePersonal))
+        if (HasEvidence(Work, other.Work, out isDifferentIdentity))
         {
-            return !StringComparer.Ordinal.Equals(homePagePersonal, otherHomePagePersonal);
+            return isDifferentIdentity;
         }
 
-        string? homePageWork = this.WebPageWork;
-        string? otherHomePageWork = other.WebPageWork;
-        if (!string.IsNullOrWhiteSpace(homePageWork) && !string.IsNullOrWhiteSpace(otherHomePageWork))
+        if (DisplayNameHasEvidence(DisplayName, other.DisplayName, out isDifferentIdentity))
         {
-            return !StringComparer.Ordinal.Equals(homePageWork, otherHomePageWork);
+            return isDifferentIdentity;
+        }
+
+        if(PhoneNumberCollectionHasEvidence(PhoneNumbers, other.PhoneNumbers, out isDifferentIdentity) && !isDifferentIdentity)
+        {
+            return false;
+        }
+
+        if (UrlHasEvidence(WebPagePersonal, other.WebPagePersonal, comp, out isDifferentIdentity))
+        {
+            return isDifferentIdentity;
+        }
+
+        if (HasEvidence(AddressHome, other.AddressHome, out isDifferentIdentity))
+        {
+            return isDifferentIdentity;
+        }
+
+
+        if (UrlHasEvidence(WebPageWork, other.WebPageWork, comp, out isDifferentIdentity))
+        {
+            return isDifferentIdentity;
         }
 
         return false;
+
+        /////////////////////////////////////
+
+        static bool UrlCollectionHasEvidence(IEnumerable<string?>? urls1, IEnumerable<string?>? urls2, StringComparer comp, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (urls1 == null || urls2 == null)
+            {
+                return false;
+            }
+
+            var arr1 = urls1.Where(x => !Strip.IsEmpty(x)).ToArray();
+            var arr2 = urls2.Where(x => !Strip.IsEmpty(x)).ToArray();
+
+            if (arr1.Length != 0 && arr2.Length != 0)
+            {
+                isDifferentIdentity = !arr1.Intersect(arr2, comp).Any();
+                return true;
+            }
+
+            return false;
+        }
+
+        static bool PhoneNumberCollectionHasEvidence(IEnumerable<PhoneNumber?>? urls1, IEnumerable<PhoneNumber?>? urls2, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (urls1 == null || urls2 == null)
+            {
+                return false;
+            }
+
+            PhoneNumber[] arr1 = urls1.Where(x => x != null && !x.IsEmpty).ToArray()!;
+            PhoneNumber[] arr2 = urls2.Where(x => x != null && !x.IsEmpty).ToArray()!;
+
+            if (arr1.Length != 0 && arr2.Length != 0)
+            {
+                isDifferentIdentity = !arr1.Intersect(arr2, PhoneNumberComparer.Instance).Any();
+                return true;
+            }
+
+            return false;
+        }
+
+
+        static bool HasEvidence<T>(T? p1, T? p2, out bool isDifferentIdentity) where T : Mergeable<T>
+        {
+            isDifferentIdentity = true;
+
+            if (p1 is null || p2 is null || p1.IsEmpty || p2.IsEmpty)
+            {
+                return false;
+            }
+
+            isDifferentIdentity = !p1.IsMergeableWith(p2);
+            return true;
+        }
+
+
+        static bool DisplayNameHasEvidence(string? dp1, string? dp2, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (string.IsNullOrWhiteSpace(dp1) || string.IsNullOrWhiteSpace(dp2))
+            {
+                return false;
+            }
+
+            isDifferentIdentity = !Strip.StartEqual(dp1, dp2, true);
+            return true;
+        }
+
+        static bool UrlHasEvidence(string? dp1, string? dp2, StringComparer comp, out bool isDifferentIdentity)
+        {
+            isDifferentIdentity = true;
+
+            if (string.IsNullOrWhiteSpace(dp1) || string.IsNullOrWhiteSpace(dp2))
+            {
+                return false;
+            }
+
+            isDifferentIdentity = !comp.Equals(dp1, dp2);
+            return true;
+
+        }
+
     }
 
     /// <inheritdoc/>
@@ -530,13 +581,13 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
     {
         StringComparer comp = StringComparer.Ordinal;
 
-        return TimeStamp != other.TimeStamp
+        return TimeStamp == other.TimeStamp
             && comp.Equals(StringCleaner.PrepareForComparison(DisplayName), StringCleaner.PrepareForComparison(other.DisplayName))
-            && CompareStringCollections(EmailAddresses, other.EmailAddresses)
+            && CompareStringCollections(EmailAddresses, other.EmailAddresses, comp)
             && Person == other.Person
             && ComparePhoneNumbers(PhoneNumbers, other.PhoneNumbers)
             && Work == other.Work
-            && CompareStringCollections(InstantMessengerHandles, other.InstantMessengerHandles)
+            && CompareStringCollections(InstantMessengerHandles, other.InstantMessengerHandles, comp)
             && AddressHome == other.AddressHome
             && comp.Equals(StringCleaner.PrepareForComparison(WebPagePersonal), StringCleaner.PrepareForComparison(other.WebPagePersonal))
             && comp.Equals(StringCleaner.PrepareForComparison(Comment), StringCleaner.PrepareForComparison(other.Comment))
@@ -545,7 +596,7 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        static bool CompareStringCollections(IEnumerable<string?>? coll1, IEnumerable<string?>? coll2)
+        static bool CompareStringCollections(IEnumerable<string?>? coll1, IEnumerable<string?>? coll2, StringComparer comp)
         {
             if (ReferenceEquals(coll1, coll2))
             {
@@ -559,11 +610,11 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
             if (coll2 is null)
             {
-                return coll1!.Any();
+                return !coll1!.Any();
             }
 
             return coll1.Select(x => StringCleaner.PrepareForComparison(x))
-                        .SequenceEqual(coll2.Select(x => StringCleaner.PrepareForComparison(x)));
+                        .SequenceEqual(coll2.Select(x => StringCleaner.PrepareForComparison(x)), comp);
         }
 
         static bool ComparePhoneNumbers(IEnumerable<PhoneNumber?>? coll1, IEnumerable<PhoneNumber?>? coll2)
@@ -580,10 +631,10 @@ public sealed partial class Contact : Mergeable<Contact>, ICleanable, IEquatable
 
             if (coll2 is null)
             {
-                return coll1!.Any();
+                return !coll1!.Any();
             }
 
-            return coll1.SequenceEqual(coll2);
+            return coll1.Select(x => x is null || x.IsEmpty ? null : x).SequenceEqual(coll2.Select(x => x is null || x.IsEmpty ? null : x));
         }
     }
 

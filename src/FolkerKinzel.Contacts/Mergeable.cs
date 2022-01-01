@@ -35,7 +35,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Anwendung darüber entscheiden zu lassen.
     /// </para>
     /// </remarks>
-    public bool CanBeMerged(T? other) => other is null || IsEmpty || other.IsEmpty || !DescribesForeignIdentity(other);
+    public bool IsMergeableWith(T? other) => other is null || IsEmpty || other.IsEmpty || !DescribesForeignIdentity(other);
 
 
     /// <summary>
@@ -56,7 +56,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Anwendung darüber entscheiden zu lassen.
     /// </para>
     /// </remarks>
-    public static bool CanBeMerged(T? mergeable1, T? mergeable2) => mergeable1?.CanBeMerged(mergeable2) ?? true;
+    public static bool CanBeMerged(T? mergeable1, T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
 
 
     /// <summary>
@@ -68,7 +68,8 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// <remarks>
     /// <para>
     /// Die Methode führt keinerlei Überprüfung durch, ob die Ergänzung der Daten der aktuellen Instanz mit denen 
-    /// von <paramref name="source"/> sinnvoll ist. Prüfen Sie dies vorher mit <see cref="CanBeMerged(T?)"/> und lassen Sie sich
+    /// von <paramref name="source"/> sinnvoll ist. Prüfen Sie dies vorher mit der Instanzmethode <see cref="IsMergeableWith(T?)"/> 
+    /// oder der statischen Methode <see cref="CanBeMerged(T?, T?)"/> und lassen Sie sich
     /// das Ergebnis der Prüfung möglichst von den Benutzern der Anwendung bestätigen.
     /// </para>
     /// <para>
