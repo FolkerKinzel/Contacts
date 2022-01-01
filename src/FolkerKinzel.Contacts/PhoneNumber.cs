@@ -273,13 +273,9 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
     ///// </summary>
     ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
-    public override int GetHashCode()
-    {
-        int hashCode = StringCleaner.PrepareForComparison(Value).GetHashCode();
-        return hashCode ^ _flags.GetHashCode();
-    }
+    public override int GetHashCode() => Strip.GetHashCode(Value) ^ _flags.GetHashCode();
 
-   
+
 
     #endregion
 
