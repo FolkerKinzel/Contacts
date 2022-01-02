@@ -9,7 +9,7 @@ public sealed partial class Contact : MergeableObject<Contact>
     {
         StringComparer comp = StringComparer.Ordinal;
 
-        if(UrlCollectionHasEvidence(EmailAddresses, other.EmailAddresses, comp, out bool isDifferentIdentity) && !isDifferentIdentity)
+        if (UrlCollectionHasEvidence(EmailAddresses, other.EmailAddresses, comp, out bool isDifferentIdentity) && !isDifferentIdentity)
         {
             return false;
         }
@@ -34,7 +34,7 @@ public sealed partial class Contact : MergeableObject<Contact>
             return isDifferentIdentity;
         }
 
-        if(PhoneNumberCollectionHasEvidence(PhoneNumbers, other.PhoneNumbers, out isDifferentIdentity) && !isDifferentIdentity)
+        if (PhoneNumberCollectionHasEvidence(PhoneNumbers, other.PhoneNumbers, out isDifferentIdentity) && !isDifferentIdentity)
         {
             return false;
         }
@@ -146,7 +146,7 @@ public sealed partial class Contact : MergeableObject<Contact>
     }
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(Contact source)
+    protected override void SupplementWith(Contact source)
     {
         if (TimeStamp < source.TimeStamp)
         {
@@ -156,7 +156,7 @@ public sealed partial class Contact : MergeableObject<Contact>
         Person = MergeMergeableObjects(Person, source.Person);
         Work = MergeMergeableObjects(Work, source.Work);
         AddressHome = MergeMergeableObjects(AddressHome, source.AddressHome);
-       
+
         if (Strip.IsEmpty(DisplayName))
         {
             DisplayName = source.DisplayName;
@@ -172,30 +172,17 @@ public sealed partial class Contact : MergeableObject<Contact>
             WebPageWork = source.WebPageWork;
         }
 
-        string? comment = Comment;
+        MergeComment(source);
 
-        if (string.IsNullOrWhiteSpace(comment))
-        {
-            Comment = source.Comment;
-        }
-        else
-        {
-            string? sourceComment = source.Comment;
-
-            if (!string.IsNullOrWhiteSpace(source.Comment))
-            {
-                Comment = string.Concat(comment, Environment.NewLine, Environment.NewLine, sourceComment);
-            }
-        }
-
-        MergeEmailAddresses(source);
-
-        MergeInstantMessengerHandles(source);
+        EmailAddresses = MergeEmailAddresses(EmailAddresses, source.EmailAddresses);
+        InstantMessengerHandles = MergeEmailAddresses(InstantMessengerHandles, source.InstantMessengerHandles);
 
         MergePhoneNumbers(source);
 
         /////////////////////////////////////////////////
-        
+
+        //static string? MergeStrings(string? current, string? source) => Strip.IsEmpty(current) ? source : current;
+
         static T? MergeMergeableObjects<T>(T? x, T? source) where T : MergeableObject<T>, ICloneable
         {
             if (x?.IsMergeableWith(source) ?? true)
@@ -207,47 +194,23 @@ public sealed partial class Contact : MergeableObject<Contact>
         }
 
 
-        void MergeEmailAddresses(Contact source)
+        static IEnumerable<string?>? MergeEmailAddresses(IEnumerable<string?>? emailAddresses, IEnumerable<string?>? sourceEmailAddresses)
         {
-            IEnumerable<string?>? emailAdresses = EmailAddresses;
-
-            if (emailAdresses is null)
+            if (emailAddresses is null)
             {
-                EmailAddresses = source.EmailAddresses?.ToArray();
+                return sourceEmailAddresses?.ToArray();
             }
-            else
-            {
-                IEnumerable<string?>? sourceEmailAdresses = source.EmailAddresses;
 
-                if (sourceEmailAdresses is not null)
-                {
-                    var list = emailAdresses.ToList();
-                    list.AddRange(sourceEmailAdresses);
-                    EmailAddresses = list.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
-                }
+            if (sourceEmailAddresses is null)
+            {
+                return emailAddresses;
             }
+
+            var list = emailAddresses.ToList();
+            list.AddRange(sourceEmailAddresses);
+            return list.Distinct(StringComparer.Ordinal).ToArray();
         }
 
-        void MergeInstantMessengerHandles(Contact source)
-        {
-            IEnumerable<string?>? imAddresses = InstantMessengerHandles;
-
-            if (imAddresses is null)
-            {
-                InstantMessengerHandles = source.InstantMessengerHandles?.ToArray();
-            }
-            else
-            {
-                IEnumerable<string?>? sourceIMAddresses = source.InstantMessengerHandles;
-
-                if (sourceIMAddresses is not null)
-                {
-                    var list = imAddresses.ToList();
-                    list.AddRange(sourceIMAddresses);
-                    InstantMessengerHandles = list.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
-                }
-            }
-        }
 
         void MergePhoneNumbers(Contact source)
         {
@@ -255,7 +218,7 @@ public sealed partial class Contact : MergeableObject<Contact>
 
             if (phoneNumbers is null)
             {
-                PhoneNumbers = source.PhoneNumbers?.ToArray();
+                PhoneNumbers = source.PhoneNumbers?.Select(x => (PhoneNumber?)x?.Clone()).ToArray();
             }
             else
             {
@@ -282,6 +245,25 @@ public sealed partial class Contact : MergeableObject<Contact>
                     }
 
                     PhoneNumbers = list;
+                }
+            }
+        }
+
+        void MergeComment(Contact source)
+        {
+            string? comment = Comment;
+
+            if (string.IsNullOrWhiteSpace(comment))
+            {
+                Comment = source.Comment;
+            }
+            else
+            {
+                string? sourceComment = source.Comment;
+
+                if (!string.IsNullOrWhiteSpace(source.Comment) && !Strip.Equals(comment, sourceComment, true))
+                {
+                    Comment = string.Concat(comment, Environment.NewLine, Environment.NewLine, sourceComment);
                 }
             }
         }

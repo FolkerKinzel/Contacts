@@ -239,7 +239,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(Person source)
+    protected override void SupplementWith(Person source)
     {
         Name? name = Name;
         Name? sourceName = source.Name;

@@ -122,7 +122,7 @@ public class WorkTests
         var addr2 = new Address
         {
             Street = "Berliner Str. 42",
-            City = "raguhn"
+            City = "berghain"
         };
 
 
@@ -231,7 +231,7 @@ public class WorkTests
         var addr2 = new Address
         {
             Street = "Berliner Str. 42",
-            City = "raguhn"
+            City = "berghain"
         };
 
 

@@ -86,7 +86,7 @@ public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<
     {
         if(source is not null && !source.IsEmpty && !ReferenceEquals(this, source))
         {
-            CompleteDataWith(source);
+            SupplementWith(source);
         }
         return (T)this;
     }
@@ -102,7 +102,7 @@ public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<
     /// Daten überschreibt!
     /// </note>
     /// </remarks>
-    protected abstract void CompleteDataWith(T source);
+    protected abstract void SupplementWith(T source);
 
 
     /// <summary>

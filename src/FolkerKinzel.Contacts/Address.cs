@@ -222,7 +222,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(Address source)
+    protected override void SupplementWith(Address source)
     {
         if (Strip.IsEmpty(PostalCode))
         {

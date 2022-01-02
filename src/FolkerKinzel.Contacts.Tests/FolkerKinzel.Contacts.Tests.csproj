@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 		<Using Remove="System.Net.Http" />
+		<Using Include="System.Diagnostics.CodeAnalysis"/>
 	</ItemGroup>
 
   <ItemGroup>

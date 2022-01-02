@@ -221,7 +221,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(Work source)
+    protected override void SupplementWith(Work source)
     {
         Address? adr = AddressWork;
         Address? sourceAdr = source.AddressWork;

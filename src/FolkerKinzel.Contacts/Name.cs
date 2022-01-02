@@ -192,7 +192,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(Name source)
+    protected override void SupplementWith(Name source)
     {
         if (Strip.IsEmpty(FirstName))
         {

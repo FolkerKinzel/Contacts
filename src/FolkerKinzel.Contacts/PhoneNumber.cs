@@ -153,7 +153,7 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
 
     /// <inheritdoc/>
-    protected override void CompleteDataWith(PhoneNumber source)
+    protected override void SupplementWith(PhoneNumber source)
     {
         if (IsEmpty)
         {

@@ -6,9 +6,8 @@ namespace FolkerKinzel.Contacts.Tests;
 [TestClass()]
 public class ContactTests
 {
-#nullable disable
-    public TestContext TestContext { get; set; }
-#nullable restore
+    [NotNull]
+    public TestContext? TestContext { get; set; }
 
     [TestMethod]
     public void CleanTest1()
@@ -547,14 +546,15 @@ public class ContactTests
 
         Assert.IsTrue(contact2.IsEmpty);
         Assert.IsTrue(contact1.IsEmpty);
-
-
     }
+
 
 
     [TestMethod]
     public void MergeTest1()
     {
+        const string comment = "Dies ist ein Kommentar";
+
         var addr1 = new Address
         {
             Street = "Berliner Str. 42",
@@ -582,7 +582,7 @@ public class ContactTests
             DisplayName = "Folker  ",
             EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
             Person = pers1,
-            Comment = "Dies ist ein Kommentar",
+            Comment = comment,
             AddressHome = addr1,
             WebPageWork = "info@work.de",
             TimeStamp = DateTime.Now,
@@ -613,12 +613,13 @@ public class ContactTests
         Assert.AreNotSame(contact1.EmailAddresses, contact2.EmailAddresses);
         Assert.AreNotSame(contact1.InstantMessengerHandles, contact2.InstantMessengerHandles);
         Assert.AreNotSame(contact1.PhoneNumbers, contact2.PhoneNumbers);
+
         Assert.IsTrue(!contact1.PhoneNumbers.Where(x => x != null).Any(x => contact2.PhoneNumbers!.Any(y => object.ReferenceEquals(x, y))));
 
 
         var emails = new List<string?>(contact1.EmailAddresses);
         contact1.EmailAddresses = emails;
-        emails.Add("Info@folker.de");
+        emails.Add("INFO@folker.de");
 
         var imHandles = new List<string?>(contact1.InstantMessengerHandles);
         contact1.InstantMessengerHandles = imHandles;
@@ -638,9 +639,15 @@ public class ContactTests
         _ = contact2.Merge(contact1);
 
         Assert.AreNotEqual(contact1, contact2);
+        Assert.IsTrue(!contact1.PhoneNumbers.Where(x => x != null).Any(x => contact2.PhoneNumbers!.Any(y => object.ReferenceEquals(x, y))));
+        Assert.AreEqual(contact2.Comment, comment);
 
         contact1.Clean();
         contact2.Clean();
+
+        Assert.AreEqual(contact1, contact2);
+        Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
+
 
     }
 
