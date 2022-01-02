@@ -613,7 +613,7 @@ public class ContactTests
         Assert.AreNotSame(contact1.EmailAddresses, contact2.EmailAddresses);
         Assert.AreNotSame(contact1.InstantMessengerHandles, contact2.InstantMessengerHandles);
         Assert.AreNotSame(contact1.PhoneNumbers, contact2.PhoneNumbers);
-        Assert.IsTrue(!contact1.PhoneNumbers.Any(x => contact2.PhoneNumbers!.Any(y => object.ReferenceEquals(x, y))));
+        Assert.IsTrue(!contact1.PhoneNumbers.Where(x => x != null).Any(x => contact2.PhoneNumbers!.Any(y => object.ReferenceEquals(x, y))));
 
 
         var emails = new List<string?>(contact1.EmailAddresses);

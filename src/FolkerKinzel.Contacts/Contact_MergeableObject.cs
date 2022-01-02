@@ -148,30 +148,15 @@ public sealed partial class Contact : MergeableObject<Contact>
     /// <inheritdoc/>
     protected override void CompleteDataWith(Contact source)
     {
-        Person? person = Person;
-        Person? sourcePerson = source.Person;
-
-        if (Person.AreMergeable(person, sourcePerson))
+        if (TimeStamp < source.TimeStamp)
         {
-            Person = person?.Merge(sourcePerson) ?? (Person?)sourcePerson?.Clone();
+            TimeStamp = source.TimeStamp;
         }
 
-        Work? work = Work;
-        Work? sourceWork = source.Work;
-
-        if (Work.AreMergeable(work, sourceWork))
-        {
-            Work = work?.Merge(sourceWork) ?? (Work?)sourceWork?.Clone();
-        }
-
-        Address? adr = AddressHome;
-        Address? sourceAdr = source.AddressHome;
-
-        if (Address.AreMergeable(adr, sourceAdr))
-        {
-            AddressHome = adr?.Merge(sourceAdr) ?? (Address?)sourceAdr?.Clone();
-        }
-
+        Person = MergeMergeableObjects(Person, source.Person);
+        Work = MergeMergeableObjects(Work, source.Work);
+        AddressHome = MergeMergeableObjects(AddressHome, source.AddressHome);
+       
         if (Strip.IsEmpty(DisplayName))
         {
             DisplayName = source.DisplayName;
@@ -210,6 +195,17 @@ public sealed partial class Contact : MergeableObject<Contact>
         MergePhoneNumbers(source);
 
         /////////////////////////////////////////////////
+        
+        static T? MergeMergeableObjects<T>(T? x, T? source) where T : MergeableObject<T>, ICloneable
+        {
+            if (x?.IsMergeableWith(source) ?? true)
+            {
+                return x?.Merge(source) ?? (T?)source?.Clone();
+            }
+
+            return x;
+        }
+
 
         void MergeEmailAddresses(Contact source)
         {

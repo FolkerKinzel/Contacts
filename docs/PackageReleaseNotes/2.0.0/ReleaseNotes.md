@@ -8,7 +8,7 @@ Up to and including version 1.5.0, the `Equals` methods tried to determine wheth
 comparison prevented the rule that `GetHashCode` should return the same values for equal objects.
 
 In order to fix this issue, beginning from version 2.0.0 all classes inherit from the abstract base class `MergableObject<T>`
-that has a an instance method IsMergeable(T?) and a static method AreMergeable(T?, T?), which have the same 
+that has a an instance method `IsMergeableWith(T?)` and a static method `AreMergeable(T?, T?)`, which have the same 
 functionality that was provided by the `Equals` methods up to version 1.5.0.
 
 The `Equals` methods now perform a strict comparison of all fields, and `GetHashCode` now provides compliant results.
