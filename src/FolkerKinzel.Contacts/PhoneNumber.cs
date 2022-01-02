@@ -10,7 +10,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über eine Telefonnummer.
 /// </summary>
-public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>
+public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>
 {
     #region Flags Enum
     [Flags]
@@ -146,7 +146,7 @@ public sealed class PhoneNumber : Mergeable<PhoneNumber>, ICleanable, ICloneable
 
     #endregion
 
-    #region Mergeable<T>, ICleanable
+    #region MergeableObject<T>, ICleanable
 
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(PhoneNumber other) => !Strip.Equals(Value, other.Value);

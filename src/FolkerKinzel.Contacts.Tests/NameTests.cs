@@ -34,7 +34,7 @@ public class NameTests
     [TestMethod()]
     public void CleanTest()
     {
-        var name = InitFullName();
+        Name name = InitFullName();
 
         name.LastName = "  " + LAST_NAME + " ";
         name.FirstName = " First Name";
@@ -55,7 +55,7 @@ public class NameTests
     {
         Name name1 = InitFullName();
 
-        Name name2 = (Name)name1.Clone();
+        var name2 = (Name)name1.Clone();
 
         Assert.AreNotSame(name1, name2);
 

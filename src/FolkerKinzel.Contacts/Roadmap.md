@@ -2,7 +2,7 @@
 ## Roadmap
 
 ### 2.0.0
-- [x] Add an abstract class `Mergeable<T>`, which has a Method `CanBeMerged(T? other)`, and implement it in all classes. 
+- [x] Add an abstract class `MergeableObject<T>`, which has a Method `IsMergeable(T? other)`, and implement it in all classes. 
 - [x] Change the overridden `Equals` and `GetHashCode` methods instead to produce compliant results.
 - [x] Enable automatic merging of `Contact` objects.
 

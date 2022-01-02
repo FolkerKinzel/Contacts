@@ -10,8 +10,8 @@ public class AddressTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "   Raguhn",
+            Street = "Berliner Str. 42",
+            City = "   Berghain",
             PostalCode = "   "
         };
 
@@ -36,15 +36,15 @@ public class AddressTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "   Raguhn ",
+            Street = "Berliner Str. 42",
+            City = "   Berghain ",
             PostalCode = "   "
         };
 
         addr1.Clean();
 
-        Assert.AreEqual("Priorauer Str. 32", addr1.Street);
-        Assert.AreEqual("Raguhn", addr1.City);
+        Assert.AreEqual("Berliner Str. 42", addr1.Street);
+        Assert.AreEqual("Berghain", addr1.City);
         Assert.IsNull(addr1.PostalCode);
 
         Assert.IsFalse(addr1.IsEmpty);

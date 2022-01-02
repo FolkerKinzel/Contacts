@@ -118,9 +118,9 @@ public class ContactTests
 
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "   Raguhn",
-            PostalCode = "   06779"
+            Street = "Berliner Str. 42",
+            City = "   Berghain",
+            PostalCode = "   09876"
         };
 
 
@@ -142,7 +142,7 @@ public class ContactTests
             Work = ed1,
             WebPagePersonal = "www.folker.de",
             DisplayName = "Folker  ",
-            EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
+            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
             Person = pers1,
             Comment = "Dies ist ein Kommentar",
             AddressHome = addr1,
@@ -188,8 +188,8 @@ public class ContactTests
     {
         var addr = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "   Raguhn",
+            Street = "Berliner Str. 42",
+            City = "   Berghain",
             PostalCode = "   "
         };
 
@@ -213,7 +213,7 @@ public class ContactTests
             Work = work,
             WebPagePersonal = "www.folker.de",
             DisplayName = "Folker  ",
-            EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
+            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
             Person = pers,
             AddressHome = addr,
             InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
@@ -269,9 +269,9 @@ public class ContactTests
     {
         var addr = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn",
-            PostalCode = "06779"
+            Street = "Berliner Str. 42",
+            City = "Berghain",
+            PostalCode = "09876"
         };
 
         var work = new Work
@@ -294,7 +294,7 @@ public class ContactTests
             WebPagePersonal = "www.folker.de",
             WebPageWork = "work.de",
             DisplayName = "Folker",
-            EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
+            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
             Person = pers,
             AddressHome = addr,
             InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
@@ -399,9 +399,9 @@ public class ContactTests
     {
         var addr = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn",
-            PostalCode = "06779"
+            Street = "Berliner Str. 42",
+            City = "Berghain",
+            PostalCode = "09876"
         };
 
 
@@ -425,7 +425,7 @@ public class ContactTests
             WebPagePersonal = "www.folker.de",
             WebPageWork = "work.de",
             DisplayName = "Folker",
-            EmailAddresses = new string?[] { "folker@freenet.de", "info@folker.de", null },
+            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
             Person = pers,
             AddressHome = addr,
             InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
@@ -548,6 +548,99 @@ public class ContactTests
         Assert.IsTrue(contact2.IsEmpty);
         Assert.IsTrue(contact1.IsEmpty);
 
+
+    }
+
+
+    [TestMethod]
+    public void MergeTest1()
+    {
+        var addr1 = new Address
+        {
+            Street = "Berliner Str. 42",
+            City = "   Berghain",
+            PostalCode = "   09876"
+        };
+
+        var ed1 = new Work
+        {
+            AddressWork = addr1,
+            Company = "Folkers Firma",
+            JobTitle = " Boss  "
+        };
+
+        var pers1 = new Person
+        {
+            BirthDay = new DateTime(1985, 6, 5),
+            Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
+        };
+
+        var contact1 = new Contact
+        {
+            Work = ed1,
+            WebPagePersonal = "www.folker.de",
+            DisplayName = "Folker  ",
+            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            Person = pers1,
+            Comment = "Dies ist ein Kommentar",
+            AddressHome = addr1,
+            WebPageWork = "info@work.de",
+            TimeStamp = DateTime.Now,
+            InstantMessengerHandles = new string[] { "folker@twitter.com" },
+            PhoneNumbers = new PhoneNumber?[]
+            {
+                    new PhoneNumber(" 1 2 3 ", false, true),
+                    new  PhoneNumber(),
+                    null,
+                    new PhoneNumber("   "),
+                    new PhoneNumber("123", true),
+                    new PhoneNumber(" 1 23 ", false, true, true),
+                    new PhoneNumber("456", true),
+                    new PhoneNumber("456", false, true)
+            }
+
+        };
+
+        var contact2 = new Contact();
+        Assert.IsTrue(contact2.IsEmpty);
+        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
+
+        _ = contact2.Merge(contact1);
+
+        Assert.AreEqual(contact1, contact2);
+        Assert.AreNotSame(contact1.AddressHome, contact2.AddressHome);
+        Assert.AreNotSame(contact1.EmailAddresses, contact2.EmailAddresses);
+        Assert.AreNotSame(contact1.InstantMessengerHandles, contact2.InstantMessengerHandles);
+        Assert.AreNotSame(contact1.PhoneNumbers, contact2.PhoneNumbers);
+        Assert.IsTrue(!contact1.PhoneNumbers.Any(x => contact2.PhoneNumbers!.Any(y => object.ReferenceEquals(x, y))));
+
+
+        var emails = new List<string?>(contact1.EmailAddresses);
+        contact1.EmailAddresses = emails;
+        emails.Add("Info@folker.de");
+
+        var imHandles = new List<string?>(contact1.InstantMessengerHandles);
+        contact1.InstantMessengerHandles = imHandles;
+        imHandles.Add("  ");
+        imHandles.Add("");
+        imHandles.Add(null);
+        imHandles.Add("FOLKER@TWITTER.COM");
+
+        contact1.AddressHome.Country = "Germany";
+        contact1.Work.Office = "17";
+        contact1.Person.Spouse = "Schatzi";
+
+        var phoneNumbers = contact1.PhoneNumbers.ToList();
+        contact1.PhoneNumbers = phoneNumbers;
+        phoneNumbers.Add(new PhoneNumber(" 4 5 - 6", isFax: true));
+
+        _ = contact2.Merge(contact1);
+
+        Assert.AreNotEqual(contact1, contact2);
+
+        contact1.Clean();
+        contact2.Clean();
 
     }
 

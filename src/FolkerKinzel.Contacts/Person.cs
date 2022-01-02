@@ -10,7 +10,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt personenbezogene Daten.
 /// </summary>
-public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatable<Person?>
+public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IEquatable<Person?>
 {
     #region Prop Enum
     private enum Prop
@@ -185,7 +185,7 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
     #endregion
 
 
-    #region Mergeable<T>, ICleanable
+    #region MergeableObject<T>, ICleanable
 
 
     /// <inheritdoc/>
@@ -246,7 +246,7 @@ public sealed class Person : Mergeable<Person>, ICleanable, ICloneable, IEquatab
 
         if (Name.AreMergeable(name, sourceName))
         {
-            Name = name?.Merge(sourceName) ?? sourceName;
+            Name = name?.Merge(sourceName) ?? (Name?)sourceName?.Clone();
         }
 
         if (Gender == default)

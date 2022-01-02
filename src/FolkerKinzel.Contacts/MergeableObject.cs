@@ -5,7 +5,7 @@
 /// zu verschmelzen.
 /// </summary>
 /// <typeparam name="T">Generischer Typparameter, der stellvertretend für eine abgeleitete Klasse steht.</typeparam>
-public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
+public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<T>
 {
     /// <inheritdoc/>
     public abstract bool IsEmpty { get; }
@@ -19,7 +19,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Untersucht, ob einer Verschmelzung der Daten aus <paramref name="other"/> mit denen der aktuellen
     /// Instanz nichts entgegen steht.
     /// </summary>
-    /// <param name="other">Ein anderes <see cref="Mergeable{T}"/>-Objekt oder <c>null</c>.</param>
+    /// <param name="other">Ein anderes <see cref="MergeableObject{T}"/>-Objekt oder <c>null</c>.</param>
     /// <returns><c>true</c>, wenn einer Verschmelzung mit <paramref name="other"/> nichts entgegen steht,
     /// andernfalls <c>false</c>.</returns>
     /// <remarks>
@@ -35,7 +35,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Anwendung darüber entscheiden zu lassen.
     /// </para>
     /// </remarks>
-    public bool IsMergeableWith(T? other) => other is null || IsEmpty || other.IsEmpty || !DescribesForeignIdentity(other);
+    public bool IsMergeableWith([NotNullWhen(false)] T? other) => other is null || IsEmpty || other.IsEmpty || !DescribesForeignIdentity(other);
 
 
     /// <summary>
@@ -56,7 +56,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Anwendung darüber entscheiden zu lassen.
     /// </para>
     /// </remarks>
-    public static bool AreMergeable(T? mergeable1, T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
+    public static bool AreMergeable([NotNullWhen(false)]T? mergeable1, [NotNullWhen(false)] T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
 
 
     /// <summary>
@@ -76,7 +76,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// Wenn <paramref name="source"/>&#160;<c>null</c> oder <see cref="IsEmpty"/> ist, werden keine Daten kopiert.
     /// </para>
     /// <para>
-    /// Bei der Verschmelzung zweier <see cref="Mergeable{T}"/>-Instanzen ist das Ergebnis davon abhängig, auf welcher der beiden 
+    /// Bei der Verschmelzung zweier <see cref="MergeableObject{T}"/>-Instanzen ist das Ergebnis davon abhängig, auf welcher der beiden 
     /// Instanzen die Methode aufgerufen wird. Die Erhaltung der Daten der Instanz, auf der die Methode aufgerufen wird, hat Priorität.
     /// Es liegt in der Verantwortung der ausführenden Anwendung, die Methode auf der geeigneteren der beiden Instanzen 
     /// aufzurufen.
@@ -84,7 +84,7 @@ public abstract class Mergeable<T> : ICleanable where T : Mergeable<T>
     /// </remarks>
     public T Merge(T? source)
     {
-        if(source is not null && !source.IsEmpty)
+        if(source is not null && !source.IsEmpty && !ReferenceEquals(this, source))
         {
             CompleteDataWith(source);
         }

@@ -9,7 +9,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über die Arbeitsstelle einer Person.
 /// </summary>
-public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<Work?>
+public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquatable<Work?>
 {
     #region Prop Enum
     private enum Prop
@@ -169,7 +169,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
     #endregion
 
-    #region Mergeable<T>, ICleanable
+    #region MergeableObject<T>, ICleanable
 
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Work other)
@@ -228,7 +228,7 @@ public sealed class Work : Mergeable<Work>, ICleanable, ICloneable, IEquatable<W
 
         if (Address.AreMergeable(adr, sourceAdr))
         {
-            AddressWork = adr?.Merge(sourceAdr) ?? sourceAdr;
+            AddressWork = adr?.Merge(sourceAdr) ?? (Address?)sourceAdr?.Clone();
         }
 
         if (Strip.IsEmpty(Company))

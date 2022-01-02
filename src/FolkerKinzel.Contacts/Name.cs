@@ -6,7 +6,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Informationen über den Namen einer Person.
 /// </summary>
-public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<Name?>
+public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquatable<Name?>
 {
     #region Prop Enum
     private enum Prop
@@ -167,7 +167,7 @@ public sealed class Name : Mergeable<Name>, ICleanable, ICloneable, IEquatable<N
     #endregion
 
 
-    #region Mergeable<T>, ICleanable
+    #region MergeableObject<T>, ICleanable
 
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Name other)

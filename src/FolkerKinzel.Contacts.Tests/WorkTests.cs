@@ -10,8 +10,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "   Raguhn",
+            Street = "Berliner Str. 42",
+            City = "   Berghain",
             PostalCode = "   "
         };
 
@@ -46,8 +46,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = " Priorauer Str. 32 ",
-            City = "   Raguhn",
+            Street = " Berliner Str. 42 ",
+            City = "   Berghain",
             PostalCode = "   "
         };
 
@@ -63,7 +63,7 @@ public class WorkTests
 
         Assert.AreEqual("Folkers Firma", work1.Company);
         Assert.IsNull(work1.JobTitle);
-        Assert.AreEqual("Raguhn", work1.AddressWork.City);
+        Assert.AreEqual("Berghain", work1.AddressWork.City);
     }
 
     [TestMethod()]
@@ -71,8 +71,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -107,8 +107,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -121,7 +121,7 @@ public class WorkTests
 
         var addr2 = new Address
         {
-            Street = "Priorauer Str. 32",
+            Street = "Berliner Str. 42",
             City = "raguhn"
         };
 
@@ -144,8 +144,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -186,8 +186,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -216,8 +216,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -230,7 +230,7 @@ public class WorkTests
 
         var addr2 = new Address
         {
-            Street = "Priorauer Str. 32",
+            Street = "Berliner Str. 42",
             City = "raguhn"
         };
 
@@ -252,8 +252,8 @@ public class WorkTests
     {
         var addr1 = new Address
         {
-            Street = "Priorauer Str. 32",
-            City = "Raguhn"
+            Street = "Berliner Str. 42",
+            City = "Berghain"
         };
 
 
@@ -397,7 +397,7 @@ public class WorkTests
     {
         var adr1 = new Address
         {
-            PostalCode = "06779"
+            PostalCode = "09876"
         };
 
         var adr2 = new Address
@@ -440,9 +440,9 @@ public class WorkTests
         {
             AddressWork = new Address
             {
-                Street = "Priorauer Str. 32",
-                City = "Raguhn-Jeßnitz",
-                PostalCode = "06779",
+                Street = "Berliner Str. 42",
+                City = "Berghain-Taldorf",
+                PostalCode = "09876",
                 State = "Sachsen-Anhalt",
                 Country = "Germany"
             },

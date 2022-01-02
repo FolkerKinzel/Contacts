@@ -8,7 +8,7 @@ namespace FolkerKinzel.Contacts;
 /// <summary>
 /// Kapselt Adressdaten.
 /// </summary>
-public sealed class Address : Mergeable<Address>, ICleanable, ICloneable, IEquatable<Address?>
+public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, IEquatable<Address?>
 {
     #region Prop Enum
     /// <summary>
