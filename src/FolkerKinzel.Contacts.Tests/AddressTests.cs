@@ -68,7 +68,10 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
+        Assert.IsFalse(adr1 == adr2);
+        Assert.IsTrue(adr1 != adr2);
+
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
 
         Assert.IsTrue(Address.AreMergeable(adr1 as Address, adr2 as Address));
@@ -92,7 +95,7 @@ public class AddressTests
             Street = "Gänseweg 5"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsFalse(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
@@ -114,7 +117,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsFalse(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
@@ -135,7 +138,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsTrue(Address.AreMergeable(adr1 as Address, adr2 as Address));
     }
@@ -150,7 +153,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, null);
+        Assert.IsFalse(adr1.Equals(null));
         Assert.IsTrue(Address.AreMergeable(adr1 as Address, null));
     }
 
@@ -171,7 +174,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsTrue(Address.AreMergeable(adr1, adr2));
     }
@@ -193,7 +196,7 @@ public class AddressTests
             Street = "Gänseweg 5"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsFalse(Address.AreMergeable(adr1, adr2));
     }
@@ -215,7 +218,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsFalse(Address.AreMergeable(adr1, adr2));
     }
@@ -236,7 +239,7 @@ public class AddressTests
             Street = "Gänseweg 4"
         };
 
-        Assert.AreNotEqual(adr1, adr2);
+        Assert.IsFalse(adr1.Equals(adr2));
         Assert.AreNotEqual(adr1.GetHashCode(), adr2.GetHashCode());
         Assert.IsTrue(Address.AreMergeable(adr1, adr2));
     }
@@ -252,9 +255,53 @@ public class AddressTests
         };
 
         Assert.IsFalse(adr1.Equals(null));
+        Assert.IsFalse(adr1 == null);
+        Assert.IsTrue(adr1 != null);
+        Assert.IsFalse(null == adr1);
+        Assert.IsTrue(null != adr1);
     }
 
 
+    [TestMethod]
+    public void EqualsTest11()
+    {
+        var adr1 = new Address();
+        Address? adr2 = null;
+
+        Assert.IsFalse(adr1.Equals(adr2));
+        Assert.IsFalse(adr1 == adr2);
+        Assert.IsTrue(adr1 != adr2);
+        Assert.IsFalse(adr2 == adr1);
+        Assert.IsTrue(adr2 != adr1);
+    }
+
+    [TestMethod]
+    public void EqualsTest12()
+    {
+        var adr1 = new Address();
+        Assert.IsTrue(adr1.Equals(adr1));
+
+#pragma warning disable CS1718 // Vergleich erfolgte mit derselben Variable
+        Assert.IsTrue(adr1 == adr1);
+        Assert.IsFalse(adr1 != adr1);
+#pragma warning restore CS1718 // Vergleich erfolgte mit derselben Variable
+    }
+
+    [TestMethod]
+    public void EqualsTest13()
+    {
+        object adr1 = new Address();
+        object? adr2 = null;
+
+        Assert.IsFalse(adr1.Equals(adr2));
+    }
+
+    [TestMethod]
+    public void EqualsTest14()
+    {
+        object adr1 = new Address();
+        Assert.IsTrue(adr1.Equals(adr1));
+    }
 
     [TestMethod()]
     public void GetHashCodeTest1()

@@ -241,9 +241,9 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
-        if (other is null || other.IsEmpty)
+        if (other is null)
         {
-            return this.IsEmpty;
+            return false;
         }
 
         // Referenzgleichheit
@@ -262,8 +262,8 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
     /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(PhoneNumber other)
-        => StringComparer.Ordinal.Equals(Value, other.Value)
-           && _flags == other._flags;
+        => (IsEmpty && other.IsEmpty)
+        || (StringComparer.Ordinal.Equals(Value, other.Value) && _flags == other._flags);
 
 
     ///// <summary>

@@ -5,9 +5,8 @@ namespace FolkerKinzel.Contacts.Tests;
 [TestClass]
 public class PersonTests
 {
-#nullable disable
-    public TestContext TestContext { get; set; }
-#nullable restore
+    [NotNull]
+    public TestContext? TestContext { get; set; }
 
     private const string FIRST_NAME = "FirstName";
     private const string LAST_NAME = "LastName";
@@ -98,7 +97,7 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.AreNotEqual(p1,p2);
+        Assert.IsFalse(p1.Equals(p2));
         Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
         Assert.IsTrue(Person.AreMergeable(p1 as Person, p2 as Person));
     }
@@ -148,6 +147,11 @@ public class PersonTests
     {
         object p1 = new Person();
         Assert.IsFalse(p1.Equals(null));
+        Assert.IsFalse(p1 == null);
+        Assert.IsFalse(null == p1);
+        Assert.IsTrue(p1 != null);
+        Assert.IsTrue(null != p1);
+
     }
 
     [TestMethod()]
@@ -168,7 +172,10 @@ public class PersonTests
             Name = new Name { LastName = "Kinzel" }
         };
 
-        Assert.AreNotEqual(p1, p2);
+        Assert.IsFalse(p1.Equals( p2));
+        Assert.IsFalse(p1 == p2);
+        Assert.IsTrue(p1 != p2);
+
         Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
         Assert.IsTrue(Person.AreMergeable(p1, p2));
     }
@@ -189,7 +196,7 @@ public class PersonTests
             BirthDay = new DateTime(1972, 1, 31)
         };
 
-        Assert.AreNotEqual(p1, p2);
+        Assert.IsFalse(p1.Equals( p2));
         Assert.AreNotEqual(p1.GetHashCode(), p2.GetHashCode());
         Assert.IsFalse(Person.AreMergeable(p1, p2));
     }
@@ -218,7 +225,24 @@ public class PersonTests
     public void EqualsTest8()
     {
         var p1 = new Person();
-        Assert.AreNotEqual(p1, null);
+        Person? p2 = null;
+        Assert.IsFalse(p1.Equals(p2));
+        Assert.IsFalse(p1 == p2);
+        Assert.IsFalse(p2 == p1);
+        Assert.IsTrue(p1 != p2);
+        Assert.IsTrue(p2 != p1);
+    }
+
+    [TestMethod()]
+    public void EqualsTest9()
+    {
+        var p1 = new Person();
+        Person p2 = p1;
+        Assert.IsTrue(p1.Equals(p2));
+        Assert.IsTrue(p1 == p2);
+        Assert.IsTrue(p2 == p1);
+        Assert.IsFalse(p1 != p2);
+        Assert.IsFalse(p2 != p1);
     }
 
 

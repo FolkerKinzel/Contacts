@@ -86,7 +86,7 @@ public class NameTests
             Suffix = "Jr."
         };
 
-        Assert.AreNotEqual(name1, name2);
+        Assert.IsFalse(name1.Equals( name2));
         Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
         Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
@@ -130,7 +130,11 @@ public class NameTests
             Suffix = "Jr."
         };
 
-        Assert.AreNotEqual(name1, name2);
+        Assert.IsFalse(name1.Equals( name2));
+        Assert.IsFalse(name1 == name2);
+        Assert.IsTrue(name1 != name2);
+
+
         Assert.AreNotEqual(name1.GetHashCode(), name2.GetHashCode());
         Assert.IsTrue(Name.AreMergeable(name1 as Name, name2 as Name));
     }
@@ -166,12 +170,43 @@ public class NameTests
             Suffix = "jr."
         };
 
-        Assert.AreNotEqual(name1, null);
+        Assert.IsFalse(name1.Equals(null));
+        Assert.IsFalse(name1 == null);
+        Assert.IsFalse(null == name1);
+        Assert.IsTrue(name1 != null);
+        Assert.IsTrue(null != name1);
+
+        Assert.IsFalse(name1 == (Name?)null);
+        Assert.IsFalse((Name?)null == name1);
+        Assert.IsTrue(name1 != (Name?)null);
+        Assert.IsTrue((Name?)null != name1);
     }
 
-    
+    [TestMethod()]
+    public void EqualsTest6()
+    {
+        var name1 = new Name();
+        Name name2 = name1;
 
-   
+        Assert.IsTrue(name1.Equals(name2));
+        Assert.IsFalse(name1 != name2);
+        Assert.IsFalse(name2 != name1);
+        Assert.IsTrue(name1 == name2);
+        Assert.IsTrue(name2 == name1);
+    }
+
+    [TestMethod()]
+    public void EqualsTest7()
+    {
+        object name1 = new Name();
+        object name2 = name1;
+
+        Assert.IsTrue(name1.Equals(name2));
+        Assert.IsFalse(name1 != name2);
+        Assert.IsFalse(name2 != name1);
+        Assert.IsTrue(name1 == name2);
+        Assert.IsTrue(name2 == name1);
+    }
 
     [TestMethod()]
     public void ToStringTest()

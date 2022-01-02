@@ -220,7 +220,7 @@ public class ContactTests
         };
 
         var contact2 = (Contact)contact1.Clone();
-        
+
 
         Assert.AreNotSame(contact1.Work, contact2.Work);
         Assert.AreEqual(contact1.Work, contact2.Work);
@@ -255,11 +255,16 @@ public class ContactTests
         object cont1 = new Contact();
         object cont2 = new Contact();
 
-        Assert.AreEqual(cont1, cont2);
+        Assert.IsTrue(cont1.Equals(cont2));
         Assert.IsTrue(((Contact)cont1).IsEmpty);
         Assert.IsTrue(((Contact)cont2).IsEmpty);
-        Assert.AreNotEqual(cont1, null);
-        Assert.AreEqual(cont1.GetHashCode(), cont2.GetHashCode());
+        Assert.IsFalse(cont1.Equals(null));
+        Assert.IsFalse(cont1 == null);
+        Assert.IsFalse(null == cont1);
+        Assert.IsTrue(cont1 != null);
+        Assert.IsTrue(null != cont1);
+
+        Assert.AreEqual(cont1!.GetHashCode(), cont2.GetHashCode());
 
     }
 
@@ -302,93 +307,93 @@ public class ContactTests
 
         var contact2 = (Contact)contact1.Clone();
 
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
+        Assert.IsTrue(contact1 == contact2);
+        Assert.IsFalse(contact1 != contact2);
+
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.DisplayName = "Folker Kinzel";
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
+        Assert.IsFalse(contact1 == contact2);
+        Assert.IsTrue(contact1 != contact2);
+
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.Person!.Name!.LastName = "Müller";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.EmailAddresses = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.InstantMessengerHandles = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsFalse(Contact.AreMergeable(contact1, contact2));
-
 
         contact2.Person = null;
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.Work!.Company = "Apple";
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsFalse(Contact.AreMergeable(contact1, contact2));
 
         contact2.Work = null;
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
-
-        
 
         contact2.DisplayName = contact1.DisplayName;
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.DisplayName = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.PhoneNumbers = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.AddressHome!.PostalCode = "12345";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.WebPagePersonal = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsFalse(Contact.AreMergeable(contact1, contact2));
 
         contact2.AddressHome = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
-
         contact2.WebPagePersonal = "www.other.de";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsFalse(Contact.AreMergeable(contact1, contact2));
 
-
         contact2.WebPagePersonal = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         contact2.WebPageWork = "other.com";
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsFalse(Contact.AreMergeable(contact1, contact2));
 
         contact2.WebPageWork = "  ";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
-
 
         contact2.WebPageWork = null;
 
         Assert.IsTrue(contact2.IsEmpty);
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
     }
 
@@ -433,116 +438,110 @@ public class ContactTests
 
         var contact2 = (Contact)contact1.Clone();
 
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreNotSame(contact1, contact2);
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.DisplayName = "Folker Kinzel";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.Person!.Name!.LastName = "Müller";
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.Person = null;
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.Person = null;
         contact1.DisplayName = contact2.DisplayName;
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
-
 
         contact2.Work!.Company = "Apple";
 
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.Work = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.Work = null;
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-
         contact2.EmailAddresses = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.EmailAddresses = null;
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.InstantMessengerHandles = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
-
 
         contact1.InstantMessengerHandles = null;
         contact2.DisplayName = contact1.DisplayName;
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.DisplayName = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.DisplayName = null;
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-
-
         contact2.PhoneNumbers = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-        contact1.PhoneNumbers = new PhoneNumber?[] {null};
-        Assert.AreEqual(contact1, contact2);
+        contact1.PhoneNumbers = new PhoneNumber?[] { null };
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.AddressHome!.PostalCode = "12345";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.AddressHome = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.AddressHome = new Address();
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.WebPagePersonal = "www.other.de";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.WebPagePersonal = null;
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.WebPagePersonal = "   ";
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.WebPageWork = "other.com";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact2.WebPageWork = "  ";
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
         contact1.WebPageWork = null;
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
-
 
         Assert.IsTrue(contact2.IsEmpty);
         Assert.IsTrue(contact1.IsEmpty);
@@ -603,12 +602,12 @@ public class ContactTests
 
         var contact2 = new Contact();
         Assert.IsTrue(contact2.IsEmpty);
-        Assert.AreNotEqual(contact1, contact2);
+        Assert.IsFalse(contact1.Equals(contact2));
         Assert.IsTrue(Contact.AreMergeable(contact1, contact2));
 
         _ = contact2.Merge(contact1);
 
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreNotSame(contact1.AddressHome, contact2.AddressHome);
         Assert.AreNotSame(contact1.EmailAddresses, contact2.EmailAddresses);
         Assert.AreNotSame(contact1.InstantMessengerHandles, contact2.InstantMessengerHandles);
@@ -645,7 +644,7 @@ public class ContactTests
         contact1.Clean();
         contact2.Clean();
 
-        Assert.AreEqual(contact1, contact2);
+        Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
 

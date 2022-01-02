@@ -99,7 +99,9 @@ public class WorkTests
 
 
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals(work2));
+        Assert.IsFalse(work1 == work2);
+        Assert.IsTrue(work1 != work2);
     }
 
     [TestMethod()]
@@ -133,7 +135,7 @@ public class WorkTests
             JobTitle = "Generaldirektor"
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
         Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
         Assert.IsTrue(Work.AreMergeable(work1 as Work, work2 as Work));
     }
@@ -163,14 +165,12 @@ public class WorkTests
             Company = "Folkers Firma"
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
     }
 
     [TestMethod()]
     public void EqualsTest4()
     {
-
-
         object work1 = new Work
         {
 
@@ -178,7 +178,11 @@ public class WorkTests
 
         };
 
-        Assert.AreNotEqual(work1, null);
+        Assert.IsFalse(work1.Equals( null));
+        Assert.IsFalse(work1 == null);
+        Assert.IsTrue(work1 != null);
+        Assert.IsFalse(null == work1);
+        Assert.IsTrue(null != work1);
     }
 
     [TestMethod()]
@@ -206,7 +210,7 @@ public class WorkTests
             JobTitle = " "
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
         Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
         Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
@@ -242,7 +246,7 @@ public class WorkTests
             JobTitle = "Generaldirektor"
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
         Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
         Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
@@ -271,14 +275,12 @@ public class WorkTests
             Company = "Folkers Firma"
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
     }
 
     [TestMethod()]
     public void EqualsTest8()
     {
-
-
         var work1 = new Work
         {
 
@@ -287,6 +289,10 @@ public class WorkTests
         };
 
         Assert.IsFalse(work1.Equals(null));
+        Assert.IsFalse(work1 == null);
+        Assert.IsTrue(work1 != null);
+        Assert.IsFalse(null == work1);
+        Assert.IsTrue(null != work1);
     }
 
     [TestMethod]
@@ -295,6 +301,8 @@ public class WorkTests
         var w1 = new Work();
         Work w2 = w1;
         Assert.IsTrue(w1.Equals(w2));
+        Assert.IsTrue(w1 == w2);
+        Assert.IsFalse(w1 != w2);
     }
 
     [TestMethod]
@@ -303,6 +311,11 @@ public class WorkTests
         var w1 = new Work();
         object w2 = w1;
         Assert.IsTrue(w1.Equals(w2));
+#pragma warning disable CS0253 // Möglicher unbeabsichtigter Referenzvergleich; rechte Seite muss umgewandelt werden
+        Assert.IsTrue(w1 == w2);
+        Assert.IsFalse(w1 != w2);
+#pragma warning restore CS0253 // Möglicher unbeabsichtigter Referenzvergleich; rechte Seite muss umgewandelt werden
+
     }
 
     [TestMethod]
@@ -311,6 +324,10 @@ public class WorkTests
         var w1 = new Work();
         object w2 = new();
         Assert.IsFalse(w1.Equals(w2));
+#pragma warning disable CS0253 // Möglicher unbeabsichtigter Referenzvergleich; rechte Seite muss umgewandelt werden
+        Assert.IsTrue(w1 != w2);
+        Assert.IsFalse(w1 == w2);
+#pragma warning restore CS0253 // Möglicher unbeabsichtigter Referenzvergleich; rechte Seite muss umgewandelt werden
     }
 
     [DataTestMethod]
@@ -352,7 +369,7 @@ public class WorkTests
             JobTitle = "Chef"
         };
 
-        Assert.AreNotEqual(work1, work2);
+        Assert.IsFalse(work1.Equals( work2));
         Assert.AreNotEqual(work1.GetHashCode(), work2.GetHashCode());
         Assert.IsTrue(Work.AreMergeable(work1, work2));
     }
