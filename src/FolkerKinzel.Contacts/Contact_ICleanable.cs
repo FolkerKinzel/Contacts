@@ -100,7 +100,7 @@ public sealed partial class Contact : ICleanable
                         }
                     }
                     break;
-                case DateTime dt when dt < new DateTime(1900, 1, 1):
+                case DateTime dt when dt.IsEmptyTimeStamp():
                     {
                         Set(kvp.Key, null);
                     }

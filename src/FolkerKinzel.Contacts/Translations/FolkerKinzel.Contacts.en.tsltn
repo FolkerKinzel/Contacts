@@ -245,4 +245,47 @@ When overwriting the method in inheriting classes, the promise must be kept that
   <T ID="9B99EC041852D2AC">&lt;c&gt;true&lt;/c&gt; if &lt;paramref name="work1"/&gt; and &lt;paramref name="work2"/&gt; are not equal, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
   <T ID="A027587B8BD35900"></T>
   <T ID="F513A1DA911D488B"></T>
+  <T ID="DDDAA21DEB2C7A11">Abstract base class, which provides methods that enable instances of derived classes to merge their data with one another.</T>
+  <T ID="2332345B6CC73288">Generic type parameter that represents a derived class.</T>
+  <T ID="F1DC9D1CC1D2C385">Determines whether there is nothing to prevent the data from &lt;paramref name ="other"/&gt; from being merged with those of the current instance.</T>
+  <T ID="1C56CD6F54E92BE">Another &lt;see cref="T:FolkerKinzel.Contacts.MergeableObject`1"/&gt; or &lt;c&gt;null&lt;/c&gt;.</T>
+  <T ID="E2A897B70955B244">&lt;c&gt;true&lt;/c&gt; if there is nothing to prevent a merging with &lt;paramref name ="other"/&gt;, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="1A5B16D581B9DC60">&lt;para&gt;
+If &lt;paramref name ="other"/&gt; is &lt;c&gt;null&lt;/c&gt;
+or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt;, the method returns &lt;c&gt;true&lt;/c&gt;. If the property &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt; of the current instance returns &lt;c&gt;true&lt;/c&gt;, there is also nothing that prevents  a merging of the data from &lt;paramref name ="other"/&gt; with those of the current instance. Therefore the method returns &lt;c&gt;true&lt;/c&gt; in this case as well.
+&lt;/para&gt;
+&lt;para&gt;
+The method can find suitable candidates for a merging of their data ("doublets"); however, it cannot determine whether the merging of the data makes sense. It would be a good practice to let the users of the application decide that.
+&lt;/para&gt;</T>
+  <T ID="D63EFE79DECE6DE0">Examines whether there is nothing to prevent the merging of the data from &lt;paramref name ="mergeable1"/&gt; and &lt;paramref name ="mergeable2"/&gt;.</T>
+  <T ID="FAA2F0A34A27AD18">The first object to be examined.</T>
+  <T ID="57FB7C083436AC88">The second object to be examined.</T>
+  <T ID="9EB00FAE4EE09C0">&lt;c&gt;true&lt;/c&gt; if there is nothing to prevent a merging of &lt;paramref name ="mergeable1"/&gt; and &lt;paramref name ="mergeable2"/&gt;, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="E773EE9E679A063D">&lt;para&gt;
+If one of the objects to be examined is &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt;, the method returns &lt;c&gt;true&lt;/c&gt;.
+&lt;/para&gt;
+&lt;para&gt;
+The method can find suitable candidates for a merging of their data ("doublets"); however, it cannot determine whether the merging of the data makes sense. It would be a good practice to let the users of the application decide that.
+&lt;/para&gt;</T>
+  <T ID="93F765F87C276D8E">Supplements the executing instance with the data from &lt;paramref name ="source"/&gt;. No existing data will be overwritten in the current instance.</T>
+  <T ID="9C401A955F81DA6A">The source object whose data is used to supplement the executing instance.</T>
+  <T ID="D3A84F63AD3A7FA8">A reference to the executing instance in order to be able to chain calls.</T>
+  <T ID="93F10D230F08B282">&lt;para&gt;
+The method does not check whether it makes sense to supplement the data of the current instance with those from &lt;paramref name ="source"/&gt;. Check this beforehand with &lt;see cref="M:FolkerKinzel.Contacts.MergeableObject`1.IsMergeableWith(`0)"/&gt; and have the result of the check confirmed by the users of the application, if possible.
+&lt;/para&gt;
+&lt;para&gt;
+If &lt;paramref name ="source"/&gt; is &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt; no data will be copied.
+&lt;/para&gt;
+&lt;para&gt;
+When merging two &lt;see cref="T:FolkerKinzel.Contacts.MergeableObject`1"/&gt; instances the result depends on which of the two instances the method is called on. Preserving the data of the instance on which the method is called has priority. It is the responsibility of the executing application to call the method on the more appropriate of the two instances.
+&lt;/para&gt;</T>
+  <T ID="22477F11974F8CFD">Supplements the executing instance with the data from &lt;paramref name ="source"/&gt; without overwriting existing data.</T>
+  <T ID="737783165BBE29A6">The source object. (Never &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt;.)</T>
+  <T ID="4A50CBE496C0F20D">&lt;note type ="inherit"&gt;
+When overwriting the method in inheriting classes, the promise must be kept that the method will not overwrite any existing data!
+&lt;/note&gt;</T>
+  <T ID="94F3C4551E537779">Examines &lt;paramref name="other"/&gt; to see whether it describes a foreign identity and therefore cannot be merged with the current instance.</T>
+  <T ID="EEA37CA4132F3412">The object to be examined. (Never &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt;.)</T>
+  <T ID="A6F4E034EBB49047">The method may only return &lt;c&gt;true&lt;/c&gt; if the values of the properties of &lt;paramref name ="other"/&gt; make it impossible to merge &lt;paramref name ="other"/&gt; with the current instance, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
+  <T ID="1C56CD6BF1213C6">Another &lt;see cref="T:FolkerKinzel.Contacts.MergeableObject`1"/&gt; or &lt;c&gt;null&lt;/c&gt;.</T>
 </Tsltn>

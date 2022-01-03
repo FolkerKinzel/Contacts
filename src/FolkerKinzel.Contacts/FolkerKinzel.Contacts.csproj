@@ -8,12 +8,12 @@
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
-    <Version>2.0.0-alpha.1</Version>
-    <FileVersion>2.0.0.13</FileVersion>
+    <Version>2.0.0-rc.1</Version>
+    <FileVersion>2.0.0.17</FileVersion>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/1.5.0/ReleaseNotes.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0-rc.1/ReleaseNotes.md</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
-    <Description>.NET data model to store contact data of organizations and natural persons.</Description>
+    <Description>.NET library, which provides an easy to use data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

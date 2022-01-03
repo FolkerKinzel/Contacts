@@ -1,4 +1,4 @@
-# FolkerKinzel.Contacts 2.0.0
+# FolkerKinzel.Contacts 2.0.0-rc.1
 ## Package Release Notes
 
 The behavior of `Equals` has changed in all classes. This is a breaking change that requires a new major version.

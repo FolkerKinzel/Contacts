@@ -140,9 +140,4 @@ public sealed partial class Contact
         get => Get<DateTime>(Prop.TimeStamp);
         set => Set(Prop.TimeStamp, value == default ? null : (object?)value);
     }
-
-
-
-
-
 }

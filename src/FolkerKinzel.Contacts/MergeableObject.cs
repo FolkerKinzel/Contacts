@@ -19,7 +19,7 @@ public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<
     /// Untersucht, ob einer Verschmelzung der Daten aus <paramref name="other"/> mit denen der aktuellen
     /// Instanz nichts entgegen steht.
     /// </summary>
-    /// <param name="other">Ein anderes <see cref="MergeableObject{T}"/>-Objekt oder <c>null</c>.</param>
+    /// <param name="other">Ein anderes <see cref="MergeableObject{T}"/> oder <c>null</c>.</param>
     /// <returns><c>true</c>, wenn einer Verschmelzung mit <paramref name="other"/> nichts entgegen steht,
     /// andernfalls <c>false</c>.</returns>
     /// <remarks>

@@ -148,7 +148,7 @@ public sealed partial class Contact : MergeableObject<Contact>
     /// <inheritdoc/>
     protected override void SupplementWith(Contact source)
     {
-        if (TimeStamp < source.TimeStamp)
+        if (TimeStamp.IsEmptyTimeStamp())
         {
             TimeStamp = source.TimeStamp;
         }
