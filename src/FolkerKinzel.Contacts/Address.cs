@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Text;
 using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
@@ -175,7 +173,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #endregion
 
-    #region Mergeable<T>, ICleanable
+    #region MergeableObject<T>, ICleanable
 
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Address other)
@@ -221,6 +219,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
             => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);
     }
 
+
     /// <inheritdoc/>
     protected override void SupplementWith(Address source)
     {
@@ -252,16 +251,10 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region ICleanable
 
-    ///// <summary>
-    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
-    ///// </summary>
     /// <inheritdoc/>
     public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
-    ///// <summary>
-    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    ///// und leere Unterobjekte auf <c>null</c>.
-    ///// </summary>
+
     /// <inheritdoc/>
     public override void Clean()
     {
@@ -293,13 +286,6 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region IEquatable
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit <paramref name="obj"/>,
-    ///// um festzustellen, ob <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das
-    ///// dieselbe Postanschrift darstellt.
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -320,12 +306,6 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="Address"/>-Objekt,
-    ///// um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Address? other)
     {
@@ -361,10 +341,6 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
             && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
     }
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
     public override int GetHashCode()
     {
@@ -385,7 +361,6 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
     #endregion
-
 
     #region internal
 

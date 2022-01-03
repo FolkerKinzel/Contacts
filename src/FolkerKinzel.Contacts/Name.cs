@@ -223,16 +223,10 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region ICleanable
 
-    ///// <summary>
-    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
-    ///// </summary>
     /// <inheritdoc/>
     public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
 
-    ///// <summary>
-    ///// Entfernt leere Strings und überflüssige Leerzeichen.
-    ///// </summary>
     /// <inheritdoc/>
     public override void Clean()
     {
@@ -269,12 +263,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region IEquatable
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/> um festzustellen,
-    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Name"/>-Objekt handelt, das denselben Namen darstellt.
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -294,12 +282,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-    ///// <summary>
-    ///// Vergleicht this mit einem anderen <see cref="Name"/>-Objekt, um zu ermitteln,
-    ///// ob beide denselben Namen darstellen.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
     /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Name? other)
     {
@@ -337,11 +319,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
     public override int GetHashCode()
     {
@@ -364,7 +341,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
     #endregion
-
 
 
     #region internal

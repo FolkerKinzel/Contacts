@@ -4,14 +4,6 @@ namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : IEquatable<Contact>
 {
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
-    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Contact"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat. 
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Contact"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -21,7 +13,6 @@ public sealed partial class Contact : IEquatable<Contact>
             return false;
         }
 
-        // Referenzgleichheit
         if (object.ReferenceEquals(this, obj))
         {
             return true;
@@ -32,13 +23,6 @@ public sealed partial class Contact : IEquatable<Contact>
     }
 
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen 
-    ///// <see cref="Contact"/>-Objekt,
-    ///// um festzustellen, ob beide gleich sind.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Contact? other)
     {
@@ -48,7 +32,6 @@ public sealed partial class Contact : IEquatable<Contact>
             return false;
         }
 
-        // Referenzgleichheit
         if (object.ReferenceEquals(this, other))
         {
             return true;
@@ -59,10 +42,6 @@ public sealed partial class Contact : IEquatable<Contact>
     }
 
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
     public override int GetHashCode()
     {
@@ -199,7 +178,5 @@ public sealed partial class Contact : IEquatable<Contact>
             return coll1.Select(x => x is null || x.IsEmpty ? null : x).SequenceEqual(coll2.Select(x => x is null || x.IsEmpty ? null : x));
         }
     }
-
-
 
 }

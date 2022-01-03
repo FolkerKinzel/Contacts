@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FolkerKinzel.Contacts.Intls;
+﻿using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
@@ -30,6 +25,7 @@ public sealed partial class Contact : ICleanable
             return true;
         }
     }
+
 
     /// <inheritdoc/>
     public override void Clean()

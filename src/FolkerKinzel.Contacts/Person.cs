@@ -238,6 +238,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
             => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.Equals(s1, s2, true);
     }
 
+
     /// <inheritdoc/>
     protected override void SupplementWith(Person source)
     {
@@ -273,16 +274,11 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
         {
             Spouse = source.Spouse;
         }
-
     }
 
 
     #region ICleanable
 
-    ///// <summary>
-    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="Clean"/>
-    ///// aufgerufen werden.
-    ///// </summary>
     /// <inheritdoc/>
     public override bool IsEmpty => CheckIsEmpty();
 
@@ -312,10 +308,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
         return true;
     }
 
-    ///// <summary>
-    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    ///// und leere Unterobjekte auf <c>null</c>.
-    ///// </summary>
+
     /// <inheritdoc/>
     public override void Clean()
     {
@@ -377,14 +370,6 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region IEquatable
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
-    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat. 
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Person"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -405,13 +390,6 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen 
-    ///// <see cref="Person"/>-Objekt,
-    ///// um festzustellen, ob beide gleich sind.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Person? other)
     {
@@ -449,18 +427,15 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
         && comp.Equals(StringCleaner.PrepareForComparison(Spouse), StringCleaner.PrepareForComparison(other.Spouse));
     }
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
+
     /// <inheritdoc/>
-    public override int GetHashCode() => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
+    public override int GetHashCode()
+        => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
 
     #endregion
 
 
     #region internal
-
 
     internal StringBuilder AppendTo(StringBuilder sb, string? indent = null)
     {
@@ -501,7 +476,6 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
                     break;
             }
         }
-
 
         int maxLength = topics.Select(x => x.Length).Max();
         maxLength++;

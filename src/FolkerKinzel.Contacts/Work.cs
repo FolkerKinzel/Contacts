@@ -174,10 +174,6 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     /// <inheritdoc/>
     protected override bool DescribesForeignIdentity(Work other)
     {
-        //if (StringHasEvidence(Company, other.Company, out bool isDifferentIdentity))
-        //{
-
-        //}
         if (AreDifferent(Company, other.Company))
         {
             return true;
@@ -203,22 +199,10 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
         //////////////////////////////////////////////////////
         
-        //static bool StringHasEvidence(string? s1, string? s2, out bool isDifferentIdentity)
-        //{
-        //    isDifferentIdentity = true;
-
-        //    if (Strip.IsEmpty(s1) && Strip.IsEmpty(s2))
-        //    {
-        //        return false;
-        //    }
-
-        //    isDifferentIdentity = !Strip.StartEqual(s1, s2, true);
-        //    return true;
-        //}
-
         static bool AreDifferent(string? s1, string? s2)
             => !Strip.IsEmpty(s1) && !Strip.IsEmpty(s2) && !Strip.StartEqual(s1, s2, true);
     }
+
 
     /// <inheritdoc/>
     protected override void SupplementWith(Work source)
@@ -254,10 +238,6 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region ICleanable
 
-    ///// <summary>
-    ///// Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
-    ///// und leere Unterobjekte auf <c>null</c>.
-    ///// </summary>
     /// <inheritdoc/>
     public override void Clean()
     {
@@ -287,9 +267,6 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    ///// <summary>
-    ///// <c>true</c> gibt an, dass das <see cref="Work"/>-Objekt keine verwertbaren Daten enthält.
-    ///// </summary>
     /// <inheritdoc/>
     public override bool IsEmpty
     {
@@ -322,14 +299,6 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region IEquatable
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen,
-    ///// ob es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat. 
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="Work"/>-Objekt handelt, das
-    ///// gleiche Eigenschaften hat.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -349,13 +318,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
         return CompareBoolean(p);
     }
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen 
-    ///// <see cref="Work"/>-Objekt,
-    ///// um festzustellen, ob beide gleich sind.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> gleiche Eigenschaften hat.</returns>
+
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Work? other)
     {
@@ -375,6 +338,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
         return CompareBoolean(other);
     }
 
+
     /// <summary>
     /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Work"/>-Objekts.
     /// </summary>
@@ -392,10 +356,6 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
     public override int GetHashCode()
     {

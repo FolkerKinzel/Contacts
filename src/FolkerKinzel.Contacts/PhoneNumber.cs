@@ -165,19 +165,12 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region ICleanable
 
-    ///// <summary>
-    ///// <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
-    ///// </summary>
     /// <inheritdoc/>
     public override bool IsEmpty => Strip.IsEmpty(this.Value);
 
 
-    ///// <summary>
-    ///// Entfernt leere Strings und überflüssige Leerzeichen.
-    ///// </summary>
     /// <inheritdoc/>
     public override void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
-
 
     #endregion
     #endregion
@@ -207,13 +200,6 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region IEquatable
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="object"/>, um festzustellen, ob es sich bei <paramref name="obj"/>
-    ///// um ein <see cref="PhoneNumber"/>-Objekt handelt, das auf dieselbe
-    ///// Telefonnummer verweist.
-    ///// </summary>
-    ///// <param name="obj">Das <see cref="object"/>, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
     /// <inheritdoc/>
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
@@ -222,22 +208,10 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
             return false;
         }
 
-        //// Referenzgleichheit
-        //if (object.ReferenceEquals(this, obj))
-        //{
-        //    return true;
-        //}
-
         return Equals(p);
     }
 
 
-    ///// <summary>
-    ///// Vergleicht die Instanz mit einem anderen <see cref="PhoneNumber"/>-Objekt, um festzustellen, ob beide
-    ///// auf dieselbe Telefonnummer verweisen.
-    ///// </summary>
-    ///// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    ///// <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
@@ -256,6 +230,7 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
         return CompareBoolean(other);
     }
 
+
     /// <summary>
     /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
     /// </summary>
@@ -266,14 +241,8 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
         || (StringComparer.Ordinal.Equals(Value, other.Value) && _flags == other._flags);
 
 
-    ///// <summary>
-    ///// Erzeugt einen Hashcode für das Objekt.
-    ///// </summary>
-    ///// <returns>Der Hashcode.</returns>
     /// <inheritdoc/>
     public override int GetHashCode() => Strip.GetHashCode(Value) ^ _flags.GetHashCode();
-
-
 
     #endregion
 
@@ -292,9 +261,7 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
             _ = sb.Append(Value);
         }
 
-
         bool closeBracket = false;
-
 
         if (IsFax)
         {

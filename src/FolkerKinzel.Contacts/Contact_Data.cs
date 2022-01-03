@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace FolkerKinzel.Contacts;
+﻿namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact
 {

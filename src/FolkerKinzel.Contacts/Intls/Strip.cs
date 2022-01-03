@@ -85,7 +85,6 @@ internal ref struct Strip
 
     private int GetLength()
     {
-        //ResetCurrentIndex();
         Debug.Assert(_currentIndex == INITIAL_INDEX);
 
         int length = 0;
@@ -100,7 +99,6 @@ internal ref struct Strip
 
     private bool IsEmpty()
     {
-        //ResetCurrentIndex();
         Debug.Assert(_currentIndex == INITIAL_INDEX);
         return GetNextChar().Equals(END_OF_STRING);
     }

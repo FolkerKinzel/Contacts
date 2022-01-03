@@ -181,8 +181,6 @@ public sealed partial class Contact : MergeableObject<Contact>
 
         /////////////////////////////////////////////////
 
-        //static string? MergeStrings(string? current, string? source) => Strip.IsEmpty(current) ? source : current;
-
         static T? MergeMergeableObjects<T>(T? x, T? source) where T : MergeableObject<T>, ICloneable
         {
             if (x?.IsMergeableWith(source) ?? true)
