@@ -1,0 +1,955 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FolkerKinzel.Contacts</name>
+    </assembly>
+    <members>
+        <member name="T:FolkerKinzel.Contacts.Address">
+            <summary>
+            Kapselt Adressdaten.
+            </summary>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Address.Prop">
+            <summary>
+            Benannte Konstanten, um die Properties eines <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekts im Indexer zu adressieren.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.#ctor">
+            <summary>
+            Initialisiert eine leere Instanz der <see cref="T:FolkerKinzel.Contacts.Address"/>-Klasse.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.#ctor(FolkerKinzel.Contacts.Address)">
+            <summary>
+            Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
+            </summary>
+            <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.Street">
+            <summary>
+            Straße (+ Hausnummer)
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.City">
+            <summary>
+            Ort
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.PostalCode">
+            <summary>
+            Postleitzahl
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.State">
+            <summary>
+            Bundesland
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.Country">
+            <summary>
+            Staat
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Address.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="M:FolkerKinzel.Contacts.Address.Clean"/>
+            aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.Clean">
+            <summary>
+            Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+            und leere Unterobjekte auf <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.Equals(System.Object)">
+            <summary>
+            Vergleicht die Instanz mit <paramref name="obj"/>,
+            um festzustellen, ob <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekt ist, das
+            dieselbe Postanschrift darstellt.
+            </summary>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekt ist, das dieselbe Postanschrift darstellt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.Equals(FolkerKinzel.Contacts.Address)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekt,
+            um festzustellen, ob <paramref name="other"/> eine identische Postanschrift ist.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Postanschrift darstellt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.op_Equality(FolkerKinzel.Contacts.Address,FolkerKinzel.Contacts.Address)">
+            <summary>
+            Überladung des == Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
+            dieselbe Postanschrift darstellen.
+            </remarks>
+            <param name="address1">Linker Operand.</param>
+            <param name="address2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> dieselbe Postanschrift darstellen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.op_Inequality(FolkerKinzel.Contacts.Address,FolkerKinzel.Contacts.Address)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="address1"/> und <paramref name="address2"/>, um festzustellen, ob beide
+            unterschiedliche Postanschriften darstellen.
+            </remarks>
+            <param name="address1">Linker Operand.</param>
+            <param name="address2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> unterschiedliche Postanschriften darstellen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Address.CompareBoolean(FolkerKinzel.Contacts.Address)">
+            <summary>
+            Vergleicht den Inhalt der Properties <see cref="P:FolkerKinzel.Contacts.Address.PostalCode"/>, <see cref="P:FolkerKinzel.Contacts.Address.Street"/> und <see cref="P:FolkerKinzel.Contacts.Address.City"/>,
+            um zu bestimmen, ob <paramref name="other"/> eine identische Adresse ist.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Address"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Adresse darstellt.</returns>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Contact">
+            <summary>
+            Einfaches Datenmodell zum Speichern von Kontaktdaten.
+            </summary>
+            <example>
+            <para>Initialisieren von <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekten:</para>
+            <code language="cs" source="..\Examples\ContactExample.cs" />
+            </example>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.#ctor">
+            <summary>
+            Initialisiert eine leere Instanz der <see cref="T:FolkerKinzel.Contacts.Contact"/>-Klasse.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.#ctor(FolkerKinzel.Contacts.Contact)">
+            <summary>
+            Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
+            </summary>
+            <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.DisplayName">
+            <summary>
+            Anzeigename
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.Person">
+            <summary>
+            Personenbezogene Daten
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.EmailAddresses">
+            <summary>
+            E-Mail-Adressen
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.InstantMessengerHandles">
+            <summary>
+            Instant-Messenger-Handles
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.PhoneNumbers">
+            <summary>
+            Telefonnummern
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.AddressHome">
+            <summary>
+            Postanschrift (privat)
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.Work">
+            <summary>
+            Berufliche Daten
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.WebPagePersonal">
+            <summary>
+            Private Homepage
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.WebPageWork">
+            <summary>
+            Firmenwebseite
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.Comment">
+            <summary>
+            Kommentar
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.TimeStamp">
+            <summary>
+            Letzte Änderung
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.Equals(System.Object)">
+            <summary>
+            Vergleicht die Instanz mit einem <see cref="T:System.Object"/>, um festzustellen,
+            ob es sich um ein <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt handelt, das dieselbe Person oder Organisation repräsentiert.
+            </summary>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt ist, das dieselbe Person oder Organisation repräsentiert.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.Equals(FolkerKinzel.Contacts.Contact)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt, um festzustellen,
+            ob beide dieselbe Person oder Organisation repräsentieren.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentiert.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.op_Equality(FolkerKinzel.Contacts.Contact,FolkerKinzel.Contacts.Contact)">
+            <summary>
+            Überladung des == Operators.
+            </summary>
+            <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide dieselbe Person oder Organisation repräsentieren.</remarks>
+            <param name="contact1">Linker Operand.</param>
+            <param name="contact2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> dieselbe Person oder Organisation repräsentieren.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.op_Inequality(FolkerKinzel.Contacts.Contact,FolkerKinzel.Contacts.Contact)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>Vergleicht <paramref name="contact1"/> und <paramref name="contact2"/>, um festzustellen, ob beide unterschiedliche Personen oder Organisationen repräsentieren.</remarks>
+            <param name="contact1">Linker Operand.</param>
+            <param name="contact2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="contact1"/> und <paramref name="contact2"/> verschiedene Personen oder Organisationen repräsentieren.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.CompareBoolean(FolkerKinzel.Contacts.Contact)">
+            <summary>
+            Vergleicht den Inhalt der Properties von this mit denen eines anderen <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekts darauf,
+            ob das <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt dieselbe Person oder Organisation repräsentieren könnte.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Person oder Organisation repräsentiert.</returns>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Contact.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="M:FolkerKinzel.Contacts.Contact.Clean"/>
+            aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.Clean">
+            <summary>
+            Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+            und leere Unterobjekte auf <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Contact.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.Contact"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.ICleanable">
+            <summary>
+            Interface, das das implementierende Objekt befähigt, sich selbst von Datenmüll zu reinigen.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.ICleanable.Clean">
+            <summary>
+            Entfernt Datenmüll aus dem Objekt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.ICleanable.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält.
+            </summary>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Name">
+            <summary>
+            Kapselt Informationen über den Namen einer Person.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.#ctor">
+            <summary>
+            Initialisiert ein leeres <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.#ctor(FolkerKinzel.Contacts.Name)">
+            <summary>
+            Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <param name="other">Das zu kopierende <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.LastName">
+            <summary>
+            Familienname
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.FirstName">
+            <summary>
+            Vorname
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.MiddleName">
+            <summary>
+            Zweiter Vorname
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.Prefix">
+            <summary>
+            Namenspräfix (z.B. "Prof. Dr.")
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.Suffix">
+            <summary>
+            Namenssuffix (z.B. "jr.")
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Name.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+            <see cref="M:FolkerKinzel.Contacts.Name.Clean"/> aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.Clean">
+            <summary>
+            Entfernt leere Strings und überflüssige Leerzeichen.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.Equals(System.Object)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:System.Object"/> um festzustellen,
+            ob es sich bei <paramref name="obj"/> um ein <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt handelt, das denselben Namen darstellt.
+            </summary>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt ist, das denselben Namen darstellt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.Equals(FolkerKinzel.Contacts.Name)">
+            <summary>
+            Vergleicht this mit einem anderen <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt, um zu ermitteln,
+            ob beide denselben Namen darstellen.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> denselben Namen darstellt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.op_Equality(FolkerKinzel.Contacts.Name,FolkerKinzel.Contacts.Name)">
+            <summary>
+            Überladung des == Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese denselben Namen darstellen.
+            </remarks>
+            <param name="name1">Linker Operand.</param>
+            <param name="name2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> denselben Namen darstellen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.op_Inequality(FolkerKinzel.Contacts.Name,FolkerKinzel.Contacts.Name)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="name1"/> und <paramref name="name2"/>, um festzustellen, ob diese verschiedene Namen darstellen.
+            </remarks>
+            <param name="name1">Linker Operand.</param>
+            <param name="name2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> verschiedene Namen darstellen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Name.CompareBoolean(FolkerKinzel.Contacts.Name)">
+            <summary>
+            Vergleicht den Inhalt von this mit dem eines anderen <see cref="T:FolkerKinzel.Contacts.Name"/>-Objekts, um zu ermitteln,
+            ob beide den Namen derselben physischen Person darstellen.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn beide Objekte auf den Namen derselben Person verweisen.</returns>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Person">
+            <summary>
+            Kapselt personenbezogene Daten.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.#ctor">
+            <summary>
+            Initialisiert ein leeres <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.#ctor(FolkerKinzel.Contacts.Person)">
+            <summary>
+            Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
+            </summary>
+            <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.Name">
+            <summary>
+            Name der Person
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.NickName">
+            <summary>
+            Rufname
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.Gender">
+            <summary>
+            Geschlecht
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.BirthDay">
+            <summary>
+            Geburtstag
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.Spouse">
+            <summary>
+            Name des Ehepartners
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.Anniversary">
+            <summary>
+            Hochzeitstag
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Person.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte <see cref="M:FolkerKinzel.Contacts.Person.Clean"/>
+            aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.Clean">
+            <summary>
+            Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+            und leere Unterobjekte auf <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.Equals(System.Object)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:System.Object"/>, um festzustellen,
+            ob es sich bei <paramref name="obj"/> um ein <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt handelt, das
+            auf dieselbe physische Person verweist. 
+            </summary>
+            <remarks>Zum 
+            Vergleich werden die Eigenschaften <see cref="P:FolkerKinzel.Contacts.Person.Name"/>, <see cref="P:FolkerKinzel.Contacts.Person.NickName"/> und <see cref="P:FolkerKinzel.Contacts.Person.BirthDay"/>
+            verwendet.</remarks>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn es sich bei <paramref name="obj"/> um ein <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt handelt, das
+            auf dieselbe physische Person verweist.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.Equals(FolkerKinzel.Contacts.Person)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen 
+            <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt,
+            um festzustellen, ob beide auf dieselbe Person verweisen.
+            </summary>
+            <remarks>Zum 
+            Vergleich werden die Eigenschaften <see cref="P:FolkerKinzel.Contacts.Person.Name"/>, <see cref="P:FolkerKinzel.Contacts.Person.NickName"/> und <see cref="P:FolkerKinzel.Contacts.Person.BirthDay"/>
+            verwendet.</remarks>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe physische Person verweist.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.op_Equality(FolkerKinzel.Contacts.Person,FolkerKinzel.Contacts.Person)">
+            <summary>
+            Überladung des == Operators.
+            </summary>
+            <remarks>
+            Vergleicht die Eigenschaften <see cref="P:FolkerKinzel.Contacts.Person.Name"/>, <see cref="P:FolkerKinzel.Contacts.Person.NickName"/> und <see cref="P:FolkerKinzel.Contacts.Person.BirthDay"/> zweier 
+            <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekte,
+            um festzustellen, ob beide auf dieselbe physische Person verweisen.
+            </remarks>
+            <param name="person1">Linker Operand.</param>
+            <param name="person2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf dieselbe physische Person verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.op_Inequality(FolkerKinzel.Contacts.Person,FolkerKinzel.Contacts.Person)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>
+            Vergleicht die Eigenschaften <see cref="P:FolkerKinzel.Contacts.Person.Name"/>, <see cref="P:FolkerKinzel.Contacts.Person.NickName"/> und <see cref="P:FolkerKinzel.Contacts.Person.BirthDay"/> zweier 
+            <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekte,
+            um festzustellen, ob beide auf unterschiedliche Personen verweisen.
+            </remarks>
+            <param name="person1">Linker Operand.</param>
+            <param name="person2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> auf unterschiedliche Personen verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Person.CompareBoolean(FolkerKinzel.Contacts.Person)">
+            <summary>
+            Vergleicht die Eigenschaften <see cref="P:FolkerKinzel.Contacts.Person.Name"/>, <see cref="P:FolkerKinzel.Contacts.Person.NickName"/> und <see cref="P:FolkerKinzel.Contacts.Person.BirthDay"/> mit denen eines anderen <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekts,
+            um zu überprüfen, ob beide auf dieselbe physische Person verweisen.
+            </summary>
+            <param name="p">Das <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn beide <see cref="T:FolkerKinzel.Contacts.Person"/>-Objekte auf dieselbe physische Person verweisen.</returns>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.PhoneNumber">
+            <summary>
+            Kapselt Informationen über eine Telefonnummer.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.#ctor">
+            <summary>
+            Initialisiert ein leeres <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.#ctor(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Initialisiert ein <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt mit der zu kapselnden Telefonnummer
+            und optionalen Flags, die diese näher beschreiben.
+            </summary>
+            <param name="value">Die Telefonnummer.</param>
+            <param name="isWork"><c>true</c> gibt an, dass es sich um eine dienstliche Telefonnummer handelt.</param>
+            <param name="isMobile"><c>true</c> gibt an, dass es sich um eine Mobilfunknummer handelt.</param>
+            <param name="isFax"><c>true</c> gibt an, dass die Nummer für den Fax-Empfang geeignet ist.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.PhoneNumber.Value">
+            <summary>
+            Telefonnummer
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.PhoneNumber.IsWork">
+            <summary>
+            <c>true</c> gibt an, dass es sich bei <see cref="P:FolkerKinzel.Contacts.PhoneNumber.Value"/> um eine dienstliche Telefonnummer handelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.PhoneNumber.IsMobile">
+            <summary>
+            <c>true</c> gibt an, dass es sich bei <see cref="P:FolkerKinzel.Contacts.PhoneNumber.Value"/> um eine Mobilfunknummer handelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.PhoneNumber.IsFax">
+            <summary>
+            <c>true</c> gibt an, dass <see cref="P:FolkerKinzel.Contacts.PhoneNumber.Value"/> eine Telefonnummer ist, die für den Faxempfang geeignet ist.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.System#Collections#Generic#IEnumerable{FolkerKinzel#Contacts#PhoneNumber}#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.PhoneNumber.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+            <see cref="M:FolkerKinzel.Contacts.PhoneNumber.Clean"/> aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.Clean">
+            <summary>
+            Entfernt leere Strings und überflüssige Leerzeichen.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.Equals(System.Object)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:System.Object"/>, um festzustellen, ob es sich bei <paramref name="obj"/>
+            um ein <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt handelt, das auf dieselbe
+            Telefonnummer verweist.
+            </summary>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt ist, das auf dieselbe Telefonnummer verweist.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.Equals(FolkerKinzel.Contacts.PhoneNumber)">
+            <summary>
+            Vergleicht die Instanz mit einem anderen <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt, um festzustellen, ob beide
+            auf dieselbe Telefonnummer verweisen.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> auf dieselbe Telefonnummer verweist.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.op_Equality(FolkerKinzel.Contacts.PhoneNumber,FolkerKinzel.Contacts.PhoneNumber)">
+            <summary>
+            Überladung des == Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
+            auf dieselbe Telefonnummer verweisen.
+            </remarks>
+            <param name="phone1">Linker Operand.</param>
+            <param name="phone2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf dieselbe Telefonnummer verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.op_Inequality(FolkerKinzel.Contacts.PhoneNumber,FolkerKinzel.Contacts.PhoneNumber)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="phone1"/> und <paramref name="phone2"/> um festzustellen, ob beide
+            auf unterschiedliche Telefonnummern verweisen.
+            </remarks>
+            <param name="phone1">Linker Operand.</param>
+            <param name="phone2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> auf unterschiedliche Telefonnummern verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.PhoneNumber.CompareBoolean(FolkerKinzel.Contacts.PhoneNumber)">
+            <summary>
+            Vergleicht den Inhalt der <see cref="P:FolkerKinzel.Contacts.PhoneNumber.Value"/>-Property von this mit denen eines anderen <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekts.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn beide Objekte auf dieselbe Telefonnummer verweisen.</returns>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Resources.Res">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.AddressHome">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Home Address: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.AddressWork">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Work Address: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Anniversary">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Anniversary: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.BirthDay">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Birthday: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Comment">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Annotation: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Company">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Company: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Department">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Department: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.DisplayName">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Display Name: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.EmailAddresses">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die E-Mails: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Fax">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die fax ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Female">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die female ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Gender">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Gender: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.HomePagePersonal">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Personal Homepage: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.HomePageWork">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Business Homepage: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.InstantMessengers">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Instant Messengers: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Male">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die male ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Name">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Name: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.NickName">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Nickname: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Office">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Office: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Person">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Personal Data: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.PhoneNumbers">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Phone Numbers: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Position">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Position: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Spouse">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Spouse: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.TimeStamp">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Last Changed: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.Work">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Company Data: ähnelt.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Resources.Res.WorkShort">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die w. ähnelt.
+            </summary>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Sex">
+            <summary>
+            Benannte Konstanten für die Geschlechtsangabe.
+            </summary>
+        </member>
+        <member name="F:FolkerKinzel.Contacts.Sex.Unspecified">
+            <summary>
+            Das Geschlecht ist nicht angegeben.
+            </summary>
+        </member>
+        <member name="F:FolkerKinzel.Contacts.Sex.Female">
+            <summary>
+            weiblich
+            </summary>
+        </member>
+        <member name="F:FolkerKinzel.Contacts.Sex.Male">
+            <summary>
+            männlich
+            </summary>
+        </member>
+        <member name="T:FolkerKinzel.Contacts.Work">
+            <summary>
+            Kapselt Informationen über die Arbeitsstelle einer Person.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.#ctor">
+            <summary>
+            Initialisiert eine leere Instanz der <see cref="T:FolkerKinzel.Contacts.Work"/>-Klasse.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.#ctor(FolkerKinzel.Contacts.Work)">
+            <summary>
+            Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
+            </summary>
+            <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.Company">
+            <summary>
+            Name der Firma oder Organisation
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.Department">
+            <summary>
+            Abteilung
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.Office">
+            <summary>
+            Büro
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.JobTitle">
+            <summary>
+            Titel bzw. Position des Mitarbeiters
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.AddressWork">
+            <summary>
+            Postanschrift der Firma oder Organisation
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.ToString">
+            <summary>
+            Erstellt eine <see cref="T:System.String"/>-Repräsentation des <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekts.
+            </summary>
+            <returns>Der Inhalt des <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekts als <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.Clone">
+            <summary>
+            Erstellt eine tiefe Kopie des Objekts.
+            </summary>
+            <returns>Eine tiefe Kopie des Objekts.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.Clean">
+            <summary>
+            Reinigt alle Strings in allen Feldern des Objekts von ungültigen Zeichen und setzt leere Strings
+            und leere Unterobjekte auf <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:FolkerKinzel.Contacts.Work.IsEmpty">
+            <summary>
+            <c>true</c> gibt an, dass das <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekt keine verwertbaren Daten enthält. Vor dem Abfragen der Eigenschaft sollte
+            <see cref="M:FolkerKinzel.Contacts.Work.Clean"/> aufgerufen werden.
+            </summary>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.Equals(System.Object)">
+            <summary>
+            Vergleicht die aktuelle Instanz mit einem anderen <see cref="T:System.Object"/>, um festzustellen, ob beide <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekte sind, die dieselbe
+            Arbeitsstelle beschreiben.
+            </summary>
+            <param name="obj">Das <see cref="T:System.Object"/>, mit dem die aktuelle Instanz verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="obj"/> ein <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekt ist, das dieselbe Arbeitsstelle beschreibt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.Equals(FolkerKinzel.Contacts.Work)">
+            <summary>
+            Vergleicht die aktuelle Instanz mit einem anderen <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekt, um festzustellen, ob beide dieselbe
+            Arbeitsstelle beschreiben.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekt, mit dem die aktuelle Instanz verglichen wird.</param>
+            <returns><c>true</c>, wenn <paramref name="other"/> dieselbe Arbeitsstelle beschreibt.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.GetHashCode">
+            <summary>
+            Erzeugt einen Hashcode für das Objekt.
+            </summary>
+            <returns>Der Hashcode.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.op_Equality(FolkerKinzel.Contacts.Work,FolkerKinzel.Contacts.Work)">
+            <summary>
+            Überladung des == Operators. 
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
+            ob sie auf dieselbe Arbeitsstelle verweisen.</remarks>
+            <param name="work1">Linker Operand.</param>
+            <param name="work2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> auf
+            dieselbe Arbeitsstelle verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.op_Inequality(FolkerKinzel.Contacts.Work,FolkerKinzel.Contacts.Work)">
+            <summary>
+            Überladung des != Operators.
+            </summary>
+            <remarks>
+            Vergleicht <paramref name="work1"/> und <paramref name="work2"/>, um festzustellen,
+            ob sie auf unterschiedliche Arbeitsstellen verweisen.
+            </remarks>
+            <param name="work1">Linker Operand.</param>
+            <param name="work2">Rechter Operand.</param>
+            <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/>
+            auf unterschiedliche Arbeitsstellen verweisen.</returns>
+        </member>
+        <member name="M:FolkerKinzel.Contacts.Work.CompareBoolean(FolkerKinzel.Contacts.Work)">
+            <summary>
+            Vergleicht den Inhalt der <see cref="P:FolkerKinzel.Contacts.Work.Company"/>- und <see cref="P:FolkerKinzel.Contacts.Work.AddressWork"/>-Eigenschaften eines anderen <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekts mit denen
+            von this, um zu bestimmen, ob beide auf dieselbe Arbeitsstelle verweisen.
+            </summary>
+            <param name="other">Das <see cref="T:FolkerKinzel.Contacts.Work"/>-Objekt, mit dem verglichen wird.</param>
+            <returns><c>true</c>, wenn beide Objekte auf dieselbe Arbeitsstelle verweisen.</returns>
+        </member>
+    </members>
+</doc>
