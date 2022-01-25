@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.github\ISSUE_TEMPLATE\feature_request.md = ..\.github\ISSUE_TEMPLATE\feature_request.md
 		..\README.md = ..\README.md
 		Reference.md = Reference.md
-		..\docs\PackageReleaseNotes\2.0.0-rc.1\ReleaseNotes.md = ..\docs\PackageReleaseNotes\2.0.0-rc.1\ReleaseNotes.md
+		..\docs\PackageReleaseNotes\2.0.0-rc.2\ReleaseNotes.md = ..\docs\PackageReleaseNotes\2.0.0-rc.2\ReleaseNotes.md
 	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FolkerKinzel.Contacts.Doku.de", "FolkerKinzel.Contacts.Doku.de\FolkerKinzel.Contacts.Doku.de.shfbproj", "{338E52E2-0463-4AE9-857B-056DDD1A0B37}"

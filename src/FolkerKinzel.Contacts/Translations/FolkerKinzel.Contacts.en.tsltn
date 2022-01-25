@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Tsltn Version="1.0" SourceFile="..\bin\Release\net6.0\de\FolkerKinzel.Contacts.xml" SourceLanguage="de" TargetLanguage="en">
-  <T ID="66F1447829E795F4">Simple data model for storing contact data.</T>
+<Tsltn Version="1.0" SourceFile="de\FolkerKinzel.Contacts.xml" SourceLanguage="de" TargetLanguage="en">
+  <T ID="66F1447829E795F4">Data model for storing contact data.</T>
   <T ID="760AE724E747069E">Interface, that enables the implementing class to clean itself of data garbage.</T>
   <T ID="15597F3830CADB68">Encapsulates information about a persons name.</T>
   <T ID="164B38CD141D8534">Encapsulates information about a phone number.</T>
@@ -245,4 +245,23 @@ When overwriting the method in inheriting classes, the promise must be kept that
   <T ID="EEA37CA4132F3412">The object to be examined. (Never &lt;c&gt;null&lt;/c&gt; or &lt;see cref="P:FolkerKinzel.Contacts.MergeableObject`1.IsEmpty"/&gt;.)</T>
   <T ID="A6F4E034EBB49047">The method may only return &lt;c&gt;true&lt;/c&gt; if the values of the properties of &lt;paramref name ="other"/&gt; make it impossible to merge &lt;paramref name ="other"/&gt; with the current instance, otherwise &lt;c&gt;false&lt;/c&gt;.</T>
   <T ID="1C56CD6BF1213C6">Another &lt;see cref="T:FolkerKinzel.Contacts.MergeableObject`1"/&gt; or &lt;c&gt;null&lt;/c&gt;.</T>
+  <T ID="E10413254D807D2F">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class itself.</T>
+  <T ID="921DDFE84D807D2F">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class itself.</T>
+  <T ID="1BAB03064D807D2F">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class itself.</T>
+  <T ID="EEEC7BD43664AA41">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class itself.</T>
+  <T ID="90CA3BB53664AA41">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class itself.</T>
+  <T ID="23E1304E3664AA41">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class itself.</T>
+  <T ID="90371A7F3664AA41">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class itself.</T>
+  <T ID="E1041325353AEBB6">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class.</T>
+  <T ID="1BAB0306353AEBB6">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class.</T>
+  <T ID="EEEC7BD48D1D3384">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
+  <T ID="23E1304E8D1D3384">Returns an enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
+  <T ID="90371A7F3E06648F">An enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
+  <T ID="921DDFE88630F413">An enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class.</T>
+  <T ID="D0E4C8C78630F413">An enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; class.</T>
+  <T ID="90CA3BB53E06648F">An enumerator, which returns the executing instance of the &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; class.</T>
+  <T ID="98385200E9931B0">This implementation allows to pass a single &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; object as an argument to a method parameter of type &lt;see cref="T:System.Collections.Generic.IEnumerable`1"&gt;IEnumerable&amp;lt;Contact&amp;gt;&lt;/see&gt;.</T>
+  <T ID="932A2AC789FFD97F">This implementation allows to pass a single &lt;see cref="T:FolkerKinzel.Contacts.Contact"/&gt; object as an argument to a method parameter of type &lt;see cref="T:System.Collections.IEnumerable"/&gt;.</T>
+  <T ID="103463F7A8E77035">This implementation allows to pass a single &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object as an argument to a method parameter of type &lt;see cref="T:System.Collections.Generic.IEnumerable`1"&gt;IEnumerable&amp;lt;PhoneNumber&amp;gt;&lt;/see&gt;.</T>
+  <T ID="3D730A05AE59B3E3">This implementation allows to pass a single &lt;see cref="T:FolkerKinzel.Contacts.PhoneNumber"/&gt; object as an argument to a method parameter of type &lt;see cref="T:System.Collections.IEnumerable"/&gt;.</T>
 </Tsltn>

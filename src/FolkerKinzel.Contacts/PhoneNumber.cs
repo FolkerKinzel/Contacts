@@ -178,13 +178,13 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     #region IEnumerable
 
     /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
-    /// zurückgibt.</see>
+    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
+    /// zurückgibt.
     /// </summary>
-    /// <returns>Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
     /// zurückgibt.</returns>
     /// <remarks>
-    /// Diese Implementierung ermöglicht, ein einzelnes <see cref="PhoneNumber"-Objekt als Argument an einen Methodenparameter vom Typ
+    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="PhoneNumber"/>-Objekt als Argument an einen Methodenparameter vom Typ
     /// <see cref="IEnumerable{T}">IEnumerable&lt;PhoneNumber&gt;</see> zu übergeben.
     /// </remarks>
     IEnumerator<PhoneNumber> IEnumerable<PhoneNumber>.GetEnumerator()
@@ -193,13 +193,13 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     }
 
     /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
-    /// zurückgibt.</see>
+    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
+    /// zurückgibt.
     /// </summary>
-    /// <returns>Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
     /// zurückgibt.</returns>
     /// <remarks>
-    /// Diese Implementierung ermöglicht, ein einzelnes <see cref="PhoneNumber"-Objekt als Argument an einen Methodenparameter vom Typ
+    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="PhoneNumber"/>-Objekt als Argument an einen Methodenparameter vom Typ
     /// <see cref="IEnumerable"/> zu übergeben.
     /// </remarks>
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<PhoneNumber>)this).GetEnumerator();

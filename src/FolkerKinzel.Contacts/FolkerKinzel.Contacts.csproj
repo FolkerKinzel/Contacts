@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Condition="False And '$(TargetFramework)' == 'net6.0' And '$(Configuration)'=='Release'">
+  <PropertyGroup Condition="True And '$(TargetFramework)' == 'net6.0' And '$(Configuration)'=='Release'">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
@@ -11,11 +11,11 @@
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
-    <Version>2.0.0-rc.1</Version>
-    <FileVersion>2.0.0.19</FileVersion>
+    <Version>2.0.0-rc.2</Version>
+    <FileVersion>2.0.0.23</FileVersion>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0-rc.1/ReleaseNotes.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0-rc.2/ReleaseNotes.md</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
     <Description>.NET library, which provides an easy to use data model to store contact data of organizations and natural persons.</Description>
     <Authors>Folker Kinzel</Authors>
@@ -40,9 +40,6 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net461'">
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Experiments.cs" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="Translations\FolkerKinzel.Contacts.en.tsltn" />
   </ItemGroup>
