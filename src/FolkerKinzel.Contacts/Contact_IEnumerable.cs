@@ -2,13 +2,6 @@
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Einfaches Datenmodell zum Speichern von Kontaktdaten.
-/// </summary>
-/// <example>
-/// <para>Initialisieren von <see cref="Contact"/>-Objekten:</para>
-/// <code language="cs" source="..\Examples\ContactExample.cs" />
-/// </example>
 public sealed partial class Contact : IEnumerable<Contact>
 {
     /// <summary>
@@ -25,6 +18,7 @@ public sealed partial class Contact : IEnumerable<Contact>
     {
         yield return this;
     }
+
 
     /// <summary>
     /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="Contact">-Klasse selbst
