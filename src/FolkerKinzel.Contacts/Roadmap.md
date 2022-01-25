@@ -5,6 +5,7 @@
 - [x] Add an abstract class `MergeableObject<T>`, which has a Method `IsMergeable(T? other)`, and implement it in all classes. 
 - [x] Change the overridden `Equals` and `GetHashCode` methods instead to produce compliant results.
 - [x] Enable automatic merging of `Contact` objects.
+- [ ] Implement`Contact: IEnumerable<Contact>`
 
 ### 2.1.0
 - [ ] Make the `Contact` class inheritable.

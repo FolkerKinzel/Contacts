@@ -177,13 +177,31 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region IEnumerable
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// zurückgibt.</see>
+    /// </summary>
+    /// <returns>Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// zurückgibt.</returns>
+    /// <remarks>
+    /// Diese Implementierung ermöglicht, ein einzelnes <see cref="PhoneNumber"-Objekt als Argument an einen Methodenparameter vom Typ
+    /// <see cref="IEnumerable{T}">IEnumerable&lt;PhoneNumber&gt;</see> zu übergeben.
+    /// </remarks>
     IEnumerator<PhoneNumber> IEnumerable<PhoneNumber>.GetEnumerator()
     {
         yield return this;
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// zurückgibt.</see>
+    /// </summary>
+    /// <returns>Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber">-Klasse selbst
+    /// zurückgibt.</returns>
+    /// <remarks>
+    /// Diese Implementierung ermöglicht, ein einzelnes <see cref="PhoneNumber"-Objekt als Argument an einen Methodenparameter vom Typ
+    /// <see cref="IEnumerable"/> zu übergeben.
+    /// </remarks>
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<PhoneNumber>)this).GetEnumerator();
 
     #endregion
