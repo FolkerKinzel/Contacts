@@ -2,8 +2,6 @@
 ## Package Release Notes
 
 - The `Contact` class implements `IEnumerable<Contact>`.
-- Source link for a better debugging experience.
-- Deterministic build ("Continuous Integration Build").
 
 .
 
