@@ -16,7 +16,7 @@ internal ref struct Strip
         _caseSensitive = caseSensitive;
     }
 
-    public override bool Equals([NotNullWhen(true)] object? obj) => throw new InvalidOperationException();
+    public override readonly bool Equals([NotNullWhen(true)] object? obj) => throw new InvalidOperationException();
 
 
     internal bool Equals(Strip other)
@@ -152,7 +152,6 @@ internal ref struct Strip
     private void ResetCurrentIndex() => _currentIndex = INITIAL_INDEX;
 
 
-    private bool AreCharsEqual(char c1, char c2) 
+    private readonly bool AreCharsEqual(char c1, char c2) 
         => _caseSensitive ? c1.Equals(c2) : char.ToUpperInvariant(c1).Equals(char.ToUpperInvariant(c2));
-
 }

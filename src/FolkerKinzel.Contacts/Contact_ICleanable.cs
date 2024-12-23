@@ -30,7 +30,7 @@ public sealed partial class Contact : ICleanable
     /// <inheritdoc />
     public override void Clean()
     {
-        KeyValuePair<Prop, object>[]? props = _propDic.ToArray();
+        KeyValuePair<Prop, object>[] props = [.. _propDic];
         StringComparer comp = StringComparer.Ordinal;
 
         for (int i = 0; i < props.Length; i++)

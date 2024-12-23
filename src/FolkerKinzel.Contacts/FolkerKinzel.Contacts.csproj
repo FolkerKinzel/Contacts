@@ -1,7 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Condition="False And '$(TargetFramework)' == 'netstandard2.1' And '$(Configuration)'=='Release'">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;net462</TargetFrameworks>
     <LangVersion>13.0</LangVersion>
@@ -12,16 +9,19 @@
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
     <Version>2.0.0-rc.2</Version>
-    <FileVersion>2.0.0.41</FileVersion>
+    <FileVersion>2.0.0.45</FileVersion>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0-rc.2/ReleaseNotes.md</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
-    <Description>.NET library, which provides an easy to use data model to store contact data of organizations and natural persons.</Description>
+    <Description>
+      .NET library that provides an easy to use data model to store contact data of organizations and natural persons.
+    </Description>
     <Authors>Folker Kinzel</Authors>
     <Copyright>Copyright © 2020 Folker Kinzel</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageIcon>Logo.png</PackageIcon>
+    <PackageReadmeFile>NugetReadme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/FolkerKinzel/Contacts.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/FolkerKinzel/Contacts</PackageProjectUrl>
@@ -29,6 +29,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -43,7 +45,9 @@
     <NoWarn>$(NoWarn);8600;8601;8602;8603;8604</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Translations\FolkerKinzel.Contacts.en.tsltn" />
+    <Compile Remove="Translations\**" />
+    <EmbeddedResource Remove="Translations\**" />
+    <None Remove="Translations\**" />
   </ItemGroup>
   <ItemGroup>
     <Using Remove="System.Net.Http" />
@@ -55,6 +59,10 @@
     <None Include="..\..\..\..\Nuget-Logo\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="md\NugetReadme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -82,58 +90,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net6.0</PackagePath>
-    </None>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net5.0</PackagePath>
-    </None>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\netstandard2.1</PackagePath>
-    </None>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\netstandard2.0</PackagePath>
-    </None>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net462</PackagePath>
-    </None>
-    <None Include="Translations\en\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net40</PackagePath>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net6.0\de</PackagePath>
-    </None>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net5.0\de</PackagePath>
-    </None>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\netstandard2.1\de</PackagePath>
-    </None>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\netstandard2.0\de</PackagePath>
-    </None>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net462\de</PackagePath>
-    </None>
-    <None Include="Translations\de\FolkerKinzel.Contacts.xml">
-      <Pack>True</Pack>
-      <PackagePath>lib\net40\de</PackagePath>
-    </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="if $(ConfigurationName) == Release if '$(TargetFramework)' == 'netstandard2.1' dotnet $(SolutionDir)IncVersion\IncVersion.dll $(ProjectDir)$(ProjectFileName) --revision" />

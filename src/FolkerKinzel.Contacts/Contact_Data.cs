@@ -2,7 +2,7 @@ namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact
 {
-    private readonly Dictionary<Prop, object> _propDic = new();
+    private readonly Dictionary<Prop, object> _propDic = [];
 
     private enum Prop
     {
