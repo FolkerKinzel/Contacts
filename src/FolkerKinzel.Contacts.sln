@@ -14,13 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\SECURITY.md = ..\SECURITY.md
 	EndProjectSection
 EndProject
-Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FolkerKinzel.Contacts.Doku.de", "FolkerKinzel.Contacts.Doku.de\FolkerKinzel.Contacts.Doku.de.shfbproj", "{338E52E2-0463-4AE9-857B-056DDD1A0B37}"
-EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FolkerKinzel.Contacts.Reference.en", "FolkerKinzel.Contacts.Reference.en\FolkerKinzel.Contacts.Reference.en.shfbproj", "{FE7B5963-9811-45E9-9646-15C9CCBA7F5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "Examples\Examples.csproj", "{8BB25E79-705C-402C-AC16-F6E1BA85C5F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FolkerKinzel.Contacts.Tests", "FolkerKinzel.Contacts.Tests\FolkerKinzel.Contacts.Tests.csproj", "{14B62FCC-1745-4947-9D12-152C880F4CD6}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FolkerKinzel.Contacts.Reference.Website", "FolkerKinzel.Contacts.Reference.Website\FolkerKinzel.Contacts.Reference.Website.shfbproj", "{F067BC6D-0672-4CEC-9826-9352DE68CB62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,8 +32,6 @@ Global
 		{8A391ACC-4672-4838-935D-17298B2E0C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A391ACC-4672-4838-935D-17298B2E0C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A391ACC-4672-4838-935D-17298B2E0C02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{338E52E2-0463-4AE9-857B-056DDD1A0B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{338E52E2-0463-4AE9-857B-056DDD1A0B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7B5963-9811-45E9-9646-15C9CCBA7F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE7B5963-9811-45E9-9646-15C9CCBA7F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BB25E79-705C-402C-AC16-F6E1BA85C5F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,6 +42,10 @@ Global
 		{14B62FCC-1745-4947-9D12-152C880F4CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B62FCC-1745-4947-9D12-152C880F4CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14B62FCC-1745-4947-9D12-152C880F4CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F067BC6D-0672-4CEC-9826-9352DE68CB62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F067BC6D-0672-4CEC-9826-9352DE68CB62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F067BC6D-0672-4CEC-9826-9352DE68CB62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F067BC6D-0672-4CEC-9826-9352DE68CB62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

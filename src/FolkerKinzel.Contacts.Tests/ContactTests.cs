@@ -43,24 +43,24 @@ public class ContactTests
                     LastName = "   "
                 }
             },
-            EmailAddresses = new string?[]
-            {
+            EmailAddresses =
+            [
                     null,
                     "",
                     "    "
-            },
-            InstantMessengerHandles = new string?[]
-            {
+            ],
+            InstantMessengerHandles =
+            [
                     null,
                     "",
                     "    "
-            },
-            PhoneNumbers = new PhoneNumber?[]
-            {
+            ],
+            PhoneNumbers =
+            [
                     new  PhoneNumber(),
                     null,
                     new PhoneNumber("   ")
-            },
+            ],
             Work = new Work { Company = "  " }
 
         };
@@ -87,8 +87,8 @@ public class ContactTests
     {
         var cont = new Contact
         {
-            PhoneNumbers = new PhoneNumber?[]
-            {
+            PhoneNumbers =
+            [
                     new PhoneNumber(" 1 2 3 ", false, true),
                     new  PhoneNumber(),
                     null,
@@ -97,7 +97,7 @@ public class ContactTests
                     new PhoneNumber(" 1 23 ", false, true, true),
                     new PhoneNumber("456", true),
                     new PhoneNumber("456", false, true)
-            }
+            ]
 
         };
 
@@ -141,18 +141,18 @@ public class ContactTests
             Work = ed1,
             WebPagePersonal = "www.folker.de",
             DisplayName = "Folker  ",
-            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            EmailAddresses = ["folker@internet.de", "info@folker.de", null],
             Person = pers1,
             Comment = "Dies ist ein Kommentar",
             AddressHome = addr1,
             WebPageWork = "info@work.de",
             TimeStamp = DateTime.Now,
-            InstantMessengerHandles = new string[] { "folker@twitter.com" },
-            PhoneNumbers = new PhoneNumber[]
-            {
+            InstantMessengerHandles = ["folker@twitter.com"],
+            PhoneNumbers =
+            [
                     new PhoneNumber("123-456"),
                     new PhoneNumber("789-101112")
-            }
+            ]
 
         };
 
@@ -212,11 +212,11 @@ public class ContactTests
             Work = work,
             WebPagePersonal = "www.folker.de",
             DisplayName = "Folker  ",
-            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            EmailAddresses = ["folker@internet.de", "info@folker.de", null],
             Person = pers,
             AddressHome = addr,
-            InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
-            PhoneNumbers = new PhoneNumber[] { new PhoneNumber("123") }
+            InstantMessengerHandles = ["Folker@twitter.com"],
+            PhoneNumbers = [new PhoneNumber("123")]
         };
 
         var contact2 = (Contact)contact1.Clone();
@@ -298,11 +298,11 @@ public class ContactTests
             WebPagePersonal = "www.folker.de",
             WebPageWork = "work.de",
             DisplayName = "Folker",
-            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            EmailAddresses = ["folker@internet.de", "info@folker.de", null],
             Person = pers,
             AddressHome = addr,
-            InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
-            PhoneNumbers = new PhoneNumber[] { new PhoneNumber("123") }
+            InstantMessengerHandles = ["Folker@twitter.com"],
+            PhoneNumbers = [new PhoneNumber("123")]
         };
 
         var contact2 = (Contact)contact1.Clone();
@@ -428,11 +428,11 @@ public class ContactTests
             WebPagePersonal = "www.folker.de",
             WebPageWork = "work.de",
             DisplayName = "Folker",
-            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            EmailAddresses = ["folker@internet.de", "info@folker.de", null],
             Person = pers,
             AddressHome = addr,
-            InstantMessengerHandles = new string?[] { "Folker@twitter.com" },
-            PhoneNumbers = new PhoneNumber[] { new PhoneNumber("123") }
+            InstantMessengerHandles = ["Folker@twitter.com"],
+            PhoneNumbers = [new PhoneNumber("123")]
         };
 
         var contact2 = (Contact)contact1.Clone();
@@ -502,7 +502,7 @@ public class ContactTests
         Assert.IsFalse(contact1.Equals(contact2));
         Assert.AreNotEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
-        contact1.PhoneNumbers = new PhoneNumber?[] { null };
+        contact1.PhoneNumbers = [null];
         Assert.IsTrue(contact1.Equals(contact2));
         Assert.AreEqual(contact1.GetHashCode(), contact2.GetHashCode());
 
@@ -578,15 +578,15 @@ public class ContactTests
             Work = ed1,
             WebPagePersonal = "www.folker.de",
             DisplayName = "Folker  ",
-            EmailAddresses = new string?[] { "folker@internet.de", "info@folker.de", null },
+            EmailAddresses = ["folker@internet.de", "info@folker.de", null],
             Person = pers1,
             Comment = comment,
             AddressHome = addr1,
             WebPageWork = "info@work.de",
             TimeStamp = DateTime.Now,
-            InstantMessengerHandles = new string[] { "folker@twitter.com" },
-            PhoneNumbers = new PhoneNumber?[]
-            {
+            InstantMessengerHandles = ["folker@twitter.com"],
+            PhoneNumbers =
+            [
                     new PhoneNumber(" 1 2 3 ", false, true),
                     new  PhoneNumber(),
                     null,
@@ -595,7 +595,7 @@ public class ContactTests
                     new PhoneNumber(" 1 23 ", false, true, true),
                     new PhoneNumber("456", true),
                     new PhoneNumber("456", false, true)
-            }
+            ]
 
         };
 
