@@ -461,7 +461,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
             {
                 Name name => name.AppendTo(sb).AppendLine(),
                 Sex sex => sb.AppendLine(sex == Sex.Male ? Res.Male : Res.Female),
-                DateTime dt => sb.AppendLine(dt.ToShortDateString()),
+                DateOnly dt => sb.AppendLine(dt.ToShortDateString()),
                 _ => sb.Append(value).AppendLine(),
             };
         }

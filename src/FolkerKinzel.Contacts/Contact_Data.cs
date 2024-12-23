@@ -111,9 +111,9 @@ public sealed partial class Contact
     }
 
     /// <summary>Last Changed</summary>
-    public DateTime TimeStamp
+    public DateTimeOffset TimeStamp
     {
-        get => Get<DateTime>(Prop.TimeStamp);
-        set => Set(Prop.TimeStamp, value == default ? null : (object?)value);
+        get => Get<DateTimeOffset>(Prop.TimeStamp);
+        set => Set(Prop.TimeStamp, value == default ? null : (object)value);
     }
 }

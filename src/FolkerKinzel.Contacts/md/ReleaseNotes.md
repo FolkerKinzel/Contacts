@@ -17,6 +17,7 @@ instances.
 
 - The `Contact` class implements `IEnumerable<Contact>` now.
 - `Person.BirthDay` and `Person.Anniversary` are `DateOnly` properties now.
+- `Contact.TimeStamp` is `DateTimeOffset` now.
 - The `System.HashCode` structure is used to produce hash codes.
 
 &nbsp;

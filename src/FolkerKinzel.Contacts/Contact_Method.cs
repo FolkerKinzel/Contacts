@@ -63,9 +63,9 @@ public sealed partial class Contact
                     _ = work.AppendTo(sb, indent);
                     _ = sb.AppendLine(Environment.NewLine);
                     break;
-                case DateTime dt:
+                case DateTimeOffset dt:
                     _ = sb.AppendLine(Res.TimeStamp);
-                    _ = sb.Append(indent).Append(dt.ToShortDateString()).Append(' ').AppendLine(dt.ToLongTimeString());
+                    _ = sb.Append(indent).Append(dt.ToString("s"));
                     _ = sb.AppendLine();
                     break;
                 default:

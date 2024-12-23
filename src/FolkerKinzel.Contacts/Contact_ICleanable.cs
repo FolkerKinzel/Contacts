@@ -15,7 +15,8 @@ public sealed partial class Contact : ICleanable
                 {
                     case ICleanable cleanable when !cleanable.IsEmpty:
                     case string s when !string.IsNullOrWhiteSpace(s):
-                    case DateTime dt when dt != default:
+                    case DateOnly dateOnly when dateOnly != default:
+                    case DateTimeOffset dto when dto != default:
                     case IEnumerable<string?> strColl when strColl.Any(x => !string.IsNullOrWhiteSpace(x)):
                     case IEnumerable<ICleanable?> cleanableColl when cleanableColl.Any(x => !(x?.IsEmpty ?? true)):
                         return false;
@@ -96,7 +97,7 @@ public sealed partial class Contact : ICleanable
                         }
                     }
                     break;
-                case DateTime dt when dt.IsEmptyTimeStamp():
+                case DateTimeOffset dt when dt.IsEmptyTimeStamp():
                     {
                         Set(kvp.Key, null);
                     }
