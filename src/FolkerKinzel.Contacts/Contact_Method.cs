@@ -65,7 +65,7 @@ public sealed partial class Contact
                     break;
                 case DateTimeOffset dt:
                     _ = sb.AppendLine(Res.TimeStamp);
-                    _ = sb.Append(indent).Append(dt.ToString("s"));
+                    _ = sb.Append(indent).Append(dt.ToString("u"));
                     _ = sb.AppendLine();
                     break;
                 default:
