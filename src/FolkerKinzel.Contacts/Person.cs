@@ -25,7 +25,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region private Fields
 
-    private readonly Dictionary<Prop, object> _propDic = new();
+    private readonly Dictionary<Prop, object> _propDic = [];
 
     #endregion
 
@@ -55,7 +55,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     #region Accessor Methods
 
     [return: MaybeNull]
-    private T Get<T>(Prop prop) => _propDic.ContainsKey(prop) ? (T)_propDic[prop] : default;
+    private T Get<T>(Prop prop) => _propDic.TryGetValue(prop, out object? value) ? (T)value : default;
 
     private void Set<T>(Prop prop, T value)
     {
@@ -96,9 +96,9 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
     /// <summary>Birthday</summary>
-    public DateTime? BirthDay
+    public DateOnly? BirthDay
     {
-        get => Get<DateTime?>(Prop.BirthDay);
+        get => Get<DateOnly?>(Prop.BirthDay);
         set => Set(Prop.BirthDay, value);
     }
 
@@ -110,9 +110,9 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
     /// <summary>Anniversary</summary>
-    public DateTime? Anniversary
+    public DateOnly? Anniversary
     {
-        get => Get<DateTime?>(Prop.Anniversary);
+        get => Get<DateOnly?>(Prop.Anniversary);
         set => Set(Prop.Anniversary, value);
     }
 
@@ -187,7 +187,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
         //////////////////////////////////////////////////////
 
-        static bool DateHasEvidence(DateTime? x, DateTime? y, out bool isDifferentIdentity)
+        static bool DateHasEvidence(DateOnly? x, DateOnly? y, out bool isDifferentIdentity)
         {
             isDifferentIdentity = true;
 
@@ -196,7 +196,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
                 return false;
             }
 
-            isDifferentIdentity = x.Value.Date != y.Value.Date;
+            isDifferentIdentity = x.Value != y.Value;
             return true;
         }
 
@@ -291,9 +291,9 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     /// <inheritdoc />
     public override void Clean()
     {
-        KeyValuePair<Prop, object>[] props = _propDic.ToArray();
+        KeyValuePair<Prop, object>[] props = [.. _propDic];
 
-        DateTime MIN_DATE = DateTime.MinValue.AddDays(1);
+        DateOnly MIN_DATE = DateOnly.MinValue.AddDays(1);
 
         for (int i = 0; i < props.Length; i++)
         {
@@ -303,16 +303,11 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
             {
                 Set(kvp.Key, StringCleaner.CleanDataEntry(s));
             }
-            else if (kvp.Value is DateTime dt)
+            else if (kvp.Value is DateOnly dt)
             {
                 if (dt < MIN_DATE) // sonst ggf. Exception bei Umwandlung in DateTimeOffset
                 {
-                    Set<DateTime?>(kvp.Key, null);
-                }
-                else
-                {
-                    // Entferne Zeitkomponente:
-                    Set<DateTime?>(kvp.Key, dt.Date);
+                    Set<DateOnly?>(kvp.Key, null);
                 }
             }
             else if (kvp.Value is Name name)
@@ -420,7 +415,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
             return sb;
         }
 
-        Prop[] keys = _propDic.Keys.OrderBy(x => x).ToArray();
+        Prop[] keys = [.. _propDic.Keys.OrderBy(x => x)];
 
         string[] topics = new string[keys.Length];
 

@@ -5,6 +5,6 @@
 (If you need to persist this data model as vCard (*.vcf) or CSV, have a look at [FolkerKinzel.Contacts.IO](https://www.nuget.org/packages/FolkerKinzel.Contacts.IO/).)
 
 
-[Project Reference and Release Notes](https://github.com/FolkerKinzel/Contacts/releases/tag/v2.0.0-rc.1)
+[Project Reference and Release Notes](https://github.com/FolkerKinzel/Contacts/releases/tag/v2.0.0)
 
 [See code examples on GitHub](https://github.com/FolkerKinzel/Contacts)

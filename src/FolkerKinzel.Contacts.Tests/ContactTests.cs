@@ -132,7 +132,7 @@ public class ContactTests
 
         var pers1 = new Person
         {
-            BirthDay = new DateTime(1985, 6, 5),
+            BirthDay = new DateOnly(1985, 6, 5),
             Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
         };
 
@@ -202,7 +202,7 @@ public class ContactTests
 
         var pers = new Person
         {
-            BirthDay = new DateTime(1885, 6, 5),
+            BirthDay = new DateOnly(1885, 6, 5),
             Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
         };
 
@@ -287,7 +287,7 @@ public class ContactTests
 
         var pers = new Person
         {
-            BirthDay = new DateTime(1985, 6, 5),
+            BirthDay = new DateOnly(1985, 6, 5),
             Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
         };
 
@@ -417,7 +417,7 @@ public class ContactTests
 
         var pers = new Person
         {
-            BirthDay = new DateTime(1985, 6, 5),
+            BirthDay = new DateOnly(1985, 6, 5),
             Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
         };
 
@@ -569,7 +569,7 @@ public class ContactTests
 
         var pers1 = new Person
         {
-            BirthDay = new DateTime(1985, 6, 5),
+            BirthDay = new DateOnly(1985, 6, 5),
             Name = new Name { FirstName = "Folker", LastName = "Kinzel" }
         };
 

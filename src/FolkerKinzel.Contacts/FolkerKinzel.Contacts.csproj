@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;net462</TargetFrameworks>
+    <TargetFrameworks>net8.0;netstandard2.1;netstandard2.0;net462</TargetFrameworks>
     <LangVersion>13.0</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,10 +8,10 @@
     <!-- nuget-Package: -->
     <PackageId>FolkerKinzel.Contacts</PackageId>
     <Product>FolkerKinzel.Contacts</Product>
-    <Version>2.0.0-rc.2</Version>
-    <FileVersion>2.0.0.48</FileVersion>
+    <Version>2.0.0</Version>
+    <FileVersion>2.0.0.57</FileVersion>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0-rc.2/ReleaseNotes.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/FolkerKinzel/Contacts/blob/master/docs/PackageReleaseNotes/2.0.0/ReleaseNotes.md</PackageReleaseNotes>
     <PackageTags>.net contact data-model c#</PackageTags>
     <Description>
       .NET library that provides an easy to use data model to store contact data of organizations and natural persons.
@@ -77,6 +77,9 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net462'">
     <PackageReference Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'net462'">
+    <PackageReference Include="Portable.System.DateTimeOnly" Version="8.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Res.Designer.cs">

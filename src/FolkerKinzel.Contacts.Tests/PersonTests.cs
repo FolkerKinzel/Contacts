@@ -20,7 +20,7 @@ public class PersonTests
     {
         var pers1 = new Person()
         {
-            BirthDay = new DateTime(1885, 6, 5),
+            BirthDay = new DateOnly(1885, 6, 5),
             Name = new Name { LastName = "Kinzel", FirstName = "Folker" }
         };
 
@@ -66,7 +66,7 @@ public class PersonTests
 
         Assert.IsTrue(pers.IsEmpty);
 
-        pers.BirthDay = DateTime.MinValue;
+        pers.BirthDay = DateOnly.MinValue;
         pers.NickName = "";
 
         Assert.IsNotNull(pers.BirthDay);
@@ -86,14 +86,14 @@ public class PersonTests
         object p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
         object p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
@@ -110,13 +110,13 @@ public class PersonTests
         object p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         object p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         Assert.IsFalse(p1.Equals(p2));
@@ -127,14 +127,14 @@ public class PersonTests
     {
         object p1 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
 
         };
 
         object p2 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 30),
+            BirthDay = new DateOnly(1972, 1, 30),
             Name = new Name { LastName = "Kinzel" }
 
         };
@@ -160,7 +160,7 @@ public class PersonTests
         var p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
 
         };
@@ -168,7 +168,7 @@ public class PersonTests
         var p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
@@ -187,13 +187,13 @@ public class PersonTests
         var p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         var p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         Assert.IsFalse(p1.Equals( p2));
@@ -206,13 +206,13 @@ public class PersonTests
     {
         var p1 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
         var p2 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 30),
+            BirthDay = new DateOnly(1972, 1, 30),
             Name = new Name { LastName = "Kinzel" }
         };
 
@@ -252,14 +252,14 @@ public class PersonTests
         object p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
         object p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
@@ -273,13 +273,13 @@ public class PersonTests
         object p1 = new Person()
         {
             NickName = "Genie",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         object p2 = new Person()
         {
             NickName = "Trottel",
-            BirthDay = new DateTime(1972, 1, 31)
+            BirthDay = new DateOnly(1972, 1, 31)
         };
 
         Assert.AreNotEqual(p1, p2);
@@ -291,13 +291,13 @@ public class PersonTests
     {
         object p1 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 31),
+            BirthDay = new DateOnly(1972, 1, 31),
             Name = new Name { LastName = "Kinzel" }
         };
 
         object p2 = new Person()
         {
-            BirthDay = new DateTime(1972, 1, 30),
+            BirthDay = new DateOnly(1972, 1, 30),
             Name = new Name { LastName = "Kinzel" }
         };
 
@@ -319,18 +319,10 @@ public class PersonTests
     [TestMethod()]
     public void ToStringTest2()
     {
-        //var uiCulture = CultureInfo.CurrentUICulture;
-
-        //var currentUiCulture = Thread.CurrentThread.CurrentUICulture;
-
-        //var currentCulture = Thread.CurrentThread.CurrentCulture;
-
-        //Res.Culture = uiCulture;
-
         var pers = new Person
         {
-            Anniversary = DateTime.Now,
-            BirthDay = DateTime.Now,
+            Anniversary = new DateOnly(2014, 7, 15),
+            BirthDay = new DateOnly(1980, 2, 3),
             Gender = Sex.Female,
             Name = new Name
             {
@@ -346,6 +338,5 @@ public class PersonTests
         Assert.IsNotNull(s);
 
         TestContext.WriteLine(s);
-
     }
 }

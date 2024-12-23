@@ -1,13 +1,8 @@
 ﻿# FolkerKinzel.Contacts
 ## Roadmap
 
-### 2.1.0
-- [ ] Make the `Contact` class inheritable.
-
 ### 3.0.0
-- [ ] End .NET Framework 4.0 support.
-- [ ] Make `Person.BirthDay` and `Person.Anniversary`  `DateOnly` properties.
-- [ ] Use the `HashCode` structure to produce hash codes.
+- [ ] Make the `Contact` class inheritable.
 
 ### 2.0.0
 - [x] Add an abstract class `MergeableObject<T>`, which has a Method `IsMergeable(T? other)`, and implement it in all classes. 
@@ -18,3 +13,4 @@
 - [x] End .NET Framework 4.0 support.
 - [x] End .NET Framework 4.6.1 support.
 - [x] End .NET Framework 4.6.2 support.
+- [x] Make `Person.BirthDay` and `Person.Anniversary`  `DateOnly` properties.

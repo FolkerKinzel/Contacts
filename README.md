@@ -35,9 +35,9 @@ public static class ContactExample
                         Suffix = "jr."
                     },
 
-                    BirthDay = new DateTime(1972, 1, 3),
+                    BirthDay = new DateOnly(1972, 1, 3),
                     Spouse = "Jane Doe",
-                    Anniversary = new DateTime(2001, 6, 15),
+                    Anniversary = new DateOnly(2001, 6, 15),
                     Gender = Sex.Male,
                     NickName = "The Dude"
                 },
@@ -71,9 +71,9 @@ public static class ContactExample
                         LastName = "Doe",
                         Prefix = "Dr."
                     },
-                    BirthDay = new DateTime(1981, 5, 4),
+                    BirthDay = new DateOnly(1981, 5, 4),
                     Spouse = "John Doe",
-                    Anniversary = new DateTime(2001, 6, 15),
+                    Anniversary = new DateOnly(2001, 6, 15),
                     Gender = Sex.Female
                 },
 
