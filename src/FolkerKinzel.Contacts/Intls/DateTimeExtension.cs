@@ -1,4 +1,4 @@
-﻿namespace FolkerKinzel.Contacts.Intls;
+namespace FolkerKinzel.Contacts.Intls;
 
 internal static class DateTimeExtension
 {

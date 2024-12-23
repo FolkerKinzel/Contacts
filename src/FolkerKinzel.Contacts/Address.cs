@@ -1,17 +1,14 @@
-﻿using System.Text;
+using System.Text;
 using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Kapselt Adressdaten.
-/// </summary>
+    /// <summary>Encapsulates address data.</summary>
 public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, IEquatable<Address?>
 {
     #region Prop Enum
-    /// <summary>
-    /// Benannte Konstanten, um die Properties eines <see cref="Address"/>-Objekts im Indexer zu adressieren.
-    /// </summary>
+    /// <summary> Benannte Konstanten, um die Properties eines <see cref="Address" />-Objekts
+    /// im Indexer zu adressieren. </summary>
     private enum Prop
     {
         Street,
@@ -32,15 +29,12 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region Constructors
 
-    /// <summary>
-    /// Initialisiert eine leere Instanz der <see cref="Address"/>-Klasse.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="Address" /> class.</summary>
     public Address() { }
 
 
-    /// <summary>
-    /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
-    /// </summary>
+    /// <summary> Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller
+    /// seiner Unterobjekte. </summary>
     /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
     private Address(Address source)
     {
@@ -75,45 +69,35 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region Public Properties and Methods
 
-    /// <summary>
-    /// Straße (+ Hausnummer)
-    /// </summary>
+    /// <summary>Street (+ house number)</summary>
     public string? Street
     {
         get => Get(Prop.Street);
         set => Set(Prop.Street, value);
     }
 
-    /// <summary>
-    /// Ort
-    /// </summary>
+    /// <summary>City</summary>
     public string? City
     {
         get => Get(Prop.City);
         set => Set(Prop.City, value);
     }
 
-    /// <summary>
-    /// Postleitzahl
-    /// </summary>
+    /// <summary>Postal code</summary>
     public string? PostalCode
     {
         get => Get(Prop.PostalCode);
         set => Set(Prop.PostalCode, value);
     }
 
-    /// <summary>
-    /// Bundesland
-    /// </summary>
+    /// <summary>State</summary>
     public string? State
     {
         get => Get(Prop.State);
         set => Set(Prop.State, value);
     }
 
-    /// <summary>
-    /// Staat
-    /// </summary>
+    /// <summary>Country</summary>
     public string? Country
     {
         get => Get(Prop.Country);
@@ -121,25 +105,21 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
 
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Address"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="Address"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the object instance.</summary>
+    /// <returns>The content of the object instance as <see cref="string" />.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
 
     #region Operators
 
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="address1">Linker Operand.</param>
-    /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> gleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Address" /> objects to determine whether they
+    /// are equal.</remarks>
+    /// <param name="address1">Left operand.</param>
+    /// <param name="address2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="address1" /> and <paramref name="address2"
+    /// /> are equal, otherwise <c>false</c>.</returns>
     public static bool operator ==(Address? address1, Address? address2)
     {
         // If both are null, or both are same instance, return true.
@@ -160,22 +140,20 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
 
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Address"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="address1">Linker Operand.</param>
-    /// <param name="address2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="address1"/> und <paramref name="address2"/> ungleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Address" /> objects to determine whether they
+    /// are not equal.</remarks>
+    /// <param name="address1">Left operand.</param>
+    /// <param name="address2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="address1" /> and <paramref name="address2"
+    /// /> are not equal, otherwise <c>false</c>.</returns>
     public static bool operator !=(Address? address1, Address? address2) => !(address1 == address2);
 
     #endregion
 
     #region MergeableObject<T>, ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(Address other)
     {
         string? postalCode = PostalCode;
@@ -220,7 +198,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(Address source)
     {
         if (Strip.IsEmpty(PostalCode))
@@ -251,11 +229,11 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean()
     {
         Prop[]? keys = this._propDic.Keys.ToArray();
@@ -276,17 +254,15 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
 
     #region ICloneable
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new Address(this);
 
     #endregion
 
     #region IEquatable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to Address return false.
@@ -306,7 +282,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Address? other)
     {
         // If parameter is null return false:
@@ -325,11 +301,10 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
         return CompareBoolean(other);
     }
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Address"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Address"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="Address"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="Address" />-Objekt, mit dem verglichen wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Address other)
     {
         StringComparer comparer = StringComparer.Ordinal;
@@ -341,7 +316,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
             && comparer.Equals(StringCleaner.PrepareForComparison(Country), StringCleaner.PrepareForComparison(other.Country));
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return HashCode.Combine(

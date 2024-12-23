@@ -1,18 +1,15 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Interface, das das implementierende Objekt befähigt, sich selbst von Datenmüll zu reinigen.
-/// </summary>
+    /// <summary>Interface, that enables the implementing class to clean itself of data
+    /// garbage.</summary>
 public interface ICleanable
 {
-    /// <summary>
-    /// Reinigt die im Objekt gespeicherten Daten: Entfernt z.B. leere Unterobjekte oder überflüssige Leerzeichen.
-    /// </summary>
+    /// <summary>Cleans the data stored in the object: Removes e.g. empty sub-objects
+    /// or superfluous white space.</summary>
     void Clean();
 
 
-    /// <summary>
-    /// Gibt <c>true</c> zurück, wenn das Objekt keine verwertbaren Daten enthält, andernfalls <c>false</c>.
-    /// </summary>
+    /// <summary>Returns <c>true</c> if the object does not contain any usable data,
+    /// otherwise <c>false</c>.</summary>
     bool IsEmpty { get; }
 }

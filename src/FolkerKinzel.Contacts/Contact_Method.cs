@@ -1,14 +1,12 @@
-﻿using System.Text;
+using System.Text;
 using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact
 {
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Contact"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="Contact"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the object instance.</summary>
+    /// <returns>The content of the object instance as <see cref="string" />.</returns>
     public override string ToString()
     {
         if (IsEmpty)

@@ -1,10 +1,10 @@
-﻿using FolkerKinzel.Contacts.Intls;
+using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : ICleanable
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty
     {
         get
@@ -27,7 +27,7 @@ public sealed partial class Contact : ICleanable
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean()
     {
         KeyValuePair<Prop, object>[]? props = _propDic.ToArray();

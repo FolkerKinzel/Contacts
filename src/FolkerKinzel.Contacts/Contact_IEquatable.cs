@@ -1,10 +1,10 @@
-﻿using FolkerKinzel.Contacts.Intls;
+using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : IEquatable<Contact>
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to Contact return false.
@@ -22,7 +22,7 @@ public sealed partial class Contact : IEquatable<Contact>
         return CompareBoolean(p);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Contact? other)
     {
         // If parameter is null return false:
@@ -40,7 +40,7 @@ public sealed partial class Contact : IEquatable<Contact>
         return CompareBoolean(other);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         var hash = new HashCode();
@@ -92,11 +92,10 @@ public sealed partial class Contact : IEquatable<Contact>
         }
     }
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Contact"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="Contact" />-Objekt, mit dem verglichen wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Contact other)
     {
         StringComparer comp = StringComparer.Ordinal;

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using FolkerKinzel.Contacts.Intls;
@@ -6,9 +6,8 @@ using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Kapselt Informationen über die Arbeitsstelle einer Person.
-/// </summary>
+    /// <summary>Encapsulates data, describing an organization or company, or data,
+    /// that describes a person's job.</summary>
 public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquatable<Work?>
 {
     #region Prop Enum
@@ -30,15 +29,12 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region Constructors
 
-    /// <summary>
-    /// Initialisiert eine leere Instanz der <see cref="Work"/>-Klasse.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="Work" /> class.</summary>
     public Work() { }
 
 
-    /// <summary>
-    /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
-    /// </summary>
+    /// <summary> Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller
+    /// seiner Unterobjekte. </summary>
     /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
     private Work(Work source)
     {
@@ -72,70 +68,56 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region Public Properties and Methods
 
-    /// <summary>
-    /// Name der Firma oder Organisation
-    /// </summary>
+    /// <summary>Name of the company or organization</summary>
     public string? Company
     {
         get => Get<string?>(Prop.Company);
         set => Set(Prop.Company, value);
     }
 
-    /// <summary>
-    /// Abteilung
-    /// </summary>
+    /// <summary>Department</summary>
     public string? Department
     {
         get => Get<string?>(Prop.Department);
         set => Set(Prop.Department, value);
     }
 
-    /// <summary>
-    /// Büro
-    /// </summary>
+    /// <summary>Office</summary>
     public string? Office
     {
         get => Get<string?>(Prop.Office);
         set => Set(Prop.Office, value);
     }
 
-    /// <summary>
-    /// Titel bzw. Position des Mitarbeiters
-    /// </summary>
+    /// <summary>Job title</summary>
     public string? JobTitle
     {
         get => Get<string?>(Prop.JobTitle);
         set => Set(Prop.JobTitle, value);
     }
 
-    /// <summary>
-    /// Postanschrift der Firma oder Organisation
-    /// </summary>
+    /// <summary>Postal address of the company or organization</summary>
     public Address? AddressWork
     {
         get => Get<Address?>(Prop.AddressWork);
         set => Set(Prop.AddressWork, value);
     }
 
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Work"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="Work"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the instance.</summary>
+    /// <returns>The content of the instance as <see cref="string" />.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
 
     #region Operators
 
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="work1">Linker Operand.</param>
-    /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> gleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Work" /> objects to determine whether they
+    /// are equal.</remarks>
+    /// <param name="work1">Left operand.</param>
+    /// <param name="work2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="work1" /> and <paramref name="work2"
+    /// /> are equal, otherwise <c>false</c>.</returns>
     public static bool operator ==(Work? work1, Work? work2)
     {
         // If both are null, or both are same instance, return true.
@@ -156,22 +138,20 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Work"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="work1">Linker Operand.</param>
-    /// <param name="work2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="work1"/> und <paramref name="work2"/> ungleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Work" /> objects to determine whether they
+    /// are not equal.</remarks>
+    /// <param name="work1">Left operand.</param>
+    /// <param name="work2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="work1" /> and <paramref name="work2"
+    /// /> are not equal, otherwise <c>false</c>.</returns>
     public static bool operator !=(Work? work1, Work? work2) => !(work1 == work2);
 
     #endregion
 
     #region MergeableObject<T>, ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(Work other)
     {
         if (AreDifferent(Company, other.Company))
@@ -204,7 +184,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(Work source)
     {
         Address? adr = AddressWork;
@@ -238,7 +218,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
@@ -267,7 +247,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty
     {
         get
@@ -289,17 +269,15 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
 
     #region ICloneable
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new Work(this);
 
     #endregion
 
     #region IEquatable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to EnterpriseData return false.
@@ -319,7 +297,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Work? other)
     {
         // If parameter is null return false:
@@ -339,11 +317,10 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Work"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Work"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="Work"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="Work" />-Objekt, mit dem verglichen wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Work other)
     {
         StringComparer comparer = StringComparer.Ordinal;
@@ -356,7 +333,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return HashCode.Combine(

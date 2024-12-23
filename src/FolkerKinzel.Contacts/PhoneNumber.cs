@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
@@ -7,9 +7,7 @@ using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Kapselt Informationen über eine Telefonnummer.
-/// </summary>
+    /// <summary>Encapsulates information about a phone number.</summary>
 public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, ICloneable, IEquatable<PhoneNumber?>, IEnumerable<PhoneNumber>
 {
     #region Flags Enum
@@ -30,19 +28,15 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region Ctors
 
-    /// <summary>
-    /// Initialisiert ein leeres <see cref="PhoneNumber"/>-Objekt.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="PhoneNumber" /> class.</summary>
     public PhoneNumber() { }
 
-    /// <summary>
-    /// Initialisiert ein <see cref="PhoneNumber"/>-Objekt mit der zu kapselnden Telefonnummer
-    /// und optionalen Flags, die diese näher beschreiben.
-    /// </summary>
-    /// <param name="value">Die Telefonnummer.</param>
-    /// <param name="isWork"><c>true</c> gibt an, dass es sich um eine dienstliche Telefonnummer handelt.</param>
-    /// <param name="isMobile"><c>true</c> gibt an, dass es sich um eine Mobilfunknummer handelt.</param>
-    /// <param name="isFax"><c>true</c> gibt an, dass die Nummer für den Fax-Empfang geeignet ist.</param>
+    /// <summary>Initializes a <see cref="PhoneNumber" /> object with the phone number
+    /// to be encapsulated and optional flags, that describe it in more detail.</summary>
+    /// <param name="value">The phone number.</param>
+    /// <param name="isWork"> <c>true</c> indicates, that it is a business phone number.</param>
+    /// <param name="isMobile"> <c>true</c> indicates, that it is a mobile phone number.</param>
+    /// <param name="isFax"> <c>true</c> indicates, that it is a fax number.</param>
     public PhoneNumber(string? value, bool isWork = false, bool isMobile = false, bool isFax = false)
     {
         this.Value = value;
@@ -61,32 +55,27 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region public Properties and Methods
 
-    /// <summary>
-    /// Telefonnummer
-    /// </summary>
+    /// <summary>Phone number</summary>
     public string? Value { get; set; }
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass es sich bei <see cref="Value"/> um eine dienstliche Telefonnummer handelt.
-    /// </summary>
+    /// <summary> <c>true</c> gibt an, dass es sich bei <see cref="Value" /> um eine
+    /// dienstliche Telefonnummer handelt. </summary>
     public bool IsWork
     {
         get => (_flags & Flags.IsWork) == Flags.IsWork;
         set => _flags = value ? _flags | Flags.IsWork : _flags & ~Flags.IsWork;
     }
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass es sich bei <see cref="Value"/> um eine Mobilfunknummer handelt.
-    /// </summary>
+    /// <summary> <c>true</c> gibt an, dass es sich bei <see cref="Value" /> um eine
+    /// Mobilfunknummer handelt. </summary>
     public bool IsMobile
     {
         get => (_flags & Flags.IsMobile) == Flags.IsMobile;
         set => _flags = value ? _flags | Flags.IsMobile : _flags & ~Flags.IsMobile;
     }
 
-    /// <summary>
-    /// <c>true</c> gibt an, dass <see cref="Value"/> eine Telefonnummer ist, die für den Faxempfang geeignet ist.
-    /// </summary>
+    /// <summary> <c>true</c> gibt an, dass <see cref="Value" /> eine Telefonnummer
+    /// ist, die für den Faxempfang geeignet ist. </summary>
     public bool IsFax
     {
         get => (_flags & Flags.IsFax) == Flags.IsFax;
@@ -94,25 +83,21 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     }
 
 
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="PhoneNumber"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="PhoneNumber"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the object instance.</summary>
+    /// <returns>The content of the object instance as <see cref="string" />.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
 
     #region Operators
 
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="phone1">Linker Operand.</param>
-    /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> gleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="PhoneNumber" /> objects to determine whether
+    /// they are equal.</remarks>
+    /// <param name="phone1">Left operand.</param>
+    /// <param name="phone2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="phone1" /> and <paramref name="phone2"
+    /// /> are equal, otherwise <c>false</c>.</returns>
     public static bool operator ==(PhoneNumber? phone1, PhoneNumber? phone2)
     {
         // If both are null, or both are same instance, return true.
@@ -133,26 +118,24 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     }
 
 
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="PhoneNumber"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="phone1">Linker Operand.</param>
-    /// <param name="phone2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="phone1"/> und <paramref name="phone2"/> ungleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="PhoneNumber" /> objects to determine whether
+    /// they are not equal.</remarks>
+    /// <param name="phone1">Left operand.</param>
+    /// <param name="phone2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="phone1" /> and <paramref name="phone2"
+    /// /> are not equal, otherwise <c>false</c>.</returns>
     public static bool operator !=(PhoneNumber? phone1, PhoneNumber? phone2) => !(phone1 == phone2);
 
     #endregion
 
     #region MergeableObject<T>, ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(PhoneNumber other) => !Strip.Equals(Value, other.Value);
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(PhoneNumber source)
     {
         if (IsEmpty)
@@ -165,11 +148,11 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty => Strip.IsEmpty(this.Value);
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean() => this.Value = StringCleaner.CleanDataEntry(this.Value);
 
     #endregion
@@ -177,48 +160,39 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
     #region IEnumerable
 
-    /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
-    /// zurückgibt.
-    /// </summary>
-    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
-    /// zurückgibt.</returns>
-    /// <remarks>
-    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="PhoneNumber"/>-Objekt als Argument an einen Methodenparameter vom Typ
-    /// <see cref="IEnumerable{T}">IEnumerable&lt;PhoneNumber&gt;</see> zu übergeben.
-    /// </remarks>
+    /// <summary>Returns an enumerator, which returns the executing instance of the
+    /// <see cref="PhoneNumber" /> class.</summary>
+    /// <returns>An enumerator, which returns the executing instance of the <see cref="PhoneNumber"
+    /// /> class.</returns>
+    /// <remarks>This implementation allows to pass a single <see cref="PhoneNumber"
+    /// /> object as an argument to a method parameter of type <see cref="IEnumerable{T}">IEnumerable&lt;PhoneNumber&gt;</see>.</remarks>
     IEnumerator<PhoneNumber> IEnumerable<PhoneNumber>.GetEnumerator()
     {
         yield return this;
     }
 
-    /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
-    /// zurückgibt.
-    /// </summary>
-    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="PhoneNumber"/>-Klasse
-    /// zurückgibt.</returns>
-    /// <remarks>
-    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="PhoneNumber"/>-Objekt als Argument an einen Methodenparameter vom Typ
-    /// <see cref="IEnumerable"/> zu übergeben.
-    /// </remarks>
+    /// <summary>Returns an enumerator, which returns the executing instance of the
+    /// <see cref="PhoneNumber" /> class.</summary>
+    /// <returns>An enumerator, which returns the executing instance of the <see cref="PhoneNumber"
+    /// /> class.</returns>
+    /// <remarks>This implementation allows to pass a single <see cref="PhoneNumber"
+    /// /> object as an argument to a method parameter of type <see cref="IEnumerable"
+    /// />.</remarks>
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<PhoneNumber>)this).GetEnumerator();
 
     #endregion
 
     #region ICloneable
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new PhoneNumber(this);
 
     #endregion
 
     #region IEquatable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not PhoneNumber p)
@@ -230,7 +204,7 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] PhoneNumber? other)
     {
         if (other is null)
@@ -249,17 +223,17 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
     }
 
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="PhoneNumber"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="PhoneNumber"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="PhoneNumber" />-Objekt, mit dem verglichen
+    /// wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(PhoneNumber other)
         => (IsEmpty && other.IsEmpty)
         || (StringComparer.Ordinal.Equals(Value, other.Value) && _flags == other._flags);
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode() => HashCode.Combine(Strip.GetHashCode(Value), _flags);
 
     #endregion

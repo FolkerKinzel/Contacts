@@ -1,10 +1,10 @@
-﻿using FolkerKinzel.Contacts.Intls;
+using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : MergeableObject<Contact>
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(Contact other)
     {
         StringComparer comp = StringComparer.Ordinal;
@@ -145,7 +145,7 @@ public sealed partial class Contact : MergeableObject<Contact>
 
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(Contact source)
     {
         if (TimeStamp.IsEmptyTimeStamp())

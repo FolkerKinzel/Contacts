@@ -1,11 +1,9 @@
-﻿using System.Text;
+using System.Text;
 using FolkerKinzel.Contacts.Intls;
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Kapselt Informationen über den Namen einer Person.
-/// </summary>
+    /// <summary>Encapsulates information about a persons name.</summary>
 public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquatable<Name?>
 {
     #region Prop Enum
@@ -27,15 +25,11 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region Ctors
 
-    /// <summary>
-    /// Initialisiert ein leeres <see cref="Name"/>-Objekt.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="Name" /> class.</summary>
     public Name() { }
 
-    /// <summary>
-    /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <param name="other">Das zu kopierende <see cref="Name"/>-Objekt.</param>
+    /// <summary> Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts. </summary>
+    /// <param name="other">Das zu kopierende <see cref="Name" />-Objekt.</param>
     private Name(Name other)
     {
         foreach (KeyValuePair<Prop, string> kvp in other._propDic)
@@ -66,55 +60,43 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region Public Properties and Methods
 
-    /// <summary>
-    /// Familienname
-    /// </summary>
+    /// <summary>Last name</summary>
     public string? LastName
     {
         get => Get(Prop.LastName);
         set => Set(Prop.LastName, value);
     }
 
-    /// <summary>
-    /// Vorname
-    /// </summary>
+    /// <summary>First name</summary>
     public string? FirstName
     {
         get => Get(Prop.FirstName);
         set => Set(Prop.FirstName, value);
     }
 
-    /// <summary>
-    /// Zweiter Vorname
-    /// </summary>
+    /// <summary>Middle name</summary>
     public string? MiddleName
     {
         get => Get(Prop.MiddleName);
         set => Set(Prop.MiddleName, value);
     }
 
-    /// <summary>
-    /// Namenspräfix (z.B. "Prof. Dr.")
-    /// </summary>
+    /// <summary>Name prefix</summary>
     public string? Prefix
     {
         get => Get(Prop.Prefix);
         set => Set(Prop.Prefix, value);
     }
 
-    /// <summary>
-    /// Namenssuffix (z.B. "jr.")
-    /// </summary>
+    /// <summary>Name suffix</summary>
     public string? Suffix
     {
         get => Get(Prop.Suffix);
         set => Set(Prop.Suffix, value);
     }
 
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Name"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="Name"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the object instance.</summary>
+    /// <returns>The content of the object instance as <see cref="string" />.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
@@ -122,15 +104,13 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     #region Operators
 
 
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Name"/>-Objekte, um festzustellen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="name1">Linker Operand.</param>
-    /// <param name="name2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> gleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Name" /> objects to determine whether they
+    /// are equal.</remarks>
+    /// <param name="name1">Left operand.</param>
+    /// <param name="name2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="name1" /> and <paramref name="name2"
+    /// /> are equal, otherwise <c>false</c>.</returns>
     public static bool operator ==(Name? name1, Name? name2)
     {
         // If both are null, or both are same instance, return true.
@@ -151,15 +131,13 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Name"/>-Objekte, um festzustellen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="name1">Linker Operand.</param>
-    /// <param name="name2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="name1"/> und <paramref name="name2"/> ungleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Name" /> objects to determine whether they
+    /// are not equal.</remarks>
+    /// <param name="name1">Left operand.</param>
+    /// <param name="name2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="name1" /> and <paramref name="name2"
+    /// /> are not equal, otherwise <c>false</c>.</returns>
     public static bool operator !=(Name? name1, Name? name2) => !(name1 == name2);
 
     #endregion
@@ -167,7 +145,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region MergeableObject<T>, ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(Name other)
     {
         if (AreDifferent(FirstName, other.FirstName))
@@ -189,7 +167,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(Name source)
     {
         if (Strip.IsEmpty(FirstName))
@@ -221,11 +199,11 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty => !_propDic.Any(x => !Strip.IsEmpty(x.Value));
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean()
     {
         KeyValuePair<Prop, string>[] props = _propDic.ToArray();
@@ -250,10 +228,8 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region ICloneable
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new Name(this);
 
     #endregion
@@ -261,7 +237,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #region IEquatable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         if (obj is not Name p)
@@ -300,11 +276,10 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Name"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Name"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="Name"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="Name" />-Objekt, mit dem verglichen wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Name other)
     {
         StringComparer comparer = StringComparer.Ordinal;
@@ -317,7 +292,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return HashCode.Combine(

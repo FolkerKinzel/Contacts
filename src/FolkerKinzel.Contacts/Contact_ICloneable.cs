@@ -1,10 +1,8 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : ICloneable
 {
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new Contact(this);
 }

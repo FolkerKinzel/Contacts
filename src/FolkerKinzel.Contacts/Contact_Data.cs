@@ -1,4 +1,4 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact
 {
@@ -40,99 +40,77 @@ public sealed partial class Contact
     #endregion
 
 
-    /// <summary>
-    /// Anzeigename
-    /// </summary>
+    /// <summary>Display name</summary>
     public string? DisplayName
     {
         get => Get<string?>(Prop.DisplayName);
         set => Set(Prop.DisplayName, value);
     }
 
-    /// <summary>
-    /// Personenbezogene Daten
-    /// </summary>
+    /// <summary>Personal data</summary>
     public Person? Person
     {
         get => Get<Person?>(Prop.Person);
         set => Set(Prop.Person, value);
     }
 
-    /// <summary>
-    /// E-Mail-Adressen
-    /// </summary>
+    /// <summary>Email addresses</summary>
     public IEnumerable<string?>? EmailAddresses
     {
         get => Get<IEnumerable<string?>?>(Prop.EmailAdresses);
         set => Set(Prop.EmailAdresses, value);
     }
 
-    /// <summary>
-    /// Instant-Messenger-Handles
-    /// </summary>
+    /// <summary>Instant messenger handles</summary>
     public IEnumerable<string?>? InstantMessengerHandles
     {
         get => Get<IEnumerable<string?>?>(Prop.InstantMessengerHandles);
         set => Set(Prop.InstantMessengerHandles, value);
     }
 
-    /// <summary>
-    /// Telefonnummern
-    /// </summary>
+    /// <summary>Phone numbers</summary>
     public IEnumerable<PhoneNumber?>? PhoneNumbers
     {
         get => Get<IEnumerable<PhoneNumber?>?>(Prop.PhoneNumbers);
         set => Set(Prop.PhoneNumbers, value);
     }
 
-    /// <summary>
-    /// Postanschrift (privat)
-    /// </summary>
+    /// <summary>Postal address (personal)</summary>
     public Address? AddressHome
     {
         get => Get<Address?>(Prop.AddressHome);
         set => Set(Prop.AddressHome, value);
     }
 
-    /// <summary>
-    /// Berufliche Daten
-    /// </summary>
+    /// <summary>Organizational data</summary>
     public Work? Work
     {
         get => Get<Work?>(Prop.Work);
         set => Set(Prop.Work, value);
     }
 
-    /// <summary>
-    /// Private Homepage
-    /// </summary>
+    /// <summary>Personal homepage</summary>
     public string? WebPagePersonal
     {
         get => Get<string?>(Prop.WebPagePersonal);
         set => Set(Prop.WebPagePersonal, value);
     }
 
-    /// <summary>
-    /// Firmenwebseite
-    /// </summary>
+    /// <summary>Business homepage</summary>
     public string? WebPageWork
     {
         get => Get<string?>(Prop.WebPageWork);
         set => Set(Prop.WebPageWork, value);
     }
 
-    /// <summary>
-    /// Kommentar
-    /// </summary>
+    /// <summary>Notes</summary>
     public string? Comment
     {
         get => Get<string?>(Prop.Comment);
         set => Set(Prop.Comment, value);
     }
 
-    /// <summary>
-    /// Letzte Änderung
-    /// </summary>
+    /// <summary>Last Changed</summary>
     public DateTime TimeStamp
     {
         get => Get<DateTime>(Prop.TimeStamp);

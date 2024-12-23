@@ -1,23 +1,20 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Einfaches Datenmodell zum Speichern von Kontaktdaten.
-/// </summary>
-/// <example>
-/// <para>Initialisieren von <see cref="Contact"/>-Objekten:</para>
-/// <code language="cs" source="..\Examples\ContactExample.cs" />
-/// </example>
+    /// <summary>Data model for storing contact data.</summary>
+    /// <example>
+    /// <para>
+    /// Initialize <see cref="Contact" /> objects:
+    /// </para>
+    /// <code language="cs" source="..\Examples\ContactExample.cs" />
+    /// </example>
 public sealed partial class Contact
 {
-    /// <summary>
-    /// Initialisiert eine leere Instanz der <see cref="Contact"/>-Klasse.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="Contact" /> class.</summary>
     public Contact() { }
 
 
-    /// <summary>
-    /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
-    /// </summary>
+    /// <summary> Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller
+    /// seiner Unterobjekte. </summary>
     /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
     private Contact(Contact source)
     {

@@ -1,22 +1,14 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Benannte Konstanten für die Geschlechtsangabe.
-/// </summary>
+    /// <summary>Named constants for gender.</summary>
 public enum Sex
 {
-    /// <summary>
-    /// Das Geschlecht ist nicht angegeben.
-    /// </summary>
+    /// <summary>The gender is unspecified.</summary>
     Unspecified,
 
-    /// <summary>
-    /// weiblich
-    /// </summary>
+    /// <summary>Female</summary>
     Female,
 
-    /// <summary>
-    /// männlich
-    /// </summary>
+    /// <summary>Male</summary>
     Male
 }

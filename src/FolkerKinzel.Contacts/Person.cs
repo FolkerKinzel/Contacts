@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -7,9 +7,7 @@ using FolkerKinzel.Contacts.Resources;
 
 namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Kapselt personenbezogene Daten.
-/// </summary>
+    /// <summary>Encapsulates personal data.</summary>
 public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IEquatable<Person?>
 {
     #region Prop Enum
@@ -34,17 +32,14 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region Constructors
 
-    /// <summary>
-    /// Initialisiert ein leeres <see cref="Person"/>-Objekt.
-    /// </summary>
+    /// <summary>Initializes an empty instance of the <see cref="Person" /> class.</summary>
     public Person()
     {
 
     }
 
-    /// <summary>
-    /// Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller seiner Unterobjekte.
-    /// </summary>
+    /// <summary> Kopierkonstruktor: Erstellt eine tiefe Kopie des Objekts und aller
+    /// seiner Unterobjekte. </summary>
     /// <param name="source">Quellobjekt, dessen Inhalt kopiert wird.</param>
     private Person(Person source)
     {
@@ -79,79 +74,65 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region Public Methods and Properties
 
-    /// <summary>
-    /// Name der Person
-    /// </summary>
+    /// <summary>Name of the person</summary>
     public Name? Name
     {
         get => Get<Name?>(Prop.Name);
         set => Set(Prop.Name, value);
     }
 
-    /// <summary>
-    /// Rufname
-    /// </summary>
+    /// <summary>Nickname</summary>
     public string? NickName
     {
         get => Get<string?>(Prop.NickName);
         set => Set(Prop.NickName, value);
     }
 
-    /// <summary>
-    /// Geschlecht
-    /// </summary>
+    /// <summary>Gender</summary>
     public Sex Gender
     {
         get => Get<Sex>(Prop.Gender);
         set => Set(Prop.Gender, value);
     }
 
-    /// <summary>
-    /// Geburtstag
-    /// </summary>
+    /// <summary>Birthday</summary>
     public DateTime? BirthDay
     {
         get => Get<DateTime?>(Prop.BirthDay);
         set => Set(Prop.BirthDay, value);
     }
 
-    /// <summary>
-    /// Name des Ehepartners
-    /// </summary>
+    /// <summary>Spouse's name</summary>
     public string? Spouse
     {
         get => Get<string?>(Prop.Spouse);
         set => Set(Prop.Spouse, value);
     }
 
-    /// <summary>
-    /// Hochzeitstag
-    /// </summary>
+    /// <summary>Anniversary</summary>
     public DateTime? Anniversary
     {
         get => Get<DateTime?>(Prop.Anniversary);
         set => Set(Prop.Anniversary, value);
     }
 
-    /// <summary>
-    /// Erstellt eine <see cref="string"/>-Repräsentation des <see cref="Person"/>-Objekts.
-    /// </summary>
-    /// <returns>Der Inhalt des <see cref="Person"/>-Objekts als <see cref="string"/>.</returns>
+    /// <summary>Creates a <see cref="string" /> representation of the <see cref="Person"
+    /// /> object.</summary>
+    /// <returns>The content of the <see cref="Person" /> object as <see cref="string"
+    /// />.</returns>
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
 
 
     #region Operators
-    /// <summary>
-    /// Überladung des == Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei <see cref="Person"/>-Objekte, um zu überprüfen, ob sie gleich sind.
-    /// </remarks>
-    /// <param name="person1">Linker Operand.</param>
-    /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> gleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Person" /> objects to determine whether they
+    /// are equal.</remarks>
+    /// <param name="person1">Left operand.</param>
+    /// <param name="person2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="person1" /> and <paramref name="person2"
+    /// /> are equal, otherwise <c>false</c>.</returns>
     public static bool operator ==(Person? person1, Person? person2)
     {
         // If both are null, or both are same instance, return true.
@@ -171,15 +152,13 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
         }
     }
 
-    /// <summary>
-    /// Überladung des != Operators.
-    /// </summary>
-    /// <remarks>
-    /// Vergleicht zwei<see cref="Person"/>-Objekte, um zu überprüfen, ob sie ungleich sind.
-    /// </remarks>
-    /// <param name="person1">Linker Operand.</param>
-    /// <param name="person2">Rechter Operand.</param>
-    /// <returns><c>true</c>, wenn <paramref name="person1"/> und <paramref name="person2"/> ungleich sind.</returns>
+    /// <summary>Overloads the != operator.</summary>
+    /// <remarks>Compares two <see cref="Person" /> objects to determine whether they
+    /// are not equal.</remarks>
+    /// <param name="person1">Left operand.</param>
+    /// <param name="person2">Right operand.</param>
+    /// <returns> <c>true</c> if <paramref name="person1" /> and <paramref name="person2"
+    /// /> are not equal, otherwise <c>false</c>.</returns>
     public static bool operator !=(Person? person1, Person? person2) => !(person1 == person2);
 
     #endregion
@@ -188,7 +167,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     #region MergeableObject<T>, ICleanable
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override bool DescribesForeignIdentity(Person other)
     {
         if (NameHasEvidence(Name, other.Name, out bool isDifferentIdentity))
@@ -239,7 +218,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     protected override void SupplementWith(Person source)
     {
         Name? name = Name;
@@ -279,7 +258,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region ICleanable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool IsEmpty => CheckIsEmpty();
 
     private bool CheckIsEmpty()
@@ -309,7 +288,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void Clean()
     {
         KeyValuePair<Prop, object>[] props = _propDic.ToArray();
@@ -359,10 +338,8 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region ICloneable
 
-    /// <summary>
-    /// Erstellt eine tiefe Kopie des Objekts.
-    /// </summary>
-    /// <returns>Eine tiefe Kopie des Objekts.</returns>
+    /// <summary>Creates a deep copy of the object instance.</summary>
+    /// <returns>Deep copy of the object instance.</returns>
     public object Clone() => new Person(this);
 
     #endregion
@@ -370,7 +347,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     #region IEquatable
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
         // If parameter cannot be cast to WabPerson return false.
@@ -390,7 +367,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public bool Equals([NotNullWhen(true)] Person? other)
     {
         // If parameter is null return false:
@@ -410,11 +387,10 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    /// <summary>
-    /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Person"/>-Objekts.
-    /// </summary>
-    /// <param name="other">Das <see cref="Person"/>-Objekt, mit dem verglichen wird.</param>
-    /// <returns><c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
+    /// <summary> Vergleicht die Eigenschaften mit denen eines anderen <see cref="Person"
+    /// />-Objekts. </summary>
+    /// <param name="other">Das <see cref="Person" />-Objekt, mit dem verglichen wird.</param>
+    /// <returns> <c>true</c>, wenn alle Eigenschaften übereinstimmen.</returns>
     private bool CompareBoolean(Person other)
     {
         StringComparer comp = StringComparer.Ordinal;
@@ -428,7 +404,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override int GetHashCode()
         => HashCode.Combine(Name, BirthDay, StringCleaner.PrepareForComparison(NickName));
 

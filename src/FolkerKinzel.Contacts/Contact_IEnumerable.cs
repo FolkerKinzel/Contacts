@@ -1,34 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 
 namespace FolkerKinzel.Contacts;
 
 public sealed partial class Contact : IEnumerable<Contact>
 {
-    /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="Contact"/>-Klasse
-    /// zurückgibt.
-    /// </summary>
-    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="Contact"/>-Klasse
-    /// zurückgibt.</returns>
-    /// <remarks>
-    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="Contact"/>-Objekt als Argument an einen Methodenparameter vom Typ
-    /// <see cref="IEnumerable{T}">IEnumerable&lt;Contact&gt;</see> zu übergeben.
-    /// </remarks>
+    /// <summary>Returns an enumerator, which returns the executing instance of the
+    /// <see cref="Contact" /> class.</summary>
+    /// <returns>An enumerator, which returns the executing instance of the <see cref="Contact"
+    /// /> class.</returns>
+    /// <remarks>This implementation allows to pass a single <see cref="Contact" />
+    /// object as an argument to a method parameter of type <see cref="IEnumerable{T}">IEnumerable&lt;Contact&gt;</see>.</remarks>
     IEnumerator<Contact> IEnumerable<Contact>.GetEnumerator()
     {
         yield return this;
     }
 
 
-    /// <summary>
-    /// Gibt einen Enumerator zurück, der die ausführende Instanz der <see cref="Contact"/>-Klasse
-    /// zurückgibt.
-    /// </summary>
-    /// <returns>Ein Enumerator, der die ausführende Instanz der <see cref="Contact"/>-Klasse
-    /// zurückgibt.</returns>
-    /// <remarks>
-    /// Diese Implementierung ermöglicht es, ein einzelnes <see cref="Contact"/>-Objekt als Argument an einen Methodenparameter vom Typ
-    /// <see cref="IEnumerable"/> zu übergeben.
-    /// </remarks>
+    /// <summary>Returns an enumerator, which returns the executing instance of the
+    /// <see cref="Contact" /> class.</summary>
+    /// <returns>An enumerator, which returns the executing instance of the <see cref="Contact"
+    /// /> class.</returns>
+    /// <remarks>This implementation allows to pass a single <see cref="Contact" />
+    /// object as an argument to a method parameter of type <see cref="IEnumerable"
+    /// />.</remarks>
     IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<Contact>)this).GetEnumerator();
 }//class

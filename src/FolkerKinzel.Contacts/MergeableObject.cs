@@ -1,85 +1,83 @@
-﻿namespace FolkerKinzel.Contacts;
+namespace FolkerKinzel.Contacts;
 
-/// <summary>
-/// Abstrakte Basisklasse, die Methoden bereitstellt, die Instanzen abgeleiteter Klassen dazu befähigt, ihre Daten miteinander
-/// zu verschmelzen.
-/// </summary>
-/// <typeparam name="T">Generischer Typparameter, der stellvertretend für eine abgeleitete Klasse steht.</typeparam>
+    /// <summary>Abstract base class, which provides methods that enable instances of
+    /// derived classes to merge their data with one another.</summary>
+    /// <typeparam name="T">Generic type parameter that represents a derived class.</typeparam>
 public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<T>
 {
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public abstract bool IsEmpty { get; }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public abstract void Clean();
 
 
-    /// <summary>
-    /// Untersucht, ob einer Verschmelzung der Daten aus <paramref name="other"/> mit denen der aktuellen
-    /// Instanz nichts entgegen steht.
-    /// </summary>
-    /// <param name="other">Ein anderes <see cref="MergeableObject{T}"/> oder <c>null</c>.</param>
-    /// <returns><c>true</c>, wenn einer Verschmelzung mit <paramref name="other"/> nichts entgegen steht,
-    /// andernfalls <c>false</c>.</returns>
+    /// <summary>Determines whether there is nothing to prevent the data from <paramref
+    /// name="other" /> from being merged with those of the current instance.</summary>
+    /// <param name="other">Another <see cref="MergeableObject{T}" /> or <c>null</c>.</param>
+    /// <returns> <c>true</c> if there is nothing to prevent a merging with <paramref
+    /// name="other" />, otherwise <c>false</c>.</returns>
     /// <remarks>
     /// <para>
-    ///  Wenn <paramref name="other"/>&#160;<c>null</c> oder <see cref="IsEmpty"/> ist,
-    ///  gibt die Methode <c>true</c> zurück. Wenn die Eigenschaft <see cref="IsEmpty"/> der aktuellen Instanz
-    ///  <c>true</c> zurückgibt, steht einer Verschmelzung der Daten aus <paramref name="other"/> mit denen der aktuellen
-    /// Instanz ebenfalls nichts entgegen. Deshalb gibt die Methode auch in diesem Fall <c>true</c> zurück.
+    /// If <paramref name="other" /> is <c>null</c> or <see cref="IsEmpty" />, the method
+    /// returns <c>true</c>. If the property <see cref="IsEmpty" /> of the current instance
+    /// returns <c>true</c>, there is also nothing that prevents a merging of the data
+    /// from <paramref name="other" /> with those of the current instance. Therefore
+    /// the method returns <c>true</c> in this case as well.
     /// </para>
     /// <para>
-    /// Die Methode kann geeignete Kandidaten für eine Verschmelzung ihrer Daten finden ("Doubletten"); sie
-    /// kann aber nicht feststellen, ob die Zusammenführung der Daten sinnvoll ist. Es wäre eine gute Praxis, die Benutzer der
-    /// Anwendung darüber entscheiden zu lassen.
+    /// The method can find suitable candidates for a merging of their data ("doublets");
+    /// however, it cannot determine whether the merging of the data makes sense. It
+    /// would be a good practice to let the users of the application decide that.
     /// </para>
     /// </remarks>
     public bool IsMergeableWith([NotNullWhen(false)] T? other) => other is null || IsEmpty || other.IsEmpty || !DescribesForeignIdentity(other);
 
 
-    /// <summary>
-    /// Untersucht, ob einer Verschmelzung der Daten von <paramref name="mergeable1"/> und <paramref name="mergeable2"/> nichts entgegen steht.
-    /// </summary>
-    /// <param name="mergeable1">Das erste zu untersuchende Objekt.</param>
-    /// <param name="mergeable2">Das zweite zu untersuchende Objekt.</param>
-    /// <returns><c>true</c>, wenn einer Verschmelzung von <paramref name="mergeable1"/> und <paramref name="mergeable2"/> nichts entgegen steht,
-    /// andernfalls <c>false</c>.</returns>
+    /// <summary>Examines whether there is nothing to prevent the merging of the data
+    /// from <paramref name="mergeable1" /> and <paramref name="mergeable2" />.</summary>
+    /// <param name="mergeable1">The first object to be examined.</param>
+    /// <param name="mergeable2">The second object to be examined.</param>
+    /// <returns> <c>true</c> if there is nothing to prevent a merging of <paramref
+    /// name="mergeable1" /> and <paramref name="mergeable2" />, otherwise <c>false</c>.</returns>
     /// <remarks>
     /// <para>
-    ///  Wenn eines der zu untersuchenden Objekte <c>null</c> oder <see cref="IsEmpty"/> ist,
-    ///  gibt die Methode <c>true</c> zurück.
+    /// If one of the objects to be examined is <c>null</c> or <see cref="IsEmpty" />,
+    /// the method returns <c>true</c>.
     /// </para>
     /// <para>
-    /// Die Methode kann geeignete Kandidaten für eine Verschmelzung ihrer Daten finden ("Doubletten"); sie
-    /// kann aber nicht feststellen, ob die Zusammenführung der Daten sinnvoll ist. Es wäre eine gute Praxis, die Benutzer der
-    /// Anwendung darüber entscheiden zu lassen.
+    /// The method can find suitable candidates for a merging of their data ("doublets");
+    /// however, it cannot determine whether the merging of the data makes sense. It
+    /// would be a good practice to let the users of the application decide that.
     /// </para>
     /// </remarks>
     public static bool AreMergeable([NotNullWhen(false)]T? mergeable1, [NotNullWhen(false)] T? mergeable2) => mergeable1?.IsMergeableWith(mergeable2) ?? true;
 
 
-    /// <summary>
-    /// Ergänzt die ausführende Instanz mit den Daten von <paramref name="source"/>. Es werden dabei in der aktuellen Instanz keine vorhandenen Daten
-    /// überschrieben.
-    /// </summary>
-    /// <param name="source">Das Quellobjekt, mit dessen Daten die ausführenden Instanz vervollständigt wird.</param>
-    /// <returns>Eine Referenz auf die ausführende Instanz, um Aufrufe verketten zu können.</returns>
+    /// <summary>Supplements the executing instance with the data from <paramref name="source"
+    /// />. No existing data will be overwritten in the current instance.</summary>
+    /// <param name="source">The source object whose data is used to supplement the
+    /// executing instance.</param>
+    /// <returns>A reference to the executing instance in order to be able to chain
+    /// calls.</returns>
     /// <remarks>
     /// <para>
-    /// Die Methode führt keinerlei Überprüfung durch, ob die Ergänzung der Daten der aktuellen Instanz mit denen 
-    /// von <paramref name="source"/> sinnvoll ist. Prüfen Sie dies vorher mit der Instanzmethode <see cref="IsMergeableWith(T?)"/> 
-    /// oder der statischen Methode <see cref="AreMergeable(T?, T?)"/> und lassen Sie sich
-    /// das Ergebnis der Prüfung möglichst von den Benutzern der Anwendung bestätigen.
+    /// The method does not check whether it makes sense to supplement the data of the
+    /// current instance with those from <paramref name="source" />. Check this beforehand
+    /// with <see cref="IsMergeableWith(T?)" /> and have the result of the check confirmed
+    /// by the users of the application, if possible.
     /// </para>
     /// <para>
-    /// Wenn <paramref name="source"/>&#160;<c>null</c> oder <see cref="IsEmpty"/> ist, werden keine Daten kopiert.
+    /// If <paramref name="source" /> is <c>null</c> or <see cref="IsEmpty" /> no data
+    /// will be copied.
     /// </para>
     /// <para>
-    /// Bei der Verschmelzung zweier <see cref="MergeableObject{T}"/>-Instanzen ist das Ergebnis davon abhängig, auf welcher der beiden 
-    /// Instanzen die Methode aufgerufen wird. Die Erhaltung der Daten der Instanz, auf der die Methode aufgerufen wird, hat Priorität.
-    /// Es liegt in der Verantwortung der ausführenden Anwendung, die Methode auf der geeigneteren der beiden Instanzen 
-    /// aufzurufen.
+    /// When merging two <see cref="MergeableObject{T}" /> instances the result depends
+    /// on which of the two instances the method is called on. Preserving the data of
+    /// the instance on which the method is called has priority. It is the responsibility
+    /// of the executing application to call the method on the more appropriate of the
+    /// two instances.
     /// </para>
     /// </remarks>
     public T Merge(T? source)
@@ -92,26 +90,26 @@ public abstract class MergeableObject<T> : ICleanable where T : MergeableObject<
     }
 
 
-    /// <summary>
-    /// Ergänzt die ausführende Instanz mit den Daten von <paramref name="source"/>, ohne vorhandene Daten dabei zu überschreiben.
-    /// </summary>
-    /// <param name="source">Das Quellobjekt. (Nie <c>null</c> oder <see cref="IsEmpty"/>.)</param>
+    /// <summary>Supplements the executing instance with the data from <paramref name="source"
+    /// /> without overwriting existing data.</summary>
+    /// <param name="source">The source object. (Never <c>null</c> or <see cref="IsEmpty"
+    /// />.)</param>
     /// <remarks>
     /// <note type="inherit">
-    /// Beim Überschreiben der Methode in erbenden Klassen muss das Versprechen eingehalten werden, dass die Methode keine vorhandenen
-    /// Daten überschreibt!
+    /// When overwriting the method in inheriting classes, the promise must be kept
+    /// that the method will not overwrite any existing data!
     /// </note>
     /// </remarks>
     protected abstract void SupplementWith(T source);
 
 
-    /// <summary>
-    /// Untersucht <paramref name="other"/> daraufhin, ob es eine fremde Identität beschreibt, und
-    /// deshalb nicht mit der aktuellen Instanz verschmolzen werden kann.
-    /// </summary>
-    /// <param name="other">Das zu untersuchende Objekt. (Nie <c>null</c> oder <see cref="IsEmpty"/>.)</param>
-    /// <returns>Die Methode darf nur dann <c>true</c> zurückgeben, wenn die Werte der Eigenschaften von <paramref name="other"/>
-    /// eine Verschmelzung mit der aktuellen Instanz unmöglich machen, andernfalls <c>false</c>.</returns>
+    /// <summary>Examines <paramref name="other" /> to see whether it describes a foreign
+    /// identity and therefore cannot be merged with the current instance.</summary>
+    /// <param name="other">The object to be examined. (Never <c>null</c> or <see cref="IsEmpty"
+    /// />.)</param>
+    /// <returns>The method may only return <c>true</c> if the values of the properties
+    /// of <paramref name="other" /> make it impossible to merge <paramref name="other"
+    /// /> with the current instance, otherwise <c>false</c>.</returns>
     protected abstract bool DescribesForeignIdentity(T other);
 
 }
