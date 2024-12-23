@@ -22,7 +22,6 @@ public sealed partial class Contact : IEquatable<Contact>
         return CompareBoolean(p);
     }
 
-
     /// <inheritdoc/>
     public bool Equals([NotNullWhen(true)] Contact? other)
     {
@@ -41,67 +40,57 @@ public sealed partial class Contact : IEquatable<Contact>
         return CompareBoolean(other);
     }
 
-
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        const int nullValue = -1;
-        return TimeStamp.GetHashCode()
-            ^ StringCleaner.PrepareForComparison(DisplayName).GetHashCode()
-            ^ HashStringCollection(EmailAddresses)
-            ^ HashMergeable(Person)
-            ^ HashPhoneNumbers(PhoneNumbers)
-            ^ HashMergeable(Work)
-            ^ HashStringCollection(InstantMessengerHandles)
-            ^ StringCleaner.PrepareForComparison(WebPagePersonal).GetHashCode()
-            ^ HashMergeable(AddressHome)
-            ^ StringCleaner.PrepareForComparison(WebPageWork).GetHashCode();
+        var hash = new HashCode();
+        hash.Add(TimeStamp);
+        hash.Add(StringCleaner.PrepareForComparison(DisplayName));
+        HashStringCollection(EmailAddresses, ref hash);
+        HashMergeable(Person, ref hash);
+        HashPhoneNumbers(PhoneNumbers, ref hash);
+        HashMergeable(Work, ref hash);
+        HashStringCollection(InstantMessengerHandles, ref hash);
+        hash.Add(StringCleaner.PrepareForComparison(WebPagePersonal));
+        HashMergeable(AddressHome, ref hash);
+        hash.Add(StringCleaner.PrepareForComparison(WebPageWork));
+        return hash.ToHashCode();
 
+        static void HashMergeable<T>(T? mergeable, ref HashCode hash) where T : MergeableObject<T>
+            => hash.Add<T?>(mergeable?.IsEmpty ?? true ? null : mergeable);
 
-        static int HashMergeable<T>(T? mergeable) where T : MergeableObject<T>
-            => mergeable is null || mergeable.IsEmpty ? nullValue : mergeable.GetHashCode();
-
-
-        static int HashPhoneNumbers(IEnumerable<PhoneNumber?>? coll)
+        static void HashPhoneNumbers(IEnumerable<PhoneNumber?>? coll, ref HashCode hash)
         {
-            int collHash = nullValue;
-
             if (coll is null)
             {
-                return collHash;
+                return;
             }
 
             foreach (PhoneNumber? item in coll)
             {
                 if (item is not null && !item.IsEmpty)
                 {
-                    collHash ^= item.GetHashCode();
+                    hash.Add(item);
                 }
             }
-            return collHash;
         }
 
-        static int HashStringCollection(IEnumerable<string?>? coll)
+        static void HashStringCollection(IEnumerable<string?>? coll, ref HashCode hash)
         {
-            int collHash = nullValue;
-
             if (coll is null)
             {
-                return collHash;
+                return;
             }
 
             foreach (string? item in coll)
             {
                 if (!string.IsNullOrWhiteSpace(item))
                 {
-                    collHash ^= item.GetHashCode();
+                    hash.Add(item);
                 }
             }
-            return collHash;
         }
     }
-
-
 
     /// <summary>
     /// Vergleicht die Eigenschaften mit denen eines anderen <see cref="Contact"/>-Objekts.
@@ -178,5 +167,4 @@ public sealed partial class Contact : IEquatable<Contact>
             return coll1.Select(x => x is null || x.IsEmpty ? null : x).SequenceEqual(coll2.Select(x => x is null || x.IsEmpty ? null : x));
         }
     }
-
 }

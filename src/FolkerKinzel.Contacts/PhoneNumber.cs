@@ -260,7 +260,7 @@ public sealed class PhoneNumber : MergeableObject<PhoneNumber>, ICleanable, IClo
 
 
     /// <inheritdoc/>
-    public override int GetHashCode() => Strip.GetHashCode(Value) ^ _flags.GetHashCode();
+    public override int GetHashCode() => HashCode.Combine(Strip.GetHashCode(Value), _flags);
 
     #endregion
 

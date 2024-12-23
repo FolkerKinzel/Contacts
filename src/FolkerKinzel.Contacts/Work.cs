@@ -261,7 +261,7 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
             }
         }
 
-#if !NET40 && !NET461 && !NETSTANDARD2_0
+#if !NET462 && !NETSTANDARD2_0
         _propDic.TrimExcess();
 #endif
     }
@@ -359,24 +359,12 @@ public sealed class Work : MergeableObject<Work>, ICleanable, ICloneable, IEquat
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        int hash = -1
-                   ^ GetHash(Company)
-                   ^ GetHash(Department)
-                   ^ GetHash(Office)
-                   ^ GetHash(JobTitle);
-
-        Address? adr = AddressWork;
-
-        if (adr is not null)
-        {
-            hash ^= adr.GetHashCode();
-        }
-
-        return hash;
-
-        ////////////////////////////////////////
-
-        static int GetHash(string? s) => StringCleaner.PrepareForComparison(s).GetHashCode();
+        return HashCode.Combine(
+            StringCleaner.PrepareForComparison(Company),
+            StringCleaner.PrepareForComparison(Department),
+            StringCleaner.PrepareForComparison(Office),
+            StringCleaner.PrepareForComparison(JobTitle),
+            AddressWork);
     }
 
     #endregion

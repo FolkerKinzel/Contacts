@@ -265,7 +265,7 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
             Set(key, StringCleaner.CleanDataEntry(this._propDic[key]));
         }
 
-#if !NET40 && !NET461 && !NETSTANDARD2_0
+#if !NET462 && !NETSTANDARD2_0
         _propDic.TrimExcess();
 #endif
     }
@@ -344,20 +344,10 @@ public sealed class Address : MergeableObject<Address>, ICleanable, ICloneable, 
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        int hash = -1;
-
-        ModifyHash(PostalCode);
-        ModifyHash(City);
-        ModifyHash(Street);
-
-        return hash;
-
-        ////////////////////////////////////////////////
-
-        void ModifyHash(string? s)
-        {
-            hash ^= StringCleaner.PrepareForComparison(s).GetHashCode();
-        }
+        return HashCode.Combine(
+            StringCleaner.PrepareForComparison(PostalCode),
+            StringCleaner.PrepareForComparison(City),
+            StringCleaner.PrepareForComparison(Street));
     }
 
     #endregion

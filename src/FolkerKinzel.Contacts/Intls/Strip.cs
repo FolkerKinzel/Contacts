@@ -43,7 +43,8 @@ internal ref struct Strip
     public override int GetHashCode()
     {
         ResetCurrentIndex();
-        int hashCode = string.Empty.GetHashCode();
+
+        var hash = new HashCode();
 
         char c = GetNextChar();
 
@@ -54,12 +55,12 @@ internal ref struct Strip
                 c = char.ToUpperInvariant(c);
             }
 
-            hashCode ^= c.GetHashCode();
+            hash.Add(c);
 
             c = GetNextChar();
         }
 
-        return hashCode;
+        return hash.ToHashCode();
     }
 
     internal static int GetHashCode(string? s) => new Strip(s).GetHashCode();

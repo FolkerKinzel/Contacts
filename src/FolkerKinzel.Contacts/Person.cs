@@ -346,7 +346,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
             }
         }
 
-#if !NET40 && !NET461 && !NETSTANDARD2_0
+#if !NET462 && !NETSTANDARD2_0
         _propDic.TrimExcess();
 #endif
     }
@@ -430,7 +430,7 @@ public sealed class Person : MergeableObject<Person>, ICleanable, ICloneable, IE
 
     /// <inheritdoc/>
     public override int GetHashCode()
-        => (Name?.GetHashCode() ?? -1) ^ BirthDay.GetHashCode() ^ StringCleaner.PrepareForComparison(NickName).GetHashCode();
+        => HashCode.Combine(Name, BirthDay, StringCleaner.PrepareForComparison(NickName));
 
     #endregion
 

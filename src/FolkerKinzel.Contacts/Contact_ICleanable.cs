@@ -115,7 +115,7 @@ public sealed partial class Contact : ICleanable
             }
         }
 
-#if !NET40 && !NETSTANDARD2_0 && !NET461
+#if !NETSTANDARD2_0 && !NET462
         _propDic.TrimExcess();
 #endif
 

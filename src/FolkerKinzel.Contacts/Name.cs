@@ -64,7 +64,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
 
     #endregion
 
-
     #region Public Properties and Methods
 
     /// <summary>
@@ -119,7 +118,6 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     public override string ToString() => AppendTo(new StringBuilder()).ToString();
 
     #endregion
-
 
     #region Operators
 
@@ -238,7 +236,7 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
             Set(kvp.Key, StringCleaner.CleanDataEntry(kvp.Value));
         }
 
-#if !NET40 && !NET461 && !NETSTANDARD2_0
+#if !NET462 && !NETSTANDARD2_0
         _propDic.TrimExcess();
 #endif
     }
@@ -322,22 +320,11 @@ public sealed class Name : MergeableObject<Name>, ICleanable, ICloneable, IEquat
     /// <inheritdoc/>
     public override int GetHashCode()
     {
-        int hash = -1;
-
-        ModifyHash(LastName);
-        ModifyHash(FirstName);
-        ModifyHash(MiddleName);
-        ModifyHash(Suffix);
-        //ModifyHash(Prefix);
-
-        return hash;
-
-        ////////////////////////////////////////////////
-
-        void ModifyHash(string? s)
-        {
-            hash ^= StringCleaner.PrepareForComparison(s).GetHashCode();
-        }
+        return HashCode.Combine(
+            StringCleaner.PrepareForComparison(LastName),
+            StringCleaner.PrepareForComparison(FirstName),
+            StringCleaner.PrepareForComparison(MiddleName),
+            StringCleaner.PrepareForComparison(Suffix));
     }
 
     #endregion

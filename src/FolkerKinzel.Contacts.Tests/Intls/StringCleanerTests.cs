@@ -1,5 +1,5 @@
 ﻿using FolkerKinzel.Contacts.Intls;
-using FolkerKinzel.Strings.Polyfills;
+using FolkerKinzel.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FolkerKinzel.Contacts.Intls.Tests;

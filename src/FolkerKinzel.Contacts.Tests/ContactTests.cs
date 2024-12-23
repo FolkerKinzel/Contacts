@@ -1,4 +1,4 @@
-﻿using FolkerKinzel.Strings.Polyfills;
+﻿using FolkerKinzel.Strings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FolkerKinzel.Contacts.Tests;
@@ -407,7 +407,6 @@ public class ContactTests
             City = "Berghain",
             PostalCode = "09876"
         };
-
 
         var work = new Work
         {
